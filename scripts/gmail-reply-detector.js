@@ -351,15 +351,7 @@ export function correlateMessageWithJob(from, subject, body, trackedJobs) {
     }
   }
 
-  // 3. Match by Company Name (strict word boundary and generic words filtering)
-  const GENERIC_COMPANY_WORDS = new Set([
-    'technology', 'technologies', 'tech', 'software', 'systems', 'solutions',
-    'global', 'digital', 'enterprises', 'partner', 'consulting', 'group', 'corp',
-    'corporation', 'company', 'services', 'network', 'direct', 'health', 'labs',
-    'park', 'bangalore', 'delhi', 'noida', 'gurgaon', 'india', 'international',
-    'media', 'analytics', 'processing', 'developer', 'engineering', 'commerce'
-  ]);
-
+  // 3. Match by Exact Company Name
   for (const job of trackedJobs) {
     if (!job.company) continue;
     const companyClean = job.company.toLowerCase().trim();
@@ -367,17 +359,9 @@ export function correlateMessageWithJob(from, subject, body, trackedJobs) {
     if (companyClean.length >= 4 && combinedText.includes(companyClean)) {
       return { job, matchType: 'COMPANY_NAME', confidence: 0.92 };
     }
-    // Match distinguishing brand keyword with word boundary
-    const parts = companyClean.split(/[\s,.-]+/).filter(p => p.length >= 4 && !GENERIC_COMPANY_WORDS.has(p));
-    for (const part of parts) {
-      const boundaryRegex = new RegExp(`\\b${part}\\b`, 'i');
-      if (boundaryRegex.test(combinedText)) {
-        return { job, matchType: 'COMPANY_BRAND', confidence: 0.88 };
-      }
-    }
   }
 
-  // 4. Domain matching fallback
+  // 4. Domain matching from sender email address (high-confidence verified domain)
   const domainMap = [
     { domain: 'samsungsds.com', company: 'Samsung SDS Global' },
     { domain: 'naukri.com', company: 'Info Edge India (Naukri Enterprise)' },
@@ -400,7 +384,33 @@ export function correlateMessageWithJob(from, subject, body, trackedJobs) {
     if (from.toLowerCase().includes(entry.domain)) {
       const matchedJob = trackedJobs.find(j => j.company.toLowerCase().includes(entry.company.toLowerCase().slice(0, 6)));
       if (matchedJob) {
-        return { job: matchedJob, matchType: 'DOMAIN_MATCH', confidence: 0.85 };
+        return { job: matchedJob, matchType: 'DOMAIN_MATCH', confidence: 0.90 };
+      }
+    }
+  }
+
+  // 5. Match distinguishing brand keyword with word boundary
+  const GENERIC_COMPANY_WORDS = new Set([
+    'technology', 'technologies', 'tech', 'software', 'systems', 'solutions',
+    'global', 'digital', 'enterprises', 'partner', 'consulting', 'group', 'corp',
+    'corporation', 'company', 'services', 'network', 'direct', 'health', 'labs',
+    'park', 'bangalore', 'delhi', 'noida', 'gurgaon', 'india', 'international',
+    'media', 'analytics', 'processing', 'developer', 'engineering', 'commerce'
+  ]);
+
+  for (const job of trackedJobs) {
+    if (!job.company) continue;
+    const companyClean = job.company.toLowerCase().trim();
+    const parts = companyClean
+      .replace(/[()]/g, ' ')
+      .split(/[\s,.-]+/)
+      .map(p => p.trim())
+      .filter(p => p.length >= 4 && !GENERIC_COMPANY_WORDS.has(p));
+    for (const part of parts) {
+      const escapedPart = part.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const boundaryRegex = new RegExp(`\\b${escapedPart}\\b`, 'i');
+      if (boundaryRegex.test(combinedText)) {
+        return { job, matchType: 'COMPANY_BRAND', confidence: 0.88 };
       }
     }
   }
