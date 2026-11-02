@@ -4,6 +4,25 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Candidate Profile &amp; Resume Hub — TalentFlow AI</title>
+  <script>
+    (function() {
+      try {
+        var raw = localStorage.getItem('talentflow_auth');
+        if (!raw) {
+          window.location.replace('/login.html?redirect=' + encodeURIComponent(window.location.pathname + window.location.search));
+          return;
+        }
+        var auth = JSON.parse(raw);
+        if (!auth || !auth.user || !auth.token) {
+          localStorage.removeItem('talentflow_auth');
+          window.location.replace('/login.html?redirect=' + encodeURIComponent(window.location.pathname + window.location.search));
+        }
+      } catch(e) {
+        localStorage.removeItem('talentflow_auth');
+        window.location.replace('/login.html?redirect=' + encodeURIComponent(window.location.pathname + window.location.search));
+      }
+    })();
+  </script>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -286,6 +305,17 @@
     }
 
     async function initProfilePage() {
+      const saved = localStorage.getItem('talentflow_auth');
+      let authSession = null;
+      if (saved) {
+        try { authSession = JSON.parse(saved); } catch (e) {}
+      }
+      if (!authSession || !authSession.user || !authSession.token) {
+        localStorage.removeItem('talentflow_auth');
+        window.location.replace('/login.html?redirect=' + encodeURIComponent(window.location.pathname + window.location.search));
+        return;
+      }
+
       try {
         const res = await fetch('/api/candidates');
         if (res.ok) {
@@ -328,10 +358,13 @@
         <option value="${c.id}">${c.avatar || '👤'} ${c.name} (${(c.role || 'viewer').toUpperCase()})</option>
       `).join('');
 
-      // Check URL param ?candidate=...
+      // Check URL param ?candidate=... or default to logged-in user
       const urlParams = new URLSearchParams(window.location.search);
       const candParam = urlParams.get('candidate');
       let target = allCandidates.find(c => c.id === candParam);
+      if (!target && authSession && authSession.user) {
+        target = allCandidates.find(c => c.id === authSession.user.id);
+      }
       if (!target) target = allCandidates[0];
 
       select.value = target.id;

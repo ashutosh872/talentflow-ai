@@ -4,6 +4,25 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>User &amp; Access Management Console — TalentFlow AI</title>
+  <script>
+    (function() {
+      try {
+        var raw = localStorage.getItem('talentflow_auth');
+        if (!raw) {
+          window.location.replace('/login.html?redirect=' + encodeURIComponent(window.location.pathname + window.location.search));
+          return;
+        }
+        var auth = JSON.parse(raw);
+        if (!auth || !auth.user || !auth.token) {
+          localStorage.removeItem('talentflow_auth');
+          window.location.replace('/login.html?redirect=' + encodeURIComponent(window.location.pathname + window.location.search));
+        }
+      } catch(e) {
+        localStorage.removeItem('talentflow_auth');
+        window.location.replace('/login.html?redirect=' + encodeURIComponent(window.location.pathname + window.location.search));
+      }
+    })();
+  </script>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -189,10 +208,14 @@
           </div>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <div class="grid grid-cols-1 sm:grid-cols-4 gap-3">
           <div>
             <label class="block text-slate-300 font-bold mb-1">Email Address *</label>
             <input type="email" id="formEmail" required placeholder="candidate@example.com" class="w-full bg-[#0b0f19] border border-slate-700 text-white rounded-xl p-2.5 focus:border-blue-500 focus:outline-none">
+          </div>
+          <div>
+            <label class="block text-slate-300 font-bold mb-1">Account Password *</label>
+            <input type="password" id="formPassword" required placeholder="Min 4 chars" value="welcome123" class="w-full bg-[#0b0f19] border border-slate-700 text-white rounded-xl p-2.5 focus:border-blue-500 focus:outline-none">
           </div>
           <div>
             <label class="block text-slate-300 font-bold mb-1">Phone Number</label>
@@ -396,7 +419,7 @@
       setTimeout(() => toast.remove(), 4000);
     }
 
-    // Init Auth Check
+    // Init Auth Check (Strict Authentication Gate)
     function checkAuth() {
       const saved = localStorage.getItem('talentflow_auth');
       if (saved) {
@@ -405,19 +428,10 @@
         } catch (e) {}
       }
 
-      // Default fallback to Admin Ashutosh Kumar if testing without login
-      if (!currentUserSession || !currentUserSession.user) {
-        currentUserSession = {
-          user: {
-            id: 'ashutosh-kumar',
-            name: 'Ashutosh Kumar',
-            email: 'kumar.ashu872@gmail.com',
-            role: 'admin',
-            access: 'write',
-            isAdmin: true,
-            avatar: '👨‍💻'
-          }
-        };
+      if (!currentUserSession || !currentUserSession.user || !currentUserSession.token) {
+        localStorage.removeItem('talentflow_auth');
+        window.location.href = '/login.html?redirect=' + encodeURIComponent(window.location.pathname);
+        return;
       }
 
       const u = currentUserSession.user;
@@ -468,6 +482,7 @@
       e.preventDefault();
 
       const name = document.getElementById('formName').value.trim();
+      const password = document.getElementById('formPassword')?.value.trim() || 'welcome123';
       const title = document.getElementById('formTitle').value.trim();
       const avatar = document.getElementById('formAvatar').value.trim() || '👤';
       const email = document.getElementById('formEmail').value.trim();
@@ -495,6 +510,7 @@
 
       const payload = {
         name,
+        password,
         title,
         avatar,
         email,

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Sign In — TalentFlow AI Enterprise Suite</title>
+  <title>Sign In &amp; Candidate Registration — TalentFlow AI</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,6 +11,10 @@
   <style>
     body { font-family: 'Inter', sans-serif; }
     code, .font-mono { font-family: 'JetBrains Mono', monospace; }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #0b0f19; }
+    ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 9999px; }
+    ::-webkit-scrollbar-thumb:hover { background: #334155; }
   </style>
 </head>
 <body class="bg-[#0b0f19] text-slate-100 min-h-screen flex flex-col justify-between selection:bg-blue-600 selection:text-white">
@@ -26,54 +30,74 @@
           <span class="text-sm font-extrabold text-white tracking-tight">TalentFlow AI</span>
           <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-500/10 text-blue-400 border border-blue-500/30">Enterprise v2.4</span>
         </div>
-        <p class="text-[11px] text-slate-400">Multi-Candidate &amp; Recruiter Automation Platform</p>
+        <p class="text-[11px] text-slate-400">Strict Password Authentication &bull; Multi-User Candidate Hub</p>
       </div>
     </div>
-    <a href="/" class="text-xs text-slate-400 hover:text-white transition flex items-center gap-1">
-      <span>Dashboard Demo</span> <span>&rarr;</span>
-    </a>
+    <div class="flex items-center gap-3 text-xs">
+      <span class="text-slate-400 hidden sm:inline">Protected Workspace</span>
+      <span class="px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 font-mono text-[10px] font-bold">24/7 Cloud Active</span>
+    </div>
   </header>
 
-  <!-- Login Card Container -->
-  <main class="flex-1 flex items-center justify-center p-4 sm:p-6">
-    <div class="w-full max-w-md bg-[#111827] border border-slate-800 rounded-2xl p-6 sm:p-8 shadow-2xl relative overflow-hidden">
+  <!-- Login & Registration Card Container -->
+  <main class="flex-1 flex items-center justify-center p-4 sm:p-6 my-4">
+    <div class="w-full max-w-lg bg-[#111827] border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl relative overflow-hidden">
       <!-- Glow effect -->
       <div class="absolute -top-24 -right-24 w-48 h-48 bg-blue-600/10 rounded-full blur-3xl pointer-events-none"></div>
       <div class="absolute -bottom-24 -left-24 w-48 h-48 bg-indigo-600/10 rounded-full blur-3xl pointer-events-none"></div>
 
       <div class="relative">
+        <!-- Auth Header -->
         <div class="text-center mb-6">
           <div class="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-blue-600/20 text-blue-400 border border-blue-500/30 text-2xl mb-3 shadow-inner">
             🔐
           </div>
-          <h2 class="text-xl font-extrabold text-white">Sign In to TalentFlow</h2>
-          <p class="text-xs text-slate-400 mt-1">Multi-user candidate workflows with role-based access</p>
+          <h2 class="text-xl font-extrabold text-white" id="cardMainHeading">Access TalentFlow AI Workspace</h2>
+          <p class="text-xs text-slate-400 mt-1" id="cardSubHeading">Enter your credentials or register a candidate with resume upload</p>
         </div>
 
-        <!-- Error Banner -->
-        <div id="loginErrorMsg" class="hidden mb-4 p-3 rounded-xl bg-rose-950/40 border border-rose-500/40 text-rose-300 text-xs"></div>
+        <!-- Mode Tabs: Sign In vs Create Account -->
+        <div class="grid grid-cols-2 gap-2 p-1 bg-[#0b0f19] rounded-2xl border border-slate-800 mb-6 text-xs font-bold">
+          <button type="button" id="tabSignInBtn" onclick="switchAuthMode('login')" class="py-2.5 rounded-xl transition text-center flex items-center justify-center gap-2 bg-blue-600 text-white shadow-md">
+            <span>🔑</span> <span>Sign In</span>
+          </button>
+          <button type="button" id="tabRegisterBtn" onclick="switchAuthMode('register')" class="py-2.5 rounded-xl transition text-center flex items-center justify-center gap-2 text-slate-400 hover:text-white">
+            <span>👤➕</span> <span>Register &amp; Upload Resume</span>
+          </button>
+        </div>
 
-        <!-- Form -->
-        <form onsubmit="handleLoginSubmit(event)" class="space-y-4">
+        <!-- Error & Success Banners -->
+        <div id="authErrorMsg" class="hidden mb-4 p-3 rounded-xl bg-rose-950/50 border border-rose-500/50 text-rose-300 text-xs flex items-center gap-2">
+          <span>⚠️</span> <span id="authErrorText">Authentication failed.</span>
+        </div>
+        <div id="authSuccessMsg" class="hidden mb-4 p-3 rounded-xl bg-emerald-950/50 border border-emerald-500/50 text-emerald-300 text-xs flex items-center gap-2">
+          <span>✅</span> <span id="authSuccessText">Registration complete! Logging in...</span>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- FORM 1: STRICT SIGN IN                    -->
+        <!-- ========================================== -->
+        <form id="signInForm" onsubmit="handleLoginSubmit(event)" class="space-y-4">
           <div>
-            <label class="block text-xs font-semibold text-slate-300 mb-1.5">Email Address</label>
-            <input type="email" id="loginEmail" required placeholder="name@example.com" value="kumar.ashu872@gmail.com" class="w-full bg-[#0b0f19] border border-slate-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-white rounded-xl px-3.5 py-2.5 text-xs outline-none transition">
+            <label class="block text-xs font-semibold text-slate-300 mb-1.5">Registered Email Address</label>
+            <input type="email" id="loginEmail" required placeholder="name@example.com" value="" autocomplete="username" class="w-full bg-[#0b0f19] border border-slate-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-white rounded-xl px-3.5 py-2.5 text-xs outline-none transition">
           </div>
 
           <div>
             <div class="flex items-center justify-between mb-1.5">
-              <label class="block text-xs font-semibold text-slate-300">Password</label>
-              <button type="button" onclick="togglePasswordVisibility()" class="text-[11px] text-slate-400 hover:text-slate-200">
+              <label class="block text-xs font-semibold text-slate-300">Password (Required)</label>
+              <button type="button" onclick="togglePasswordVisibility('loginPassword', 'showPassText')" class="text-[11px] text-slate-400 hover:text-slate-200">
                 <span id="showPassText">Show</span>
               </button>
             </div>
-            <input type="password" id="loginPassword" required placeholder="••••••••" value="admin123" class="w-full bg-[#0b0f19] border border-slate-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-white rounded-xl px-3.5 py-2.5 text-xs outline-none transition">
+            <input type="password" id="loginPassword" required placeholder="Enter your password" value="" autocomplete="current-password" class="w-full bg-[#0b0f19] border border-slate-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-white rounded-xl px-3.5 py-2.5 text-xs outline-none transition">
+            <p class="text-[10px] text-slate-500 mt-1">Access is strictly protected. Empty or wrong passwords will be rejected.</p>
           </div>
 
           <div class="flex items-center justify-between text-xs text-slate-400 pt-1">
             <label class="flex items-center gap-2 cursor-pointer">
               <input type="checkbox" id="rememberMe" checked class="rounded border-slate-700 bg-[#0b0f19] text-blue-600 focus:ring-0">
-              <span>Remember this session</span>
+              <span>Remember session on this device</span>
             </label>
           </div>
 
@@ -81,63 +105,145 @@
             <span>Sign In to Workspace</span>
             <span>&rarr;</span>
           </button>
+
+          <!-- Divider -->
+          <div class="my-6 relative flex items-center justify-center">
+            <div class="border-t border-slate-800 w-full"></div>
+            <span class="bg-[#111827] px-3 text-[10px] font-bold text-slate-400 uppercase tracking-wider relative">
+              Registered Accounts (Type Password to Sign In)
+            </span>
+          </div>
+
+          <!-- Quick Fill Email Helper (Requires Right Password) -->
+          <div class="space-y-2">
+            <div class="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800 text-left flex items-center justify-between">
+              <div class="flex items-center gap-2.5">
+                <span class="text-xl">👨‍💻</span>
+                <div>
+                  <div class="text-xs font-bold text-white flex items-center gap-1.5">
+                    <span>Ashutosh Kumar</span>
+                    <span class="px-1.5 py-0.2 rounded text-[9px] font-extrabold bg-amber-500/20 text-amber-300 border border-amber-500/40">ADMIN</span>
+                  </div>
+                  <div class="text-[10px] text-slate-400 font-mono">kumar.ashu872@gmail.com</div>
+                </div>
+              </div>
+              <button type="button" onclick="fillEmail('kumar.ashu872@gmail.com')" class="px-2.5 py-1 rounded-lg text-[10px] font-bold bg-slate-800 hover:bg-blue-600 text-slate-300 hover:text-white transition">
+                Select
+              </button>
+            </div>
+
+            <div class="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800 text-left flex items-center justify-between">
+              <div class="flex items-center gap-2.5">
+                <span class="text-xl">👩‍💻</span>
+                <div>
+                  <div class="text-xs font-bold text-white flex items-center gap-1.5">
+                    <span>Priya Sharma</span>
+                    <span class="px-1.5 py-0.2 rounded text-[9px] font-extrabold bg-blue-500/20 text-blue-300 border border-blue-500/40">WRITE</span>
+                  </div>
+                  <div class="text-[10px] text-slate-400 font-mono">priya.sharma@example.com</div>
+                </div>
+              </div>
+              <button type="button" onclick="fillEmail('priya.sharma@example.com')" class="px-2.5 py-1 rounded-lg text-[10px] font-bold bg-slate-800 hover:bg-blue-600 text-slate-300 hover:text-white transition">
+                Select
+              </button>
+            </div>
+
+            <div class="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800 text-left flex items-center justify-between">
+              <div class="flex items-center gap-2.5">
+                <span class="text-xl">🧪</span>
+                <div>
+                  <div class="text-xs font-bold text-white flex items-center gap-1.5">
+                    <span>Test Candidate</span>
+                    <span class="px-1.5 py-0.2 rounded text-[9px] font-extrabold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">VIEW-ONLY</span>
+                  </div>
+                  <div class="text-[10px] text-slate-400 font-mono">test.candidate@example.com</div>
+                </div>
+              </div>
+              <button type="button" onclick="fillEmail('test.candidate@example.com')" class="px-2.5 py-1 rounded-lg text-[10px] font-bold bg-slate-800 hover:bg-blue-600 text-slate-300 hover:text-white transition">
+                Select
+              </button>
+            </div>
+          </div>
         </form>
 
-        <!-- Divider -->
-        <div class="my-6 relative flex items-center justify-center">
-          <div class="border-t border-slate-800 w-full"></div>
-          <span class="bg-[#111827] px-3 text-[10px] font-bold text-slate-400 uppercase tracking-wider relative">
-            Quick 1-Click Access (RBAC Showcase)
-          </span>
-        </div>
+        <!-- ========================================== -->
+        <!-- FORM 2: NEW USER REGISTRATION WITH RESUME -->
+        <!-- ========================================== -->
+        <form id="registerForm" onsubmit="handleRegisterSubmit(event)" class="hidden space-y-3.5 text-xs">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block font-semibold text-slate-300 mb-1">Full Name *</label>
+              <input type="text" id="regName" required placeholder="e.g. Rahul Verma" class="w-full bg-[#0b0f19] border border-slate-700 text-white rounded-xl p-2.5 focus:border-blue-500 focus:outline-none">
+            </div>
+            <div>
+              <label class="block font-semibold text-slate-300 mb-1">Target Professional Role *</label>
+              <input type="text" id="regTitle" required placeholder="e.g. Senior Full Stack Engineer" class="w-full bg-[#0b0f19] border border-slate-700 text-white rounded-xl p-2.5 focus:border-blue-500 focus:outline-none">
+            </div>
+          </div>
 
-        <!-- 1-Click Quick Login Profiles -->
-        <div class="space-y-2">
-          <!-- Admin -->
-          <button type="button" onclick="quickLogin('kumar.ashu872@gmail.com', 'admin123')" class="w-full p-2.5 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-left transition flex items-center justify-between group">
-            <div class="flex items-center gap-2.5">
-              <span class="text-xl">👨‍💻</span>
-              <div>
-                <div class="text-xs font-bold text-white flex items-center gap-1.5">
-                  <span>Ashutosh Kumar</span>
-                  <span class="px-1.5 py-0.2 rounded text-[9px] font-extrabold bg-amber-500/20 text-amber-300 border border-amber-500/40">ADMIN</span>
-                </div>
-                <div class="text-[10px] text-slate-400 font-mono">kumar.ashu872@gmail.com • Write &amp; User Admin</div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block font-semibold text-slate-300 mb-1">Email Address *</label>
+              <input type="email" id="regEmail" required placeholder="name@example.com" class="w-full bg-[#0b0f19] border border-slate-700 text-white rounded-xl p-2.5 focus:border-blue-500 focus:outline-none">
+            </div>
+            <div>
+              <div class="flex items-center justify-between mb-1">
+                <label class="block font-semibold text-slate-300">Password * (Min 4 chars)</label>
+                <button type="button" onclick="togglePasswordVisibility('regPassword', 'showRegPassText')" class="text-[10px] text-slate-400 hover:text-slate-200">
+                  <span id="showRegPassText">Show</span>
+                </button>
+              </div>
+              <input type="password" id="regPassword" required minlength="4" placeholder="Create your password" class="w-full bg-[#0b0f19] border border-slate-700 text-white rounded-xl p-2.5 focus:border-blue-500 focus:outline-none">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div>
+              <label class="block font-semibold text-slate-300 mb-1">Experience (Years)</label>
+              <input type="number" id="regExp" step="0.5" value="5.0" class="w-full bg-[#0b0f19] border border-slate-700 text-white rounded-xl p-2.5">
+            </div>
+            <div>
+              <label class="block font-semibold text-slate-300 mb-1">Current CTC (LPA)</label>
+              <input type="number" id="regCurrentCtc" step="0.5" value="10.0" class="w-full bg-[#0b0f19] border border-slate-700 text-white rounded-xl p-2.5">
+            </div>
+            <div>
+              <label class="block font-semibold text-slate-300 mb-1">Target CTC (LPA)</label>
+              <input type="number" id="regTargetCtc" step="0.5" value="18.0" class="w-full bg-[#0b0f19] border border-slate-700 text-white rounded-xl p-2.5">
+            </div>
+          </div>
+
+          <div>
+            <label class="block font-semibold text-slate-300 mb-1">Primary Tech Skills (Comma Separated)</label>
+            <input type="text" id="regSkills" placeholder="e.g. React, Node.js, TypeScript, AWS, PostgreSQL" value="React, Node.js, TypeScript, PostgreSQL" class="w-full bg-[#0b0f19] border border-slate-700 text-white rounded-xl p-2.5">
+            <p class="text-[10px] text-slate-500 mt-1">Job match scores will dynamically calculate against these skills.</p>
+          </div>
+
+          <!-- RESUME FILE UPLOAD BOX -->
+          <div class="p-3.5 rounded-2xl bg-[#0b0f19] border-2 border-dashed border-blue-500/40 space-y-2">
+            <div class="flex items-center justify-between">
+              <label class="text-xs font-bold text-white flex items-center gap-1.5">
+                <span>📄</span>
+                <span>Candidate Resume (.pdf, .doc, .docx, .txt, .md) *</span>
+              </label>
+              <span class="text-[10px] text-blue-400 font-mono">Stored in data/resumes/</span>
+            </div>
+
+            <div class="space-y-2">
+              <input type="file" id="regResumeFile" accept=".pdf,.doc,.docx,.txt,.md" onchange="handleRegisterFileSelected(event)" class="w-full text-xs text-slate-300 file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-blue-600 file:text-white hover:file:bg-blue-500 cursor-pointer">
+              <div id="regResumePreview" class="hidden text-xs text-emerald-400 font-mono flex items-center gap-1.5 p-2 rounded-xl bg-emerald-950/30 border border-emerald-500/30">
+                <span>✓ Selected:</span>
+                <span id="regPreviewFileName" class="font-bold">file.pdf</span>
+                <span id="regPreviewFileSize" class="text-slate-400 text-[10px]">(0 KB)</span>
               </div>
             </div>
-            <span class="text-amber-400 text-xs font-bold opacity-75 group-hover:opacity-100">&rarr;</span>
-          </button>
+            <p class="text-[10px] text-slate-400">All previous 23 jobs &amp; application history will remain preserved, while match scores re-calibrate to your resume.</p>
+          </div>
 
-          <!-- Editor / Write -->
-          <button type="button" onclick="quickLogin('priya.sharma@example.com', 'editor123')" class="w-full p-2.5 rounded-xl bg-blue-500/10 hover:bg-blue-500/20 border border-blue-500/30 text-left transition flex items-center justify-between group">
-            <div class="flex items-center gap-2.5">
-              <span class="text-xl">👩‍💻</span>
-              <div>
-                <div class="text-xs font-bold text-white flex items-center gap-1.5">
-                  <span>Priya Sharma</span>
-                  <span class="px-1.5 py-0.2 rounded text-[9px] font-extrabold bg-blue-500/20 text-blue-300 border border-blue-500/40">WRITE</span>
-                </div>
-                <div class="text-[10px] text-slate-400 font-mono">priya.sharma@example.com • Apply &amp; Resume Upload</div>
-              </div>
-            </div>
-            <span class="text-blue-400 text-xs font-bold opacity-75 group-hover:opacity-100">&rarr;</span>
+          <button type="submit" id="registerSubmitBtn" class="w-full py-2.5 px-4 rounded-xl text-xs font-bold bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white transition shadow-lg shadow-blue-600/30 flex items-center justify-center gap-2">
+            <span>Create Candidate &amp; Save Resume</span>
+            <span>&rarr;</span>
           </button>
-
-          <!-- Viewer / Read-Only -->
-          <button type="button" onclick="quickLogin('test.candidate@example.com', 'viewer123')" class="w-full p-2.5 rounded-xl bg-slate-800/60 hover:bg-slate-800 border border-slate-700 text-left transition flex items-center justify-between group">
-            <div class="flex items-center gap-2.5">
-              <span class="text-xl">🧪</span>
-              <div>
-                <div class="text-xs font-bold text-white flex items-center gap-1.5">
-                  <span>Test Candidate</span>
-                  <span class="px-1.5 py-0.2 rounded text-[9px] font-extrabold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">VIEW-ONLY</span>
-                </div>
-                <div class="text-[10px] text-slate-400 font-mono">test.candidate@example.com • Read Access</div>
-              </div>
-            </div>
-            <span class="text-slate-400 text-xs font-bold opacity-75 group-hover:opacity-100">&rarr;</span>
-          </button>
-        </div>
+        </form>
 
       </div>
     </div>
@@ -145,13 +251,46 @@
 
   <!-- Footer -->
   <footer class="border-t border-slate-900 px-6 py-3 text-center text-[11px] text-slate-500">
-    TalentFlow AI &bull; Role-Based Candidate Workspaces &bull; Authenticated Access Control
+    TalentFlow AI &bull; Strict Password Authentication &bull; Dynamic Resume Re-scoring Engine
   </footer>
 
   <script>
-    function togglePasswordVisibility() {
-      const input = document.getElementById('loginPassword');
-      const text = document.getElementById('showPassText');
+    let registeredFileBase64 = null;
+    let registeredFileName = null;
+
+    function switchAuthMode(mode) {
+      const signInForm = document.getElementById('signInForm');
+      const registerForm = document.getElementById('registerForm');
+      const tabSignInBtn = document.getElementById('tabSignInBtn');
+      const tabRegisterBtn = document.getElementById('tabRegisterBtn');
+      const mainHeading = document.getElementById('cardMainHeading');
+      const subHeading = document.getElementById('cardSubHeading');
+      const errBox = document.getElementById('authErrorMsg');
+      const successBox = document.getElementById('authSuccessMsg');
+
+      if (errBox) errBox.classList.add('hidden');
+      if (successBox) successBox.classList.add('hidden');
+
+      if (mode === 'register') {
+        signInForm.classList.add('hidden');
+        registerForm.classList.remove('hidden');
+        tabSignInBtn.className = 'py-2.5 rounded-xl transition text-center flex items-center justify-center gap-2 text-slate-400 hover:text-white';
+        tabRegisterBtn.className = 'py-2.5 rounded-xl transition text-center flex items-center justify-center gap-2 bg-blue-600 text-white shadow-md';
+        mainHeading.textContent = 'Register New Candidate';
+        subHeading.textContent = 'Create candidate profile, configure credentials, and upload resume';
+      } else {
+        registerForm.classList.add('hidden');
+        signInForm.classList.remove('hidden');
+        tabRegisterBtn.className = 'py-2.5 rounded-xl transition text-center flex items-center justify-center gap-2 text-slate-400 hover:text-white';
+        tabSignInBtn.className = 'py-2.5 rounded-xl transition text-center flex items-center justify-center gap-2 bg-blue-600 text-white shadow-md';
+        mainHeading.textContent = 'Sign In to TalentFlow';
+        subHeading.textContent = 'Enter your registered email and password to access the workspace';
+      }
+    }
+
+    function togglePasswordVisibility(inputId, btnTextId) {
+      const input = document.getElementById(inputId);
+      const text = document.getElementById(btnTextId);
       if (input.type === 'password') {
         input.type = 'text';
         text.textContent = 'Hide';
@@ -161,59 +300,98 @@
       }
     }
 
-    async function quickLogin(email, pass) {
-      document.getElementById('loginEmail').value = email;
-      document.getElementById('loginPassword').value = pass;
-      await performLogin(email, pass);
+    function fillEmail(email) {
+      const emailInput = document.getElementById('loginEmail');
+      const passInput = document.getElementById('loginPassword');
+      if (emailInput) {
+        emailInput.value = email;
+        emailInput.focus();
+      }
+      if (passInput) {
+        passInput.value = '';
+        passInput.placeholder = 'Type password for ' + email.split('@')[0];
+      }
+      const errBox = document.getElementById('authErrorMsg');
+      if (errBox) errBox.classList.add('hidden');
+    }
+
+    function handleRegisterFileSelected(e) {
+      const file = e.target.files[0];
+      const preview = document.getElementById('regResumePreview');
+      const nameEl = document.getElementById('regPreviewFileName');
+      const sizeEl = document.getElementById('regPreviewFileSize');
+
+      if (!file) {
+        registeredFileBase64 = null;
+        registeredFileName = null;
+        if (preview) preview.classList.add('hidden');
+        return;
+      }
+
+      registeredFileName = file.name;
+      if (nameEl) nameEl.textContent = file.name;
+      if (sizeEl) sizeEl.textContent = `(${(file.size / 1024).toFixed(1)} KB)`;
+      if (preview) preview.classList.remove('hidden');
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        registeredFileBase64 = reader.result;
+      };
+      reader.readAsDataURL(file);
     }
 
     async function handleLoginSubmit(e) {
       if (e) e.preventDefault();
       const email = document.getElementById('loginEmail').value.trim();
       const pass = document.getElementById('loginPassword').value.trim();
-      await performLogin(email, pass);
-    }
-
-    async function performLogin(email, password) {
-      const errBox = document.getElementById('loginErrorMsg');
+      const errBox = document.getElementById('authErrorMsg');
+      const errText = document.getElementById('authErrorText');
       const submitBtn = document.getElementById('loginSubmitBtn');
-      if (errBox) { errBox.classList.add('hidden'); errBox.textContent = ''; }
+
+      if (errBox) errBox.classList.add('hidden');
+
+      if (!email || !pass) {
+        if (errBox && errText) {
+          errBox.classList.remove('hidden');
+          errText.textContent = 'Please enter both your email address and password.';
+        }
+        return;
+      }
 
       if (submitBtn) {
         submitBtn.disabled = true;
-        submitBtn.innerHTML = '<span>⏳ Signing In...</span>';
+        submitBtn.innerHTML = '<span>⏳ Verifying Password...</span>';
       }
 
       try {
         const res = await fetch('/api/auth/login', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, password })
+          body: JSON.stringify({ email, password: pass })
         });
 
         const data = await res.json();
         if (res.ok && data.success) {
-          // Persist session
+          // Persist authenticated session
           localStorage.setItem('talentflow_auth', JSON.stringify({
             token: data.token,
             user: data.user,
             loggedInAt: new Date().toISOString()
           }));
 
-          // Check redirect param
           const urlParams = new URLSearchParams(window.location.search);
           const redirect = urlParams.get('redirect') || '/';
           window.location.href = redirect;
         } else {
-          if (errBox) {
+          if (errBox && errText) {
             errBox.classList.remove('hidden');
-            errBox.textContent = data.error || 'Authentication failed. Please check your credentials.';
+            errText.textContent = data.error || 'Invalid password or user account not found. Please try again.';
           }
         }
       } catch (err) {
-        if (errBox) {
+        if (errBox && errText) {
           errBox.classList.remove('hidden');
-          errBox.textContent = 'Network error connecting to authentication service: ' + err.message;
+          errText.textContent = 'Connection error: ' + err.message;
         }
       } finally {
         if (submitBtn) {
@@ -223,19 +401,103 @@
       }
     }
 
-    // Auto-check existing session
-    document.addEventListener('DOMContentLoaded', () => {
-      const saved = localStorage.getItem('talentflow_auth');
-      if (saved) {
-        try {
-          const parsed = JSON.parse(saved);
-          if (parsed && parsed.user) {
-            // Already logged in - optionally pre-fill
-            document.getElementById('loginEmail').value = parsed.user.email || 'kumar.ashu872@gmail.com';
-          }
-        } catch (e) {}
+    async function handleRegisterSubmit(e) {
+      if (e) e.preventDefault();
+      const name = document.getElementById('regName').value.trim();
+      const title = document.getElementById('regTitle').value.trim();
+      const email = document.getElementById('regEmail').value.trim();
+      const password = document.getElementById('regPassword').value.trim();
+      const exp = parseFloat(document.getElementById('regExp').value) || 5;
+      const curCtc = parseFloat(document.getElementById('regCurrentCtc').value) || 10;
+      const targetCtc = parseFloat(document.getElementById('regTargetCtc').value) || 18;
+      const skills = document.getElementById('regSkills').value.trim();
+
+      const errBox = document.getElementById('authErrorMsg');
+      const errText = document.getElementById('authErrorText');
+      const successBox = document.getElementById('authSuccessMsg');
+      const successText = document.getElementById('authSuccessText');
+      const submitBtn = document.getElementById('registerSubmitBtn');
+
+      if (errBox) errBox.classList.add('hidden');
+      if (successBox) successBox.classList.add('hidden');
+
+      if (!name || !email || !password || !title) {
+        if (errBox && errText) {
+          errBox.classList.remove('hidden');
+          errText.textContent = 'Please fill out all required fields: Name, Role, Email, and Password.';
+        }
+        return;
       }
-    });
+
+      if (password.length < 4) {
+        if (errBox && errText) {
+          errBox.classList.remove('hidden');
+          errText.textContent = 'Password must be at least 4 characters long.';
+        }
+        return;
+      }
+
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span>⏳ Storing Resume &amp; Creating Account...</span>';
+      }
+
+      const payload = {
+        name,
+        title,
+        email,
+        password,
+        experienceYears: exp,
+        currentCtc: curCtc,
+        targetCtc: targetCtc,
+        skills,
+        resumeBase64: registeredFileBase64,
+        resumeFileName: registeredFileName,
+        role: 'editor',
+        access: 'write'
+      };
+
+      try {
+        const res = await fetch('/api/auth/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await res.json();
+        if (res.ok && data.success) {
+          if (successBox && successText) {
+            successBox.classList.remove('hidden');
+            successText.textContent = `Candidate ${data.user.name} registered with resume! Entering workspace...`;
+          }
+
+          localStorage.setItem('talentflow_auth', JSON.stringify({
+            token: data.token,
+            user: data.user,
+            loggedInAt: new Date().toISOString()
+          }));
+
+          setTimeout(() => {
+            window.location.href = `/?candidate=${data.user.id}`;
+          }, 800);
+        } else {
+          if (errBox && errText) {
+            errBox.classList.remove('hidden');
+            errText.textContent = data.error || 'Registration failed. Please check your details.';
+          }
+        }
+      } catch (err) {
+        if (errBox && errText) {
+          errBox.classList.remove('hidden');
+          errText.textContent = 'Network error: ' + err.message;
+        }
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = '<span>Create Candidate &amp; Save Resume</span> <span>&rarr;</span>';
+        }
+      }
+    }
   </script>
 </body>
 </html>

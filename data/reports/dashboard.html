@@ -4,6 +4,25 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>TalentFlow AI — Enterprise Job Search &amp; Matching Suite | Ashutosh Kumar</title>
+  <script>
+    (function() {
+      try {
+        var raw = localStorage.getItem('talentflow_auth');
+        if (!raw) {
+          window.location.replace('/login.html?redirect=' + encodeURIComponent(window.location.pathname + window.location.search));
+          return;
+        }
+        var auth = JSON.parse(raw);
+        if (!auth || !auth.user || !auth.token) {
+          localStorage.removeItem('talentflow_auth');
+          window.location.replace('/login.html?redirect=' + encodeURIComponent(window.location.pathname + window.location.search));
+        }
+      } catch(e) {
+        localStorage.removeItem('talentflow_auth');
+        window.location.replace('/login.html?redirect=' + encodeURIComponent(window.location.pathname + window.location.search));
+      }
+    })();
+  </script>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.8/html5-qrcode.min.js"></script>
@@ -2286,6 +2305,68 @@
       if (currentActiveTab === 'kanban') renderKanban();
     }
 
+    function computeDynamicJobScore(job, cand) {
+      if (!cand || !cand.coreStack || cand.coreStack.length === 0) return job.score || 80;
+      if (cand.id === 'ashutosh-kumar') return job.score || 85;
+
+      const candSkills = cand.coreStack.map(s => s.toLowerCase());
+      const jobSkills = (job.skills || []).map(s => s.toLowerCase());
+      const title = (job.title || '').toLowerCase();
+      const candTitle = (cand.title || '').toLowerCase();
+
+      let matched = 0;
+      for (const js of jobSkills) {
+        if (candSkills.some(cs => cs.includes(js) || js.includes(cs) || 
+          (cs.includes('angular') && js.includes('angular')) ||
+          (cs.includes('react') && js.includes('react')) ||
+          (cs.includes('node') && js.includes('node')) ||
+          (cs.includes('typescript') && js.includes('typescript')) ||
+          (cs.includes('javascript') && js.includes('javascript')) ||
+          (cs.includes('playwright') && js.includes('playwright')) ||
+          (cs.includes('html') && js.includes('html')) ||
+          (cs.includes('css') && js.includes('css')) ||
+          (cs.includes('test') && js.includes('test')))) {
+          matched++;
+        }
+      }
+
+      const ratio = jobSkills.length > 0 ? (matched / jobSkills.length) : 0.6;
+      const expBonus = Math.min(8, Math.floor(parseFloat(cand.experienceYears || 5)));
+      
+      let titleBonus = 0;
+      if ((candTitle.includes('frontend') || candTitle.includes('ui')) && (title.includes('frontend') || title.includes('ui'))) titleBonus = 6;
+      else if (candTitle.includes('full') && title.includes('full')) titleBonus = 6;
+      else if (candTitle.includes('test') && title.includes('test')) titleBonus = 6;
+
+      let finalScore = Math.round(50 + (ratio * 36) + expBonus + titleBonus);
+      if (finalScore > 98) finalScore = 98;
+      if (finalScore < 52) finalScore = 52;
+      return finalScore;
+    }
+
+    function getJobSkillAlignment(job, cand) {
+      const candStack = (cand && cand.coreStack && cand.coreStack.length > 0) ? cand.coreStack : ['Angular', 'TypeScript', 'Playwright'];
+      const candSkillsLower = candStack.map(s => s.toLowerCase());
+      const exactMatches = [];
+      const equivalents = [];
+
+      (job.skills || []).forEach(js => {
+        const jsLower = js.toLowerCase();
+        if (candSkillsLower.some(cs => cs.includes(jsLower) || jsLower.includes(cs))) {
+          exactMatches.push(js);
+        } else {
+          equivalents.push(js);
+        }
+      });
+
+      const displayExact = exactMatches.length > 0 ? exactMatches.join(', ') : candStack.slice(0, 4).join(', ');
+      const displayEquiv = equivalents.length > 0 ? equivalents.slice(0, 3).join(', ') : 'Modular Architecture, End-to-End Testing';
+      return {
+        exact: displayExact,
+        equivalents: displayEquiv
+      };
+    }
+
     function renderJobs() {
       const container = document.getElementById('jobListContainer');
       if (!container) return;
@@ -2321,9 +2402,14 @@
       }
 
       container.innerHTML = filtered.map(job => {
-        const scoreBadge = job.score >= 85
+        const activeCand = (typeof currentCandidate !== 'undefined' && currentCandidate) ? currentCandidate : null;
+        const dynamicScore = computeDynamicJobScore(job, activeCand);
+        const alignment = getJobSkillAlignment(job, activeCand);
+        const atsPassPercent = Math.min(99, dynamicScore + 2);
+
+        const scoreBadge = dynamicScore >= 85
           ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40'
-          : job.score >= 75
+          : dynamicScore >= 75
           ? 'bg-blue-600/20 text-blue-300 border-blue-500/40'
           : 'bg-amber-500/20 text-amber-300 border-amber-500/40';
 
@@ -2350,12 +2436,20 @@
         const daysElapsed = Math.max(0, Math.floor((now - appDate) / (1000 * 60 * 60 * 24)));
         const isFollowUpDue = job.status === 'SUBMITTED' && daysElapsed >= 4;
 
+        let activeResumeLinkHtml = '';
+        if (activeCand && activeCand.resumeFile) {
+          const candResumeUrl = activeCand.resumeFile.startsWith('/') ? activeCand.resumeFile : ('/' + activeCand.resumeFile);
+          activeResumeLinkHtml = '<a href="' + candResumeUrl + '" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1 rounded-lg bg-blue-600/20 hover:bg-blue-600 hover:text-white text-blue-300 border border-blue-500/30 font-semibold transition" title="Open Candidate Resume">Resume (' + (activeCand.name ? activeCand.name.split(' ')[0] : 'Cand') + ') ↗</a>';
+        } else {
+          activeResumeLinkHtml = '<a href="' + resumeHtmlPath + '" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 font-semibold transition" title="Open Tailored Resume">Resume ↗</a>';
+        }
+
         return [
           '<div class="bg-[#111827] border border-slate-800 hover:border-slate-700 transition rounded-2xl p-4 md:p-5 shadow-sm space-y-3">',
           '  <div class="flex flex-col md:flex-row md:items-start justify-between gap-3">',
           '    <div class="flex-1 space-y-1.5">',
           '      <div class="flex flex-wrap items-center gap-2">',
-          '        <span class="px-2.5 py-0.5 rounded-full text-xs font-extrabold border ' + scoreBadge + '">' + job.score + '/100 Match</span>',
+          '        <span class="px-2.5 py-0.5 rounded-full text-xs font-extrabold border ' + scoreBadge + '">' + dynamicScore + '/100 Match</span>',
           '        ' + statusBadgeHtml,
           '        <span class="text-xs text-slate-400 font-mono">Req #' + job.reqId + '</span>',
           '        <span class="text-xs text-slate-400">&bull; ' + job.source + '</span>',
@@ -2427,12 +2521,12 @@
           '    <div class="p-2.5 rounded-lg bg-slate-900/90 border border-slate-800 space-y-2">',
           '      <div class="flex items-center justify-between gap-2">',
           '        <span class="text-[11px] font-bold text-white uppercase tracking-wider">🎯 Resume-to-JD Keyword Alignment:</span>',
-          '        <span class="px-2 py-0.5 rounded text-[10px] font-extrabold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-mono">96% ATS Pass</span>',
+          '        <span class="px-2 py-0.5 rounded text-[10px] font-extrabold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-mono">' + atsPassPercent + '% ATS Pass</span>',
           '      </div>',
           '      <div class="space-y-1 text-[11px]">',
-          '        <div class="flex flex-wrap items-center gap-1"><strong class="text-emerald-400">🟢 Exact Matches:</strong> <span class="text-slate-300">Angular 15+, Angular Material UI, TypeScript, HTML5/SCSS, Design Tokens, WCAG 2.1 AA, Playwright, Responsive/Grid</span></div>',
-          '        <div class="flex flex-wrap items-center gap-1"><strong class="text-cyan-400">🟡 Semantic Equivalents:</strong> <span class="text-slate-300">Micro-Frontends ↔ Modular UI Architecture, Cross-Browser QA ↔ Playwright Testing</span></div>',
-          '        <div class="flex flex-wrap items-center gap-1"><strong class="text-amber-400">💡 Tuning Tip:</strong> <span class="text-slate-300">Emphasize your Samsung SDS 97/100 rating and automated Playwright test suites in Project #1 to guarantee immediate shortlisting.</span></div>',
+          '        <div class="flex flex-wrap items-center gap-1"><strong class="text-emerald-400">🟢 Exact Matches:</strong> <span class="text-slate-300">' + alignment.exact + '</span></div>',
+          '        <div class="flex flex-wrap items-center gap-1"><strong class="text-cyan-400">🟡 Semantic Equivalents:</strong> <span class="text-slate-300">' + alignment.equivalents + '</span></div>',
+          '        <div class="flex flex-wrap items-center gap-1"><strong class="text-amber-400">💡 Tuning Tip:</strong> <span class="text-slate-300">Highlight ' + (activeCand ? (activeCand.verifiedAnchors || [activeCand.title])[0] : 'core experience') + ' and ' + alignment.exact.split(',').slice(0, 2).join(' & ') + ' to guarantee top shortlisting.</span></div>',
           '      </div>',
           '    </div>',
           job.evidence.map(e => '    <div class="flex items-start gap-1.5 text-slate-300"><span class="text-emerald-400 shrink-0">✓</span> <span>' + e + '</span></div>').join(String.fromCharCode(10)),
@@ -2446,7 +2540,7 @@
           (job.skills.length > 5 ? '    <span class="px-2 py-0.5 bg-slate-900 text-slate-500 text-[10px] rounded-md border border-slate-800">+' + (job.skills.length - 5) + '</span>' : ''),
           '  </div>',
           '  <div class="flex items-center gap-1.5 shrink-0">',
-          '    <a href="' + resumeHtmlPath + '" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 font-semibold transition" title="Open Tailored Resume">Resume ↗</a>',
+          '    ' + activeResumeLinkHtml,
           '    <a href="' + coverHtmlPath + '" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 font-semibold transition" title="Open Tailored Cover Letter">Letter ↗</a>',
           '    <a href="' + resumePdfPath + '" target="_blank" download class="px-2 py-1 rounded-lg bg-emerald-500/10 text-emerald-300 border border-emerald-500/30 hover:bg-emerald-500/20 font-semibold transition" title="Download ATS PDF">PDF</a>',
           '    <span class="px-2.5 py-1 rounded-lg bg-slate-900 text-slate-300 border border-slate-800 text-[11px] font-mono font-semibold flex items-center gap-1">',
@@ -3953,25 +4047,16 @@ async function initCandidateManager() {
     ];
   }
 
-  // Auth check & active user session
+  // Auth check & active user session (Strict Authentication Gate)
   let authSession = null;
   const savedAuth = localStorage.getItem('talentflow_auth');
   if (savedAuth) {
     try { authSession = JSON.parse(savedAuth); } catch(e) {}
   }
-  if (!authSession || !authSession.user) {
-    authSession = {
-      user: {
-        id: 'ashutosh-kumar',
-        name: 'Ashutosh Kumar',
-        email: 'kumar.ashu872@gmail.com',
-        role: 'admin',
-        access: 'write',
-        isAdmin: true,
-        avatar: '👨‍💻'
-      }
-    };
-    localStorage.setItem('talentflow_auth', JSON.stringify(authSession));
+  if (!authSession || !authSession.user || !authSession.token) {
+    localStorage.removeItem('talentflow_auth');
+    window.location.href = '/login.html?redirect=' + encodeURIComponent(window.location.pathname + window.location.search);
+    return;
   }
 
   // Update top nav user badge if present
@@ -4000,11 +4085,14 @@ async function initCandidateManager() {
     }
   }
 
-  // Check URL query parameters for ?candidate=...
+  // Check URL query parameters for ?candidate=... or default to logged-in user
   const urlParams = new URLSearchParams(window.location.search);
   const candParam = urlParams.get('candidate');
 
   let initialCand = allCandidatesList.find(c => c.id === candParam);
+  if (!initialCand && authSession.user && authSession.user.id) {
+    initialCand = allCandidatesList.find(c => c.id === authSession.user.id);
+  }
   if (!initialCand) initialCand = allCandidatesList[0];
 
   renderCandidateDropdown();

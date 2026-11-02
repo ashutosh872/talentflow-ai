@@ -1321,25 +1321,16 @@ async function initCandidateManager() {
     ];
   }
 
-  // Auth check & active user session
+  // Auth check & active user session (Strict Authentication Gate)
   let authSession = null;
   const savedAuth = localStorage.getItem('talentflow_auth');
   if (savedAuth) {
     try { authSession = JSON.parse(savedAuth); } catch(e) {}
   }
-  if (!authSession || !authSession.user) {
-    authSession = {
-      user: {
-        id: 'ashutosh-kumar',
-        name: 'Ashutosh Kumar',
-        email: 'kumar.ashu872@gmail.com',
-        role: 'admin',
-        access: 'write',
-        isAdmin: true,
-        avatar: '👨‍💻'
-      }
-    };
-    localStorage.setItem('talentflow_auth', JSON.stringify(authSession));
+  if (!authSession || !authSession.user || !authSession.token) {
+    localStorage.removeItem('talentflow_auth');
+    window.location.href = '/login.html?redirect=' + encodeURIComponent(window.location.pathname + window.location.search);
+    return;
   }
 
   // Update top nav user badge if present
@@ -1368,11 +1359,14 @@ async function initCandidateManager() {
     }
   }
 
-  // Check URL query parameters for ?candidate=...
+  // Check URL query parameters for ?candidate=... or default to logged-in user
   const urlParams = new URLSearchParams(window.location.search);
   const candParam = urlParams.get('candidate');
 
   let initialCand = allCandidatesList.find(c => c.id === candParam);
+  if (!initialCand && authSession.user && authSession.user.id) {
+    initialCand = allCandidatesList.find(c => c.id === authSession.user.id);
+  }
   if (!initialCand) initialCand = allCandidatesList[0];
 
   renderCandidateDropdown();

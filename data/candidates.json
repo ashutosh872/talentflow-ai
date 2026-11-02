@@ -139,5 +139,98 @@
     "bio": "Test Candidate profile for verifying email authentication, OTP confirmation, and agency workflows.",
     "activeApplicationsCount": 0,
     "totalEvaluated": 50
+  },
+  {
+    "id": "rahul-verma",
+    "name": "Rahul Verma",
+    "avatar": "👨‍💼",
+    "title": "Senior Full Stack & React Specialist",
+    "isAdmin": false,
+    "isVerified": true,
+    "verificationStatus": "VERIFIED",
+    "role": "editor",
+    "access": "write",
+    "permissions": [
+      "read",
+      "write"
+    ],
+    "password": "rahul123",
+    "resumeFile": "data/resumes/Ashutosh Kumar Tech Process Specialist Resume.pdf",
+    "resumeFileName": "Rahul_Verma_Resume.pdf",
+    "resumeUploadedAt": "2026-11-02T21:41:30.746Z",
+    "experienceYears": 6.5,
+    "experienceLabel": "6.5+ Years",
+    "currentCompany": "Enterprise Digital Systems",
+    "currentCtc": "₹12,00,000 PA",
+    "currentCtcVal": 12,
+    "targetCtc": "₹22,00,000+ PA",
+    "targetCtcMin": 22,
+    "targetCtcRelocation": 25,
+    "noticePeriod": "15 to 30 Days",
+    "location": "Delhi NCR / Remote India",
+    "email": "rahul.verma@example.com",
+    "phone": "+91 9811882233",
+    "coreStack": [
+      "React",
+      "Next.js",
+      "Node.js",
+      "TypeScript",
+      "AWS",
+      "PostgreSQL",
+      "Jest"
+    ],
+    "verifiedAnchors": [
+      "Enterprise Cloud Platform Architecture",
+      "High-Throughput Microservices Migration"
+    ],
+    "bio": "Senior Full Stack Engineer with 6.5+ years building scalable React, Node.js, and cloud-native microservices.",
+    "activeApplicationsCount": 2,
+    "totalEvaluated": 140
+  },
+  {
+    "id": "rahul-verma-test-t3lg",
+    "name": "Rahul Verma Test",
+    "avatar": "👤",
+    "title": "Lead Full Stack React Engineer",
+    "isAdmin": false,
+    "isVerified": true,
+    "verificationStatus": "VERIFIED",
+    "role": "editor",
+    "access": "write",
+    "permissions": [
+      "read",
+      "write"
+    ],
+    "password": "rahulSecurePassword789",
+    "resumeFile": "data/resumes/rahul-verma-test-t3lg-Rahul_Verma_Resume.pdf",
+    "resumeFileName": "Rahul_Verma_Resume.pdf",
+    "resumeUploadedAt": "2026-11-02T21:41:40.718Z",
+    "experienceYears": 6.5,
+    "experienceLabel": "6.5+ Years",
+    "currentCompany": "Technology Enterprise",
+    "currentCtc": "₹12 PA",
+    "currentCtcVal": 10,
+    "targetCtc": "₹22 PA",
+    "targetCtcMin": 18,
+    "targetCtcRelocation": 21,
+    "noticePeriod": "Immediate to 30 Days",
+    "location": "Delhi NCR / Remote",
+    "email": "rahul.test.1793655700711@example.com",
+    "phone": "+91 9999999999",
+    "coreStack": [
+      "React",
+      "Node.js",
+      "TypeScript",
+      "AWS",
+      "Next.js",
+      "PostgreSQL"
+    ],
+    "verifiedAnchors": [
+      "Lead Full Stack React Engineer Enterprise Background",
+      "Verified Profile (React, Node.js, TypeScript)"
+    ],
+    "bio": "Lead Full Stack React Engineer with 6.5+ years specializing in React, Node.js, TypeScript, AWS.",
+    "activeApplicationsCount": 0,
+    "totalEvaluated": 120
   }
 ]

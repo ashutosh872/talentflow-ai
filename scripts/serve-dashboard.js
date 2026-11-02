@@ -332,7 +332,7 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
-  // Authentication: Login API
+  // Authentication: Login API (Strict Password Verification — No Auto Bypass)
   if (pathname === '/api/auth/login' && req.method === 'POST') {
     let body = '';
     req.on('data', chunk => { body += chunk; });
@@ -341,6 +341,12 @@ const server = http.createServer(async (req, res) => {
         const payload = JSON.parse(body || '{}');
         const email = (payload.email || '').trim().toLowerCase();
         const password = (payload.password || '').trim();
+
+        if (!email || !password) {
+          res.writeHead(401, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: false, error: 'Both email and password are required to sign in.' }));
+          return;
+        }
 
         const candPath = path.resolve('data/candidates.json');
         let candidates = [];
@@ -351,15 +357,14 @@ const server = http.createServer(async (req, res) => {
         const user = candidates.find(c => c.email && c.email.toLowerCase() === email);
         if (!user) {
           res.writeHead(401, { 'Content-Type': 'application/json' });
-          res.end(JSON.stringify({ success: false, error: 'User account not found with this email.' }));
+          res.end(JSON.stringify({ success: false, error: 'User account not found with this email. Please register first.' }));
           return;
         }
 
-        // Validate password (support admin default 'admin123' or user password)
-        const expectedPass = user.password || (user.isAdmin ? 'admin123' : 'welcome123');
-        if (password !== expectedPass && password !== 'admin123') {
+        // Strict password check: candidate must have a password and it must match exactly
+        if (!user.password || password !== user.password) {
           res.writeHead(401, { 'Content-Type': 'application/json' });
-          res.end(JSON.stringify({ success: false, error: 'Invalid password. Please check your credentials.' }));
+          res.end(JSON.stringify({ success: false, error: 'Incorrect password. Access denied. Please enter the correct password.' }));
           return;
         }
 
@@ -379,9 +384,12 @@ const server = http.createServer(async (req, res) => {
           resumeFileName: user.resumeFileName || ''
         };
 
-        console.log(`[Auth Login] User ${user.email} (${safeUser.role}, ${safeUser.access}) logged in.`);
+        console.log(`[Auth Login Success] User ${user.email} (${safeUser.role}, ${safeUser.access}) logged in with verified password.`);
 
-        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.writeHead(200, {
+          'Content-Type': 'application/json',
+          'Set-Cookie': `tf_token=${token}; Path=/; HttpOnly; SameSite=Lax`
+        });
         res.end(JSON.stringify({ success: true, token, user: safeUser }));
       } catch (err) {
         res.writeHead(400, { 'Content-Type': 'application/json' });
@@ -391,7 +399,153 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
-  // Authentication: Session / Me API
+  // Authentication: Register New Candidate Account with Resume Storage
+  if (pathname === '/api/auth/register' && req.method === 'POST') {
+    let body = '';
+    req.on('data', chunk => { body += chunk; });
+    req.on('end', () => {
+      try {
+        const payload = JSON.parse(body || '{}');
+        const name = (payload.name || '').trim();
+        const email = (payload.email || '').trim().toLowerCase();
+        const password = (payload.password || '').trim();
+        const title = (payload.title || 'Software Engineer').trim();
+
+        if (!name || !email || !password) {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: false, error: 'Full name, email address, and password are required.' }));
+          return;
+        }
+
+        if (password.length < 4) {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: false, error: 'Password must be at least 4 characters.' }));
+          return;
+        }
+
+        const candPath = path.resolve('data/candidates.json');
+        let candidates = [];
+        if (fs.existsSync(candPath)) {
+          try { candidates = JSON.parse(fs.readFileSync(candPath, 'utf8')); } catch(e) {}
+        }
+
+        if (candidates.some(c => c.email && c.email.toLowerCase() === email)) {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: false, error: 'An account with this email already exists. Please sign in.' }));
+          return;
+        }
+
+        const id = name.toLowerCase().replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-') + '-' + Math.random().toString(36).substring(2, 6);
+
+        // Store Resume File if provided
+        let resumeFile = '';
+        let resumeFileName = '';
+        let resumeUploadedAt = '';
+
+        if (payload.resumeBase64 && payload.resumeFileName) {
+          try {
+            const cleanBase64 = payload.resumeBase64.replace(/^data:[^;]+;base64,/, '');
+            const buffer = Buffer.from(cleanBase64, 'base64');
+            const resumesDir = path.resolve('data/resumes');
+            if (!fs.existsSync(resumesDir)) {
+              fs.mkdirSync(resumesDir, { recursive: true });
+            }
+            const ext = path.extname(payload.resumeFileName) || '.pdf';
+            const rawBase = path.basename(payload.resumeFileName, ext).replace(/[^a-zA-Z0-9_-]/g, '_');
+            const savedFileName = `${id}-${rawBase}${ext}`;
+            const targetPath = path.join(resumesDir, savedFileName);
+            fs.writeFileSync(targetPath, buffer);
+            resumeFile = `data/resumes/${savedFileName}`;
+            resumeFileName = payload.resumeFileName;
+            resumeUploadedAt = new Date().toISOString();
+            console.log(`[User Registration Resume Saved] Stored ${savedFileName} (${buffer.length} bytes) for new user ${name}`);
+          } catch (fileErr) {
+            console.warn('[Resume Save Error on Registration]:', fileErr);
+          }
+        }
+
+        // Parse skills
+        let coreStack = ['JavaScript', 'HTML5', 'CSS3'];
+        if (Array.isArray(payload.coreStack)) {
+          coreStack = payload.coreStack;
+        } else if (payload.skills) {
+          coreStack = payload.skills.split(',').map(s => s.trim()).filter(Boolean);
+        } else if (payload.coreStack && typeof payload.coreStack === 'string') {
+          coreStack = payload.coreStack.split(',').map(s => s.trim()).filter(Boolean);
+        }
+
+        const newCandidate = {
+          id,
+          name,
+          avatar: payload.avatar || '👤',
+          title,
+          isAdmin: false,
+          isVerified: true,
+          verificationStatus: 'VERIFIED',
+          role: payload.role || 'editor',
+          access: payload.access || 'write',
+          permissions: payload.role === 'viewer' ? ['read'] : ['read', 'write'],
+          password,
+          resumeFile,
+          resumeFileName,
+          resumeUploadedAt,
+          experienceYears: parseFloat(payload.experienceYears) || 5,
+          experienceLabel: (payload.experienceYears || '5') + '+ Years',
+          currentCompany: payload.currentCompany || 'Technology Enterprise',
+          currentCtc: payload.currentCtc ? `₹${payload.currentCtc} PA` : '₹10,00,000 PA',
+          currentCtcVal: parseFloat(payload.currentCtcVal) || 10,
+          targetCtc: payload.targetCtc ? `₹${payload.targetCtc} PA` : '₹18,00,000+ PA',
+          targetCtcMin: parseFloat(payload.targetCtcMin) || 18,
+          targetCtcRelocation: (parseFloat(payload.targetCtcMin) || 18) + 3,
+          noticePeriod: payload.noticePeriod || 'Immediate to 30 Days',
+          location: payload.location || 'Delhi NCR / Remote',
+          email,
+          phone: payload.phone || '+91 9999999999',
+          coreStack,
+          verifiedAnchors: [
+            `${title} Enterprise Background`,
+            `Verified Profile (${coreStack.slice(0, 3).join(', ')})`
+          ],
+          bio: payload.bio || `${title} with ${payload.experienceYears || 5}+ years specializing in ${coreStack.slice(0, 4).join(', ')}.`,
+          activeApplicationsCount: 0,
+          totalEvaluated: 120
+        };
+
+        candidates.push(newCandidate);
+        fs.writeFileSync(candPath, JSON.stringify(candidates, null, 2), 'utf8');
+
+        const token = 'tf_token_' + Date.now() + '_' + Math.random().toString(36).substring(2, 8);
+        const safeUser = {
+          id: newCandidate.id,
+          name: newCandidate.name,
+          email: newCandidate.email,
+          avatar: newCandidate.avatar,
+          title: newCandidate.title,
+          role: newCandidate.role,
+          access: newCandidate.access,
+          permissions: newCandidate.permissions,
+          isAdmin: newCandidate.isAdmin,
+          isVerified: newCandidate.isVerified,
+          resumeFile: newCandidate.resumeFile,
+          resumeFileName: newCandidate.resumeFileName
+        };
+
+        console.log(`[User Registered] Successfully created candidate ${newCandidate.name} (${newCandidate.email}) with resume: ${resumeFileName || 'None'}`);
+
+        res.writeHead(201, {
+          'Content-Type': 'application/json',
+          'Set-Cookie': `tf_token=${token}; Path=/; HttpOnly; SameSite=Lax`
+        });
+        res.end(JSON.stringify({ success: true, token, user: safeUser, candidate: newCandidate }));
+      } catch (err) {
+        res.writeHead(400, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: err.message }));
+      }
+    });
+    return;
+  }
+
+  // Authentication: Session / Me API (Strict: returns 401 if unauthenticated)
   if (pathname === '/api/auth/me' && req.method === 'GET') {
     const candPath = path.resolve('data/candidates.json');
     let candidates = [];
@@ -406,13 +560,11 @@ const server = http.createServer(async (req, res) => {
       user = candidates.find(c => c.id === candId);
     } else if (email) {
       user = candidates.find(c => c.email && c.email.toLowerCase() === email);
-    } else {
-      user = candidates.find(c => c.isAdmin) || candidates[0];
     }
 
     if (!user) {
-      res.writeHead(404, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({ error: 'User not found' }));
+      res.writeHead(401, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: false, error: 'Unauthorized: Session credentials missing or invalid.' }));
       return;
     }
 
