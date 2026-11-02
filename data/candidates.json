@@ -15,10 +15,10 @@
       "admin"
     ],
     "password": "admin123",
-    "resumeFile": "data/resumes/Ashutosh Kumar Senior Frontend Engineer Resume.pdf",
+    "resumeFile": "data/resumes/ashutosh-kumar-Ashutosh_Kumar_Senior_Frontend_Engineer_Resume.pdf",
     "resumeFileName": "Ashutosh Kumar Senior Frontend Engineer Resume.pdf",
-    "resumeUploadedAt": "2026-10-27T14:30:00Z",
-    "experienceYears": 8.2,
+    "resumeUploadedAt": "2026-11-02T23:33:13.929Z",
+    "experienceYears": 8,
     "experienceLabel": "8+ Years",
     "currentCompany": "Frontend Developer at Wondrfly Inc. (Contract)",
     "currentCtc": "₹6,00,000 PA",
@@ -31,9 +31,20 @@
     "email": "kumar.ashu872@gmail.com",
     "phone": "+91 9310681373",
     "coreStack": [
+      "Angular",
+      "JavaScript",
+      "HTML5",
+      "CSS3",
+      "Sass",
+      "SCSS",
+      "Bootstrap",
+      "Git",
+      "Playwright",
+      "Figma",
+      "React",
+      "TypeScript",
       "Angular 15+",
       "Angular Material UI",
-      "TypeScript",
       "HTML5 / SCSS",
       "Design Systems & Tokens",
       "Playwright UI Testing",
@@ -57,6 +68,60 @@
     ],
     "bio": "Senior Frontend Engineer with 8+ years specializing in enterprise Angular Material design systems, Core Web Vitals performance, and robust automated UI test suites.",
     "activeApplicationsCount": 14,
-    "totalEvaluated": 340
+    "totalEvaluated": 340,
+    "lastParsedIntelligence": {
+      "rawTextLength": 6517,
+      "name": "Ashutosh Kumar",
+      "email": "kumar.ashu872@gmail.com",
+      "phone": "+91 9310681373",
+      "currentTitle": "SENIOR FRONTEND ENGINEER",
+      "seniority": "Senior",
+      "experienceYears": 8,
+      "location": "New Delhi, India",
+      "skills": {
+        "primary": [
+          "Angular",
+          "JavaScript",
+          "HTML5",
+          "CSS3",
+          "Sass",
+          "SCSS",
+          "Bootstrap",
+          "Git",
+          "Playwright",
+          "Figma"
+        ],
+        "secondary": [
+          "Design Systems",
+          "Responsive Web Design",
+          "Web Accessibility",
+          "WCAG",
+          "Core Web Vitals",
+          "Performance Optimization"
+        ]
+      },
+      "education": [
+        {
+          "degree": "B.Tech / B.E. in Computer Science",
+          "institution": "Verified Academic Institution",
+          "year": 2016
+        }
+      ],
+      "employmentHistory": [
+        {
+          "company": "Samsung SDS Global",
+          "role": "SENIOR FRONTEND ENGINEER",
+          "period": "2021 – Present",
+          "current": true,
+          "highlights": [
+            "Engineered high-performance web applications using Angular, JavaScript, HTML5",
+            "Implemented responsive UI design systems and reduced page load times by 35%",
+            "Mentored frontend developers and established rigorous code review standards"
+          ]
+        }
+      ],
+      "bio": "Ashutosh Kumar is a SENIOR FRONTEND ENGINEER with 8+ years of enterprise experience specializing in Angular, JavaScript, HTML5, CSS3. Proven track record of architecting scalable web applications, optimizing Core Web Vitals, and leading high-velocity frontend teams."
+    },
+    "seniority": "Senior"
   }
 ]

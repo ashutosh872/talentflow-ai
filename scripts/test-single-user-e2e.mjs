@@ -109,7 +109,7 @@ async function runComprehensiveSingleUserE2ETest() {
       await page.waitForTimeout(800);
 
       // Verify single-user profile display in Hero
-      const heroText = await page.evaluate(() => document.querySelector('h2.text-base')?.innerText || '');
+      const heroText = await page.evaluate(() => document.querySelector('h2')?.innerText || '');
       assert(heroText.includes('Ashutosh Kumar'), 'Executive Hero displays Ashutosh Kumar');
       assert(heroText.includes('Senior Frontend Engineer'), 'Executive Hero displays Senior Frontend Engineer role');
 
@@ -187,7 +187,6 @@ async function runComprehensiveSingleUserE2ETest() {
       // Restore to "all"
       await page.click('.filter-btn[data-filter="all"]');
       await page.waitForTimeout(200);
-    }
     }
 
     // ================================================================

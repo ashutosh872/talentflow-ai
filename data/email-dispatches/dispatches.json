@@ -1,5 +1,43 @@
 [
   {
+    "emailId": "EML-CONF-E2E-TEST-RECORD-MVZW9T5M",
+    "confirmationId": "CONF-E2E-TEST-RECORD",
+    "jobId": "job-mock-008",
+    "company": "Test Enterprise Submission",
+    "role": "Lead Frontend UI Engineer",
+    "vacancyPortal": "Direct Careers Portal",
+    "submissionMethod": "Via Autofill",
+    "recipientEmail": "kumar.ashu872@gmail.com",
+    "subject": "Application Confirmation: Lead Frontend UI Engineer at Test Enterprise Submission [CONF-E2E-TEST-RECORD]",
+    "timestamp": "Tuesday, November 3, 2026 at 5:03:04 AM (IST)",
+    "mode": "LOCAL_TRANSACTIONAL_RECEIPT",
+    "htmlFileName": "EML-CONF-E2E-TEST-RECORD-MVZW9T5M.html",
+    "webUrl": "/data/email-dispatches/EML-CONF-E2E-TEST-RECORD-MVZW9T5M.html",
+    "attachments": [
+      "Ashutosh_Kumar_Resume.pdf",
+      "Ashutosh_Kumar_Cover_Letter.pdf"
+    ]
+  },
+  {
+    "emailId": "EML-CONF-E2E-TEST-RECORD-MVZW6CO6",
+    "confirmationId": "CONF-E2E-TEST-RECORD",
+    "jobId": "job-mock-008",
+    "company": "Test Enterprise Submission",
+    "role": "Lead Frontend UI Engineer",
+    "vacancyPortal": "Direct Careers Portal",
+    "submissionMethod": "Via Autofill",
+    "recipientEmail": "kumar.ashu872@gmail.com",
+    "subject": "Application Confirmation: Lead Frontend UI Engineer at Test Enterprise Submission [CONF-E2E-TEST-RECORD]",
+    "timestamp": "Tuesday, November 3, 2026 at 5:00:22 AM (IST)",
+    "mode": "LOCAL_TRANSACTIONAL_RECEIPT",
+    "htmlFileName": "EML-CONF-E2E-TEST-RECORD-MVZW6CO6.html",
+    "webUrl": "/data/email-dispatches/EML-CONF-E2E-TEST-RECORD-MVZW6CO6.html",
+    "attachments": [
+      "Ashutosh_Kumar_Resume.pdf",
+      "Ashutosh_Kumar_Cover_Letter.pdf"
+    ]
+  },
+  {
     "emailId": "EML-VERIFY-rahul-verma-e2e-MVZNOTRQ",
     "candidateId": "rahul-verma-e2e",
     "candidateName": "Rahul Verma E2E",
