@@ -242,7 +242,13 @@ const server = http.createServer(async (req, res) => {
   const BRAIN_ARTIFACT_DIR = path.resolve('C:/Users/lenovo/.gemini/antigravity/brain/4209fc56-25df-461d-bd0d-9acbc653527f');
   if (pathname.startsWith('/artifact/') || pathname.startsWith('/artifacts/')) {
     const requestedFile = path.basename(pathname);
-    const targetFilePath = path.join(BRAIN_ARTIFACT_DIR, requestedFile);
+    let targetFilePath = path.join(rootDir, 'data/reports', requestedFile);
+    if (!fs.existsSync(targetFilePath)) {
+      targetFilePath = path.join(rootDir, requestedFile);
+    }
+    if (!fs.existsSync(targetFilePath)) {
+      targetFilePath = path.join(BRAIN_ARTIFACT_DIR, requestedFile);
+    }
     if (fs.existsSync(targetFilePath) && fs.statSync(targetFilePath).isFile()) {
       const ext = path.extname(targetFilePath).toLowerCase();
       const contentType = mimeTypes[ext] || 'text/html; charset=utf-8';

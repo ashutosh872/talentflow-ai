@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TalentFlow AI — Delhi Founder Commercialization &amp; INR Profit Hub</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <style>
+    /* Smooth tab switching and transitions */
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+    input[type=range] { accent-color: #2563eb; }
+  </style>
+</head>
+<body class="bg-[var(--background)] text-[var(--foreground)] antialiased p-4 md:p-6 min-h-screen">
+
+  <div class="max-w-6xl mx-auto space-y-6">
+
+    <!-- Header Banner -->
+    <header class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-6 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div class="space-y-1">
+        <div class="flex items-center gap-2">
+          <span class="px-2.5 py-0.5 rounded-full text-xs font-black bg-blue-500/20 text-blue-400 border border-blue-500/30 uppercase tracking-wider">
+            Delhi Tech Founder Edition
+          </span>
+          <span class="text-xs text-[var(--muted-foreground)]">Solo Builder Roadmap • Ashutosh Kumar</span>
+        </div>
+        <h1 class="text-2xl font-black text-[var(--foreground)] tracking-tight">
+          TalentFlow AI (CareerOS) — Commercialization &amp; INR Profit Engine
+        </h1>
+        <p class="text-sm text-[var(--muted-foreground)]">
+          Free vs Paid Cloud Services Audit, Indian Candidate Pricing (UPI Autopay), and Solo Founder Profit Simulator.
+        </p>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <div class="text-right hidden md:block">
+          <div class="text-xs text-[var(--muted-foreground)]">Target Annual Run Rate</div>
+          <div class="text-lg font-black text-emerald-400">₹25L – ₹1.02 Crore</div>
+        </div>
+        <div class="w-12 h-12 rounded-xl bg-blue-600/20 border border-blue-500/40 flex items-center justify-center text-2xl">
+          🚀
+        </div>
+      </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="flex items-center gap-2 overflow-x-auto border-b border-[var(--border)] pb-2">
+      <button onclick="switchTab('calculator')" id="tabBtn-calculator" class="tab-btn px-4 py-2 rounded-xl text-xs font-bold bg-blue-600 text-white shadow-sm transition">
+        💰 Interactive Profit Calculator (INR)
+      </button>
+      <button onclick="switchTab('services')" id="tabBtn-services" class="tab-btn px-4 py-2 rounded-xl text-xs font-semibold text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-[var(--card)] transition">
+        ☁️ Free vs Paid Cloud Services
+      </button>
+      <button onclick="switchTab('pricing')" id="tabBtn-pricing" class="tab-btn px-4 py-2 rounded-xl text-xs font-semibold text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-[var(--card)] transition">
+        🏷️ Indian Consumer Tiers (₹99–₹1,299)
+      </button>
+      <button onclick="switchTab('competitors')" id="tabBtn-competitors" class="tab-btn px-4 py-2 rounded-xl text-xs font-semibold text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-[var(--card)] transition">
+        ⚔️ Naukri &amp; LinkedIn Teardown
+      </button>
+      <button onclick="switchTab('gtm')" id="tabBtn-gtm" class="tab-btn px-4 py-2 rounded-xl text-xs font-semibold text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-[var(--card)] transition">
+        📍 Delhi NCR GTM Playbook
+      </button>
+    </nav>
+
+    <!-- ============================================================== -->
+    <!-- TAB 1: INTERACTIVE PROFIT & REVENUE CALCULATOR (INR ₹)         -->
+    <!-- ============================================================== -->
+    <div id="tab-calculator" class="tab-content active space-y-6">
+      
+      <!-- Top Metric Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-5 shadow-sm space-y-1">
+          <div class="text-xs text-[var(--muted-foreground)] font-semibold uppercase tracking-wider">Gross Monthly Revenue</div>
+          <div id="metricGrossRev" class="text-2xl font-black text-blue-400">₹1,14,800</div>
+          <div class="text-xs text-[var(--muted-foreground)]">From candidate &amp; B2B subscriptions</div>
+        </div>
+
+        <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-5 shadow-sm space-y-1">
+          <div class="text-xs text-[var(--muted-foreground)] font-semibold uppercase tracking-wider">Monthly Direct Costs</div>
+          <div id="metricDirectCost" class="text-2xl font-black text-rose-400">₹12,450</div>
+          <div class="text-xs text-[var(--muted-foreground)]">APIs, Supabase &amp; Razorpay 2% fees</div>
+        </div>
+
+        <div class="bg-[var(--card)] border border-emerald-500/30 bg-emerald-950/10 rounded-2xl p-5 shadow-sm space-y-1">
+          <div class="text-xs text-emerald-400 font-semibold uppercase tracking-wider">Net Monthly Take-Home</div>
+          <div id="metricNetProfit" class="text-2xl font-black text-emerald-400">₹1,02,350</div>
+          <div class="text-xs text-emerald-300/80">Direct profit into your Indian bank account</div>
+        </div>
+
+        <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-5 shadow-sm space-y-1">
+          <div class="text-xs text-[var(--muted-foreground)] font-semibold uppercase tracking-wider">Annualized Run Rate (ARR)</div>
+          <div id="metricArr" class="text-2xl font-black text-purple-400">₹12.3 Lakhs</div>
+          <div class="text-xs text-[var(--muted-foreground)]">Annual recurring value</div>
+        </div>
+      </div>
+
+      <!-- Controls & Breakdown Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        
+        <!-- Left: Interactive Sliders (7 cols) -->
+        <div class="lg:col-span-7 bg-[var(--card)] border border-[var(--border)] rounded-2xl p-6 shadow-sm space-y-6">
+          <div class="flex items-center justify-between border-b border-[var(--border)] pb-3">
+            <div>
+              <h2 class="text-base font-bold text-[var(--foreground)]">Adjust Subscriber Cohort in India</h2>
+              <p class="text-xs text-[var(--muted-foreground)]">Slide to test different user volumes and plan mixes.</p>
+            </div>
+            <button onclick="resetSliders()" class="px-3 py-1 rounded-lg text-xs font-semibold bg-slate-800 text-slate-300 hover:text-white transition">
+              Reset Defaults
+            </button>
+          </div>
+
+          <!-- Slider 1: FastTrack Pro -->
+          <div class="space-y-2">
+            <div class="flex items-center justify-between text-xs">
+              <span class="font-bold text-[var(--foreground)] flex items-center gap-1.5">
+                <span class="w-3 h-3 rounded-full bg-blue-500"></span>
+                <span>FastTrack Pro Candidates (₹499 / month)</span>
+              </span>
+              <span class="font-mono font-black text-blue-400" id="valFastTrackCount">120 users</span>
+            </div>
+            <input type="range" id="inputFastTrack" min="0" max="1500" value="120" step="10" oninput="calculateProfit()" class="w-full cursor-pointer">
+            <div class="flex justify-between text-xs text-[var(--muted-foreground)]">
+              <span>0 users</span>
+              <span>500 users</span>
+              <span>1,000 users</span>
+              <span>1,500 users</span>
+            </div>
+          </div>
+
+          <!-- Slider 2: AI Auto-Pilot -->
+          <div class="space-y-2">
+            <div class="flex items-center justify-between text-xs">
+              <span class="font-bold text-[var(--foreground)] flex items-center gap-1.5">
+                <span class="w-3 h-3 rounded-full bg-purple-500"></span>
+                <span>AI Auto-Pilot Power Candidates (₹1,299 / month)</span>
+              </span>
+              <span class="font-mono font-black text-purple-400" id="valAutoPilotCount">30 users</span>
+            </div>
+            <input type="range" id="inputAutoPilot" min="0" max="500" value="30" step="5" oninput="calculateProfit()" class="w-full cursor-pointer">
+            <div class="flex justify-between text-xs text-[var(--muted-foreground)]">
+              <span>0 users</span>
+              <span>150 users</span>
+              <span>300 users</span>
+              <span>500 users</span>
+            </div>
+          </div>
+
+          <!-- Slider 3: B2B Placement Academies / Bootcamps -->
+          <div class="space-y-2">
+            <div class="flex items-center justify-between text-xs">
+              <span class="font-bold text-[var(--foreground)] flex items-center gap-1.5">
+                <span class="w-3 h-3 rounded-full bg-emerald-500"></span>
+                <span>B2B Placement Academies &amp; Bootcamps (₹7,999 / month)</span>
+              </span>
+              <span class="font-mono font-black text-emerald-400" id="valAcademyCount">2 academies</span>
+            </div>
+            <input type="range" id="inputAcademy" min="0" max="30" value="2" step="1" oninput="calculateProfit()" class="w-full cursor-pointer">
+            <div class="flex justify-between text-xs text-[var(--muted-foreground)]">
+              <span>0 academies</span>
+              <span>10 academies</span>
+              <span>20 academies</span>
+              <span>30 academies</span>
+            </div>
+          </div>
+
+          <!-- Slider 4: One-Time ₹99 Sachet Trial Packs -->
+          <div class="space-y-2">
+            <div class="flex items-center justify-between text-xs">
+              <span class="font-bold text-[var(--foreground)] flex items-center gap-1.5">
+                <span class="w-3 h-3 rounded-full bg-amber-500"></span>
+                <span>One-Time ₹99 Sachet Packs Sold / Month</span>
+              </span>
+              <span class="font-mono font-black text-amber-400" id="valSachetCount">150 packs</span>
+            </div>
+            <input type="range" id="inputSachet" min="0" max="2000" value="150" step="25" oninput="calculateProfit()" class="w-full cursor-pointer">
+            <div class="flex justify-between text-xs text-[var(--muted-foreground)]">
+              <span>0 packs</span>
+              <span>500 packs</span>
+              <span>1,000 packs</span>
+              <span>2,000 packs</span>
+            </div>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-blue-950/20 border border-blue-500/30 text-xs text-blue-200 leading-relaxed">
+            💡 <strong>Indian Founder Reality:</strong> Even with only <strong>150 total active users</strong> across Delhi NCR and Bangalore, you clear over <strong>₹1,00,000 / month</strong> in pure take-home profit, out-earning most mid-level developer salaries.
+          </div>
+        </div>
+
+        <!-- Right: Revenue vs Expense Breakdown (5 cols) -->
+        <div class="lg:col-span-5 bg-[var(--card)] border border-[var(--border)] rounded-2xl p-6 shadow-sm space-y-5">
+          <h2 class="text-base font-bold text-[var(--foreground)]">Monthly Cash Flow Breakdown</h2>
+
+          <div class="space-y-3 text-xs">
+            <!-- FastTrack Rev -->
+            <div class="flex justify-between items-center py-1.5 border-b border-[var(--border)]">
+              <span class="text-[var(--muted-foreground)]">FastTrack Pro Subscriptions (₹499)</span>
+              <span class="font-mono font-bold text-[var(--foreground)]" id="rowFastTrackRev">₹59,880</span>
+            </div>
+            <!-- AutoPilot Rev -->
+            <div class="flex justify-between items-center py-1.5 border-b border-[var(--border)]">
+              <span class="text-[var(--muted-foreground)]">AI Auto-Pilot Subscriptions (₹1,299)</span>
+              <span class="font-mono font-bold text-[var(--foreground)]" id="rowAutoPilotRev">₹38,970</span>
+            </div>
+            <!-- Academy Rev -->
+            <div class="flex justify-between items-center py-1.5 border-b border-[var(--border)]">
+              <span class="text-[var(--muted-foreground)]">B2B Academy Seats (₹7,999)</span>
+              <span class="font-mono font-bold text-[var(--foreground)]" id="rowAcademyRev">₹15,998</span>
+            </div>
+            <!-- Sachet Rev -->
+            <div class="flex justify-between items-center py-1.5 border-b border-[var(--border)]">
+              <span class="text-[var(--muted-foreground)]">One-Time Sachet Packs (₹99)</span>
+              <span class="font-mono font-bold text-[var(--foreground)]" id="rowSachetRev">₹14,850</span>
+            </div>
+            <!-- Total Gross -->
+            <div class="flex justify-between items-center py-2 font-bold text-sm bg-blue-500/10 rounded-lg px-3">
+              <span class="text-blue-400">Total Monthly Inflow</span>
+              <span class="font-mono text-blue-400" id="rowTotalInflow">₹1,29,698</span>
+            </div>
+          </div>
+
+          <!-- Direct Deductions -->
+          <div class="space-y-2 pt-2 border-t border-[var(--border)] text-xs">
+            <div class="text-[var(--muted-foreground)] font-semibold uppercase tracking-wider text-[11px]">Direct Variable Costs:</div>
+            <div class="flex justify-between text-[var(--muted-foreground)]">
+              <span>Razorpay Fee (2% + 18% GST)</span>
+              <span class="font-mono text-rose-400" id="rowRazorpayFee">-₹3,061</span>
+            </div>
+            <div class="flex justify-between text-[var(--muted-foreground)]">
+              <span>Gemini Flash AI Tokens (ATS tailoring)</span>
+              <span class="font-mono text-rose-400" id="rowAiCost">-₹5,250</span>
+            </div>
+            <div class="flex justify-between text-[var(--muted-foreground)]">
+              <span>Job Search APIs (JSearch / Adzuna)</span>
+              <span class="font-mono text-rose-400" id="rowApiCost">-₹3,150</span>
+            </div>
+            <div class="flex justify-between text-[var(--muted-foreground)]">
+              <span>Supabase Cloud Database &amp; Cache</span>
+              <span class="font-mono text-rose-400" id="rowCloudCost">-₹2,100</span>
+            </div>
+          </div>
+
+          <!-- Final Take-Home -->
+          <div class="p-4 rounded-xl bg-emerald-950/20 border border-emerald-500/40 text-center space-y-1">
+            <div class="text-xs text-emerald-300 font-bold uppercase tracking-wider">Net Monthly Cash in Your Bank</div>
+            <div id="rowNetProfitLarge" class="text-3xl font-black text-emerald-400">₹1,16,137</div>
+            <div class="text-xs text-emerald-400/80 font-mono">Profit Margin: <span id="rowMarginPct">89.5%</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- TAB 2: FREE VS PAID CLOUD SERVICES MATRIX                     -->
+    <!-- ============================================================== -->
+    <div id="tab-services" class="tab-content space-y-6">
+      <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-6 shadow-sm space-y-4">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 border-b border-[var(--border)] pb-3">
+          <div>
+            <h2 class="text-base font-bold text-[var(--foreground)]">Free vs Paid Cloud Infrastructure for Solo Founders</h2>
+            <p class="text-xs text-[var(--muted-foreground)]">How to build and launch with zero external funding from Delhi.</p>
+          </div>
+          <span class="px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+            Founder Initial Fixed Cost: ₹499/Year (.in Domain)
+          </span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+          <!-- Database -->
+          <div class="border border-[var(--border)] rounded-xl p-4 bg-[var(--background)] space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-sm text-[var(--foreground)]">1. PostgreSQL Database &amp; Auth</span>
+              <span class="px-2 py-0.5 rounded text-xs font-bold bg-blue-500/20 text-blue-400">Database Layer</span>
+            </div>
+            <div class="grid grid-cols-2 gap-2 text-xs pt-1">
+              <div class="p-2.5 rounded-lg bg-[var(--card)] border border-[var(--border)]">
+                <div class="font-bold text-emerald-400">FREE TIER (Supabase)</div>
+                <div class="text-[var(--muted-foreground)] mt-1">500MB storage, 50k MAU, Row-Level Security, instant REST API.</div>
+                <div class="font-mono font-bold text-emerald-400 mt-2">Cost: ₹0 / month</div>
+              </div>
+              <div class="p-2.5 rounded-lg bg-[var(--card)] border border-[var(--border)]">
+                <div class="font-bold text-blue-400">PAID TIER (Supabase Pro)</div>
+                <div class="text-[var(--muted-foreground)] mt-1">8GB storage, daily backups, no auto-pausing. Upgrade when at 500+ users.</div>
+                <div class="font-mono font-bold text-blue-400 mt-2">Cost: ₹2,100 / mo ($25)</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- AI Model -->
+          <div class="border border-[var(--border)] rounded-xl p-4 bg-[var(--background)] space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-sm text-[var(--foreground)]">2. Generative AI Engine (ATS Scoring)</span>
+              <span class="px-2 py-0.5 rounded text-xs font-bold bg-purple-500/20 text-purple-400">AI Layer</span>
+            </div>
+            <div class="grid grid-cols-2 gap-2 text-xs pt-1">
+              <div class="p-2.5 rounded-lg bg-[var(--card)] border border-[var(--border)]">
+                <div class="font-bold text-emerald-400">FREE TIER (Gemini Flash)</div>
+                <div class="text-[var(--muted-foreground)] mt-1">15 requests/min, 1,500 calls/day 100% FREE in Google AI Studio.</div>
+                <div class="font-mono font-bold text-emerald-400 mt-2">Cost: ₹0 / month</div>
+              </div>
+              <div class="p-2.5 rounded-lg bg-[var(--card)] border border-[var(--border)]">
+                <div class="font-bold text-purple-400">PAID TIER (Gemini PayGo)</div>
+                <div class="text-[var(--muted-foreground)] mt-1">₹0.006 per 1k tokens. 500,000 tokens costs only ₹350/mo.</div>
+                <div class="font-mono font-bold text-purple-400 mt-2">Cost: ~₹350 / month</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Inbound Poller -->
+          <div class="border border-[var(--border)] rounded-xl p-4 bg-[var(--background)] space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-sm text-[var(--foreground)]">3. Gmail Inbound Recruiter Poller</span>
+              <span class="px-2 py-0.5 rounded text-xs font-bold bg-amber-500/20 text-amber-400">Sync Engine</span>
+            </div>
+            <div class="grid grid-cols-2 gap-2 text-xs pt-1">
+              <div class="p-2.5 rounded-lg bg-[var(--card)] border border-[var(--border)]">
+                <div class="font-bold text-emerald-400">FREE TIER (Node.js IMAP)</div>
+                <div class="text-[var(--muted-foreground)] mt-1">Direct IMAP socket on port 993. Built-in, zero middleman, zero fees.</div>
+                <div class="font-mono font-bold text-emerald-400 mt-2">Cost: ₹0 / month</div>
+              </div>
+              <div class="p-2.5 rounded-lg bg-[var(--card)] border border-[var(--border)]">
+                <div class="font-bold text-amber-400">PAID APIS (Nylas / Aurinko)</div>
+                <div class="text-[var(--muted-foreground)] mt-1">Unified email sync APIs. Expensive subscription minimums.</div>
+                <div class="font-mono font-bold text-amber-400 mt-2">Cost: ₹8,000+ / mo ($99)</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Payment Gateway -->
+          <div class="border border-[var(--border)] rounded-xl p-4 bg-[var(--background)] space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-sm text-[var(--foreground)]">4. Payment Gateway (UPI Autopay)</span>
+              <span class="px-2 py-0.5 rounded text-xs font-bold bg-emerald-500/20 text-emerald-400">Monetization</span>
+            </div>
+            <div class="grid grid-cols-2 gap-2 text-xs pt-1">
+              <div class="p-2.5 rounded-lg bg-[var(--card)] border border-[var(--border)]">
+                <div class="font-bold text-emerald-400">FREE SETUP (Razorpay)</div>
+                <div class="text-[var(--muted-foreground)] mt-1">₹0 setup fee, ₹0 monthly maintenance fee. Pay only when you earn.</div>
+                <div class="font-mono font-bold text-emerald-400 mt-2">Cost: ₹0 Fixed Fee</div>
+              </div>
+              <div class="p-2.5 rounded-lg bg-[var(--card)] border border-[var(--border)]">
+                <div class="font-bold text-emerald-400">TRANSACTION FEE</div>
+                <div class="text-[var(--muted-foreground)] mt-1">2% flat on domestic UPI, Debit/Credit cards + 18% GST on fee.</div>
+                <div class="font-mono font-bold text-emerald-400 mt-2">Fee: 2.36% per sale</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- TAB 3: INDIAN CONSUMER TIERS & PRICING PSYCHOLOGY             -->
+    <!-- ============================================================== -->
+    <div id="tab-pricing" class="tab-content space-y-6">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+        
+        <!-- Sachet Pack -->
+        <div class="bg-[var(--card)] border border-amber-500/40 rounded-2xl p-5 shadow-sm space-y-3">
+          <span class="px-2.5 py-0.5 rounded-full text-xs font-black bg-amber-500/20 text-amber-400">TRIAL HOOK</span>
+          <h3 class="text-base font-bold text-[var(--foreground)]">₹99 Trial Pack</h3>
+          <div class="text-2xl font-black text-amber-400">₹99 <span class="text-xs font-normal text-[var(--muted-foreground)]">one-time</span></div>
+          <p class="text-xs text-[var(--muted-foreground)]">Instant QR code on PhonePe/Paytm. Lowest friction impulse purchase in India.</p>
+          <ul class="text-xs space-y-1.5 text-[var(--muted-foreground)] pt-2 border-t border-[var(--border)]">
+            <li>✓ 25 Verified Tech Job Leads</li>
+            <li>✓ 5 1-Click ATS Dispatches</li>
+            <li>✓ Master ATS Resume Score</li>
+            <li>✓ 7-Day Access</li>
+          </ul>
+        </div>
+
+        <!-- FastTrack Pro -->
+        <div class="bg-[var(--card)] border-2 border-blue-500 rounded-2xl p-5 shadow-sm space-y-3 relative">
+          <span class="px-2.5 py-0.5 rounded-full text-xs font-black bg-blue-500 text-white">CORE BREAD &amp; BUTTER</span>
+          <h3 class="text-base font-bold text-blue-400">FastTrack Pro</h3>
+          <div class="text-2xl font-black text-blue-400">₹499 <span class="text-xs font-normal text-[var(--muted-foreground)]">/ month</span></div>
+          <p class="text-xs text-[var(--muted-foreground)]">Sweet spot for active engineers hunting switches in Gurgaon/Bangalore.</p>
+          <ul class="text-xs space-y-1.5 text-[var(--muted-foreground)] pt-2 border-t border-[var(--border)]">
+            <li>✓ 100 Tracked Applications</li>
+            <li>✓ <strong>30 Automated Dispatches / mo</strong></li>
+            <li>✓ <strong>Live Gmail Recruiter Poller</strong></li>
+            <li>✓ 1-Click Tailored Cover Letters</li>
+            <li>✓ Full FY25 Tax &amp; In-Hand Tool</li>
+          </ul>
+        </div>
+
+        <!-- AI Auto-Pilot -->
+        <div class="bg-[var(--card)] border border-purple-500/40 rounded-2xl p-5 shadow-sm space-y-3">
+          <span class="px-2.5 py-0.5 rounded-full text-xs font-black bg-purple-500/20 text-purple-400">HIGH-VALUE TIER</span>
+          <h3 class="text-base font-bold text-purple-400">AI Auto-Pilot</h3>
+          <div class="text-2xl font-black text-purple-400">₹1,299 <span class="text-xs font-normal text-[var(--muted-foreground)]">/ month</span></div>
+          <p class="text-xs text-[var(--muted-foreground)]">For candidates aiming for ₹20 LPA to ₹45 LPA top tier engineering roles.</p>
+          <ul class="text-xs space-y-1.5 text-[var(--muted-foreground)] pt-2 border-t border-[var(--border)]">
+            <li>✓ <strong>Unlimited Tracked Jobs</strong></li>
+            <li>✓ <strong>120 Dispatches / month</strong></li>
+            <li>✓ Daily Scraper Feed (NCR/Remote)</li>
+            <li>✓ AI Voice Mock Interview Coach</li>
+            <li>✓ Recruiter Email Enrichment</li>
+          </ul>
+        </div>
+
+        <!-- B2B Academy -->
+        <div class="bg-[var(--card)] border border-emerald-500/40 rounded-2xl p-5 shadow-sm space-y-3">
+          <span class="px-2.5 py-0.5 rounded-full text-xs font-black bg-emerald-500/20 text-emerald-400">B2B COHORT REVENUE</span>
+          <h3 class="text-base font-bold text-emerald-400">B2B Placement Hub</h3>
+          <div class="text-2xl font-black text-emerald-400">₹7,999 <span class="text-xs font-normal text-[var(--muted-foreground)]">/ month</span></div>
+          <p class="text-xs text-[var(--muted-foreground)]">Sold directly to coding bootcamps and placement directors.</p>
+          <ul class="text-xs space-y-1.5 text-[var(--muted-foreground)] pt-2 border-t border-[var(--border)]">
+            <li>✓ <strong>20 Candidate Seats</strong></li>
+            <li>✓ Multi-User RBAC (Write/View)</li>
+            <li>✓ Placement Officer Dashboard</li>
+            <li>✓ Cohort Real-Time Interview Rate</li>
+            <li>✓ Bulk Candidate Resume Upload</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- TAB 4: COMPETITOR TEARDOWN (NAUKRI & LINKEDIN)                -->
+    <!-- ============================================================== -->
+    <div id="tab-competitors" class="tab-content space-y-6">
+      <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-6 shadow-sm space-y-4">
+        <h2 class="text-base font-bold text-[var(--foreground)]">Direct Competitor Comparison (Indian Market)</h2>
+        <div class="overflow-x-auto">
+          <table class="w-full text-xs text-left border-collapse">
+            <thead>
+              <tr class="border-b border-[var(--border)] text-[var(--muted-foreground)]">
+                <th class="py-2 px-3">Service</th>
+                <th class="py-2 px-3">Price (INR)</th>
+                <th class="py-2 px-3">What They Actually Deliver</th>
+                <th class="py-2 px-3">The Catch / Problem</th>
+                <th class="py-2 px-3 text-emerald-400">Why TalentFlow AI Beats Them</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-[var(--border)]">
+              <tr>
+                <td class="py-3 px-3 font-bold text-white">Naukri FastForward</td>
+                <td class="py-3 px-3 text-rose-400 font-mono">₹3,500 – ₹9,000</td>
+                <td class="py-3 px-3">Highlights resume in recruiter searches; blasts CV to recruitment consultancies.</td>
+                <td class="py-3 px-3 text-rose-300">Floods candidate with spam calls from shady 3rd-party consultancies. Zero transparency.</td>
+                <td class="py-3 px-3 text-emerald-300 font-medium">Transparent, verifiable direct dispatches. Filters spam. Bidirectional Gmail sync.</td>
+              </tr>
+              <tr>
+                <td class="py-3 px-3 font-bold text-white">LinkedIn Premium India</td>
+                <td class="py-3 px-3 text-rose-400 font-mono">₹1,550 – ₹2,400/mo</td>
+                <td class="py-3 px-3">5 InMails/month, profile viewer insights, salary insights.</td>
+                <td class="py-3 px-3 text-rose-300">Doesn't automate applications. Doesn't monitor Gmail. Requires manual form filling.</td>
+                <td class="py-3 px-3 text-emerald-300 font-medium">1/3rd the price (₹499/mo). Automated ATS dispatches with attached resume.</td>
+              </tr>
+              <tr>
+                <td class="py-3 px-3 font-bold text-white">Cutshort / Instahyre</td>
+                <td class="py-3 px-3 text-blue-400 font-mono">Free for candidates</td>
+                <td class="py-3 px-3">Curated tech listings; candidates wait for company recruiters to message them.</td>
+                <td class="py-3 px-3 text-rose-300">Passive waiting game. If HR doesn't browse your profile, you get zero calls.</td>
+                <td class="py-3 px-3 text-emerald-300 font-medium">Proactive &amp; candidate-driven. Outreaches to hiring managers directly.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- TAB 5: DELHI NCR GO-TO-MARKET PLAYBOOK                        -->
+    <!-- ============================================================== -->
+    <div id="tab-gtm" class="tab-content space-y-6">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        
+        <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-5 shadow-sm space-y-3">
+          <div class="text-2xl">🎓</div>
+          <h3 class="text-base font-bold text-[var(--foreground)]">1. Delhi NCR Tech Colleges</h3>
+          <p class="text-xs text-[var(--muted-foreground)] leading-relaxed">
+            Target final year B.Tech students at DTU, NSUT, IIIT Delhi, USICT, and private colleges in Noida/Greater Noida (Galgotias, Amity, Bennett). Offer the ₹99 Trial Pack or free ATS resume audits on student WhatsApp &amp; Telegram groups.
+          </p>
+        </div>
+
+        <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-5 shadow-sm space-y-3">
+          <div class="text-2xl">🏢</div>
+          <h3 class="text-base font-bold text-[var(--foreground)]">2. Gurgaon &amp; Noida Switchers</h3>
+          <p class="text-xs text-[var(--muted-foreground)] leading-relaxed">
+            Target service-company engineers (TCS, Infosys, Wipro, Nagarro, HCL) in Gurgaon Cyber City and Noida Sector 62 aiming for product company salaries (Zomato, Swiggy, Paytm, MakeMyTrip). Post LinkedIn teardowns comparing real recruiter response rates.
+          </p>
+        </div>
+
+        <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-5 shadow-sm space-y-3">
+          <div class="text-2xl">🤝</div>
+          <h3 class="text-base font-bold text-[var(--foreground)]">3. Coding Bootcamp Partnerships</h3>
+          <p class="text-xs text-[var(--muted-foreground)] leading-relaxed">
+            Pitch the ₹7,999/mo B2B Academy Hub to career directors at Masai School, Coding Ninjas, Newton School, and Scaler. Give their placement team a unified live dashboard tracking every test link and interview invite their students receive.
+          </p>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // Tab Switching Function
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.className = 'tab-btn px-4 py-2 rounded-xl text-xs font-semibold text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-[var(--card)] transition';
+      });
+
+      const targetTab = document.getElementById('tab-' + tabId);
+      const targetBtn = document.getElementById('tabBtn-' + tabId);
+      if (targetTab) targetTab.classList.add('active');
+      if (targetBtn) {
+        targetBtn.className = 'tab-btn px-4 py-2 rounded-xl text-xs font-bold bg-blue-600 text-white shadow-sm transition';
+      }
+    }
+
+    // Interactive Profit Calculation Engine (INR)
+    function calculateProfit() {
+      const fastTrackCount = parseInt(document.getElementById('inputFastTrack').value) || 0;
+      const autoPilotCount = parseInt(document.getElementById('inputAutoPilot').value) || 0;
+      const academyCount = parseInt(document.getElementById('inputAcademy').value) || 0;
+      const sachetCount = parseInt(document.getElementById('inputSachet').value) || 0;
+
+      // Update text values next to sliders
+      document.getElementById('valFastTrackCount').textContent = fastTrackCount + ' users';
+      document.getElementById('valAutoPilotCount').textContent = autoPilotCount + ' users';
+      document.getElementById('valAcademyCount').textContent = academyCount + ' academies';
+      document.getElementById('valSachetCount').textContent = sachetCount + ' packs';
+
+      // Revenue Calculation
+      const revFastTrack = fastTrackCount * 499;
+      const revAutoPilot = autoPilotCount * 1299;
+      const revAcademy = academyCount * 7999;
+      const revSachet = sachetCount * 99;
+      const grossRev = revFastTrack + revAutoPilot + revAcademy + revSachet;
+
+      // Direct Cost Calculation
+      // Razorpay: 2% + 18% GST on fee = 2.36% of gross
+      const razorpayFee = Math.round(grossRev * 0.0236);
+      
+      // Gemini Flash Tokens: ~₹35 per active pro user
+      const totalActiveUsers = fastTrackCount + autoPilotCount + (academyCount * 15);
+      const aiCost = Math.round(totalActiveUsers * 35);
+
+      // Scraper APIs: ~₹25 per active pro user
+      const apiCost = Math.round(totalActiveUsers * 25);
+
+      // Supabase & Redis: ₹0 on free tier until 400 users, then ₹2,100/mo
+      const cloudCost = totalActiveUsers > 400 ? 2100 : 0;
+
+      const totalCosts = razorpayFee + aiCost + apiCost + cloudCost;
+      const netProfit = Math.max(0, grossRev - totalCosts);
+      const marginPct = grossRev > 0 ? ((netProfit / grossRev) * 100).toFixed(1) : 0;
+      const arrLakhs = ((grossRev * 12) / 100000).toFixed(1);
+
+      // Update Top Metrics
+      document.getElementById('metricGrossRev').textContent = '₹' + grossRev.toLocaleString('en-IN');
+      document.getElementById('metricDirectCost').textContent = '₹' + totalCosts.toLocaleString('en-IN');
+      document.getElementById('metricNetProfit').textContent = '₹' + netProfit.toLocaleString('en-IN');
+      document.getElementById('metricArr').textContent = '₹' + arrLakhs + ' Lakhs';
+
+      // Update Breakdown Table Rows
+      document.getElementById('rowFastTrackRev').textContent = '₹' + revFastTrack.toLocaleString('en-IN');
+      document.getElementById('rowAutoPilotRev').textContent = '₹' + revAutoPilot.toLocaleString('en-IN');
+      document.getElementById('rowAcademyRev').textContent = '₹' + revAcademy.toLocaleString('en-IN');
+      document.getElementById('rowSachetRev').textContent = '₹' + revSachet.toLocaleString('en-IN');
+      document.getElementById('rowTotalInflow').textContent = '₹' + grossRev.toLocaleString('en-IN');
+
+      document.getElementById('rowRazorpayFee').textContent = '-₹' + razorpayFee.toLocaleString('en-IN');
+      document.getElementById('rowAiCost').textContent = '-₹' + aiCost.toLocaleString('en-IN');
+      document.getElementById('rowApiCost').textContent = '-₹' + apiCost.toLocaleString('en-IN');
+      document.getElementById('rowCloudCost').textContent = '-₹' + cloudCost.toLocaleString('en-IN');
+
+      document.getElementById('rowNetProfitLarge').textContent = '₹' + netProfit.toLocaleString('en-IN');
+      document.getElementById('rowMarginPct').textContent = marginPct + '%';
+    }
+
+    function resetSliders() {
+      document.getElementById('inputFastTrack').value = 120;
+      document.getElementById('inputAutoPilot').value = 30;
+      document.getElementById('inputAcademy').value = 2;
+      document.getElementById('inputSachet').value = 150;
+      calculateProfit();
+    }
+
+    // Initialize on load
+    document.addEventListener('DOMContentLoaded', calculateProfit);
+  </script>
+</body>
+</html>
