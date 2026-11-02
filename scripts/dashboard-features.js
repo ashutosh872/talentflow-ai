@@ -30,20 +30,31 @@ function toggleBurgerMenu() {
   const drawer = document.getElementById('burgerMenuDrawer');
   const overlay = document.getElementById('burgerMenuOverlay');
   if (!drawer) return;
-  const isHidden = drawer.classList.contains('translate-x-full');
-  if (isHidden) {
-    drawer.classList.remove('translate-x-full');
-    if (overlay) overlay.classList.remove('hidden');
+  const isClosed = drawer.classList.contains('hidden') || drawer.classList.contains('translate-x-full');
+  if (isClosed) {
+    drawer.classList.remove('hidden');
+    requestAnimationFrame(() => {
+      drawer.classList.remove('translate-x-full');
+      if (overlay) overlay.classList.remove('hidden');
+    });
   } else {
     drawer.classList.add('translate-x-full');
     if (overlay) overlay.classList.add('hidden');
+    setTimeout(() => {
+      if (drawer.classList.contains('translate-x-full')) drawer.classList.add('hidden');
+    }, 280);
   }
 }
 
 function closeBurgerMenu() {
   const drawer = document.getElementById('burgerMenuDrawer');
   const overlay = document.getElementById('burgerMenuOverlay');
-  if (drawer) drawer.classList.add('translate-x-full');
+  if (drawer) {
+    drawer.classList.add('translate-x-full');
+    setTimeout(() => {
+      if (drawer.classList.contains('translate-x-full')) drawer.classList.add('hidden');
+    }, 280);
+  }
   if (overlay) overlay.classList.add('hidden');
 }
 
@@ -449,21 +460,21 @@ async function renderRepliesTab() {
             </div>
           </div>
 
-          <!-- Interactive Filter Chips -->
-          <div class="flex items-center gap-1.5 overflow-x-auto pt-1 border-t border-slate-800">
-            <button onclick="setRepliesFilter('all')" data-filter="all" class="replies-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold ${currentRepliesFilter === 'all' ? 'bg-blue-600 text-white' : 'bg-slate-900 text-slate-300 border border-slate-700 hover:bg-slate-800'} transition shrink-0">
+          <!-- Interactive Filter Chips (Responsive Wrapping) -->
+          <div class="flex flex-wrap items-center gap-1.5 pt-1 border-t border-slate-800">
+            <button onclick="setRepliesFilter('all')" data-filter="all" class="replies-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold ${currentRepliesFilter === 'all' ? 'bg-blue-600 text-white' : 'bg-slate-900 text-slate-300 border border-slate-700 hover:bg-slate-800'} transition">
               All Inbound Responses (${cachedInboundReplies.length})
             </button>
-            <button onclick="setRepliesFilter('direct')" data-filter="direct" class="replies-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold ${currentRepliesFilter === 'direct' ? 'bg-blue-600 text-white' : 'bg-slate-900 text-slate-300 border border-slate-700 hover:bg-slate-800'} transition shrink-0">
+            <button onclick="setRepliesFilter('direct')" data-filter="direct" class="replies-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold ${currentRepliesFilter === 'direct' ? 'bg-blue-600 text-white' : 'bg-slate-900 text-slate-300 border border-slate-700 hover:bg-slate-800'} transition">
               🎯 Interviews &amp; Inquiries (${directCount})
             </button>
-            <button onclick="setRepliesFilter('tech')" data-filter="tech" class="replies-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold ${currentRepliesFilter === 'tech' ? 'bg-blue-600 text-white' : 'bg-slate-900 text-slate-300 border border-slate-700 hover:bg-slate-800'} transition shrink-0">
+            <button onclick="setRepliesFilter('tech')" data-filter="tech" class="replies-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold ${currentRepliesFilter === 'tech' ? 'bg-blue-600 text-white' : 'bg-slate-900 text-slate-300 border border-slate-700 hover:bg-slate-800'} transition">
               💻 Technical Assessments (${techCount})
             </button>
-            <button onclick="setRepliesFilter('offer')" data-filter="offer" class="replies-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold ${currentRepliesFilter === 'offer' ? 'bg-blue-600 text-white' : 'bg-slate-900 text-slate-300 border border-slate-700 hover:bg-slate-800'} transition shrink-0">
+            <button onclick="setRepliesFilter('offer')" data-filter="offer" class="replies-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold ${currentRepliesFilter === 'offer' ? 'bg-blue-600 text-white' : 'bg-slate-900 text-slate-300 border border-slate-700 hover:bg-slate-800'} transition">
               🏆 Job Offers (${offerCount})
             </button>
-            <button onclick="setRepliesFilter('receipts')" data-filter="receipts" class="replies-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold ${currentRepliesFilter === 'receipts' ? 'bg-blue-600 text-white' : 'bg-slate-900 text-slate-300 border border-slate-700 hover:bg-slate-800'} transition shrink-0">
+            <button onclick="setRepliesFilter('receipts')" data-filter="receipts" class="replies-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold ${currentRepliesFilter === 'receipts' ? 'bg-blue-600 text-white' : 'bg-slate-900 text-slate-300 border border-slate-700 hover:bg-slate-800'} transition">
               📬 Submission Receipts (${receiptCount})
             </button>
           </div>
@@ -495,9 +506,9 @@ function renderRepliesList() {
   // Update filter buttons appearance
   document.querySelectorAll('.replies-filter-btn').forEach(btn => {
     if (btn.dataset.filter === currentRepliesFilter) {
-      btn.className = 'replies-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-blue-600 text-white transition shrink-0';
+      btn.className = 'replies-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-blue-600 text-white transition';
     } else {
-      btn.className = 'replies-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-900 text-slate-300 border border-slate-700 hover:bg-slate-800 transition shrink-0';
+      btn.className = 'replies-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-900 text-slate-300 border border-slate-700 hover:bg-slate-800 transition';
     }
   });
 
@@ -1396,72 +1407,40 @@ async function initCandidateManager() {
 
   renderCandidateDropdown();
   switchCandidate(initialCand.id, false);
+
+  // Dynamic job listing search on page load
+  await loadDynamicJobsOnStart(false);
+}
+
+async function loadDynamicJobsOnStart(forceRefresh = false) {
+  try {
+    const candId = 'ashutosh-kumar';
+    const url = '/api/jobs?candidateId=' + candId + (forceRefresh ? '&refresh=true' : '');
+    const res = await fetch(url);
+    if (res.ok) {
+      const data = await res.json();
+      if (data.jobs && data.jobs.length > 0) {
+        window.jobs = data.jobs;
+        if (typeof jobsData !== 'undefined') window.jobsData = data.jobs;
+        if (data.candidate && typeof currentCandidate !== 'undefined' && currentCandidate) {
+          Object.assign(currentCandidate, data.candidate);
+        }
+        if (typeof renderJobs === 'function') renderJobs();
+        if (typeof renderRecommendationsView === 'function') renderRecommendationsView();
+        if (typeof renderOverviewView === 'function') renderOverviewView();
+        if (typeof renderProfileTabView === 'function') renderProfileTabView();
+        if (typeof renderKanban === 'function' && currentActiveTab === 'kanban') renderKanban();
+        if (typeof updateFilterChipCounters === 'function') updateFilterChipCounters();
+      }
+    }
+  } catch (err) {
+    console.warn('[Dynamic Jobs Load]', err.message);
+  }
 }
 
 function renderCandidateDropdown() {
   const container = document.getElementById('candidateSelectorContainer');
-  if (!container) return;
-
-  const isVerifiedAdmin = currentCandidate && currentCandidate.isAdmin;
-  const isVerifiedCand = currentCandidate && currentCandidate.isVerified;
-
-  container.innerHTML = `
-    <div class="relative inline-block text-left">
-      <button onclick="toggleCandidateDropdown()" id="candidateDropdownBtn" class="touch-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-[#111827] text-white border border-slate-700 hover:border-blue-500 transition flex items-center gap-2 shadow-xs">
-        <span class="text-base" id="activeCandAvatar">${currentCandidate ? currentCandidate.avatar : '👨‍💻'}</span>
-        <div class="text-left leading-tight hidden sm:block">
-          <div class="text-white font-extrabold text-[11px] flex items-center gap-1" id="activeCandName">
-            <span>${currentCandidate ? currentCandidate.name : 'Ashutosh Kumar'}</span>
-            ${isVerifiedAdmin ? '<span class="text-[10px] text-amber-400" title="Workspace Admin">🛡️</span>' : (isVerifiedCand ? '<span class="text-[10px] text-emerald-400" title="Email Verified">✓</span>' : '<span class="text-[10px] text-amber-400" title="Email Pending">⏳</span>')}
-          </div>
-          <div class="text-[9px] text-slate-400 font-mono" id="activeCandRole">${currentCandidate ? currentCandidate.title.slice(0, 22) + '...' : 'Senior Frontend'}</div>
-        </div>
-        <span class="text-[10px] text-slate-400">▼</span>
-      </button>
-
-      <div id="candidateDropdownMenu" class="hidden absolute right-0 mt-2 w-72 rounded-2xl bg-[#111827] border border-slate-700 shadow-2xl z-50 overflow-hidden divide-y divide-slate-800">
-        <div class="p-2.5 bg-slate-900/80 flex items-center justify-between text-xs">
-          <span class="font-bold text-slate-400 uppercase tracking-wider text-[10px]">Switch Candidate View</span>
-          <button onclick="openAddCandidateModal()" class="px-2 py-0.5 rounded bg-blue-600/30 text-blue-300 hover:bg-blue-600 hover:text-white border border-blue-500/40 text-[10px] font-bold transition">
-            + Add Profile
-          </button>
-        </div>
-        <div class="p-1 space-y-1 max-h-60 overflow-y-auto" id="candidateOptionsList">
-          ${allCandidatesList.map(c => `
-            <button onclick="switchCandidate('${c.id}')" class="w-full text-left p-2 rounded-xl text-xs hover:bg-slate-800 transition flex items-center justify-between gap-2 ${currentCandidate && currentCandidate.id === c.id ? 'bg-blue-600/20 text-white font-bold border border-blue-500/30' : 'text-slate-300'}">
-              <div class="flex items-center gap-2">
-                <span class="text-lg">${c.avatar || '👤'}</span>
-                <div>
-                  <div class="font-bold flex items-center gap-1.5">
-                    <span>${c.name}</span>
-                    ${c.isAdmin ? '<span class="px-1.5 py-0.2 rounded text-[9px] font-extrabold bg-amber-500/20 text-amber-300 border border-amber-500/40">ADMIN</span>' : (c.isVerified ? '<span class="px-1.5 py-0.2 rounded text-[9px] font-extrabold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">VERIFIED</span>' : '<span class="px-1.5 py-0.2 rounded text-[9px] font-bold bg-amber-500/20 text-amber-400 border border-amber-500/40">PENDING</span>')}
-                  </div>
-                  <div class="text-[10px] text-slate-400 font-mono">${c.experienceLabel} • ${c.title.slice(0, 24)}</div>
-                </div>
-              </div>
-              ${currentCandidate && currentCandidate.id === c.id ? '<span class="text-blue-400 font-bold">✓</span>' : ''}
-            </button>
-          `).join('')}
-        </div>
-        <div class="p-2 bg-slate-900/60 flex flex-col gap-1 text-xs">
-          ${currentCandidate && currentCandidate.resumeFile ? `
-            <a href="/${currentCandidate.resumeFile}" target="_blank" rel="noopener noreferrer" class="w-full text-center py-1.5 rounded-lg bg-blue-600/20 hover:bg-blue-600 hover:text-white text-blue-300 font-bold text-[11px] transition flex items-center justify-center gap-1.5">
-              <span>📄</span> <span>View Candidate Resume ↗</span>
-            </a>
-          ` : ''}
-          <a href="/profile.html?candidate=${currentCandidate ? currentCandidate.id : ''}" class="w-full text-center py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-[11px] font-semibold transition flex items-center justify-center gap-1.5">
-            <span>👤</span> <span>Candidate Profile Hub ↗</span>
-          </a>
-          <a href="/users.html" class="w-full text-center py-1.5 rounded-lg bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border border-amber-500/30 text-[11px] font-bold transition flex items-center justify-center gap-1.5">
-            <span>🛡️</span> <span>User &amp; Access Management (Admin) ↗</span>
-          </a>
-          <button onclick="copyCandidateShareLink()" class="w-full text-center py-1.5 rounded-lg bg-slate-800/60 hover:bg-slate-800 text-slate-300 text-[11px] font-medium transition flex items-center justify-center gap-1.5">
-            <span>🔗</span> <span>Copy Client Share Link</span>
-          </button>
-        </div>
-      </div>
-    </div>
-  `;
+  if (container) container.innerHTML = '';
 }
 
 function toggleCandidateDropdown() {
@@ -1517,10 +1496,8 @@ function switchCandidate(candId, updateUrl = true) {
   if (verifyBadge) {
     if (target.isAdmin) {
       verifyBadge.innerHTML = '<span class="px-2.5 py-0.5 rounded-md text-[10px] font-extrabold bg-amber-500/20 text-amber-300 border border-amber-500/40 uppercase tracking-wider flex items-center gap-1"><span>🛡️ Verified Admin</span></span>';
-    } else if (target.isVerified) {
-      verifyBadge.innerHTML = '<span class="px-2.5 py-0.5 rounded-md text-[10px] font-extrabold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 uppercase tracking-wider flex items-center gap-1"><span>✓ Email Verified</span></span>';
     } else {
-      verifyBadge.innerHTML = `<button onclick="openVerifyModal('${target.id}')" class="touch-btn px-2.5 py-0.5 rounded-md text-[10px] font-extrabold bg-amber-500/20 text-amber-300 border border-amber-500/40 hover:bg-amber-500/30 transition flex items-center gap-1 cursor-pointer" title="Candidate Email Not Verified — Click to Verify"><span>⏳ Pending Verification</span> <span class="underline text-blue-400 font-bold ml-1">Verify Email ✉️</span></button>`;
+      verifyBadge.innerHTML = '<span class="px-2.5 py-0.5 rounded-md text-[10px] font-extrabold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 uppercase tracking-wider flex items-center gap-1"><span>✓ Email Verified</span></span>';
     }
   }
 
@@ -1579,192 +1556,7 @@ function copyCandidateShareLink() {
   });
 }
 
-function openAddCandidateModal() {
-  const modal = document.getElementById('addCandidateModal');
-  if (modal) modal.classList.remove('hidden');
-}
 
-function closeAddCandidateModal() {
-  const modal = document.getElementById('addCandidateModal');
-  if (modal) modal.classList.add('hidden');
-}
-
-async function handleAddCandidateSubmit(e) {
-  if (e) e.preventDefault();
-
-  const name = document.getElementById('newCandName')?.value.trim();
-  const title = document.getElementById('newCandTitle')?.value.trim();
-  const exp = document.getElementById('newCandExp')?.value.trim();
-  const notice = document.getElementById('newCandNotice')?.value.trim();
-  const ctcCur = document.getElementById('newCandCurrentCtc')?.value.trim();
-  const ctcTarget = document.getElementById('newCandTargetCtc')?.value.trim();
-  const email = document.getElementById('newCandEmail')?.value.trim();
-  const skills = document.getElementById('newCandSkills')?.value.trim();
-  const avatar = document.getElementById('newCandAvatar')?.value.trim() || '👤';
-
-  if (!name || !title) {
-    alert('Please enter Candidate Name and Target Job Title.');
-    return;
-  }
-
-  // Handle optional resume upload
-  const resumeInput = document.getElementById('newCandResume');
-  const resumeFile = resumeInput && resumeInput.files ? resumeInput.files[0] : null;
-  let resumeBase64 = null;
-  let resumeFileName = null;
-  if (resumeFile) {
-    resumeFileName = resumeFile.name;
-    resumeBase64 = await new Promise((resolve) => {
-      const reader = new FileReader();
-      reader.onload = () => resolve(reader.result);
-      reader.readAsDataURL(resumeFile);
-    });
-  }
-
-  const accessSelect = document.getElementById('newCandAccessRole');
-  const accessLevel = accessSelect ? accessSelect.value : 'write';
-  let role = 'editor';
-  let access = 'write';
-  if (accessLevel === 'admin') { role = 'admin'; access = 'write'; }
-  else if (accessLevel === 'read') { role = 'viewer'; access = 'read'; }
-
-  const payload = {
-    name,
-    avatar,
-    title,
-    role,
-    access,
-    isAdmin: role === 'admin',
-    resumeBase64,
-    resumeFileName,
-    experienceYears: parseFloat(exp) || 5,
-    noticePeriod: notice || 'Immediate to 30 Days',
-    currentCtc: ctcCur ? `₹${ctcCur} LPA` : '₹10,00,000 PA',
-    currentCtcVal: parseFloat(ctcCur) || 10,
-    targetCtc: ctcTarget ? `₹${ctcTarget} LPA` : '₹18,00,000+ PA',
-    targetCtcMin: parseFloat(ctcTarget) || 18,
-    email: email || 'candidate@example.com',
-    coreStack: skills ? skills.split(',').map(s => s.trim()) : ['JavaScript', 'HTML5', 'CSS3']
-  };
-
-  try {
-    const res = await fetch('/api/candidates', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    });
-
-    if (res.ok) {
-      const data = await res.json();
-      allCandidatesList.push(data.candidate);
-      closeAddCandidateModal();
-      switchCandidate(data.candidate.id, true);
-      showReloadToast(`✓ Added ${data.candidate.name} to Candidate Registry!`);
-    } else {
-      showReloadToast('Candidate created locally.');
-      closeAddCandidateModal();
-    }
-  } catch (err) {
-    console.warn('[Add Candidate] Error:', err);
-    closeAddCandidateModal();
-  }
-}
-
-
-let verifyingCandidateId = null;
-
-function openVerifyModal(candidateId) {
-  const cand = allCandidatesList.find(c => c.id === candidateId) || currentCandidate;
-  if (!cand) return;
-  verifyingCandidateId = cand.id;
-
-  const modal = document.getElementById('verifyCandidateModal');
-  const candInfo = document.getElementById('verifyCandNameEmail');
-  const otpInput = document.getElementById('verifyOtpCodeInput');
-  const link = document.getElementById('verifyViewDispatchLink');
-
-  if (candInfo) candInfo.textContent = `${cand.name} (${cand.email})`;
-  if (otpInput) otpInput.value = cand.verificationOtp || '482910';
-  if (link) link.href = `/api/candidates/verify?id=${cand.id}&code=${cand.verificationOtp || '482910'}`;
-
-  if (modal) modal.classList.remove('hidden');
-}
-
-function closeVerifyModal() {
-  const modal = document.getElementById('verifyCandidateModal');
-  if (modal) modal.classList.add('hidden');
-}
-
-async function submitCandidateOtp() {
-  const input = document.getElementById('verifyOtpCodeInput');
-  const code = input ? input.value.trim() : '';
-  if (!code) {
-    alert('Please enter the 6-digit OTP code.');
-    return;
-  }
-
-  const candId = verifyingCandidateId || (currentCandidate ? currentCandidate.id : 'test-candidate');
-
-  try {
-    const res = await fetch('/api/candidates/verify-otp', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ candidateId: candId, otpCode: code })
-    });
-
-    const data = await res.json();
-    if (res.ok && data.verified) {
-      showReloadToast(`✓ Success! ${data.candidate.name}'s email is now verified!`);
-      const idx = allCandidatesList.findIndex(c => c.id === candId);
-      if (idx !== -1) {
-        allCandidatesList[idx] = data.candidate;
-      }
-      closeVerifyModal();
-      switchCandidate(candId, false);
-      renderCandidateDropdown();
-    } else {
-      alert(data.error || 'Invalid OTP code. Please check your verification email.');
-    }
-  } catch (err) {
-    console.warn('[Verify OTP Error]:', err);
-    alert('Verification failed. Please try again.');
-  }
-}
-
-async function resendCandidateVerification() {
-  const candId = verifyingCandidateId || (currentCandidate ? currentCandidate.id : 'test-candidate');
-  showReloadToast('Sending new email verification code...');
-
-  try {
-    const res = await fetch('/api/candidates/send-verification', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ candidateId: candId })
-    });
-
-    const data = await res.json();
-    if (res.ok && data.success) {
-      const otpInput = document.getElementById('verifyOtpCodeInput');
-      if (otpInput && data.otpCode) otpInput.value = data.otpCode;
-      const link = document.getElementById('verifyViewDispatchLink');
-      if (link && data.emailDispatch && data.emailDispatch.webUrl) link.href = data.emailDispatch.webUrl;
-      showReloadToast(`✓ Verification email sent to ${data.recipient}! Check dispatches.`);
-    } else {
-      showReloadToast('Verification dispatch recorded.');
-    }
-  } catch (e) {
-    showReloadToast('Verification email resent.');
-  }
-}
-
-async function instantTestVerify() {
-  const candId = verifyingCandidateId || (currentCandidate ? currentCandidate.id : 'test-candidate');
-  const cand = allCandidatesList.find(c => c.id === candId) || currentCandidate;
-  const code = (cand && cand.verificationOtp) ? cand.verificationOtp : '482910';
-  const input = document.getElementById('verifyOtpCodeInput');
-  if (input) input.value = code;
-  await submitCandidateOtp();
-}
 
 async function clearDemoReplies() {
   if (!confirm('Clear simulated demo replies stream? You can scan live Gmail anytime.')) return;

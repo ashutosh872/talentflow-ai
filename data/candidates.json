@@ -40,6 +40,16 @@
       "WCAG 2.1 AA Accessibility",
       "Figma-to-Code"
     ],
+    "skills": [
+      "Angular 15+",
+      "Angular Material UI",
+      "TypeScript",
+      "HTML5 / SCSS",
+      "Design Systems & Tokens",
+      "Playwright UI Testing",
+      "WCAG 2.1 AA Accessibility",
+      "Figma-to-Code"
+    ],
     "verifiedAnchors": [
       "Samsung SDS Global (97/100 performance rating)",
       "Cisco Systems BPA & SD-WAN UI Modernization",
@@ -48,143 +58,5 @@
     "bio": "Senior Frontend Engineer with 8+ years specializing in enterprise Angular Material design systems, Core Web Vitals performance, and robust automated UI test suites.",
     "activeApplicationsCount": 14,
     "totalEvaluated": 340
-  },
-  {
-    "id": "priya-sharma",
-    "name": "Priya Sharma",
-    "avatar": "👩‍💻",
-    "title": "Senior UI/UX & Angular Developer",
-    "isAdmin": false,
-    "isVerified": true,
-    "verificationStatus": "VERIFIED",
-    "role": "editor",
-    "access": "write",
-    "permissions": [
-      "read",
-      "write"
-    ],
-    "password": "editor123",
-    "resumeFile": "",
-    "resumeFileName": "",
-    "resumeUploadedAt": "",
-    "experienceYears": 6.5,
-    "experienceLabel": "6+ Years",
-    "currentCompany": "Global UI Solutions",
-    "currentCtc": "₹9,50,000 PA",
-    "currentCtcVal": 9.5,
-    "targetCtc": "₹16,00,000+ PA",
-    "targetCtcMin": 16,
-    "targetCtcRelocation": 18,
-    "noticePeriod": "15 Days",
-    "location": "Noida (Delhi NCR) / Remote",
-    "email": "priya.sharma@example.com",
-    "phone": "+91 9811223344",
-    "coreStack": [
-      "Angular 16+",
-      "TypeScript",
-      "SCSS",
-      "RxJS",
-      "Tailwind CSS",
-      "Jest"
-    ],
-    "verifiedAnchors": [
-      "Enterprise Dashboard Design System",
-      "Micro-Frontend Migration"
-    ],
-    "bio": "Frontend Engineer specializing in scalable enterprise component architectures, responsive web apps, and design tokens.",
-    "activeApplicationsCount": 4,
-    "totalEvaluated": 180
-  },
-  {
-    "id": "test-candidate",
-    "name": "Test Candidate",
-    "avatar": "🧪",
-    "title": "Full-Stack Test Engineer",
-    "isAdmin": false,
-    "isVerified": false,
-    "verificationStatus": "PENDING_VERIFICATION",
-    "role": "viewer",
-    "access": "read",
-    "permissions": [
-      "read"
-    ],
-    "password": "viewer123",
-    "resumeFile": "",
-    "resumeFileName": "",
-    "resumeUploadedAt": "",
-    "verificationOtp": "482910",
-    "verificationToken": "tok_test_verify_482910",
-    "experienceYears": 5,
-    "experienceLabel": "5+ Years",
-    "currentCompany": "Software Testing Enterprise",
-    "currentCtc": "₹10,00,000 PA",
-    "currentCtcVal": 10,
-    "targetCtc": "₹18,00,000 PA",
-    "targetCtcMin": 18,
-    "targetCtcRelocation": 20,
-    "noticePeriod": "30 Days",
-    "location": "Delhi NCR / Remote",
-    "email": "test.candidate@example.com",
-    "phone": "+91 9876543210",
-    "coreStack": [
-      "React",
-      "Node.js",
-      "TypeScript",
-      "Playwright",
-      "Jest"
-    ],
-    "verifiedAnchors": [
-      "Automated End-to-End Test Infrastructure"
-    ],
-    "bio": "Test Candidate profile for verifying email authentication, OTP confirmation, and agency workflows.",
-    "activeApplicationsCount": 0,
-    "totalEvaluated": 50
-  },
-  {
-    "id": "rahul-verma",
-    "name": "Rahul Verma",
-    "avatar": "👨‍💼",
-    "title": "Senior Full Stack & React Specialist",
-    "isAdmin": false,
-    "isVerified": true,
-    "verificationStatus": "VERIFIED",
-    "role": "editor",
-    "access": "write",
-    "permissions": [
-      "read",
-      "write"
-    ],
-    "password": "rahul123",
-    "resumeFile": "data/resumes/Ashutosh Kumar Tech Process Specialist Resume.pdf",
-    "resumeFileName": "Rahul_Verma_Resume.pdf",
-    "resumeUploadedAt": "2026-11-02T21:41:30.746Z",
-    "experienceYears": 6.5,
-    "experienceLabel": "6.5+ Years",
-    "currentCompany": "Enterprise Digital Systems",
-    "currentCtc": "₹12,00,000 PA",
-    "currentCtcVal": 12,
-    "targetCtc": "₹22,00,000+ PA",
-    "targetCtcMin": 22,
-    "targetCtcRelocation": 25,
-    "noticePeriod": "15 to 30 Days",
-    "location": "Delhi NCR / Remote India",
-    "email": "rahul.verma@example.com",
-    "phone": "+91 9811882233",
-    "coreStack": [
-      "React",
-      "Next.js",
-      "Node.js",
-      "TypeScript",
-      "AWS",
-      "PostgreSQL",
-      "Jest"
-    ],
-    "verifiedAnchors": [
-      "Enterprise Cloud Platform Architecture",
-      "High-Throughput Microservices Migration"
-    ],
-    "bio": "Senior Full Stack Engineer with 6.5+ years building scalable React, Node.js, and cloud-native microservices.",
-    "activeApplicationsCount": 2,
-    "totalEvaluated": 140
   }
 ]

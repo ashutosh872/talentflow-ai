@@ -898,7 +898,7 @@ function buildDashboardHtml() {
     details summary::-webkit-details-marker { display: none; }
   </style>
 </head>
-<body class="bg-[#0b0f19] text-slate-100 min-h-screen flex antialiased selection:bg-blue-600 selection:text-white">
+<body class="bg-[#0b0f19] text-slate-100 min-h-screen flex flex-col lg:flex-row antialiased w-full max-w-full overflow-x-hidden selection:bg-blue-600 selection:text-white">
 
   <!-- ============================================================== -->
   <!-- 0. MODERN CRM DESKTOP SIDEBAR NAVIGATION (Fixed 250px)        -->
@@ -1011,18 +1011,14 @@ function buildDashboardHtml() {
         </button>
       </div>
 
-      <!-- Quick Enterprise Links -->
+      <!-- Quick Links -->
       <div class="space-y-1 pt-2 border-t border-slate-800/80">
         <div class="px-2 pb-1 text-[10px] font-bold text-slate-500 uppercase tracking-wider">
-          Enterprise Links
+          Profile & Mandates
         </div>
-        <a href="/profile.html" class="w-full px-3 py-2 rounded-xl text-xs font-medium text-slate-400 hover:text-white hover:bg-slate-800/40 transition flex items-center justify-between">
-          <span>📄 Candidate Hub Page</span>
-          <span class="text-slate-500 text-[11px]">&rarr;</span>
-        </a>
-        <a href="/users.html" class="w-full px-3 py-2 rounded-xl text-xs font-medium text-amber-300/80 hover:text-amber-200 hover:bg-amber-500/10 transition flex items-center justify-between">
-          <span>🛡️ User Access Control</span>
-          <span class="text-amber-400 text-[11px]">&rarr;</span>
+        <a href="/profile.html" class="w-full px-3 py-2 rounded-xl text-xs font-medium text-blue-400 hover:text-blue-300 hover:bg-slate-800/40 transition flex items-center justify-between">
+          <span>📄 Full Profile & Mandates</span>
+          <span class="text-blue-400 text-[11px]">&rarr;</span>
         </a>
       </div>
     </div>
@@ -1042,40 +1038,40 @@ function buildDashboardHtml() {
   </aside>
 
   <!-- ============================================================== -->
+  <!-- ============================================================== -->
   <!-- 1. MAIN APPLICATION WORKSPACE (Responsive Fluid Canvas)       -->
   <!-- ============================================================== -->
-  <div class="flex-1 flex flex-col min-w-0 min-h-screen pb-20 md:pb-8">
+  <div class="flex-1 flex flex-col min-w-0 w-full max-w-full overflow-x-hidden min-h-screen pb-20 md:pb-8">
 
-    <!-- Top Header Navigation -->
-    <header class="sticky top-0 z-30 bg-[#0b0f19]/90 backdrop-blur-md border-b border-slate-800">
-      <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
+    <!-- Top Header Navigation (Single-User CRM: Ashutosh Kumar) -->
+    <header class="sticky top-0 z-30 bg-[#0b0f19]/90 backdrop-blur-md border-b border-slate-800 w-full max-w-full">
+      <div class="max-w-7xl mx-auto px-3 sm:px-4 py-2.5 sm:py-3 flex items-center justify-between gap-2 sm:gap-3 w-full">
         
-        <!-- Left: Mobile Burger Menu & Title -->
-        <div class="flex items-center gap-2.5 shrink-0">
-          <!-- 🍔 BURGER MENU BUTTON (Always present for mobile/tablet) -->
-          <button id="burgerMenuBtn" onclick="toggleBurgerMenu()" class="lg:hidden px-3 py-1.5 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white shadow-md shadow-blue-600/30 transition flex items-center gap-1.5 shrink-0" title="Open Navigation & Views Menu">
+        <!-- Left: Mobile Burger Menu & Brand -->
+        <div class="flex items-center gap-2 sm:gap-2.5 shrink-0">
+          <button id="burgerMenuBtn" onclick="toggleBurgerMenu()" class="lg:hidden p-2 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white shadow-md shadow-blue-600/30 transition flex items-center gap-1.5" title="Open Navigation Menu">
             <span class="text-sm">☰</span>
             <span class="hidden sm:inline">Menu</span>
-            <span id="burgerInboundBadge" class="hidden px-1.5 py-0.2 rounded-full text-[9px] font-extrabold bg-emerald-400 text-slate-950 ml-0.5">2</span>
           </button>
 
-          <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-cyan-400 flex items-center justify-center text-white font-extrabold text-base shadow-md shadow-blue-500/20 lg:hidden">
+          <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-cyan-400 flex items-center justify-center text-white font-extrabold text-sm shadow-md shadow-blue-500/20">
             ◈
           </div>
           <div>
-            <div class="flex items-center gap-2">
-              <h1 class="text-sm font-extrabold text-white tracking-tight">TalentFlow AI</h1>
-              <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+            <div class="flex items-center gap-1.5">
+              <h1 class="text-xs sm:text-sm font-extrabold text-white tracking-tight">TalentFlow AI</h1>
+              <span class="px-1.5 py-0.2 rounded-md text-[9px] font-extrabold bg-blue-500/20 text-blue-300 border border-blue-500/30">CRM</span>
+              <span class="hidden sm:inline-flex items-center gap-1 px-1.5 py-0.2 rounded-full text-[9px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
                 <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                <span class="hidden sm:inline">Engine Online</span>
+                <span>Online</span>
               </span>
             </div>
-            <p class="text-[11px] text-slate-400 font-medium hidden sm:block">Ashutosh Kumar • Senior Frontend Engineer</p>
+            <p class="text-[10px] text-slate-400 font-mono hidden md:block">Ashutosh Kumar • Senior Frontend Engineer</p>
           </div>
         </div>
 
-        <!-- Active View Indicator Pill -->
-        <div class="hidden md:flex items-center">
+        <!-- Center: Active View Indicator Pill (Visible on Desktop) -->
+        <div class="hidden xl:flex items-center">
           <button onclick="toggleBurgerMenu()" class="touch-btn px-3 py-1.5 rounded-xl bg-[#111827] border border-slate-800 hover:border-blue-500/60 text-xs transition flex items-center gap-2 group shadow-xs">
             <span class="text-[10px] text-slate-400 font-mono uppercase">Current View:</span>
             <span id="headerActiveViewPill" class="text-white font-extrabold group-hover:text-blue-300 transition">📋 Opportunities (${jobsData.length})</span>
@@ -1083,224 +1079,172 @@ function buildDashboardHtml() {
           </button>
         </div>
 
-        <!-- Right Header Actions: Update Resume, Candidate Switcher, User Session Badge, Privacy & Tools -->
-        <div class="flex items-center gap-2 shrink-0">
-          <button onclick="openUploadResumeModal()" class="touch-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white shadow-sm transition flex items-center gap-1.5">
+        <!-- Right Header Actions (Clean, Responsive, Single-User) -->
+        <div class="flex items-center gap-1.5 sm:gap-2">
+          <button onclick="openUploadResumeModal()" class="touch-btn px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-bold bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white shadow-sm transition flex items-center gap-1" title="Upload Updated Resume">
             <span>⚡</span> <span class="hidden sm:inline">Update Resume</span>
           </button>
 
-          <button onclick="openEditProfileModal()" class="touch-btn px-2.5 py-1.5 rounded-xl text-xs font-bold bg-indigo-600/20 text-indigo-300 border border-indigo-500/30 hover:bg-indigo-600 hover:text-white transition flex items-center gap-1">
-            <span>✏️</span> <span class="hidden md:inline">Edit Profile</span>
+          <button onclick="openEditProfileModal()" class="touch-btn hidden md:flex px-2.5 py-1.5 rounded-xl text-xs font-bold bg-indigo-600/20 text-indigo-300 border border-indigo-500/30 hover:bg-indigo-600 hover:text-white transition items-center gap-1" title="Edit Profile & Preferences">
+            <span>✏️</span> <span class="hidden xl:inline">Edit Profile</span>
           </button>
 
-          <!-- Multi-Candidate Profile Switcher -->
-          <div id="candidateSelectorContainer"></div>
-
-          <!-- Logged-in User Session Pill & Logout -->
-          <div id="activeUserBadge"></div>
-
-          <button id="privacyToggleBtn" onclick="togglePrivacyMode()" class="px-2.5 py-1.5 rounded-xl text-xs font-bold transition border bg-emerald-500/10 text-emerald-400 border-emerald-500/30 hover:bg-emerald-500/20 flex items-center gap-1.5" title="Mask/Unmask Personal Contact & Salary Info">
+          <button id="privacyToggleBtn" onclick="togglePrivacyMode()" class="hidden md:flex px-2.5 py-1.5 rounded-xl text-xs font-bold transition border bg-emerald-500/10 text-emerald-400 border-emerald-500/30 hover:bg-emerald-500/20 items-center gap-1.5" title="Mask/Unmask Personal Contact & Salary Info">
             <span id="privacyIcon">🛡️</span>
             <span id="privacyStatusText" class="hidden xl:inline">Privacy: ON</span>
           </button>
 
-          <button onclick="openToolsModal()" class="px-2.5 py-1.5 rounded-xl text-xs font-bold bg-[#111827] text-slate-200 border border-slate-700 hover:bg-slate-800 transition flex items-center gap-1.5 shadow-xs" title="Tools, QR Sharing, Revert Receipts & Master Documents">
+          <button onclick="openToolsModal()" class="touch-btn hidden sm:flex px-2.5 py-1.5 rounded-xl text-xs font-bold bg-[#111827] text-slate-200 border border-slate-700 hover:bg-slate-800 transition items-center gap-1" title="Tools & Showcase">
             <span>⚙️</span>
             <span class="hidden xl:inline">Tools</span>
           </button>
+
+          <!-- Single-User Session Pill & Logout -->
+          <div class="flex items-center gap-1 px-2 sm:px-2.5 py-1 sm:py-1.5 rounded-xl bg-[#111827] border border-slate-700 text-xs">
+            <span class="text-xs sm:text-sm">👨‍💻</span>
+            <span class="text-white font-extrabold text-[11px] hidden xl:inline">Ashutosh</span>
+            <button onclick="handleAuthLogout()" class="text-slate-400 hover:text-rose-400 text-xs p-0.5 rounded transition" title="Sign Out">
+              🚪
+            </button>
+          </div>
         </div>
 
       </div>
     </header>
 
-  <!-- ============================================================== -->
-  <!-- BURGER MENU SLIDE-OUT FLYOUT (All Views from Opportunities to Offer) -->
-  <!-- ============================================================== -->
-  <div id="burgerMenuOverlay" onclick="closeBurgerMenu()" class="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 hidden transition-opacity"></div>
-  <aside id="burgerMenuDrawer" class="fixed right-0 top-0 bottom-0 w-80 sm:w-96 bg-[#111827] border-l border-slate-800 shadow-2xl z-50 transform translate-x-full transition-transform duration-300 flex flex-col overflow-hidden">
-    
-    <!-- Drawer Header -->
-    <div class="p-4 border-b border-slate-800 flex items-center justify-between bg-slate-900/80">
-      <div class="flex items-center gap-2.5">
-        <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white font-extrabold text-sm shadow-md">
-          ◈
-        </div>
-        <div>
-          <h3 class="text-xs font-bold text-white uppercase tracking-wider">Workspace Navigation</h3>
-          <p class="text-[10px] text-slate-400 font-mono">TalentFlow AI v2.4</p>
-        </div>
-      </div>
-      <button onclick="closeBurgerMenu()" class="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800 transition">
-        ✕
-      </button>
-    </div>
-
-    <!-- Drawer Content -->
-    <div class="flex-1 overflow-y-auto p-4 space-y-5 text-xs">
+    <!-- BURGER MENU SLIDE-OUT FLYOUT (All Views from Opportunities to Offer) -->
+    <div id="burgerMenuOverlay" onclick="closeBurgerMenu()" class="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 hidden transition-opacity"></div>
+    <aside id="burgerMenuDrawer" class="fixed right-0 top-0 bottom-0 w-72 sm:w-80 bg-[#111827] border-l border-slate-800 shadow-2xl z-50 transform translate-x-full hidden transition-transform duration-300 flex flex-col overflow-hidden">
       
-      <!-- SECTION 1: DASHBOARD VIEWS (OPPORTUNITIES TO OFFER CALCULATOR) -->
-      <div class="space-y-2">
-        <div class="flex items-center justify-between px-1 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
-          <span>Dashboard Views &amp; Modules</span>
-          <span class="text-blue-400 font-mono">5 Views</span>
+      <!-- Drawer Header -->
+      <div class="p-4 border-b border-slate-800 flex items-center justify-between bg-slate-900/80">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white font-extrabold text-sm shadow-md">
+            ◈
+          </div>
+          <div>
+            <h3 class="text-xs font-bold text-white uppercase tracking-wider">Workspace Navigation</h3>
+            <p class="text-[10px] text-slate-400 font-mono">Ashutosh Kumar • TalentFlow CRM</p>
+          </div>
         </div>
+        <button onclick="closeBurgerMenu()" class="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800 transition">
+          ✕
+        </button>
+      </div>
 
+      <!-- Drawer Content -->
+      <div class="flex-1 overflow-y-auto p-4 space-y-4 text-xs">
+        
         <div class="space-y-1.5">
-          <!-- 1. Opportunities -->
+          <div class="px-1 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+            CRM Modules
+          </div>
+
           <button onclick="selectTabFromBurger('opportunities')" data-tab="opportunities" class="burger-tab-btn w-full p-2.5 rounded-xl text-xs font-bold bg-blue-600 text-white shadow-sm transition flex items-center justify-between text-left">
             <div class="flex items-center gap-2.5">
               <span class="text-base">📋</span>
-              <div>
-                <div class="font-bold">Job Opportunities</div>
-                <div class="text-[10px] text-slate-300 opacity-90">Browse ${jobsData.length} matched positions &amp; CTCs</div>
-              </div>
+              <span>Job Discovery</span>
             </div>
-            <span class="px-2 py-0.5 rounded-md text-[10px] font-extrabold bg-blue-900/60 text-blue-200">${jobsData.length}</span>
+            <span class="px-2 py-0.5 rounded-md text-[10px] font-extrabold bg-blue-900/60 text-blue-200" id="drawerJobBadge">${jobsData.length}</span>
           </button>
 
-          <!-- 2. Recruiter Pipeline (Kanban) -->
-          <button onclick="selectTabFromBurger('kanban')" data-tab="kanban" class="burger-tab-btn w-full p-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-800 transition flex items-center justify-between text-left">
+          <button onclick="selectTabFromBurger('overview')" data-tab="overview" class="burger-tab-btn w-full p-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-800 transition flex items-center justify-between text-left">
             <div class="flex items-center gap-2.5">
               <span class="text-base">📊</span>
-              <div>
-                <div class="font-bold">Recruiter Pipeline</div>
-                <div class="text-[10px] text-slate-400">Automated 5-stage Kanban board</div>
-              </div>
+              <span>Executive Overview</span>
             </div>
-            <span class="text-[10px] text-slate-400 font-mono">ATS Active</span>
+            <span class="text-[10px] text-slate-400 font-mono">KPI</span>
           </button>
 
-          <!-- 3. Inbound Replies -->
-          <button onclick="selectTabFromBurger('replies')" data-tab="replies" class="burger-tab-btn w-full p-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-800 transition flex items-center justify-between text-left">
+          <button onclick="selectTabFromBurger('recommendations')" data-tab="recommendations" class="burger-tab-btn w-full p-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-800 transition flex items-center justify-between text-left">
             <div class="flex items-center gap-2.5">
-              <span class="text-base">📬</span>
-              <div>
-                <div class="font-bold">Inbound Recruiter Replies</div>
-                <div class="text-[10px] text-slate-400">Live Gmail IMAP &amp; recruiter alerts</div>
-              </div>
+              <span class="text-base">⭐</span>
+              <span>AI Recommendations</span>
             </div>
-            <span id="burgerRepliesBadge" class="hidden px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-emerald-500 text-slate-950">0</span>
+            <span class="text-[10px] text-amber-400 font-mono">Top Fits</span>
           </button>
 
-          <!-- 4. Battle-Cards -->
+          <button onclick="selectTabFromBurger('kanban')" data-tab="kanban" class="burger-tab-btn w-full p-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-800 transition flex items-center justify-between text-left">
+            <div class="flex items-center gap-2.5">
+              <span class="text-base">📋</span>
+              <span>Pipeline Kanban</span>
+            </div>
+            <span class="text-[10px] text-emerald-400 font-mono">14 Active</span>
+          </button>
+
           <button onclick="selectTabFromBurger('battlecards')" data-tab="battlecards" class="burger-tab-btn w-full p-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-800 transition flex items-center justify-between text-left">
             <div class="flex items-center gap-2.5">
               <span class="text-base">🎯</span>
-              <div>
-                <div class="font-bold">Interview Battle-Cards</div>
-                <div class="text-[10px] text-slate-400">Company-specific cheat-sheets &amp; architecture</div>
-              </div>
+              <span>STAR Battle-Cards</span>
             </div>
-            <span class="px-2 py-0.5 rounded-md text-[10px] font-extrabold bg-slate-800 text-purple-300 border border-purple-500/30">12</span>
+            <span class="text-[10px] text-purple-400 font-mono">12 Prep</span>
           </button>
 
-          <!-- 5. Offer Calculator -->
+          <button onclick="selectTabFromBurger('replies')" data-tab="replies" class="burger-tab-btn w-full p-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-800 transition flex items-center justify-between text-left">
+            <div class="flex items-center gap-2.5">
+              <span class="text-base">📬</span>
+              <span>Email Communications</span>
+            </div>
+            <span class="text-[10px] text-slate-400 font-mono">Gmail CRM</span>
+          </button>
+
           <button onclick="selectTabFromBurger('offer')" data-tab="offer" class="burger-tab-btn w-full p-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-800 transition flex items-center justify-between text-left">
             <div class="flex items-center gap-2.5">
               <span class="text-base">💼</span>
-              <div>
-                <div class="font-bold">Offer Calculator</div>
-                <div class="text-[10px] text-slate-400">In-hand salary &amp; 30% tax slab modeling</div>
-              </div>
+              <span>Offer Calculator</span>
             </div>
             <span class="text-[10px] text-emerald-400 font-mono">₹ LPA</span>
           </button>
-        </div>
-      </div>
 
-      <!-- SECTION 2: MULTI-PAGE ENTERPRISE HUBS -->
-      <div class="space-y-2 pt-2 border-t border-slate-800">
-        <div class="px-1 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
-          Enterprise Pages &amp; Portfolios
-        </div>
-
-        <div class="space-y-1.5">
-          <a href="/profile.html" class="w-full p-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-800 transition flex items-center justify-between">
+          <button onclick="selectTabFromBurger('profile')" data-tab="profile" class="burger-tab-btn w-full p-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-800 transition flex items-center justify-between text-left">
             <div class="flex items-center gap-2.5">
               <span class="text-base">👤</span>
-              <div>
-                <div class="font-bold">Candidate Profile Hub</div>
-                <div class="text-[10px] text-slate-400">Interactive resume preview &amp; anchors</div>
-              </div>
+              <span>Candidate Profile</span>
             </div>
-            <span class="text-blue-400 text-xs font-bold">&rarr;</span>
-          </a>
-
-          <a href="/users.html" class="w-full p-2.5 rounded-xl text-xs font-bold text-amber-300 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 transition flex items-center justify-between">
-            <div class="flex items-center gap-2.5">
-              <span class="text-base">🛡️</span>
-              <div>
-                <div class="font-bold">User &amp; Access Management</div>
-                <div class="text-[10px] text-amber-200/80">Admin console: Read, Write &amp; Resume upload</div>
-              </div>
-            </div>
-            <span class="text-amber-400 text-xs font-bold">&rarr;</span>
-          </a>
-
-          <a href="/login.html" class="w-full p-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-800 transition flex items-center justify-between">
-            <div class="flex items-center gap-2.5">
-              <span class="text-base">🔐</span>
-              <div>
-                <div class="font-bold">Authentication Gateway</div>
-                <div class="text-[10px] text-slate-400">Switch user account or sign in</div>
-              </div>
-            </div>
-            <span class="text-slate-400 text-xs font-bold">&rarr;</span>
-          </a>
-        </div>
-      </div>
-
-      <!-- SECTION 3: QUICK AGENCY UTILITIES -->
-      <div class="space-y-2 pt-2 border-t border-slate-800">
-        <div class="px-1 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
-          Utilities &amp; Tools
-        </div>
-
-        <div class="grid grid-cols-2 gap-2">
-          <button onclick="togglePrivacyMode(); closeBurgerMenu();" class="p-2.5 rounded-xl bg-slate-900 border border-slate-800 hover:border-slate-700 text-left transition">
-            <div class="text-base">🛡️</div>
-            <div class="font-bold text-white text-[11px] mt-1">Privacy Mask</div>
-            <div class="text-[9px] text-slate-400">Toggle contact mask</div>
-          </button>
-
-          <button onclick="openToolsModal(); closeBurgerMenu();" class="p-2.5 rounded-xl bg-slate-900 border border-slate-800 hover:border-slate-700 text-left transition">
-            <div class="text-base">⚙️</div>
-            <div class="font-bold text-white text-[11px] mt-1">Agency Tools</div>
-            <div class="text-[9px] text-slate-400">QR sharing &amp; receipts</div>
+            <span class="text-[10px] text-blue-400 font-mono">Verified</span>
           </button>
         </div>
+
+        <div class="space-y-1.5 pt-2 border-t border-slate-800">
+          <div class="px-1 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+            Quick Actions
+          </div>
+          <button onclick="closeBurgerMenu(); openUploadResumeModal();" class="w-full p-2.5 rounded-xl text-xs font-bold bg-blue-600/20 text-blue-300 hover:bg-blue-600 hover:text-white border border-blue-500/30 transition flex items-center justify-between text-left">
+            <span>⚡ Upload Updated Resume</span>
+            <span>&rarr;</span>
+          </button>
+          <button onclick="closeBurgerMenu(); openEditProfileModal();" class="w-full p-2.5 rounded-xl text-xs font-bold bg-indigo-600/20 text-indigo-300 hover:bg-indigo-600 hover:text-white border border-indigo-500/30 transition flex items-center justify-between text-left">
+            <span>✏️ Edit Profile &amp; Preferences</span>
+            <span>&rarr;</span>
+          </button>
+          <button onclick="closeBurgerMenu(); togglePrivacyMode();" class="w-full p-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-800 transition flex items-center justify-between text-left">
+            <span>🛡️ Toggle Privacy Mask</span>
+            <span>&rarr;</span>
+          </button>
+          <button onclick="closeBurgerMenu(); openToolsModal();" class="w-full p-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-800 transition flex items-center justify-between text-left">
+            <span>⚙️ Agency Tools &amp; QR</span>
+            <span>&rarr;</span>
+          </button>
+        </div>
+
       </div>
 
-    </div>
-
-    <!-- Drawer Footer -->
-    <div class="p-3 border-t border-slate-800 bg-slate-900/60 flex items-center justify-between text-xs">
-      <span class="text-[10px] text-slate-500 font-mono">TalentFlow AI &bull; Ashutosh Kumar</span>
-      <button onclick="handleAuthLogout()" class="px-2.5 py-1 rounded-lg text-rose-300 hover:bg-rose-950/40 text-[11px] font-semibold transition flex items-center gap-1">
-        <span>🚪</span> <span>Sign Out</span>
-      </button>
-    </div>
-
-  </aside>
-
-    </div>
-  </header>
-
-  <!-- Top View-Only Alert Banner (Displays when signed in as Viewer/Read-Only) -->
-  <div id="dashboardViewOnlyBanner" class="hidden bg-amber-950/70 border-b border-amber-500/40 text-amber-200 px-4 py-2 text-xs flex items-center justify-between">
-    <div class="max-w-7xl mx-auto w-full flex items-center justify-between gap-3">
-      <div class="flex items-center gap-2">
-        <span class="text-base">👁️</span>
-        <span><strong>View-Only Mode:</strong> You are currently browsing with Read access. Submitting applications, advancing stages, and configuration changes are restricted to Write/Admin users.</span>
+      <!-- Drawer Footer -->
+      <div class="p-3 border-t border-slate-800 bg-slate-900/60 flex items-center justify-between text-xs">
+        <span class="text-[10px] text-slate-400 font-mono">Ashutosh Kumar</span>
+        <button onclick="handleAuthLogout()" class="px-2.5 py-1 rounded-lg text-rose-300 hover:bg-rose-950/40 text-[11px] font-semibold transition flex items-center gap-1">
+          <span>🚪</span> <span>Sign Out</span>
+        </button>
       </div>
-      <a href="/users.html" class="shrink-0 font-bold underline hover:text-amber-100">Manage Access Roles →</a>
-    </div>
-  </div>
+
+    </aside>
+
+  <div id="dashboardViewOnlyBanner" class="hidden"></div>
 
   <!-- ============================================================== -->
   <!-- 2. EXECUTIVE HERO / CLIENT SHOWCASE BANNER                     -->
   <!-- ============================================================== -->
-  <section class="max-w-7xl mx-auto px-4 pt-5 pb-3 w-full">
+  <section class="max-w-7xl mx-auto px-3 sm:px-4 pt-4 sm:pt-5 pb-3 w-full max-w-full">
     <div class="bg-gradient-to-r from-[#111827] via-[#131d33] to-[#0f172a] border border-slate-800 rounded-2xl p-4 md:p-5 shadow-sm">
       <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
         
@@ -1371,7 +1315,7 @@ function buildDashboardHtml() {
   <!-- ============================================================== -->
   <!-- 3. MAIN CONTENT: DYNAMIC TABS                                 -->
   <!-- ============================================================== -->
-  <main class="max-w-7xl mx-auto px-4 w-full flex-1">
+  <main class="max-w-7xl mx-auto px-3 sm:px-4 w-full max-w-full overflow-x-hidden flex-1">
 
     <!-- ------------------------------------------------------------ -->
     <!-- TAB 1: TOP OPPORTUNITIES (List View)                         -->
@@ -1402,16 +1346,16 @@ function buildDashboardHtml() {
 
         </div>
 
-        <!-- Horizontal Filter Chips (Clean, Mobile Scrollable, No Wrapping Overlaps) -->
-        <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar pt-1" id="filterButtons">
-          <button onclick="setFilter('all')" class="filter-btn active px-3 py-1.5 rounded-lg text-xs font-semibold bg-blue-600 text-white shadow-xs transition shrink-0" data-filter="all">All Top Openings (${jobsData.length})</button>
-          <button onclick="setFilter('submitted')" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#0b0f19] text-slate-300 border border-slate-700 hover:bg-slate-800 transition shrink-0" data-filter="submitted">🟢 Submitted (${submittedCount})</button>
-          <button onclick="setFilter('portal')" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#0b0f19] text-slate-300 border border-slate-700 hover:bg-slate-800 transition shrink-0" data-filter="portal">📋 Portal (${portalCount})</button>
-          <button onclick="setFilter('autofill')" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#0b0f19] text-slate-300 border border-slate-700 hover:bg-slate-800 transition shrink-0" data-filter="autofill">⚡ Autofill (${autofillCount})</button>
-          <button onclick="setFilter('ready')" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#0b0f19] text-slate-300 border border-slate-700 hover:bg-slate-800 transition shrink-0" data-filter="ready">🟡 Matched &amp; Ready (${readyCount})</button>
-          <button onclick="setFilter('new')" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#0b0f19] text-blue-300 border border-blue-500/40 hover:bg-slate-800 transition shrink-0" data-filter="new">✨ Auto-Generated</button>
-          <button onclick="setFilter('remote')" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#0b0f19] text-slate-300 border border-slate-700 hover:bg-slate-800 transition shrink-0" data-filter="remote">🌐 Remote (4)</button>
-          <button onclick="setFilter('premium')" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#0b0f19] text-slate-300 border border-slate-700 hover:bg-slate-800 transition shrink-0" data-filter="premium">💎 ₹25+ LPA (4)</button>
+        <!-- Responsive Filter Chips (Clean Wrapping, No Overflow) -->
+        <div class="flex flex-wrap items-center gap-1.5 sm:gap-2 pt-1 w-full" id="filterButtons">
+          <button onclick="setFilter('all')" class="filter-btn active px-3 py-1.5 rounded-lg text-xs font-semibold bg-blue-600 text-white shadow-xs transition" data-filter="all">All Top Openings (${jobsData.length})</button>
+          <button onclick="setFilter('submitted')" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#0b0f19] text-slate-300 border border-slate-700 hover:bg-slate-800 transition" data-filter="submitted">🟢 Submitted (${submittedCount})</button>
+          <button onclick="setFilter('portal')" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#0b0f19] text-slate-300 border border-slate-700 hover:bg-slate-800 transition" data-filter="portal">📋 Portal (${portalCount})</button>
+          <button onclick="setFilter('autofill')" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#0b0f19] text-slate-300 border border-slate-700 hover:bg-slate-800 transition" data-filter="autofill">⚡ Autofill (${autofillCount})</button>
+          <button onclick="setFilter('ready')" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#0b0f19] text-slate-300 border border-slate-700 hover:bg-slate-800 transition" data-filter="ready">🟡 Matched &amp; Ready (${readyCount})</button>
+          <button onclick="setFilter('new')" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#0b0f19] text-blue-300 border border-blue-500/40 hover:bg-slate-800 transition" data-filter="new">✨ Auto-Generated</button>
+          <button onclick="setFilter('remote')" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#0b0f19] text-slate-300 border border-slate-700 hover:bg-slate-800 transition" data-filter="remote">🌐 Remote (4)</button>
+          <button onclick="setFilter('premium')" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#0b0f19] text-slate-300 border border-slate-700 hover:bg-slate-800 transition" data-filter="premium">💎 ₹25+ LPA (4)</button>
         </div>
       </div>
 
@@ -1723,7 +1667,7 @@ function buildDashboardHtml() {
           </button>
         </div>
       </div>
-      <div id="kanbanBoardColumns" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 items-start">
+      <div id="kanbanBoardColumns" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4 items-start w-full max-w-full">
         <!-- Injected dynamically by renderKanban() -->
       </div>
     </section>
@@ -2865,7 +2809,7 @@ function buildDashboardHtml() {
           job.skills.slice(0, 5).map(s => '    <span class="px-2 py-0.5 bg-slate-900 text-slate-300 text-[10px] rounded-md border border-slate-800 font-medium">' + s + '</span>').join(String.fromCharCode(10)),
           (job.skills.length > 5 ? '    <span class="px-2 py-0.5 bg-slate-900 text-slate-500 text-[10px] rounded-md border border-slate-800">+' + (job.skills.length - 5) + '</span>' : ''),
           '  </div>',
-          '  <div class="flex items-center gap-1.5 shrink-0">',
+          '  <div class="flex flex-wrap items-center gap-1.5">',
           '    ' + activeResumeLinkHtml,
           '    <a href="' + coverHtmlPath + '" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 font-semibold transition" title="Open Tailored Cover Letter">Letter ↗</a>',
           '    <a href="' + resumePdfPath + '" target="_blank" download class="px-2 py-1 rounded-lg bg-emerald-500/10 text-emerald-300 border border-emerald-500/30 hover:bg-emerald-500/20 font-semibold transition" title="Download ATS PDF">PDF</a>',
@@ -3054,160 +2998,7 @@ function buildDashboardHtml() {
   </script>
 
   <!-- Toast Notification Container -->
-  
-  <!-- Add New Candidate Profile Modal Wizard -->
-  <div id="addCandidateModal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-3 sm:p-4">
-    <div class="bg-[#111827] border border-blue-500/40 rounded-2xl max-w-xl w-full max-h-[92vh] flex flex-col shadow-2xl overflow-hidden text-white">
-      <div class="p-4 border-b border-slate-800 flex items-center justify-between bg-slate-900/60">
-        <div class="flex items-center gap-2">
-          <span class="text-xl">👤</span>
-          <div>
-            <h3 class="text-sm font-bold text-white">Add New Candidate Profile</h3>
-            <p class="text-[11px] text-slate-400 mt-0.5">Create an isolated job search workspace for another candidate</p>
-          </div>
-        </div>
-        <button onclick="closeAddCandidateModal()" class="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-        </button>
-      </div>
-      
-      <form onsubmit="handleAddCandidateSubmit(event)" class="p-4 space-y-3 overflow-y-auto bg-[#0b0f19] text-xs">
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <div>
-            <label class="block text-slate-300 font-bold mb-1">Candidate Full Name *</label>
-            <input type="text" id="newCandName" required placeholder="e.g. Neha Sharma" class="w-full bg-slate-900 border border-slate-700 text-white rounded-lg p-2.5 focus:outline-none focus:ring-1 focus:ring-blue-500">
-          </div>
-          <div>
-            <label class="block text-slate-300 font-bold mb-1">Avatar Emoji</label>
-            <input type="text" id="newCandAvatar" placeholder="👩‍💻, 👨‍💼, 👤" value="👩‍💻" class="w-full bg-slate-900 border border-slate-700 text-white rounded-lg p-2.5">
-          </div>
-        </div>
 
-        <div>
-          <label class="block text-slate-300 font-bold mb-1">Target Professional Role / Title *</label>
-          <input type="text" id="newCandTitle" required placeholder="e.g. Lead Full-Stack Engineer (React &amp; Node.js)" class="w-full bg-slate-900 border border-slate-700 text-white rounded-lg p-2.5">
-        </div>
-
-        <div class="grid grid-cols-2 gap-3">
-          <div>
-            <label class="block text-slate-300 font-bold mb-1">Experience (Years)</label>
-            <input type="number" id="newCandExp" step="0.5" placeholder="8.0" value="8" class="w-full bg-slate-900 border border-slate-700 text-white rounded-lg p-2.5">
-          </div>
-          <div>
-            <label class="block text-slate-300 font-bold mb-1">Notice Period</label>
-            <input type="text" id="newCandNotice" placeholder="30 Days / Immediate" value="30 Days" class="w-full bg-slate-900 border border-slate-700 text-white rounded-lg p-2.5">
-          </div>
-        </div>
-
-        <div class="grid grid-cols-2 gap-3">
-          <div>
-            <label class="block text-slate-300 font-bold mb-1">Current CTC (in LPA)</label>
-            <input type="number" id="newCandCurrentCtc" step="0.5" placeholder="14" value="14" class="w-full bg-slate-900 border border-slate-700 text-white rounded-lg p-2.5">
-          </div>
-          <div>
-            <label class="block text-slate-300 font-bold mb-1">Target Minimum CTC (in LPA)</label>
-            <input type="number" id="newCandTargetCtc" step="0.5" placeholder="26" value="26" class="w-full bg-slate-900 border border-slate-700 text-white rounded-lg p-2.5">
-          </div>
-        </div>
-
-        <div>
-          <label class="block text-slate-300 font-bold mb-1">Contact Email Address</label>
-          <input type="email" id="newCandEmail" placeholder="candidate@example.com" class="w-full bg-slate-900 border border-slate-700 text-white rounded-lg p-2.5">
-        </div>
-
-        <div>
-          <label class="block text-slate-300 font-bold mb-1">Primary Tech Stack Skills (comma-separated)</label>
-          <input type="text" id="newCandSkills" placeholder="React, Node.js, TypeScript, PostgreSQL, AWS, Docker" class="w-full bg-slate-900 border border-slate-700 text-white rounded-lg p-2.5">
-        </div>
-
-        <!-- RESUME DOCUMENT UPLOAD (Dedicated Feature) -->
-        <div class="p-3 rounded-xl bg-slate-900 border border-slate-700 space-y-1.5">
-          <label class="block text-slate-300 font-bold flex items-center justify-between">
-            <span>📄 Upload Resume Document (.pdf, .doc, .docx, .txt)</span>
-            <span class="text-[10px] text-blue-400 font-mono">Stored in data/resumes/</span>
-          </label>
-          <input type="file" id="newCandResume" accept=".pdf,.doc,.docx,.txt,.md" class="w-full text-xs text-slate-300 file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-blue-600 file:text-white hover:file:bg-blue-500 cursor-pointer">
-        </div>
-
-        <div class="grid grid-cols-2 gap-3">
-          <div>
-            <label class="block text-slate-300 font-bold mb-1">Access Role Level</label>
-            <select id="newCandAccessRole" class="w-full bg-slate-900 border border-slate-700 text-white rounded-lg p-2.5">
-              <option value="write">🟢 Write (Editor) — Can Apply &amp; Advance</option>
-              <option value="read">🔵 Read/View (Viewer) — View Only</option>
-              <option value="admin">🛡️ Admin — Full Agency Access</option>
-            </select>
-          </div>
-          <div>
-            <label class="block text-slate-300 font-bold mb-1">Temporary Password</label>
-            <input type="password" id="newCandPass" value="welcome123" class="w-full bg-slate-900 border border-slate-700 text-white rounded-lg p-2.5">
-          </div>
-        </div>
-
-        <div class="pt-3 border-t border-slate-800 flex items-center justify-between">
-          <button type="button" onclick="closeAddCandidateModal()" class="px-4 py-2 text-xs font-bold rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300">
-            Cancel
-          </button>
-          <button type="submit" class="px-5 py-2 text-xs font-bold rounded-xl bg-blue-600 hover:bg-blue-500 text-white transition shadow-sm">
-            ✓ Create Candidate Workspace
-          </button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- Candidate Email Verification Modal -->
-  <div id="verifyCandidateModal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-3 sm:p-4">
-    <div class="bg-[#111827] border border-blue-500/40 rounded-2xl max-w-lg w-full flex flex-col shadow-2xl overflow-hidden text-white">
-      <div class="p-4 border-b border-slate-800 flex items-center justify-between bg-slate-900/60">
-        <div class="flex items-center gap-2">
-          <span class="text-xl">✉️</span>
-          <div>
-            <h3 class="text-sm font-bold text-white">Candidate Email Identity Verification</h3>
-            <p class="text-[11px] text-slate-400 mt-0.5">Verify candidate email before recruiter submissions</p>
-          </div>
-        </div>
-        <button onclick="closeVerifyModal()" class="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-        </button>
-      </div>
-
-      <div class="p-5 space-y-4 text-xs bg-[#0b0f19]">
-        <div class="p-3.5 rounded-xl bg-blue-950/40 border border-blue-500/30 text-blue-200 space-y-1">
-          <div class="font-bold text-white flex items-center gap-1.5">
-            <span>📧 Verification Dispatch Dispatched</span>
-          </div>
-          <p class="text-[11px] leading-relaxed">
-            We have generated an official verification code for <strong id="verifyCandNameEmail" class="text-white">Test Candidate (test.candidate@example.com)</strong>. Enter the OTP code below or click the 1-click test verify link:
-          </p>
-        </div>
-
-        <div class="space-y-1.5 text-center">
-          <label class="block text-slate-300 font-bold text-xs">Enter 6-Digit Verification Code (OTP):</label>
-          <input type="text" id="verifyOtpCodeInput" maxlength="6" placeholder="482910" class="w-48 mx-auto text-center font-mono text-2xl tracking-[6px] font-black bg-slate-900 border-2 border-blue-500/60 text-white rounded-xl p-2.5 focus:outline-none focus:border-blue-400">
-          <p class="text-[10px] text-slate-400">Default test OTP: <code>482910</code> (or check generated dispatch)</p>
-        </div>
-
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-2 pt-2">
-          <button onclick="submitCandidateOtp()" class="w-full sm:w-auto px-6 py-2.5 text-xs font-bold rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white shadow-md transition flex items-center justify-center gap-1.5">
-            <span>✓ Verify OTP Code</span>
-          </button>
-          <button onclick="resendCandidateVerification()" class="w-full sm:w-auto px-4 py-2.5 text-xs font-semibold rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition flex items-center justify-center gap-1.5">
-            <span>🔄 Resend Code</span>
-          </button>
-        </div>
-
-        <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between text-[11px] text-slate-400">
-          <a id="verifyViewDispatchLink" href="/data/email-dispatches/" target="_blank" class="hover:text-blue-400 transition underline flex items-center gap-1">
-            <span>📄 View Email Dispatch</span> <span>↗</span>
-          </a>
-          <button onclick="instantTestVerify()" class="text-emerald-400 hover:text-emerald-300 font-bold underline cursor-pointer">
-            ⚡ 1-Click Instant Verify
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <!-- Gmail Connection Setup Modal (Dual-Mode: App Password SMTP & Google Cloud OAuth 2.0) -->
   <div id="gmailSetupModal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-3 sm:p-4">
