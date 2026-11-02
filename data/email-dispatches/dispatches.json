@@ -1,5 +1,24 @@
 [
   {
+    "emailId": "EML-CONF-JOB-MOCK-APP-MVZWBJUQ",
+    "confirmationId": "CONF-JOB-MOCK-APP",
+    "jobId": "job-mock-005",
+    "company": "Experience Commerce (Cheil Group)",
+    "role": "Senior UI Developer & Email Operations Specialist",
+    "vacancyPortal": "Company Website (Cheil Group)",
+    "submissionMethod": "Via Autofill",
+    "recipientEmail": "kumar.ashu872@gmail.com",
+    "subject": "Application Confirmation: Senior UI Developer & Email Operations Specialist at Experience Commerce (Cheil Group) [CONF-JOB-MOCK-APP]",
+    "timestamp": "Tuesday, November 3, 2026 at 5:04:25 AM (IST)",
+    "mode": "LOCAL_TRANSACTIONAL_RECEIPT",
+    "htmlFileName": "EML-CONF-JOB-MOCK-APP-MVZWBJUQ.html",
+    "webUrl": "/data/email-dispatches/EML-CONF-JOB-MOCK-APP-MVZWBJUQ.html",
+    "attachments": [
+      "Ashutosh_Kumar_Resume.pdf",
+      "Ashutosh_Kumar_Cover_Letter.pdf"
+    ]
+  },
+  {
     "emailId": "EML-CONF-E2E-TEST-RECORD-MVZW9T5M",
     "confirmationId": "CONF-E2E-TEST-RECORD",
     "jobId": "job-mock-008",
