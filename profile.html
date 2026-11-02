@@ -147,6 +147,10 @@
 
         <!-- Right: Actions & Upload -->
         <div class="flex flex-wrap md:flex-col items-end gap-2 shrink-0">
+          <button onclick="openEditProfileModal()" class="px-4 py-2 rounded-xl text-xs font-bold bg-indigo-600/30 hover:bg-indigo-600 hover:text-white text-indigo-300 border border-indigo-500/40 transition flex items-center gap-1.5 shadow-sm">
+            <span>✏️</span>
+            <span>Edit Profile &amp; Preferences</span>
+          </button>
           <button onclick="openUploadModal()" class="px-4 py-2 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white transition flex items-center gap-1.5 shadow-md shadow-blue-600/30">
             <span>📤</span>
             <span>Upload Updated Resume</span>
@@ -290,7 +294,207 @@
 
       <div class="flex items-center justify-end gap-2 pt-2 border-t border-slate-800">
         <button type="button" onclick="closeUploadModal()" class="px-4 py-2 rounded-xl text-xs font-bold bg-slate-800 text-slate-300">Cancel</button>
-        <button type="button" id="btnSubmitProfileResume" onclick="submitProfileResumeUpload()" class="px-4 py-2 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white">Upload &amp; Save</button>
+        <button type="button" id="btnSubmitProfileResume" onclick="submitProfileResumeUpload()" class="px-4 py-2 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white">Upload &amp; Analyze</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================== -->
+  <!-- EDIT PROFILE & PREFERENCES MODAL                                -->
+  <!-- ============================================================== -->
+  <div id="editProfileModal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-4 overflow-y-auto">
+    <div class="bg-[#111827] border border-indigo-500/40 rounded-3xl max-w-2xl w-full p-6 shadow-2xl text-white space-y-4 my-8">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+        <div class="flex items-center gap-2.5">
+          <span class="text-2xl">✏️</span>
+          <div>
+            <h3 class="text-base font-extrabold text-white">Edit Candidate Profile &amp; Preferences</h3>
+            <p class="text-xs text-slate-400">Update identity, contacts, skills, compensation, and target preferences</p>
+          </div>
+        </div>
+        <button onclick="closeEditProfileModal()" class="text-slate-400 hover:text-white p-1 rounded-lg text-lg font-mono">✕</button>
+      </div>
+
+      <form id="editProfileForm" onsubmit="submitEditProfile(event)" class="space-y-4 text-xs">
+        
+        <!-- SECTION 1: IDENTITY & CONTACTS -->
+        <div class="p-3.5 rounded-2xl bg-[#0b0f19] border border-slate-800 space-y-3">
+          <span class="font-bold text-white text-xs flex items-center gap-1.5">
+            <span>👤</span> <span>Identity &amp; Contact Details</span>
+          </span>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block font-semibold text-slate-300 mb-1">Full Name *</label>
+              <input type="text" id="editName" required class="w-full bg-[#111827] border border-slate-700 text-white rounded-xl p-2.5 focus:border-blue-500 focus:outline-none">
+            </div>
+            <div>
+              <label class="block font-semibold text-slate-300 mb-1">Email Address *</label>
+              <input type="email" id="editEmail" required class="w-full bg-[#111827] border border-slate-700 text-white rounded-xl p-2.5 focus:border-blue-500 focus:outline-none">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block font-semibold text-slate-300 mb-1">Phone / WhatsApp Number</label>
+              <input type="text" id="editPhone" placeholder="+91 9310681373" class="w-full bg-[#111827] border border-slate-700 text-white rounded-xl p-2.5 focus:border-blue-500 focus:outline-none">
+            </div>
+            <div>
+              <label class="block font-semibold text-slate-300 mb-1">Base Location</label>
+              <input type="text" id="editLocation" placeholder="Delhi NCR / Remote India" class="w-full bg-[#111827] border border-slate-700 text-white rounded-xl p-2.5 focus:border-blue-500 focus:outline-none">
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 2: PROFESSIONAL ROLE & SENIORITY -->
+        <div class="p-3.5 rounded-2xl bg-[#0b0f19] border border-slate-800 space-y-3">
+          <span class="font-bold text-white text-xs flex items-center gap-1.5">
+            <span>💼</span> <span>Professional Role &amp; Experience</span>
+          </span>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div class="sm:col-span-2">
+              <label class="block font-semibold text-slate-300 mb-1">Current Title *</label>
+              <input type="text" id="editTitle" required class="w-full bg-[#111827] border border-slate-700 text-white rounded-xl p-2.5 focus:border-blue-500 focus:outline-none">
+            </div>
+            <div>
+              <label class="block font-semibold text-slate-300 mb-1">Seniority</label>
+              <select id="editSeniority" class="w-full bg-[#111827] border border-slate-700 text-white rounded-xl p-2.5 focus:border-blue-500 focus:outline-none">
+                <option value="Senior">Senior</option>
+                <option value="Lead">Lead / Architect</option>
+                <option value="Mid">Mid-Level</option>
+                <option value="Junior">Junior</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div>
+              <label class="block font-semibold text-slate-300 mb-1">Experience (Years)</label>
+              <input type="number" id="editExp" step="0.5" class="w-full bg-[#111827] border border-slate-700 text-white rounded-xl p-2.5">
+            </div>
+            <div>
+              <label class="block font-semibold text-slate-300 mb-1">Current Company</label>
+              <input type="text" id="editCurrentCompany" class="w-full bg-[#111827] border border-slate-700 text-white rounded-xl p-2.5">
+            </div>
+            <div>
+              <label class="block font-semibold text-slate-300 mb-1">Notice Period</label>
+              <input type="text" id="editNotice" placeholder="Immediate to 15 Days" class="w-full bg-[#111827] border border-slate-700 text-white rounded-xl p-2.5">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block font-semibold text-slate-300 mb-1">Current CTC Baseline</label>
+              <input type="text" id="editCurrentCtc" placeholder="₹6,00,000 PA" class="w-full bg-[#111827] border border-slate-700 text-white rounded-xl p-2.5">
+            </div>
+            <div>
+              <label class="block font-semibold text-slate-300 mb-1">Target Expected Package</label>
+              <input type="text" id="editTargetCtc" placeholder="₹12,00,000+ PA" class="w-full bg-[#111827] border border-slate-700 text-white rounded-xl p-2.5">
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 3: SKILLS & PREFERENCES -->
+        <div class="p-3.5 rounded-2xl bg-[#0b0f19] border border-slate-800 space-y-3">
+          <span class="font-bold text-white text-xs flex items-center gap-1.5">
+            <span>⚡</span> <span>Core Skills &amp; Job Search Preferences</span>
+          </span>
+
+          <div>
+            <label class="block font-semibold text-slate-300 mb-1">Technical Skills (Comma Separated) *</label>
+            <input type="text" id="editSkills" required class="w-full bg-[#111827] border border-slate-700 text-white rounded-xl p-2.5 focus:border-blue-500 focus:outline-none">
+            <p class="text-[10px] text-slate-500 mt-1">Job match scores re-calibrate dynamically across all 23 opportunities against these skills.</p>
+          </div>
+
+          <div>
+            <label class="block font-semibold text-slate-300 mb-1">Target Job Titles (Comma Separated)</label>
+            <input type="text" id="editPrefTitles" class="w-full bg-[#111827] border border-slate-700 text-white rounded-xl p-2.5">
+          </div>
+
+          <div>
+            <label class="block font-semibold text-slate-300 mb-1">Preferred Target Companies</label>
+            <input type="text" id="editPrefCompanies" class="w-full bg-[#111827] border border-slate-700 text-white rounded-xl p-2.5">
+          </div>
+
+          <div>
+            <label class="block font-semibold text-slate-300 mb-1.5">Preferred Work Modes</label>
+            <div class="grid grid-cols-3 gap-2">
+              <label class="p-2 rounded-xl bg-[#111827] border border-slate-800 flex items-center gap-2 cursor-pointer">
+                <input type="checkbox" id="editModeRemote" value="Remote" class="rounded border-slate-700 text-blue-600">
+                <span class="text-xs text-slate-300">Remote</span>
+              </label>
+              <label class="p-2 rounded-xl bg-[#111827] border border-slate-800 flex items-center gap-2 cursor-pointer">
+                <input type="checkbox" id="editModeHybrid" value="Hybrid" class="rounded border-slate-700 text-blue-600">
+                <span class="text-xs text-slate-300">Hybrid</span>
+              </label>
+              <label class="p-2 rounded-xl bg-[#111827] border border-slate-800 flex items-center gap-2 cursor-pointer">
+                <input type="checkbox" id="editModeOnSite" value="On-Site" class="rounded border-slate-700 text-blue-600">
+                <span class="text-xs text-slate-300">On-Site</span>
+              </label>
+            </div>
+          </div>
+
+          <div>
+            <label class="block font-semibold text-slate-300 mb-1">Executive Summary / Bio</label>
+            <textarea id="editBio" rows="2" class="w-full bg-[#111827] border border-slate-700 text-white rounded-xl p-2.5 text-xs focus:border-blue-500 focus:outline-none"></textarea>
+          </div>
+
+          <div class="flex items-center gap-2 p-2 rounded-xl bg-[#111827] border border-slate-800">
+            <input type="checkbox" id="editIsVerified" class="rounded border-slate-700 text-emerald-500">
+            <span class="text-xs text-emerald-400 font-semibold">✓ Account Verification Status (Active Verified Candidate)</span>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-end gap-2 pt-2 border-t border-slate-800">
+          <button type="button" onclick="closeEditProfileModal()" class="px-4 py-2 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300">Cancel</button>
+          <button type="submit" id="btnSaveProfile" class="px-5 py-2.5 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white shadow-md shadow-blue-600/30">Save Profile Updates</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ============================================================== -->
+  <!-- RESUME RECALIBRATION POP-UP MODAL                              -->
+  <!-- ============================================================== -->
+  <div id="recalibrateModal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-[#111827] border border-blue-500/50 rounded-3xl max-w-lg w-full p-6 shadow-2xl text-white space-y-4">
+      <div class="flex items-center gap-3">
+        <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white flex items-center justify-center text-2xl shadow-md">
+          ⚡
+        </div>
+        <div>
+          <h3 class="text-base font-extrabold text-white">Resume Updated Successfully!</h3>
+          <p class="text-xs text-slate-400">File: <span id="recalFileName" class="text-blue-300 font-mono">Resume.pdf</span></p>
+        </div>
+      </div>
+
+      <!-- Extracted Highlights Card -->
+      <div class="p-3.5 rounded-2xl bg-[#0b0f19] border border-slate-800 space-y-2 text-xs">
+        <div class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">AI Extracted from New Resume:</div>
+        <div class="flex flex-wrap gap-1.5" id="recalSkillsPills">
+          <!-- Populated by JS -->
+        </div>
+        <div class="grid grid-cols-2 gap-2 text-[11px] text-slate-300 pt-1.5 border-t border-slate-800/80">
+          <div>Seniority: <span id="recalSeniority" class="font-bold text-white">Senior</span></div>
+          <div>Experience: <span id="recalExp" class="font-bold text-white">8+ Years</span></div>
+        </div>
+      </div>
+
+      <p class="text-xs text-slate-300 leading-relaxed">
+        Would you like to recalibrate ATS match scores across all active jobs and refresh your gateway with newly matched job recommendations matching your updated resume, skills, and experience package?
+      </p>
+
+      <div id="recalStatusArea" class="hidden p-3 rounded-xl bg-emerald-950/40 border border-emerald-500/40 text-emerald-300 text-xs">
+        <span id="recalStatusText">Recalibration complete!</span>
+      </div>
+
+      <div class="flex items-center justify-end gap-2.5 pt-2 border-t border-slate-800">
+        <button type="button" onclick="closeRecalibrateModal()" class="px-4 py-2 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 transition">
+          Keep Current Dashboard Scores
+        </button>
+        <button type="button" id="btnExecuteRecalibrate" onclick="executeRecalibrationAndRefresh()" class="px-5 py-2.5 rounded-xl text-xs font-bold bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white shadow-lg shadow-blue-600/30 transition flex items-center gap-1.5">
+          <span>⚡</span>
+          <span>Recalculate &amp; Generate New Job Results</span>
+        </button>
       </div>
     </div>
   </div>
@@ -298,6 +502,7 @@
   <script>
     let allCandidates = [];
     let activeCand = null;
+    let lastUploadParsed = null;
 
     function handleLogout() {
       localStorage.removeItem('talentflow_auth');
@@ -493,6 +698,109 @@
       document.getElementById('uploadProfileModal').classList.add('hidden');
     }
 
+    // ==============================================================
+    // EDIT CANDIDATE PROFILE & PREFERENCES
+    // ==============================================================
+    function openEditProfileModal() {
+      if (!activeCand) return;
+      document.getElementById('editName').value = activeCand.name || '';
+      document.getElementById('editEmail').value = activeCand.email || '';
+      document.getElementById('editPhone').value = activeCand.phone || '';
+      document.getElementById('editLocation').value = activeCand.location || '';
+      document.getElementById('editTitle').value = activeCand.title || '';
+      document.getElementById('editSeniority').value = activeCand.seniority || (activeCand.experienceYears >= 7 ? 'Senior' : 'Mid');
+      document.getElementById('editExp').value = activeCand.experienceYears || 5;
+      document.getElementById('editCurrentCompany').value = activeCand.currentCompany || '';
+      document.getElementById('editCurrentCtc').value = activeCand.currentCtc || '';
+      document.getElementById('editTargetCtc').value = activeCand.targetCtc || '';
+      document.getElementById('editNotice').value = activeCand.noticePeriod || 'Immediate to 15 Days';
+      document.getElementById('editSkills').value = (activeCand.coreStack || []).join(', ');
+      
+      const prefs = activeCand.preferences || {};
+      document.getElementById('editPrefTitles').value = (prefs.targetTitles || [activeCand.title]).join(', ');
+      document.getElementById('editPrefCompanies').value = (prefs.preferredCompanies || []).join(', ');
+      
+      const workModes = prefs.workModes || ['Remote', 'Hybrid'];
+      document.getElementById('editModeRemote').checked = workModes.includes('Remote');
+      document.getElementById('editModeHybrid').checked = workModes.includes('Hybrid');
+      document.getElementById('editModeOnSite').checked = workModes.includes('On-Site');
+      
+      document.getElementById('editBio').value = activeCand.bio || '';
+      document.getElementById('editIsVerified').checked = Boolean(activeCand.isVerified);
+
+      document.getElementById('editProfileModal').classList.remove('hidden');
+    }
+
+    function closeEditProfileModal() {
+      document.getElementById('editProfileModal').classList.add('hidden');
+    }
+
+    async function submitEditProfile(e) {
+      if (e) e.preventDefault();
+      if (!activeCand) return;
+
+      const btn = document.getElementById('btnSaveProfile');
+      btn.disabled = true;
+      btn.textContent = 'Saving Updates...';
+
+      const workModes = [];
+      if (document.getElementById('editModeRemote').checked) workModes.push('Remote');
+      if (document.getElementById('editModeHybrid').checked) workModes.push('Hybrid');
+      if (document.getElementById('editModeOnSite').checked) workModes.push('On-Site');
+
+      const payload = {
+        candidateId: activeCand.id,
+        name: document.getElementById('editName').value.trim(),
+        email: document.getElementById('editEmail').value.trim(),
+        phone: document.getElementById('editPhone').value.trim(),
+        location: document.getElementById('editLocation').value.trim(),
+        title: document.getElementById('editTitle').value.trim(),
+        seniority: document.getElementById('editSeniority').value,
+        experienceYears: parseFloat(document.getElementById('editExp').value) || 5,
+        currentCompany: document.getElementById('editCurrentCompany').value.trim(),
+        currentCtc: document.getElementById('editCurrentCtc').value.trim(),
+        targetCtc: document.getElementById('editTargetCtc').value.trim(),
+        noticePeriod: document.getElementById('editNotice').value.trim(),
+        coreStack: document.getElementById('editSkills').value.split(',').map(s => s.trim()).filter(Boolean),
+        bio: document.getElementById('editBio').value.trim(),
+        isVerified: document.getElementById('editIsVerified').checked,
+        preferences: {
+          targetTitles: document.getElementById('editPrefTitles').value.split(',').map(s => s.trim()).filter(Boolean),
+          preferredCompanies: document.getElementById('editPrefCompanies').value.split(',').map(s => s.trim()).filter(Boolean),
+          workModes
+        }
+      };
+
+      try {
+        const res = await fetch('/api/candidates/update-profile', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        if (res.ok && data.success) {
+          activeCand = data.candidate;
+          // Update in allCandidates list
+          const idx = allCandidates.findIndex(c => c.id === activeCand.id);
+          if (idx !== -1) allCandidates[idx] = activeCand;
+          
+          closeEditProfileModal();
+          renderCandidateProfile(activeCand);
+          alert('✓ Candidate profile and preferences updated successfully!');
+        } else {
+          alert(data.error || 'Failed to update profile.');
+        }
+      } catch (err) {
+        alert('Update error: ' + err.message);
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Save Profile Updates';
+      }
+    }
+
+    // ==============================================================
+    // RESUME UPLOAD & AUTO-RECALIBRATION POP-UP WORKFLOW
+    // ==============================================================
     async function submitProfileResumeUpload() {
       const input = document.getElementById('profileResumeFile');
       const file = input ? input.files[0] : null;
@@ -503,7 +811,7 @@
 
       const btn = document.getElementById('btnSubmitProfileResume');
       btn.disabled = true;
-      btn.textContent = 'Uploading...';
+      btn.textContent = 'Uploading & Parsing...';
 
       const reader = new FileReader();
       reader.onload = async () => {
@@ -525,7 +833,10 @@
             activeCand.resumeFile = data.resumeFile;
             activeCand.resumeFileName = data.resumeFileName;
             renderResumeViewer(activeCand);
-            alert(`✓ Resume ${file.name} uploaded successfully!`);
+
+            // Pop up the Recalibration Modal!
+            lastUploadParsed = data.parsed;
+            openRecalibrateModal(data);
           } else {
             alert(data.error || 'Upload failed.');
           }
@@ -533,10 +844,90 @@
           alert('Upload failed: ' + e.message);
         } finally {
           btn.disabled = false;
-          btn.textContent = 'Upload & Save';
+          btn.textContent = 'Upload & Analyze';
         }
       };
       reader.readAsDataURL(file);
+    }
+
+    function openRecalibrateModal(uploadData) {
+      const modal = document.getElementById('recalibrateModal');
+      document.getElementById('recalFileName').textContent = uploadData.resumeFileName || 'Resume.pdf';
+
+      const pillsContainer = document.getElementById('recalSkillsPills');
+      const skills = (uploadData.parsed && uploadData.parsed.skills && uploadData.parsed.skills.primary) 
+        ? uploadData.parsed.skills.primary 
+        : (activeCand.coreStack || ['Angular', 'TypeScript', 'JavaScript']);
+      
+      pillsContainer.innerHTML = skills.slice(0, 10).map(s => `
+        <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-blue-600/30 text-blue-300 border border-blue-500/40">
+          ${s}
+        </span>
+      `).join('');
+
+      document.getElementById('recalSeniority').textContent = uploadData.parsed?.seniority || activeCand.seniority || 'Senior';
+      document.getElementById('recalExp').textContent = (uploadData.parsed?.experienceYears || activeCand.experienceYears || 8) + '+ Years';
+
+      const statusArea = document.getElementById('recalStatusArea');
+      if (statusArea) statusArea.classList.add('hidden');
+
+      modal.classList.remove('hidden');
+    }
+
+    function closeRecalibrateModal() {
+      document.getElementById('recalibrateModal').classList.add('hidden');
+    }
+
+    async function executeRecalibrationAndRefresh() {
+      if (!activeCand) return;
+      const btn = document.getElementById('btnExecuteRecalibrate');
+      btn.disabled = true;
+      btn.innerHTML = '<span>⏳ Recalibrating 23 Jobs...</span>';
+
+      try {
+        const res = await fetch('/api/candidates/recalibrate-and-refresh', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            candidateId: activeCand.id,
+            autoAdoptSkills: true
+          })
+        });
+
+        const data = await res.json();
+        if (res.ok && data.success) {
+          activeCand = data.candidate;
+          // Re-render profile with adopted skills and experience
+          renderCandidateProfile(activeCand);
+
+          const statusArea = document.getElementById('recalStatusArea');
+          const statusText = document.getElementById('recalStatusText');
+          if (statusArea && statusText) {
+            statusArea.classList.remove('hidden');
+            statusText.innerHTML = `
+              <strong>✓ ${data.message}</strong>
+              <div class="mt-1 text-slate-300 text-[11px]">
+                Your candidate profile was updated with newly extracted skills. All 23 job match scores have re-calibrated.
+              </div>
+              <div class="mt-2.5">
+                <a href="/?candidate=${activeCand.id}" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs shadow-md">
+                  <span>👉 Open Dashboard to View Updated Matches</span>
+                  <span>&rarr;</span>
+                </a>
+              </div>
+            `;
+          }
+          btn.innerHTML = '<span>✓ Gateway Refreshed</span>';
+        } else {
+          alert(data.error || 'Recalibration failed.');
+          btn.disabled = false;
+          btn.innerHTML = '<span>⚡ Recalculate &amp; Generate New Job Results</span>';
+        }
+      } catch (err) {
+        alert('Recalibration error: ' + err.message);
+        btn.disabled = false;
+        btn.innerHTML = '<span>⚡ Recalculate &amp; Generate New Job Results</span>';
+      }
     }
 
     document.addEventListener('DOMContentLoaded', initProfilePage);

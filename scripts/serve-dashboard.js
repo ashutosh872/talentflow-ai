@@ -5,6 +5,7 @@ import * as os from 'os';
 import nodemailer from 'nodemailer';
 import { sendApplicationConfirmationEmail, sendCandidateVerificationEmail } from './mailer.js';
 import { parseResumeIntelligence } from './resume-parser.js';
+import { getDynamicJobsForCandidate, generateFreshJobsForCandidate } from './job-generator.js';
 import {
   loadGmailConfig,
   saveGmailConfig,
@@ -764,11 +765,11 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
-  // API endpoint to upload resume document (.pdf, .doc, .docx, .txt, .md)
+  // API endpoint to upload resume document (.pdf, .doc, .docx, .txt, .md) with real-time AI parsing
   if (pathname === '/api/candidates/upload-resume' && req.method === 'POST') {
     let body = '';
     req.on('data', chunk => { body += chunk; });
-    req.on('end', () => {
+    req.on('end', async () => {
       try {
         const payload = JSON.parse(body || '{}');
         const candId = payload.candidateId;
@@ -796,6 +797,14 @@ const server = http.createServer(async (req, res) => {
 
         fs.writeFileSync(targetPath, buffer);
 
+        // Run real-time resume parsing intelligence
+        let parsed = null;
+        try {
+          parsed = await parseResumeIntelligence(buffer, fileName);
+        } catch (parseErr) {
+          console.warn('[Resume Parse Warning in Upload]:', parseErr.message);
+        }
+
         const candPath = path.resolve('data/candidates.json');
         let candidates = [];
         if (fs.existsSync(candPath)) {
@@ -807,25 +816,191 @@ const server = http.createServer(async (req, res) => {
           candidate.resumeFile = `data/resumes/${savedFileName}`;
           candidate.resumeFileName = fileName;
           candidate.resumeUploadedAt = new Date().toISOString();
+          if (parsed) {
+            candidate.lastParsedIntelligence = parsed;
+          }
           fs.writeFileSync(candPath, JSON.stringify(candidates, null, 2), 'utf8');
         }
 
-        console.log(`[Resume Stored] Saved ${savedFileName} (${buffer.length} bytes) for ${candId}`);
+        console.log(`[Resume Stored & Parsed] Saved ${savedFileName} (${buffer.length} bytes) for ${candId}. Parsed skills: ${parsed?.skills?.primary?.length || 0}`);
 
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({
           success: true,
-          message: `Resume ${fileName} uploaded successfully!`,
+          message: `Resume ${fileName} uploaded and analyzed successfully!`,
           savedFileName,
           resumeUrl: `/data/resumes/${savedFileName}`,
           resumeFile: `data/resumes/${savedFileName}`,
           resumeFileName: fileName,
           sizeBytes: buffer.length,
-          candidate
+          candidate,
+          parsed
         }));
       } catch (err) {
         res.writeHead(400, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ error: err.message }));
+      }
+    });
+    return;
+  }
+
+  // API endpoint to update candidate profile (Name, Email, Contacts, Skills, CTC, Preferences)
+  if (pathname === '/api/candidates/update-profile' && req.method === 'POST') {
+    let body = '';
+    req.on('data', chunk => { body += chunk; });
+    req.on('end', () => {
+      try {
+        const payload = JSON.parse(body || '{}');
+        const candId = payload.id || payload.candidateId;
+        if (!candId) {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: false, error: 'Missing candidateId' }));
+          return;
+        }
+
+        const candPath = path.resolve('data/candidates.json');
+        let candidates = [];
+        if (fs.existsSync(candPath)) {
+          try { candidates = JSON.parse(fs.readFileSync(candPath, 'utf8')); } catch(e) {}
+        }
+
+        const candidate = candidates.find(c => c.id === candId);
+        if (!candidate) {
+          res.writeHead(404, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: false, error: 'Candidate not found' }));
+          return;
+        }
+
+        // Update profile fields
+        if (payload.name) candidate.name = payload.name.trim();
+        if (payload.email) candidate.email = payload.email.trim().toLowerCase();
+        if (payload.phone) candidate.phone = payload.phone.trim();
+        if (payload.location) candidate.location = payload.location.trim();
+        if (payload.title) candidate.title = payload.title.trim();
+        if (payload.seniority) candidate.seniority = payload.seniority.trim();
+        if (payload.experienceYears !== undefined) {
+          candidate.experienceYears = parseFloat(payload.experienceYears) || 5;
+          candidate.experienceLabel = candidate.experienceYears + '+ Years';
+        }
+        if (payload.currentCompany) candidate.currentCompany = payload.currentCompany.trim();
+        if (payload.currentCtc) candidate.currentCtc = payload.currentCtc;
+        if (payload.currentCtcVal) candidate.currentCtcVal = parseFloat(payload.currentCtcVal);
+        if (payload.targetCtc) candidate.targetCtc = payload.targetCtc;
+        if (payload.targetCtcMin) candidate.targetCtcMin = parseFloat(payload.targetCtcMin);
+        if (payload.noticePeriod) candidate.noticePeriod = payload.noticePeriod.trim();
+        if (payload.bio) candidate.bio = payload.bio.trim();
+        if (payload.isVerified !== undefined) candidate.isVerified = Boolean(payload.isVerified);
+
+        // Core Stack / Skills
+        if (payload.coreStack) {
+          candidate.coreStack = Array.isArray(payload.coreStack) 
+            ? payload.coreStack 
+            : (typeof payload.coreStack === 'string' ? payload.coreStack.split(',').map(s => s.trim()).filter(Boolean) : candidate.coreStack);
+        } else if (payload.skills) {
+          candidate.coreStack = Array.isArray(payload.skills) 
+            ? payload.skills 
+            : (typeof payload.skills === 'string' ? payload.skills.split(',').map(s => s.trim()).filter(Boolean) : candidate.coreStack);
+        }
+
+        // Preferences
+        if (payload.preferences && typeof payload.preferences === 'object') {
+          candidate.preferences = Object.assign({}, candidate.preferences || {}, payload.preferences);
+        }
+
+        fs.writeFileSync(candPath, JSON.stringify(candidates, null, 2), 'utf8');
+        console.log(`[Candidate Profile Updated] Saved updates for ${candidate.name} (${candidate.id})`);
+
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({
+          success: true,
+          message: `Profile updated successfully for ${candidate.name}`,
+          candidate
+        }));
+      } catch (err) {
+        res.writeHead(400, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: false, error: err.message }));
+      }
+    });
+    return;
+  }
+
+  // API endpoint to fetch dynamically refreshed & recalibrated jobs for candidate
+  if (pathname === '/api/jobs' && req.method === 'GET') {
+    const candId = parsedUrl.searchParams.get('candidateId') || 'ashutosh-kumar';
+    const forceRefresh = parsedUrl.searchParams.get('refresh') === 'true';
+    if (forceRefresh) {
+      generateFreshJobsForCandidate(candId);
+    }
+    const result = getDynamicJobsForCandidate(candId);
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ success: true, ...result }));
+    return;
+  }
+
+  // API endpoint to recalibrate ATS scores and refresh job opportunities gateway after resume update
+  if (pathname === '/api/candidates/recalibrate-and-refresh' && req.method === 'POST') {
+    let body = '';
+    req.on('data', chunk => { body += chunk; });
+    req.on('end', () => {
+      try {
+        const payload = JSON.parse(body || '{}');
+        const candId = payload.candidateId;
+        const autoAdoptSkills = payload.autoAdoptSkills !== false;
+
+        const candPath = path.resolve('data/candidates.json');
+        let candidates = [];
+        if (fs.existsSync(candPath)) {
+          try { candidates = JSON.parse(fs.readFileSync(candPath, 'utf8')); } catch(e) {}
+        }
+
+        const candidate = candidates.find(c => c.id === candId);
+        if (!candidate) {
+          res.writeHead(404, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: false, error: 'Candidate not found' }));
+          return;
+        }
+
+        // If candidate has lastParsedIntelligence and autoAdoptSkills is true, update core skills & experience
+        if (autoAdoptSkills && candidate.lastParsedIntelligence) {
+          const intel = candidate.lastParsedIntelligence;
+          if (intel.skills && intel.skills.primary && intel.skills.primary.length > 0) {
+            const merged = Array.from(new Set([...intel.skills.primary, ...(candidate.coreStack || [])]));
+            candidate.coreStack = merged;
+          }
+          if (intel.experienceYears && intel.experienceYears > 0) {
+            candidate.experienceYears = intel.experienceYears;
+            candidate.experienceLabel = intel.experienceYears + '+ Years';
+          }
+          if (intel.seniority) {
+            candidate.seniority = intel.seniority;
+          }
+          if (intel.currentTitle && (!candidate.title || candidate.title.toLowerCase().includes('software engineer'))) {
+            candidate.title = intel.currentTitle;
+          }
+          fs.writeFileSync(candPath, JSON.stringify(candidates, null, 2), 'utf8');
+        }
+
+        // Generate fresh candidate-specific jobs matching updated resume
+        generateFreshJobsForCandidate(candId);
+
+        // Get full dynamic recalibrated list of jobs
+        const result = getDynamicJobsForCandidate(candId);
+
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({
+          success: true,
+          message: `Recalibration complete! Evaluated ${result.totalCount} jobs against updated resume. Found ${result.highMatches} high match opportunities (${result.newCount} new jobs auto-generated for updated resume accord).`,
+          candidate: result.candidate,
+          totalJobs: result.totalCount,
+          highMatches: result.highMatches,
+          newJobsCount: result.newCount,
+          topRecommendations: result.jobs.slice(0, 5),
+          jobs: result.jobs
+        }));
+      } catch (err) {
+        console.error('[Recalibrate Error]:', err);
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: false, error: err.message }));
       }
     });
     return;

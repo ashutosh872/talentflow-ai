@@ -61,25 +61,44 @@ function switchTab(tabId) {
   const secBat = document.getElementById('viewBattlecards');
   const secOff = document.getElementById('viewOfferCalculator');
   const secRep = document.getElementById('viewReplies');
+  const secOver = document.getElementById('viewOverview');
+  const secRec = document.getElementById('viewRecommendations');
+  const secProf = document.getElementById('viewProfileTab');
 
   if (secOpp) secOpp.classList.toggle('hidden', tabId !== 'opportunities');
   if (secKan) secKan.classList.toggle('hidden', tabId !== 'kanban');
   if (secBat) secBat.classList.toggle('hidden', tabId !== 'battlecards');
   if (secOff) secOff.classList.toggle('hidden', tabId !== 'offer');
   if (secRep) secRep.classList.toggle('hidden', tabId !== 'replies');
+  if (secOver) secOver.classList.toggle('hidden', tabId !== 'overview');
+  if (secRec) secRec.classList.toggle('hidden', tabId !== 'recommendations');
+  if (secProf) secProf.classList.toggle('hidden', tabId !== 'profile');
 
   // Update Header Active View Pill
   const activeViewPill = document.getElementById('headerActiveViewPill');
   if (activeViewPill) {
     const titles = {
+      'overview': '📊 Executive Overview',
       'opportunities': '📋 Opportunities (' + (typeof jobs !== 'undefined' ? jobs.length : 23) + ')',
+      'recommendations': '⭐ AI Recommendations',
       'kanban': '📊 Recruiter Pipeline',
       'replies': '📬 Inbound Replies',
       'battlecards': '🎯 Battle-Cards (12)',
-      'offer': '💼 Offer Calculator'
+      'offer': '💼 Offer Calculator',
+      'profile': '👤 Candidate Profile'
     };
     activeViewPill.textContent = titles[tabId] || '📋 Opportunities';
   }
+
+  // Update Left Sidebar Nav Buttons
+  document.querySelectorAll('.sidebar-nav-btn').forEach(btn => {
+    const target = btn.dataset.tab;
+    if (target === tabId) {
+      btn.className = 'sidebar-nav-btn w-full px-3 py-2.5 rounded-xl text-xs font-bold bg-blue-600/15 text-blue-400 border-l-2 border-blue-500 shadow-xs transition flex items-center justify-between text-left';
+    } else {
+      btn.className = 'sidebar-nav-btn w-full px-3 py-2.5 rounded-xl text-xs font-semibold text-slate-400 hover:text-white hover:bg-slate-800/60 transition flex items-center justify-between text-left';
+    }
+  });
 
   // Update Burger Menu Tab Buttons
   document.querySelectorAll('.burger-tab-btn').forEach(btn => {
@@ -122,6 +141,12 @@ function switchTab(tabId) {
     renderRepliesTab();
   } else if (tabId === 'opportunities') {
     renderJobs();
+  } else if (tabId === 'overview') {
+    renderOverviewView();
+  } else if (tabId === 'recommendations') {
+    renderRecommendationsView();
+  } else if (tabId === 'profile') {
+    renderProfileTabView();
   }
 
   window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -2013,6 +2038,445 @@ async function disconnectLiveGmail() {
     }
   } catch (e) {
     console.warn('[Disconnect Err]:', e);
+  }
+}
+
+// ==============================================================
+// 15. MODERN CRM MODULE RENDERERS & RESUME RECALIBRATION ENGINE
+// ==============================================================
+
+function renderOverviewView() {
+  const activeCand = (typeof currentCandidate !== 'undefined' && currentCandidate) ? currentCandidate : null;
+  const total = typeof jobs !== 'undefined' ? jobs.length : 23;
+  const submitted = typeof jobs !== 'undefined' ? jobs.filter(j => j.status === 'SUBMITTED').length : 14;
+  const highMatches = typeof jobs !== 'undefined' ? jobs.filter(j => computeDynamicJobScore(j, activeCand) >= 80).length : 12;
+
+  const totalEl = document.getElementById('overviewTotalJobs');
+  if (totalEl) totalEl.textContent = total;
+  const subEl = document.getElementById('overviewSubmittedCount');
+  if (subEl) subEl.textContent = submitted;
+  const highEl = document.getElementById('overviewHighMatchCount');
+  if (highEl) highEl.textContent = highMatches;
+}
+
+function renderRecommendationsView() {
+  const container = document.getElementById('recommendationsListContainer');
+  if (!container) return;
+  const activeCand = (typeof currentCandidate !== 'undefined' && currentCandidate) ? currentCandidate : null;
+  
+  if (typeof jobs === 'undefined' || !jobs.length) {
+    container.innerHTML = '<div class="p-8 text-center text-slate-400">Loading recommendations...</div>';
+    return;
+  }
+
+  // Calculate dynamic scores and sort by highest match
+  const scoredJobs = jobs.map(j => ({
+    job: j,
+    dynamicScore: computeDynamicJobScore(j, activeCand),
+    alignment: getJobSkillAlignment(j, activeCand)
+  })).sort((a, b) => b.dynamicScore - a.dynamicScore);
+
+  const topMatches = scoredJobs.filter(item => item.dynamicScore >= 80);
+  const displayList = topMatches.length >= 3 ? topMatches : scoredJobs.slice(0, 8);
+
+  const recCountBadge = document.getElementById('recCountBadge');
+  if (recCountBadge) recCountBadge.textContent = `${displayList.length} Top Fits (≥ 80%)`;
+
+  container.innerHTML = displayList.map(({ job, dynamicScore, alignment }) => {
+    const scoreBadge = dynamicScore >= 88 ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40' : 'bg-blue-600/20 text-blue-300 border-blue-500/40';
+    const localPortal = job.portalFile ? ('data/mock-portal/' + job.portalFile) : (job.liveUrl || '#');
+    const battleCardPath = 'data/interview-battlecards/' + job.folderName + '/Interview_Battle_Card.html';
+    const resumeHtmlPath = 'data/tailored-documents/' + job.folderName + '/Ashutosh_Kumar_Resume.html';
+    const coverHtmlPath = 'data/tailored-documents/' + job.folderName + '/Ashutosh_Kumar_Cover_Letter.html';
+
+    return `
+      <div class="bg-[#111827] border border-blue-500/30 hover:border-blue-500/60 rounded-2xl p-5 transition space-y-4 shadow-md">
+        <div class="flex flex-col md:flex-row md:items-start justify-between gap-3">
+          <div class="space-y-1.5 flex-1">
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="px-3 py-1 rounded-full text-xs font-extrabold border ${scoreBadge}">⭐ ${dynamicScore}% Match</span>
+              <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-purple-500/15 text-purple-300 border border-purple-500/30 font-mono">High CTC Fit</span>
+              <span class="text-xs text-slate-400 font-mono">Req #${job.reqId}</span>
+              <span class="text-xs text-slate-400 font-mono">&bull; ${job.source}</span>
+            </div>
+            <h3 class="text-base md:text-lg font-extrabold text-white">
+              <a href="${localPortal}" target="_blank" rel="noopener noreferrer" class="hover:text-blue-400 transition underline decoration-blue-500/30">${job.title}</a>
+            </h3>
+            <div class="flex flex-wrap items-center gap-2 text-xs text-slate-300">
+              <span class="font-bold text-white">${job.company}</span>
+              <span>&bull;</span>
+              <span>📍 ${job.location}</span>
+              <span>&bull;</span>
+              <span>💼 ${job.workMode}</span>
+              <span>&bull;</span>
+              <span class="font-mono text-emerald-400 font-bold">${isPrivacyOn ? '••••••••••••' : job.realSalary}</span>
+            </div>
+          </div>
+          <div class="flex flex-wrap items-center gap-2 shrink-0">
+            <a href="${localPortal}" target="_blank" rel="noopener noreferrer" class="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white shadow-sm transition flex items-center gap-1">
+              <span>📋 Portal ↗</span>
+            </a>
+            <a href="${battleCardPath}" target="_blank" rel="noopener noreferrer" class="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-purple-600/20 text-purple-300 border border-purple-500/30 hover:bg-purple-600 hover:text-white transition flex items-center gap-1">
+              <span>🎯 Battle-Card ↗</span>
+            </a>
+            <button onclick="openScreeningModal('${job.id}')" class="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-indigo-600/20 text-indigo-300 border border-indigo-500/30 hover:bg-indigo-600 hover:text-white transition">
+              <span>📋 Screening Q&A</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- AI Match Justification Breakdown -->
+        <div class="p-3.5 rounded-xl bg-[#0b0f19] border border-slate-800 space-y-2 text-xs">
+          <div class="text-[11px] font-bold text-slate-300 uppercase tracking-wider flex items-center justify-between">
+            <span>🎯 Why this matches your updated resume:</span>
+            <span class="text-emerald-400 font-mono font-bold">Skills Overlap: ${alignment.exact.split(',').length} Exact Match(es)</span>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-[11px] text-slate-300">
+            <div><strong class="text-emerald-400">Technical Stack Fit:</strong> ${alignment.exact}</div>
+            <div><strong class="text-cyan-400">Seniority Accord:</strong> Verified ${activeCand?.experienceLabel || '8+ Years'} fulfills role seniority</div>
+          </div>
+          <div class="text-[11px] text-slate-400 pt-1 border-t border-slate-800/80">
+            <strong>Key JD Focus:</strong> ${job.description}
+          </div>
+        </div>
+
+        <div class="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-slate-800/80 text-xs">
+          <div class="flex flex-wrap gap-1.5">
+            ${job.skills.slice(0, 6).map(s => `<span class="px-2 py-0.5 bg-slate-900 text-slate-300 text-[10px] rounded-md border border-slate-800">${s}</span>`).join('')}
+          </div>
+          <div class="flex items-center gap-2">
+            <a href="${resumeHtmlPath}" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 font-semibold transition">Tailored Resume ↗</a>
+            <a href="${coverHtmlPath}" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 font-semibold transition">Cover Letter ↗</a>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function renderProfileTabView() {
+  const cand = (typeof currentCandidate !== 'undefined' && currentCandidate) ? currentCandidate : null;
+  if (!cand) return;
+
+  const nameEl = document.getElementById('tabProfileName');
+  if (nameEl) nameEl.textContent = cand.name;
+  const titleEl = document.getElementById('tabProfileTitle');
+  if (titleEl) titleEl.textContent = cand.title;
+  const emailEl = document.getElementById('tabProfileEmail');
+  if (emailEl) emailEl.textContent = cand.email;
+  const phoneEl = document.getElementById('tabProfilePhone');
+  if (phoneEl) phoneEl.textContent = isPrivacyOn ? '+91 ••••••••••' : (cand.phone || 'Not specified');
+  const locEl = document.getElementById('tabProfileLocation');
+  if (locEl) locEl.textContent = cand.location || 'New Delhi, India / Remote';
+  const ctcCurEl = document.getElementById('tabProfileCurrentCtc');
+  if (ctcCurEl) ctcCurEl.textContent = isPrivacyOn ? '₹•••••• PA' : (cand.currentCtc || '₹6,00,000 PA');
+  const ctcTarEl = document.getElementById('tabProfileTargetCtc');
+  if (ctcTarEl) ctcTarEl.textContent = isPrivacyOn ? '₹•••••• PA' : (cand.targetCtc || '₹12,00,000+ PA');
+  const expEl = document.getElementById('tabProfileExp');
+  if (expEl) expEl.textContent = cand.experienceLabel || (cand.experienceYears + '+ Years');
+  const noticeEl = document.getElementById('tabProfileNotice');
+  if (noticeEl) noticeEl.textContent = cand.noticePeriod || 'Immediate to 15 Days';
+  const compEl = document.getElementById('tabProfileCompany');
+  if (compEl) compEl.textContent = cand.currentCompany || 'Frontend Developer';
+  const resumeNameEl = document.getElementById('tabProfileResumeName');
+  if (resumeNameEl) resumeNameEl.textContent = cand.resumeFileName || (cand.resumeFile ? cand.resumeFile.split('/').pop() : 'Ashutosh Kumar Resume.pdf');
+
+  const skillsContainer = document.getElementById('tabProfileSkillsList');
+  if (skillsContainer) {
+    skillsContainer.innerHTML = (cand.coreStack || []).map(s => 
+      `<span class="px-2.5 py-1 rounded-xl bg-slate-900 border border-slate-800 text-xs text-slate-300 font-medium">${s}</span>`
+    ).join('');
+  }
+}
+
+// 16. RESUME UPLOAD & MODAL RECALIBRATION HANDLERS
+function openUploadResumeModal() {
+  const modal = document.getElementById('uploadResumeModal');
+  if (modal) modal.classList.remove('hidden');
+}
+
+function closeUploadResumeModal() {
+  const modal = document.getElementById('uploadResumeModal');
+  if (modal) modal.classList.add('hidden');
+}
+
+async function submitDashboardResumeUpload() {
+  const fileInput = document.getElementById('dashboardResumeFileInput');
+  const file = fileInput ? fileInput.files[0] : null;
+  if (!file) {
+    alert('Please select a resume file (.pdf, .docx, .txt).');
+    return;
+  }
+  const cand = (typeof currentCandidate !== 'undefined' && currentCandidate) ? currentCandidate : null;
+  if (!cand) {
+    alert('No active candidate selected.');
+    return;
+  }
+
+  const btn = document.getElementById('btnSubmitDashboardResume');
+  if (btn) {
+    btn.disabled = true;
+    btn.innerHTML = '<span>⏳ Analyzing Resume Intelligence...</span>';
+  }
+
+  try {
+    const reader = new FileReader();
+    reader.onload = async function() {
+      try {
+        const res = await fetch('/api/candidates/upload-resume', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            candidateId: cand.id,
+            fileName: file.name,
+            fileBase64: reader.result
+          })
+        });
+
+        const data = await res.json();
+        if (res.ok && data.success) {
+          closeUploadResumeModal();
+          cand.resumeFile = data.resumeFile;
+          cand.resumeFileName = data.resumeFileName;
+          if (data.candidate) {
+            Object.assign(cand, data.candidate);
+          }
+          // Automatically trigger the Recalibration Pop-Up Modal!
+          openRecalibrateModal(data);
+        } else {
+          alert(data.error || 'Failed to upload and analyze resume.');
+        }
+      } catch (uploadErr) {
+        alert('Upload failed: ' + uploadErr.message);
+      } finally {
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = '<span>Upload &amp; Analyze Resume</span>';
+        }
+      }
+    };
+    reader.readAsDataURL(file);
+  } catch (err) {
+    alert('Error reading file: ' + err.message);
+    if (btn) {
+      btn.disabled = false;
+      btn.innerHTML = '<span>Upload &amp; Analyze Resume</span>';
+    }
+  }
+}
+
+function openRecalibrateModal(uploadData) {
+  const modal = document.getElementById('recalibrateModal');
+  if (!modal) return;
+  const fileNameEl = document.getElementById('recalFileName');
+  if (fileNameEl) fileNameEl.textContent = uploadData.savedFileName || uploadData.resumeFileName || 'Resume.pdf';
+
+  const cand = (typeof currentCandidate !== 'undefined' && currentCandidate) ? currentCandidate : null;
+  const pillsContainer = document.getElementById('recalSkillsPills');
+  if (pillsContainer) {
+    pillsContainer.innerHTML = '';
+    const skills = uploadData.parsed?.skills?.primary || cand?.coreStack || ['Angular', 'TypeScript', 'HTML5/SCSS', 'Design Systems'];
+    skills.slice(0, 10).forEach(skill => {
+      const pill = document.createElement('span');
+      pill.className = 'px-2 py-0.5 rounded-md text-[10px] font-semibold bg-blue-500/20 text-blue-300 border border-blue-500/30';
+      pill.textContent = skill;
+      pillsContainer.appendChild(pill);
+    });
+  }
+
+  const senEl = document.getElementById('recalSeniority');
+  if (senEl) senEl.textContent = uploadData.parsed?.seniority || cand?.seniority || 'Senior';
+
+  const expEl = document.getElementById('recalExp');
+  if (expEl) expEl.textContent = uploadData.parsed?.experienceYears ? (uploadData.parsed.experienceYears + '+ Years') : (cand?.experienceLabel || '8+ Years');
+
+  const statusArea = document.getElementById('recalStatusArea');
+  if (statusArea) statusArea.classList.add('hidden');
+
+  modal.classList.remove('hidden');
+}
+
+function closeRecalibrateModal() {
+  const modal = document.getElementById('recalibrateModal');
+  if (modal) modal.classList.add('hidden');
+}
+
+async function executeRecalibrationAndRefresh() {
+  const cand = (typeof currentCandidate !== 'undefined' && currentCandidate) ? currentCandidate : null;
+  if (!cand) return;
+  const btn = document.getElementById('btnExecuteRecalibrate');
+  if (btn) {
+    btn.disabled = true;
+    btn.innerHTML = '<span>⏳ Recalibrating 23 Jobs...</span>';
+  }
+
+  try {
+    const res = await fetch('/api/candidates/recalibrate-and-refresh', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        candidateId: cand.id,
+        autoAdoptSkills: true
+      })
+    });
+
+    const data = await res.json();
+    if (res.ok && data.success) {
+      if (data.candidate) {
+        Object.assign(cand, data.candidate);
+        currentCandidate = cand;
+      }
+      if (data.jobs && data.jobs.length > 0) {
+        jobs = data.jobs;
+      }
+
+      // Re-render views with refreshed dynamic scores and new jobs
+      if (typeof updateFilterChipCounters === 'function') updateFilterChipCounters();
+      renderJobs();
+      renderRecommendationsView();
+      renderOverviewView();
+      renderProfileTabView();
+
+      // Update Hero and Sidebar
+      const heroName = document.querySelector('h2.text-base.md\\:text-lg.font-extrabold');
+      if (heroName) {
+        heroName.innerHTML = `${cand.name} &bull; <span class="text-slate-300 font-semibold">${cand.title}</span>`;
+      }
+      const sidebarName = document.getElementById('sidebarCandidateName');
+      if (sidebarName) sidebarName.textContent = cand.name;
+      const sidebarRole = document.getElementById('sidebarCandidateRole');
+      if (sidebarRole) sidebarRole.textContent = cand.title;
+
+      const statusArea = document.getElementById('recalStatusArea');
+      const statusText = document.getElementById('recalStatusText');
+      if (statusArea && statusText) {
+        statusArea.classList.remove('hidden');
+        statusText.innerHTML = `
+          <strong>✓ ${data.message}</strong>
+          <div class="mt-1 text-slate-300 text-[11px]">
+            Candidate profile updated with newly parsed skills. Gateway refreshed with ${data.totalJobs || jobs.length} total opportunities (${data.newJobsCount || 0} newly auto-generated for updated resume).
+          </div>
+        `;
+      }
+
+      if (btn) btn.innerHTML = '<span>✓ Gateway Refreshed</span>';
+      showReloadToast(`⚡ Gateway refreshed! ${jobs.length} jobs active (${data.newJobsCount || 0} newly auto-generated for updated resume)`);
+
+      setTimeout(() => {
+        closeRecalibrateModal();
+        switchTab('opportunities');
+      }, 1200);
+    } else {
+      alert(data.error || 'Recalibration failed.');
+      if (btn) {
+        btn.disabled = false;
+        btn.innerHTML = '<span>⚡ Recalculate &amp; Generate New Job Results</span>';
+      }
+    }
+  } catch (err) {
+    alert('Recalibration error: ' + err.message);
+    if (btn) {
+      btn.disabled = false;
+      btn.innerHTML = '<span>⚡ Recalculate &amp; Generate New Job Results</span>';
+    }
+  }
+}
+
+// 17. PROFILE EDITING MODAL HANDLERS
+function openEditProfileModal() {
+  const cand = (typeof currentCandidate !== 'undefined' && currentCandidate) ? currentCandidate : null;
+  if (!cand) return;
+
+  const setVal = (id, val) => { const el = document.getElementById(id); if (el) el.value = val || ''; };
+  setVal('editName', cand.name);
+  setVal('editEmail', cand.email);
+  setVal('editPhone', cand.phone);
+  setVal('editLocation', cand.location);
+  setVal('editTitle', cand.title);
+  setVal('editSeniority', cand.seniority || 'Senior');
+  setVal('editExp', cand.experienceYears || 8);
+  setVal('editCurrentCompany', cand.currentCompany);
+  setVal('editCurrentCtc', cand.currentCtc);
+  setVal('editTargetCtc', cand.targetCtc);
+  setVal('editNotice', cand.noticePeriod || 'Immediate to 15 Days');
+  setVal('editSkills', (cand.coreStack || []).join(', '));
+
+  const modal = document.getElementById('editProfileModal');
+  if (modal) modal.classList.remove('hidden');
+}
+
+function closeEditProfileModal() {
+  const modal = document.getElementById('editProfileModal');
+  if (modal) modal.classList.add('hidden');
+}
+
+async function submitEditProfile(e) {
+  if (e) e.preventDefault();
+  const cand = (typeof currentCandidate !== 'undefined' && currentCandidate) ? currentCandidate : null;
+  if (!cand) return;
+
+  const btn = document.getElementById('btnSaveProfile');
+  if (btn) {
+    btn.disabled = true;
+    btn.textContent = 'Saving Updates...';
+  }
+
+  const payload = {
+    candidateId: cand.id,
+    name: document.getElementById('editName')?.value.trim(),
+    email: document.getElementById('editEmail')?.value.trim(),
+    phone: document.getElementById('editPhone')?.value.trim(),
+    location: document.getElementById('editLocation')?.value.trim(),
+    title: document.getElementById('editTitle')?.value.trim(),
+    seniority: document.getElementById('editSeniority')?.value,
+    experienceYears: parseFloat(document.getElementById('editExp')?.value) || 5,
+    currentCompany: document.getElementById('editCurrentCompany')?.value.trim(),
+    currentCtc: document.getElementById('editCurrentCtc')?.value.trim(),
+    targetCtc: document.getElementById('editTargetCtc')?.value.trim(),
+    noticePeriod: document.getElementById('editNotice')?.value.trim(),
+    skills: document.getElementById('editSkills')?.value.split(',').map(s => s.trim()).filter(Boolean)
+  };
+
+  try {
+    const res = await fetch('/api/candidates/update-profile', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+
+    const data = await res.json();
+    if (res.ok && data.success) {
+      if (data.candidate) {
+        Object.assign(cand, data.candidate);
+        currentCandidate = cand;
+      }
+      closeEditProfileModal();
+      renderJobs();
+      renderRecommendationsView();
+      renderOverviewView();
+      renderProfileTabView();
+
+      // Update hero and sidebar
+      const heroName = document.querySelector('h2.text-base.md\\:text-lg.font-extrabold');
+      if (heroName) {
+        heroName.innerHTML = `${cand.name} &bull; <span class="text-slate-300 font-semibold">${cand.title}</span>`;
+      }
+      const sidebarName = document.getElementById('sidebarCandidateName');
+      if (sidebarName) sidebarName.textContent = cand.name;
+      const sidebarRole = document.getElementById('sidebarCandidateRole');
+      if (sidebarRole) sidebarRole.textContent = cand.title;
+
+      showReloadToast('✓ Candidate profile and preferences updated successfully!');
+    } else {
+      alert(data.error || 'Failed to update profile.');
+    }
+  } catch (err) {
+    alert('Update error: ' + err.message);
+  } finally {
+    if (btn) {
+      btn.disabled = false;
+      btn.textContent = 'Save Profile Updates';
+    }
   }
 }
 

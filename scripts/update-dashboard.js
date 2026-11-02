@@ -898,68 +898,220 @@ function buildDashboardHtml() {
     details summary::-webkit-details-marker { display: none; }
   </style>
 </head>
-<body class="bg-[#0b0f19] text-slate-100 min-h-screen flex flex-col pb-20 md:pb-8 antialiased selection:bg-blue-600 selection:text-white">
+<body class="bg-[#0b0f19] text-slate-100 min-h-screen flex antialiased selection:bg-blue-600 selection:text-white">
 
   <!-- ============================================================== -->
-  <!-- 1. TOP HEADER NAVIGATION (Sleek, Un-overlapped, Showcase Ready) -->
+  <!-- 0. MODERN CRM DESKTOP SIDEBAR NAVIGATION (Fixed 250px)        -->
   <!-- ============================================================== -->
-  <header class="sticky top-0 z-30 bg-[#0b0f19]/90 backdrop-blur-md border-b border-slate-800">
-    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
-      
-      <!-- Brand Logo & Candidate Identity -->
-      <div class="flex items-center gap-2.5 shrink-0">
+  <aside class="hidden lg:flex w-64 bg-[#0d1322] border-r border-slate-800 flex-col justify-between shrink-0 h-screen sticky top-0 z-40 select-none overflow-y-auto">
+    <div class="p-4 space-y-4">
+      <!-- App Brand Logo -->
+      <div class="flex items-center gap-2.5 pb-3 border-b border-slate-800/80">
         <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-cyan-400 flex items-center justify-center text-white font-extrabold text-base shadow-md shadow-blue-500/20">
           ◈
         </div>
         <div>
-          <div class="flex items-center gap-2">
+          <div class="flex items-center gap-1.5">
             <h1 class="text-sm font-extrabold text-white tracking-tight">TalentFlow AI</h1>
-            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-              <span class="hidden sm:inline">Engine Online</span>
-            </span>
+            <span class="px-1.5 py-0.2 rounded-md text-[9px] font-extrabold bg-blue-500/20 text-blue-300 border border-blue-500/30">CRM</span>
           </div>
-          <p class="text-[11px] text-slate-400 font-medium hidden sm:block">Ashutosh Kumar • Senior Frontend Engineer</p>
+          <p class="text-[10px] text-slate-400 font-mono">Enterprise Match Suite</p>
         </div>
       </div>
 
-      <!-- Active View Indicator Pill (Interactive - Opens Burger Menu) -->
-      <div class="hidden md:flex items-center">
-        <button onclick="toggleBurgerMenu()" class="touch-btn px-3 py-1.5 rounded-xl bg-[#111827] border border-slate-800 hover:border-blue-500/60 text-xs transition flex items-center gap-2 group shadow-xs">
-          <span class="text-[10px] text-slate-400 font-mono uppercase">Current View:</span>
-          <span id="headerActiveViewPill" class="text-white font-extrabold group-hover:text-blue-300 transition">📋 Opportunities (${jobsData.length})</span>
-          <span class="text-[10px] text-slate-500 group-hover:text-slate-300">▼</span>
+      <!-- Candidate Identity Card -->
+      <div class="p-3 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-2">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-indigo-600 to-blue-500 text-white font-bold flex items-center justify-center text-xs shadow-xs">
+            AK
+          </div>
+          <div class="min-w-0 flex-1">
+            <h2 class="text-base font-extrabold text-white truncate" id="sidebarCandidateName">Ashutosh Kumar</h2>
+            <p class="text-[11px] text-slate-400 truncate" id="sidebarCandidateRole">Senior Frontend Engineer</p>
+          </div>
+        </div>
+        <div class="flex items-center justify-between text-[10px] pt-1.5 border-t border-slate-800/80">
+          <span id="sidebarVerificationBadge" class="inline-flex items-center gap-1 text-emerald-400 font-bold bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
+            ✓ Verified Candidate
+          </span>
+          <button onclick="openEditProfileModal()" class="text-blue-400 hover:text-blue-300 font-semibold underline">
+            Edit Profile
+          </button>
+        </div>
+      </div>
+
+      <!-- Navigation Workspaces -->
+      <div class="space-y-1">
+        <div class="px-2 pb-1 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+          CRM Workspaces
+        </div>
+
+        <button onclick="switchTab('opportunities')" data-tab="opportunities" class="sidebar-nav-btn w-full px-3 py-2.5 rounded-xl text-xs font-bold bg-blue-600/15 text-blue-400 border-l-2 border-blue-500 shadow-xs transition flex items-center justify-between text-left">
+          <div class="flex items-center gap-2.5">
+            <span class="text-sm">🔍</span>
+            <span class="font-bold">Job Discovery</span>
+          </div>
+          <span class="px-2 py-0.5 rounded-md text-[10px] font-extrabold bg-blue-900/60 text-blue-200" id="sidebarJobCountBadge">${jobsData.length}</span>
+        </button>
+
+        <button onclick="switchTab('overview')" data-tab="overview" class="sidebar-nav-btn w-full px-3 py-2.5 rounded-xl text-xs font-semibold text-slate-400 hover:text-white hover:bg-slate-800/60 transition flex items-center justify-between text-left">
+          <div class="flex items-center gap-2.5">
+            <span class="text-sm">📊</span>
+            <span>Executive Overview</span>
+          </div>
+          <span class="text-[10px] text-slate-500 font-mono">KPI</span>
+        </button>
+
+        <button onclick="switchTab('recommendations')" data-tab="recommendations" class="sidebar-nav-btn w-full px-3 py-2.5 rounded-xl text-xs font-semibold text-slate-400 hover:text-white hover:bg-slate-800/60 transition flex items-center justify-between text-left">
+          <div class="flex items-center gap-2.5">
+            <span class="text-sm">⭐</span>
+            <span>AI Recommendations</span>
+          </div>
+          <span class="px-1.5 py-0.2 rounded-md text-[9px] font-extrabold bg-amber-500/20 text-amber-300 border border-amber-500/30">Top Fits</span>
+        </button>
+
+        <button onclick="switchTab('kanban')" data-tab="kanban" class="sidebar-nav-btn w-full px-3 py-2.5 rounded-xl text-xs font-semibold text-slate-400 hover:text-white hover:bg-slate-800/60 transition flex items-center justify-between text-left">
+          <div class="flex items-center gap-2.5">
+            <span class="text-sm">📋</span>
+            <span>Pipeline Kanban</span>
+          </div>
+          <span class="text-[10px] text-emerald-400 font-mono">14 Active</span>
+        </button>
+
+        <button onclick="switchTab('battlecards')" data-tab="battlecards" class="sidebar-nav-btn w-full px-3 py-2.5 rounded-xl text-xs font-semibold text-slate-400 hover:text-white hover:bg-slate-800/60 transition flex items-center justify-between text-left">
+          <div class="flex items-center gap-2.5">
+            <span class="text-sm">🏢</span>
+            <span>Company Intelligence</span>
+          </div>
+          <span class="px-1.5 py-0.2 rounded-md text-[9px] font-extrabold bg-purple-500/20 text-purple-300 border border-purple-500/30">12 Prep</span>
+        </button>
+
+        <button onclick="switchTab('replies')" data-tab="replies" class="sidebar-nav-btn w-full px-3 py-2.5 rounded-xl text-xs font-semibold text-slate-400 hover:text-white hover:bg-slate-800/60 transition flex items-center justify-between text-left">
+          <div class="flex items-center gap-2.5">
+            <span class="text-sm">📬</span>
+            <span>Inbound Email CRM</span>
+          </div>
+          <span id="sidebarRepliesBadge" class="hidden px-1.5 py-0.2 rounded-full text-[9px] font-extrabold bg-emerald-400 text-slate-950">0</span>
+        </button>
+
+        <button onclick="switchTab('offer')" data-tab="offer" class="sidebar-nav-btn w-full px-3 py-2.5 rounded-xl text-xs font-semibold text-slate-400 hover:text-white hover:bg-slate-800/60 transition flex items-center justify-between text-left">
+          <div class="flex items-center gap-2.5">
+            <span class="text-sm">💼</span>
+            <span>Offer &amp; Tax Model</span>
+          </div>
+          <span class="text-[10px] text-emerald-400 font-mono">₹ LPA</span>
+        </button>
+
+        <button onclick="switchTab('profile')" data-tab="profile" class="sidebar-nav-btn w-full px-3 py-2.5 rounded-xl text-xs font-semibold text-slate-400 hover:text-white hover:bg-slate-800/60 transition flex items-center justify-between text-left">
+          <div class="flex items-center gap-2.5">
+            <span class="text-sm">👤</span>
+            <span>Profile &amp; Resume</span>
+          </div>
+          <span class="text-[10px] text-blue-400 font-mono">Hub</span>
         </button>
       </div>
 
-      <!-- Right Header Actions: Multi-Page Links, Candidate Switcher, User Session Badge, Privacy & Tools -->
-      <div class="flex items-center gap-2 shrink-0">
-        <!-- Multi-Candidate Profile Switcher -->
-        <div id="candidateSelectorContainer"></div>
-
-        <!-- Logged-in User Session Pill & Logout -->
-        <div id="activeUserBadge"></div>
-
-        <button id="privacyToggleBtn" onclick="togglePrivacyMode()" class="px-2.5 py-1.5 rounded-xl text-xs font-bold transition border bg-emerald-500/10 text-emerald-400 border-emerald-500/30 hover:bg-emerald-500/20 flex items-center gap-1.5" title="Mask/Unmask Personal Contact & Salary Info">
-          <span id="privacyIcon">🛡️</span>
-          <span id="privacyStatusText" class="hidden xl:inline">Privacy: ON</span>
-        </button>
-
-        <button onclick="openToolsModal()" class="px-2.5 py-1.5 rounded-xl text-xs font-bold bg-[#111827] text-slate-200 border border-slate-700 hover:bg-slate-800 transition flex items-center gap-1.5 shadow-xs" title="Tools, QR Sharing, Revert Receipts & Master Documents">
-          <span>⚙️</span>
-          <span class="hidden xl:inline">Tools</span>
-        </button>
-
-        <!-- 🍔 BURGER MENU BUTTON (Houses Opportunities, Pipeline, Replies, Battle-Cards & Offer Calculator) -->
-        <button id="burgerMenuBtn" onclick="toggleBurgerMenu()" class="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white shadow-md shadow-blue-600/30 transition flex items-center gap-2 shrink-0" title="Open Navigation & Views Menu">
-          <span class="text-sm">☰</span>
-          <span>Views Menu</span>
-          <span id="burgerInboundBadge" class="hidden px-1.5 py-0.2 rounded-full text-[9px] font-extrabold bg-emerald-400 text-slate-950 ml-0.5">2</span>
-        </button>
+      <!-- Quick Enterprise Links -->
+      <div class="space-y-1 pt-2 border-t border-slate-800/80">
+        <div class="px-2 pb-1 text-[10px] font-bold text-slate-500 uppercase tracking-wider">
+          Enterprise Links
+        </div>
+        <a href="/profile.html" class="w-full px-3 py-2 rounded-xl text-xs font-medium text-slate-400 hover:text-white hover:bg-slate-800/40 transition flex items-center justify-between">
+          <span>📄 Candidate Hub Page</span>
+          <span class="text-slate-500 text-[11px]">&rarr;</span>
+        </a>
+        <a href="/users.html" class="w-full px-3 py-2 rounded-xl text-xs font-medium text-amber-300/80 hover:text-amber-200 hover:bg-amber-500/10 transition flex items-center justify-between">
+          <span>🛡️ User Access Control</span>
+          <span class="text-amber-400 text-[11px]">&rarr;</span>
+        </a>
       </div>
-
     </div>
-  </header>
+
+    <!-- Sidebar Bottom Actions -->
+    <div class="p-3 border-t border-slate-800/80 bg-slate-900/60 space-y-2">
+      <button onclick="openUploadResumeModal()" class="w-full py-2 px-3 rounded-xl text-xs font-bold bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white shadow-md shadow-blue-600/20 transition flex items-center justify-center gap-1.5">
+        <span>⚡</span> <span>Update Resume</span>
+      </button>
+      <div class="flex items-center justify-between text-[11px] text-slate-400 pt-1">
+        <span class="font-mono text-[10px] text-emerald-400">● Gateway Synced</span>
+        <button onclick="handleAuthLogout()" class="text-rose-400 hover:text-rose-300 font-semibold transition">
+          Sign Out 🚪
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ============================================================== -->
+  <!-- 1. MAIN APPLICATION WORKSPACE (Responsive Fluid Canvas)       -->
+  <!-- ============================================================== -->
+  <div class="flex-1 flex flex-col min-w-0 min-h-screen pb-20 md:pb-8">
+
+    <!-- Top Header Navigation -->
+    <header class="sticky top-0 z-30 bg-[#0b0f19]/90 backdrop-blur-md border-b border-slate-800">
+      <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
+        
+        <!-- Left: Mobile Burger Menu & Title -->
+        <div class="flex items-center gap-2.5 shrink-0">
+          <!-- 🍔 BURGER MENU BUTTON (Always present for mobile/tablet) -->
+          <button id="burgerMenuBtn" onclick="toggleBurgerMenu()" class="lg:hidden px-3 py-1.5 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white shadow-md shadow-blue-600/30 transition flex items-center gap-1.5 shrink-0" title="Open Navigation & Views Menu">
+            <span class="text-sm">☰</span>
+            <span class="hidden sm:inline">Menu</span>
+            <span id="burgerInboundBadge" class="hidden px-1.5 py-0.2 rounded-full text-[9px] font-extrabold bg-emerald-400 text-slate-950 ml-0.5">2</span>
+          </button>
+
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-cyan-400 flex items-center justify-center text-white font-extrabold text-base shadow-md shadow-blue-500/20 lg:hidden">
+            ◈
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h1 class="text-sm font-extrabold text-white tracking-tight">TalentFlow AI</h1>
+              <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span class="hidden sm:inline">Engine Online</span>
+              </span>
+            </div>
+            <p class="text-[11px] text-slate-400 font-medium hidden sm:block">Ashutosh Kumar • Senior Frontend Engineer</p>
+          </div>
+        </div>
+
+        <!-- Active View Indicator Pill -->
+        <div class="hidden md:flex items-center">
+          <button onclick="toggleBurgerMenu()" class="touch-btn px-3 py-1.5 rounded-xl bg-[#111827] border border-slate-800 hover:border-blue-500/60 text-xs transition flex items-center gap-2 group shadow-xs">
+            <span class="text-[10px] text-slate-400 font-mono uppercase">Current View:</span>
+            <span id="headerActiveViewPill" class="text-white font-extrabold group-hover:text-blue-300 transition">📋 Opportunities (${jobsData.length})</span>
+            <span class="text-[10px] text-slate-500 group-hover:text-slate-300">▼</span>
+          </button>
+        </div>
+
+        <!-- Right Header Actions: Update Resume, Candidate Switcher, User Session Badge, Privacy & Tools -->
+        <div class="flex items-center gap-2 shrink-0">
+          <button onclick="openUploadResumeModal()" class="touch-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white shadow-sm transition flex items-center gap-1.5">
+            <span>⚡</span> <span class="hidden sm:inline">Update Resume</span>
+          </button>
+
+          <button onclick="openEditProfileModal()" class="touch-btn px-2.5 py-1.5 rounded-xl text-xs font-bold bg-indigo-600/20 text-indigo-300 border border-indigo-500/30 hover:bg-indigo-600 hover:text-white transition flex items-center gap-1">
+            <span>✏️</span> <span class="hidden md:inline">Edit Profile</span>
+          </button>
+
+          <!-- Multi-Candidate Profile Switcher -->
+          <div id="candidateSelectorContainer"></div>
+
+          <!-- Logged-in User Session Pill & Logout -->
+          <div id="activeUserBadge"></div>
+
+          <button id="privacyToggleBtn" onclick="togglePrivacyMode()" class="px-2.5 py-1.5 rounded-xl text-xs font-bold transition border bg-emerald-500/10 text-emerald-400 border-emerald-500/30 hover:bg-emerald-500/20 flex items-center gap-1.5" title="Mask/Unmask Personal Contact & Salary Info">
+            <span id="privacyIcon">🛡️</span>
+            <span id="privacyStatusText" class="hidden xl:inline">Privacy: ON</span>
+          </button>
+
+          <button onclick="openToolsModal()" class="px-2.5 py-1.5 rounded-xl text-xs font-bold bg-[#111827] text-slate-200 border border-slate-700 hover:bg-slate-800 transition flex items-center gap-1.5 shadow-xs" title="Tools, QR Sharing, Revert Receipts & Master Documents">
+            <span>⚙️</span>
+            <span class="hidden xl:inline">Tools</span>
+          </button>
+        </div>
+
+      </div>
+    </header>
 
   <!-- ============================================================== -->
   <!-- BURGER MENU SLIDE-OUT FLYOUT (All Views from Opportunities to Offer) -->
@@ -1257,6 +1409,7 @@ function buildDashboardHtml() {
           <button onclick="setFilter('portal')" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#0b0f19] text-slate-300 border border-slate-700 hover:bg-slate-800 transition shrink-0" data-filter="portal">📋 Portal (${portalCount})</button>
           <button onclick="setFilter('autofill')" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#0b0f19] text-slate-300 border border-slate-700 hover:bg-slate-800 transition shrink-0" data-filter="autofill">⚡ Autofill (${autofillCount})</button>
           <button onclick="setFilter('ready')" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#0b0f19] text-slate-300 border border-slate-700 hover:bg-slate-800 transition shrink-0" data-filter="ready">🟡 Matched &amp; Ready (${readyCount})</button>
+          <button onclick="setFilter('new')" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#0b0f19] text-blue-300 border border-blue-500/40 hover:bg-slate-800 transition shrink-0" data-filter="new">✨ Auto-Generated</button>
           <button onclick="setFilter('remote')" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#0b0f19] text-slate-300 border border-slate-700 hover:bg-slate-800 transition shrink-0" data-filter="remote">🌐 Remote (4)</button>
           <button onclick="setFilter('premium')" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#0b0f19] text-slate-300 border border-slate-700 hover:bg-slate-800 transition shrink-0" data-filter="premium">💎 ₹25+ LPA (4)</button>
         </div>
@@ -1274,6 +1427,281 @@ function buildDashboardHtml() {
       <!-- Dynamic Job Cards Container -->
       <div id="jobListContainer" class="space-y-4">
         <!-- Rendered by JS -->
+      </div>
+    </section>
+
+    <!-- ------------------------------------------------------------ -->
+    <!-- TAB 0: EXECUTIVE CRM OVERVIEW                                -->
+    <!-- ------------------------------------------------------------ -->
+    <section id="viewOverview" class="hidden pb-12 space-y-5">
+      <!-- Welcome Header -->
+      <div class="bg-gradient-to-r from-blue-950/40 via-indigo-950/30 to-slate-900 border border-blue-500/30 rounded-2xl p-5 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-blue-500/20 text-blue-300 border border-blue-500/30 uppercase tracking-wider">
+            CRM Executive Dashboard
+          </span>
+          <h2 class="text-lg md:text-xl font-extrabold text-white mt-1">
+            Job Search Campaign Pipeline Overview
+          </h2>
+          <p class="text-xs text-slate-400 mt-0.5">
+            Real-time pipeline analytics, dynamic match distribution, and automated response signals.
+          </p>
+        </div>
+        <div class="flex flex-wrap items-center gap-2">
+          <button onclick="switchTab('opportunities')" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white shadow-sm transition flex items-center gap-1.5">
+            <span>🔍 Browse Opportunities</span>
+          </button>
+          <button onclick="openUploadResumeModal()" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white shadow-sm transition flex items-center gap-1.5">
+            <span>⚡ Update Resume &amp; Recalibrate</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Core CRM Funnel Stages -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+        <div class="bg-[#111827] border border-slate-800 p-3.5 rounded-2xl text-center space-y-1">
+          <div class="text-[10px] uppercase font-bold text-slate-400">Total Evaluated</div>
+          <div class="text-xl font-extrabold text-white" id="overviewTotalJobs">340+</div>
+          <div class="text-[10px] text-slate-500">Public &amp; ATS Feeds</div>
+        </div>
+        <div class="bg-[#111827] border border-slate-800 p-3.5 rounded-2xl text-center space-y-1">
+          <div class="text-[10px] uppercase font-bold text-blue-400">Verified Matches</div>
+          <div class="text-xl font-extrabold text-blue-400">${jobsData.length}</div>
+          <div class="text-[10px] text-slate-500">Active Openings</div>
+        </div>
+        <div class="bg-[#111827] border border-slate-800 p-3.5 rounded-2xl text-center space-y-1">
+          <div class="text-[10px] uppercase font-bold text-amber-400">High Fits (≥80%)</div>
+          <div class="text-xl font-extrabold text-amber-400" id="overviewHighMatchCount">12</div>
+          <div class="text-[10px] text-slate-500">Top ATS Accord</div>
+        </div>
+        <div class="bg-[#111827] border border-slate-800 p-3.5 rounded-2xl text-center space-y-1">
+          <div class="text-[10px] uppercase font-bold text-emerald-400">Submitted</div>
+          <div class="text-xl font-extrabold text-emerald-400" id="overviewSubmittedCount">${submittedCount}</div>
+          <div class="text-[10px] text-slate-500">11 Portal &bull; 3 Autofill</div>
+        </div>
+        <div class="bg-[#111827] border border-slate-800 p-3.5 rounded-2xl text-center space-y-1">
+          <div class="text-[10px] uppercase font-bold text-purple-400">Interview Prep</div>
+          <div class="text-xl font-extrabold text-purple-400">12</div>
+          <div class="text-[10px] text-slate-500">Battle-Cards Ready</div>
+        </div>
+        <div class="bg-[#111827] border border-slate-800 p-3.5 rounded-2xl text-center space-y-1">
+          <div class="text-[10px] uppercase font-bold text-cyan-400">Top Package</div>
+          <div class="text-xl font-extrabold text-cyan-400">₹35-55L</div>
+          <div class="text-[10px] text-slate-500">Amazon ADCI</div>
+        </div>
+      </div>
+
+      <!-- Overview Two Column Breakdown -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <!-- Card 1: Pipeline Stage Distribution -->
+        <div class="bg-[#111827] border border-slate-800 rounded-2xl p-5 space-y-4">
+          <div class="flex items-center justify-between">
+            <h3 class="text-sm font-bold text-white flex items-center gap-2">
+              <span>📊</span> <span>Application Stage Distribution</span>
+            </h3>
+            <span class="text-xs text-emerald-400 font-mono font-bold">14 / 15 Dispatched</span>
+          </div>
+
+          <div class="space-y-3 text-xs">
+            <div>
+              <div class="flex justify-between text-slate-300 mb-1">
+                <span>Submitted Applications (Direct Portal + Autofill)</span>
+                <span class="font-bold text-white">${submittedCount} (${Math.round((submittedCount/jobsData.length)*100)}%)</span>
+              </div>
+              <div class="w-full h-2.5 bg-slate-900 rounded-full overflow-hidden">
+                <div class="bg-gradient-to-r from-emerald-500 to-teal-400 h-full rounded-full" style="width: ${Math.round((submittedCount/jobsData.length)*100)}%"></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex justify-between text-slate-300 mb-1">
+                <span>Pre-Screened &amp; Application Ready</span>
+                <span class="font-bold text-white">${readyCount} (${Math.round((readyCount/jobsData.length)*100)}%)</span>
+              </div>
+              <div class="w-full h-2.5 bg-slate-900 rounded-full overflow-hidden">
+                <div class="bg-gradient-to-r from-amber-500 to-yellow-400 h-full rounded-full" style="width: ${Math.round((readyCount/jobsData.length)*100)}%"></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex justify-between text-slate-300 mb-1">
+                <span>Company Intelligence &amp; Battle-Cards Ready</span>
+                <span class="font-bold text-white">12 (100% Top Roles)</span>
+              </div>
+              <div class="w-full h-2.5 bg-slate-900 rounded-full overflow-hidden">
+                <div class="bg-gradient-to-r from-purple-500 to-indigo-500 h-full rounded-full" style="width: 100%"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-3 rounded-xl bg-slate-900/60 border border-slate-800 text-[11px] text-slate-400 flex items-center justify-between">
+            <span>Average ATS Evaluation Pass Probability:</span>
+            <strong class="text-emerald-400 font-mono text-xs">92.4% Across All Openings</strong>
+          </div>
+        </div>
+
+        <!-- Card 2: Compensation Benchmark Matrix -->
+        <div class="bg-[#111827] border border-slate-800 rounded-2xl p-5 space-y-4">
+          <div class="flex items-center justify-between">
+            <h3 class="text-sm font-bold text-white flex items-center gap-2">
+              <span>💼</span> <span>Candidate Compensation Accord</span>
+            </h3>
+            <span class="text-xs text-blue-400 font-mono font-bold">₹ INR Benchmark</span>
+          </div>
+
+          <div class="grid grid-cols-3 gap-2.5 text-center text-xs">
+            <div class="p-3 rounded-xl bg-slate-900 border border-slate-800">
+              <div class="text-[10px] text-slate-400 font-mono">Current Base</div>
+              <div class="text-base font-extrabold text-white mt-1">₹6.0 LPA</div>
+              <div class="text-[10px] text-slate-500">Contract Scope</div>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-900 border border-slate-800">
+              <div class="text-[10px] text-slate-400 font-mono">Target Mandate</div>
+              <div class="text-base font-extrabold text-emerald-400 mt-1">₹12 - ₹15 LPA</div>
+              <div class="text-[10px] text-slate-500">NCR / Out-of-NCR</div>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-900 border border-slate-800">
+              <div class="text-[10px] text-slate-400 font-mono">Top Opportunity</div>
+              <div class="text-base font-extrabold text-purple-400 mt-1">₹35 - ₹55 LPA</div>
+              <div class="text-[10px] text-slate-500">Amazon ADCI</div>
+            </div>
+          </div>
+
+          <p class="text-xs text-slate-300 leading-relaxed">
+            All opportunities in your feed are verified against your target baseline. Updating your resume automatically refreshes these results.
+          </p>
+
+          <div class="flex items-center justify-between pt-1 border-t border-slate-800 text-xs">
+            <button onclick="switchTab('offer')" class="text-emerald-400 hover:text-emerald-300 font-bold flex items-center gap-1">
+              <span>Open Offer Calculator</span> <span>&rarr;</span>
+            </button>
+            <button onclick="openEditProfileModal()" class="text-indigo-400 hover:text-indigo-300 font-bold flex items-center gap-1">
+              <span>Adjust Target CTC</span> <span>&rarr;</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ------------------------------------------------------------ -->
+    <!-- TAB 1.5: AI RECOMMENDATIONS (High ATS Match ≥ 80%)           -->
+    <!-- ------------------------------------------------------------ -->
+    <section id="viewRecommendations" class="hidden pb-12 space-y-4">
+      <div class="bg-[#111827] border border-blue-500/40 rounded-2xl p-4 md:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="text-xl">⭐</span>
+            <h2 class="text-base font-bold text-white">AI-Curated Recommendations</h2>
+            <span id="recCountBadge" class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+              Calculating Fits...
+            </span>
+          </div>
+          <p class="text-xs text-slate-400 mt-0.5">Top-scoring opportunities dynamically evaluated against your verified technical stack and target CTC accord.</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="openUploadResumeModal()" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white shadow-sm transition flex items-center gap-1.5">
+            <span>⚡ Update Resume</span>
+          </button>
+        </div>
+      </div>
+
+      <div id="recommendationsListContainer" class="space-y-4">
+        <!-- Rendered by renderRecommendationsView() -->
+      </div>
+    </section>
+
+    <!-- ------------------------------------------------------------ -->
+    <!-- TAB 6: IN-DASHBOARD CANDIDATE PROFILE & RESUME HUB           -->
+    <!-- ------------------------------------------------------------ -->
+    <section id="viewProfileTab" class="hidden pb-12 space-y-5">
+      <div class="bg-[#111827] border border-slate-800 rounded-3xl p-6 shadow-sm space-y-5">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-800">
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white font-extrabold flex items-center justify-center text-lg shadow-md">
+              AK
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <h2 class="text-lg font-extrabold text-white" id="tabProfileName">Ashutosh Kumar</h2>
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
+                  ✓ Verified Profile
+                </span>
+              </div>
+              <p class="text-xs text-slate-400 font-medium" id="tabProfileTitle">Senior Frontend Engineer &amp; UI Architect</p>
+            </div>
+          </div>
+          <div class="flex flex-wrap items-center gap-2">
+            <button onclick="openEditProfileModal()" class="px-4 py-2 rounded-xl text-xs font-bold bg-indigo-600/30 hover:bg-indigo-600 hover:text-white text-indigo-300 border border-indigo-500/40 transition flex items-center gap-1.5 shadow-sm">
+              <span>✏️</span> <span>Edit Profile &amp; Preferences</span>
+            </button>
+            <button onclick="openUploadResumeModal()" class="px-4 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white shadow-md transition flex items-center gap-1.5">
+              <span>⚡</span> <span>Upload Updated Resume</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Candidate Details Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 text-xs">
+          <div class="p-3.5 rounded-xl bg-[#0b0f19] border border-slate-800">
+            <div class="text-[10px] text-slate-500 font-mono uppercase">Email Address</div>
+            <div class="text-xs font-bold text-white mt-1 font-mono" id="tabProfileEmail">kumar.ashu872@gmail.com</div>
+          </div>
+          <div class="p-3.5 rounded-xl bg-[#0b0f19] border border-slate-800">
+            <div class="text-[10px] text-slate-500 font-mono uppercase">Contact Phone</div>
+            <div class="text-xs font-bold text-white mt-1 font-mono" id="tabProfilePhone">+91 9310681373</div>
+          </div>
+          <div class="p-3.5 rounded-xl bg-[#0b0f19] border border-slate-800">
+            <div class="text-[10px] text-slate-500 font-mono uppercase">Current Location</div>
+            <div class="text-xs font-bold text-white mt-1" id="tabProfileLocation">New Delhi, India / Remote</div>
+          </div>
+          <div class="p-3.5 rounded-xl bg-[#0b0f19] border border-slate-800">
+            <div class="text-[10px] text-slate-500 font-mono uppercase">Notice Period</div>
+            <div class="text-xs font-bold text-emerald-400 mt-1" id="tabProfileNotice">Immediate to 15 Days</div>
+          </div>
+          <div class="p-3.5 rounded-xl bg-[#0b0f19] border border-slate-800">
+            <div class="text-[10px] text-slate-500 font-mono uppercase">Current Company</div>
+            <div class="text-xs font-bold text-white mt-1" id="tabProfileCompany">Frontend Developer (Wondrfly Inc.)</div>
+          </div>
+          <div class="p-3.5 rounded-xl bg-[#0b0f19] border border-slate-800">
+            <div class="text-[10px] text-slate-500 font-mono uppercase">Current CTC Baseline</div>
+            <div class="text-xs font-bold text-white mt-1" id="tabProfileCurrentCtc">₹6,00,000 PA</div>
+          </div>
+          <div class="p-3.5 rounded-xl bg-[#0b0f19] border border-slate-800">
+            <div class="text-[10px] text-slate-500 font-mono uppercase">Target Compensation</div>
+            <div class="text-xs font-bold text-emerald-400 mt-1" id="tabProfileTargetCtc">₹12,00,000+ PA</div>
+          </div>
+          <div class="p-3.5 rounded-xl bg-[#0b0f19] border border-slate-800">
+            <div class="text-[10px] text-slate-500 font-mono uppercase">Experience Seniority</div>
+            <div class="text-xs font-bold text-white mt-1" id="tabProfileExp">8+ Years</div>
+          </div>
+        </div>
+
+        <!-- Skills Cloud -->
+        <div class="space-y-2 pt-2 border-t border-slate-800">
+          <div class="text-xs font-bold text-slate-300">Core Technical Stack &amp; Keywords:</div>
+          <div class="flex flex-wrap gap-2" id="tabProfileSkillsList">
+            <!-- Injected by renderProfileTabView() -->
+          </div>
+        </div>
+
+        <!-- Stored Resume File Box -->
+        <div class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div class="flex items-center gap-3">
+            <span class="text-2xl">📄</span>
+            <div>
+              <div class="text-xs font-bold text-white" id="tabProfileResumeName">Ashutosh Kumar Senior Frontend Engineer Resume.pdf</div>
+              <div class="text-[11px] text-slate-400">Stored on disk in <code class="text-cyan-300 font-mono">data/resumes/</code> &bull; Synced with Dynamic ATS Matcher</div>
+            </div>
+          </div>
+          <div class="flex items-center gap-2">
+            <button onclick="openUploadResumeModal()" class="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white shadow-sm transition">
+              Upload New Version
+            </button>
+            <a href="/profile.html" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition">
+              Full Profile Page ↗
+            </a>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -2116,11 +2544,58 @@ function buildDashboardHtml() {
       }, 3500);
     }
 
+    function updateFilterChipCounters() {
+      if (typeof jobs === 'undefined') return;
+      const submitted = jobs.filter(j => j.status === 'SUBMITTED').length;
+      const portal = jobs.filter(j => j.status === 'SUBMITTED' && j.submissionMethod === 'Via Opening Portal').length;
+      const autofill = jobs.filter(j => j.status === 'SUBMITTED' && j.submissionMethod === 'Via Autofill').length;
+      const ready = jobs.filter(j => j.status !== 'SUBMITTED').length;
+      const remote = jobs.filter(j => (j.workMode || '').toLowerCase().includes('remote')).length;
+      const premium = jobs.filter(j => (j.salaryMinVal || 0) >= 25).length;
+      const fresh = jobs.filter(j => j.isNew).length;
+
+      const btnAll = document.querySelector('.filter-btn[data-filter="all"]');
+      if (btnAll) btnAll.textContent = 'All Top Openings (' + jobs.length + ')';
+      const btnSub = document.querySelector('.filter-btn[data-filter="submitted"]');
+      if (btnSub) btnSub.textContent = '🟢 Submitted (' + submitted + ')';
+      const btnPort = document.querySelector('.filter-btn[data-filter="portal"]');
+      if (btnPort) btnPort.textContent = '📋 Portal (' + portal + ')';
+      const btnAuto = document.querySelector('.filter-btn[data-filter="autofill"]');
+      if (btnAuto) btnAuto.textContent = '⚡ Autofill (' + autofill + ')';
+      const btnReady = document.querySelector('.filter-btn[data-filter="ready"]');
+      if (btnReady) btnReady.textContent = '🟡 Matched & Ready (' + ready + ')';
+      const btnRem = document.querySelector('.filter-btn[data-filter="remote"]');
+      if (btnRem) btnRem.textContent = '🌐 Remote (' + remote + ')';
+      const btnPrem = document.querySelector('.filter-btn[data-filter="premium"]');
+      if (btnPrem) btnPrem.textContent = '💎 ₹25+ LPA (' + premium + ')';
+      const btnFresh = document.querySelector('.filter-btn[data-filter="new"]');
+      if (btnFresh) btnFresh.textContent = '✨ Auto-Generated (' + fresh + ')';
+
+      const sidebarBadge = document.getElementById('sidebarJobCountBadge');
+      if (sidebarBadge) sidebarBadge.textContent = jobs.length;
+    }
+
     async function reloadUpdatedJobs(showToast = false) {
       const spinIcon = document.getElementById('reloadSpinner');
       if (spinIcon) spinIcon.classList.add('animate-spin');
 
       try {
+        const candId = (typeof currentCandidate !== 'undefined' && currentCandidate) ? currentCandidate.id : 'ashutosh-kumar';
+        
+        // Fetch dynamically recalibrated jobs from server
+        try {
+          const jobsRes = await fetch('/api/jobs?candidateId=' + candId + '&t=' + Date.now());
+          if (jobsRes.ok) {
+            const data = await jobsRes.json();
+            if (data.jobs && data.jobs.length > 0) {
+              jobs = data.jobs;
+              if (data.candidate && typeof currentCandidate !== 'undefined' && currentCandidate) {
+                Object.assign(currentCandidate, data.candidate);
+              }
+            }
+          }
+        } catch(e) {}
+
         const res = await fetch('/api/submissions?t=' + Date.now());
         if (res.ok) {
           const remoteSubmissions = await res.json();
@@ -2138,7 +2613,7 @@ function buildDashboardHtml() {
             }
           });
           if (showToast) {
-            showReloadToast('Synchronized ' + updatedCount + ' applications with server');
+            showReloadToast('Synchronized ' + jobs.length + ' jobs with server (' + updatedCount + ' applications active)');
           }
         }
       } catch (err) {
@@ -2147,13 +2622,15 @@ function buildDashboardHtml() {
         if (spinIcon) setTimeout(() => spinIcon.classList.remove('animate-spin'), 600);
       }
 
+      updateFilterChipCounters();
       renderJobs();
       if (currentActiveTab === 'kanban') renderKanban();
+      if (currentActiveTab === 'recommendations') renderRecommendationsView();
+      if (currentActiveTab === 'overview') renderOverviewView();
     }
 
     function computeDynamicJobScore(job, cand) {
       if (!cand || !cand.coreStack || cand.coreStack.length === 0) return job.score || 80;
-      if (cand.id === 'ashutosh-kumar') return job.score || 85;
 
       const candSkills = cand.coreStack.map(s => s.toLowerCase());
       const jobSkills = (job.skills || []).map(s => s.toLowerCase());
@@ -2222,6 +2699,7 @@ function buildDashboardHtml() {
         if (currentFilter === 'portal' && (job.status !== 'SUBMITTED' || job.submissionMethod !== 'Via Opening Portal')) return false;
         if (currentFilter === 'autofill' && (job.status !== 'SUBMITTED' || job.submissionMethod !== 'Via Autofill')) return false;
         if (currentFilter === 'ready' && job.status === 'SUBMITTED') return false;
+        if (currentFilter === 'new' && !job.isNew) return false;
         if (currentFilter === 'remote' && !job.workMode.toLowerCase().includes('remote')) return false;
         if (currentFilter === 'premium' && (job.salaryMinVal || 0) < 25) return false;
 
@@ -2266,6 +2744,8 @@ function buildDashboardHtml() {
           } else {
             statusBadgeHtml = '<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-indigo-500/15 text-indigo-300 border border-indigo-500/30">✓ Submitted (Autofill)</span>';
           }
+        } else if (job.isNew) {
+          statusBadgeHtml = '<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-500/20 text-blue-300 border border-blue-500/40 animate-pulse">✨ AI Auto-Discovered</span>';
         } else {
           statusBadgeHtml = '<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-500/10 text-blue-400 border border-blue-500/20">Verified Match</span>';
         }
@@ -2878,6 +3358,209 @@ function buildDashboardHtml() {
           Close
         </button>
       </div>
+    </div>
+  </div>
+
+  <!-- Close Main Application Workspace Column -->
+  </div>
+
+  <!-- ============================================================== -->
+  <!-- MODAL: RESUME UPLOAD DROPZONE                                  -->
+  <!-- ============================================================== -->
+  <div id="uploadResumeModal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-[#111827] border border-slate-700 rounded-3xl max-w-lg w-full p-6 shadow-2xl text-white space-y-4">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+        <div class="flex items-center gap-2.5">
+          <span class="text-2xl">⚡</span>
+          <div>
+            <h3 class="text-sm font-bold text-white">Upload Updated Resume</h3>
+            <p class="text-[11px] text-slate-400">Supported formats: PDF, DOCX, TXT</p>
+          </div>
+        </div>
+        <button onclick="closeUploadResumeModal()" class="text-slate-400 hover:text-white p-1 rounded-lg">✕</button>
+      </div>
+
+      <div class="p-6 border-2 border-dashed border-slate-700 hover:border-blue-500 rounded-2xl text-center space-y-3 transition bg-[#0b0f19]">
+        <div class="text-3xl">📄</div>
+        <div class="text-xs font-semibold text-slate-300">
+          Choose a new resume to extract skills &amp; refresh your job gateway
+        </div>
+        <input type="file" id="dashboardResumeFileInput" accept=".pdf,.doc,.docx,.txt,.md" class="text-xs text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-500 cursor-pointer">
+      </div>
+
+      <div class="flex items-center justify-end gap-2 pt-2 border-t border-slate-800">
+        <button type="button" onclick="closeUploadResumeModal()" class="px-4 py-2 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 transition">
+          Cancel
+        </button>
+        <button type="button" id="btnSubmitDashboardResume" onclick="submitDashboardResumeUpload()" class="px-5 py-2 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white shadow-md transition flex items-center gap-1.5">
+          <span>Upload &amp; Analyze Resume</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================== -->
+  <!-- MODAL: RESUME RECALIBRATION & DYNAMIC JOB GATEWAY              -->
+  <!-- ============================================================== -->
+  <div id="recalibrateModal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-[#111827] border border-blue-500/50 rounded-3xl max-w-lg w-full p-6 shadow-2xl text-white space-y-4">
+      <div class="flex items-center gap-3">
+        <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white flex items-center justify-center text-2xl shadow-md">
+          ⚡
+        </div>
+        <div>
+          <h3 class="text-base font-extrabold text-white">Resume Updated Successfully!</h3>
+          <p class="text-xs text-slate-400">File: <span id="recalFileName" class="text-blue-300 font-mono">Resume.pdf</span></p>
+        </div>
+      </div>
+
+      <!-- Extracted Highlights Card -->
+      <div class="p-3.5 rounded-2xl bg-[#0b0f19] border border-slate-800 space-y-2 text-xs">
+        <div class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">AI Extracted from New Resume:</div>
+        <div class="flex flex-wrap gap-1.5" id="recalSkillsPills">
+          <!-- Populated by JS -->
+        </div>
+        <div class="grid grid-cols-2 gap-2 text-[11px] text-slate-300 pt-1.5 border-t border-slate-800/80">
+          <div>Seniority: <span id="recalSeniority" class="font-bold text-white">Senior</span></div>
+          <div>Experience: <span id="recalExp" class="font-bold text-white">8+ Years</span></div>
+        </div>
+      </div>
+
+      <p class="text-xs text-slate-300 leading-relaxed">
+        Would you like to recalibrate ATS match scores across all active jobs and refresh your gateway with newly matched job recommendations matching your updated resume, skills, and experience package?
+      </p>
+
+      <div id="recalStatusArea" class="hidden p-3 rounded-xl bg-emerald-950/40 border border-emerald-500/40 text-emerald-300 text-xs">
+        <span id="recalStatusText">Recalibration complete!</span>
+      </div>
+
+      <div class="flex items-center justify-end gap-2.5 pt-2 border-t border-slate-800">
+        <button type="button" onclick="closeRecalibrateModal()" class="px-4 py-2 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 transition">
+          Keep Current Dashboard Scores
+        </button>
+        <button type="button" id="btnExecuteRecalibrate" onclick="executeRecalibrationAndRefresh()" class="px-5 py-2.5 rounded-xl text-xs font-bold bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white shadow-lg shadow-blue-600/30 transition flex items-center gap-1.5">
+          <span>⚡</span>
+          <span>Recalculate &amp; Generate New Job Results</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================== -->
+  <!-- MODAL: EDIT CANDIDATE PROFILE & PREFERENCES                    -->
+  <!-- ============================================================== -->
+  <div id="editProfileModal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-4 overflow-y-auto">
+    <div class="bg-[#111827] border border-indigo-500/40 rounded-3xl max-w-2xl w-full p-6 shadow-2xl text-white space-y-4 my-8">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+        <div class="flex items-center gap-2.5">
+          <span class="text-2xl">✏️</span>
+          <div>
+            <h3 class="text-base font-extrabold text-white">Edit Candidate Profile &amp; Preferences</h3>
+            <p class="text-xs text-slate-400">Update identity, contacts, skills, compensation, and target preferences</p>
+          </div>
+        </div>
+        <button onclick="closeEditProfileModal()" class="text-slate-400 hover:text-white p-1 rounded-lg text-lg font-mono">✕</button>
+      </div>
+
+      <form id="editProfileForm" onsubmit="submitEditProfile(event)" class="space-y-4 text-xs">
+        <!-- Identity & Contacts -->
+        <div class="p-3.5 rounded-2xl bg-[#0b0f19] border border-slate-800 space-y-3">
+          <span class="font-bold text-white text-xs flex items-center gap-1.5">
+            <span>👤</span> <span>Identity &amp; Contact Details</span>
+          </span>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block font-semibold text-slate-300 mb-1">Full Name *</label>
+              <input type="text" id="editName" required class="w-full bg-[#111827] border border-slate-700 text-white rounded-xl p-2.5 focus:border-blue-500 focus:outline-none">
+            </div>
+            <div>
+              <label class="block font-semibold text-slate-300 mb-1">Email Address *</label>
+              <input type="email" id="editEmail" required class="w-full bg-[#111827] border border-slate-700 text-white rounded-xl p-2.5 focus:border-blue-500 focus:outline-none">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block font-semibold text-slate-300 mb-1">Phone Number</label>
+              <input type="text" id="editPhone" class="w-full bg-[#111827] border border-slate-700 text-white rounded-xl p-2.5 focus:border-blue-500 focus:outline-none font-mono">
+            </div>
+            <div>
+              <label class="block font-semibold text-slate-300 mb-1">Location / Relocation</label>
+              <input type="text" id="editLocation" class="w-full bg-[#111827] border border-slate-700 text-white rounded-xl p-2.5 focus:border-blue-500 focus:outline-none">
+            </div>
+          </div>
+        </div>
+
+        <!-- Career & Seniority -->
+        <div class="p-3.5 rounded-2xl bg-[#0b0f19] border border-slate-800 space-y-3">
+          <span class="font-bold text-white text-xs flex items-center gap-1.5">
+            <span>💼</span> <span>Role &amp; Seniority Accord</span>
+          </span>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div class="sm:col-span-2">
+              <label class="block font-semibold text-slate-300 mb-1">Target Job Title *</label>
+              <input type="text" id="editTitle" required class="w-full bg-[#111827] border border-slate-700 text-white rounded-xl p-2.5 focus:border-blue-500 focus:outline-none">
+            </div>
+            <div>
+              <label class="block font-semibold text-slate-300 mb-1">Seniority</label>
+              <select id="editSeniority" class="w-full bg-[#111827] border border-slate-700 text-white rounded-xl p-2.5 focus:border-blue-500 focus:outline-none">
+                <option value="Senior">Senior (5-8 Yrs)</option>
+                <option value="Lead">Lead / Staff (8-12 Yrs)</option>
+                <option value="Architect">Architect / Principal (10+ Yrs)</option>
+                <option value="Mid-Level">Mid-Level (3-5 Yrs)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block font-semibold text-slate-300 mb-1">Years of Experience</label>
+              <input type="number" step="0.5" id="editExp" class="w-full bg-[#111827] border border-slate-700 text-white rounded-xl p-2.5 focus:border-blue-500 focus:outline-none">
+            </div>
+            <div>
+              <label class="block font-semibold text-slate-300 mb-1">Current Company</label>
+              <input type="text" id="editCurrentCompany" class="w-full bg-[#111827] border border-slate-700 text-white rounded-xl p-2.5 focus:border-blue-500 focus:outline-none">
+            </div>
+          </div>
+        </div>
+
+        <!-- CTC & Notice -->
+        <div class="p-3.5 rounded-2xl bg-[#0b0f19] border border-slate-800 space-y-3">
+          <span class="font-bold text-white text-xs flex items-center gap-1.5">
+            <span>💰</span> <span>Compensation &amp; Availability</span>
+          </span>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div>
+              <label class="block font-semibold text-slate-300 mb-1">Current CTC</label>
+              <input type="text" id="editCurrentCtc" class="w-full bg-[#111827] border border-slate-700 text-white rounded-xl p-2.5 focus:border-blue-500 focus:outline-none font-mono">
+            </div>
+            <div>
+              <label class="block font-semibold text-slate-300 mb-1">Target CTC</label>
+              <input type="text" id="editTargetCtc" class="w-full bg-[#111827] border border-slate-700 text-emerald-400 rounded-xl p-2.5 focus:border-blue-500 focus:outline-none font-mono font-bold">
+            </div>
+            <div>
+              <label class="block font-semibold text-slate-300 mb-1">Notice Period</label>
+              <input type="text" id="editNotice" class="w-full bg-[#111827] border border-slate-700 text-white rounded-xl p-2.5 focus:border-blue-500 focus:outline-none">
+            </div>
+          </div>
+        </div>
+
+        <!-- Skills -->
+        <div class="p-3.5 rounded-2xl bg-[#0b0f19] border border-slate-800 space-y-2">
+          <label class="block font-semibold text-slate-300">Core Technical Stack (Comma Separated)</label>
+          <input type="text" id="editSkills" class="w-full bg-[#111827] border border-slate-700 text-white rounded-xl p-2.5 focus:border-blue-500 focus:outline-none">
+          <p class="text-[10px] text-slate-500">e.g. Angular 15+, TypeScript, HTML5 / SCSS, Design Systems, Playwright, WCAG 2.1 AA</p>
+        </div>
+
+        <div class="flex items-center justify-end gap-2.5 pt-2 border-t border-slate-800">
+          <button type="button" onclick="closeEditProfileModal()" class="px-4 py-2 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 transition">
+            Cancel
+          </button>
+          <button type="submit" id="btnSaveProfile" class="px-5 py-2.5 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white shadow-md transition">
+            Save Profile Updates
+          </button>
+        </div>
+      </form>
     </div>
   </div>
 

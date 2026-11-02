@@ -1,5 +1,5 @@
 # Morning Job Scouting Briefing (2026-11-02)
-**Generated at:** Tuesday, November 3, 2026 at 1:32:18 AM (IST)  
+**Generated at:** Tuesday, November 3, 2026 at 4:06:13 AM (IST)  
 **Candidate:** Ashutosh Kumar • Senior Frontend Engineer (8+ Yrs Experience)
 
 ### Executive Summary
