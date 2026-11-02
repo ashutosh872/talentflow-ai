@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Sign In — TalentFlow AI Enterprise Suite</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    code, .font-mono { font-family: 'JetBrains Mono', monospace; }
+  </style>
+</head>
+<body class="bg-[#0b0f19] text-slate-100 min-h-screen flex flex-col justify-between selection:bg-blue-600 selection:text-white">
+
+  <!-- Top Minimal Nav -->
+  <header class="border-b border-slate-800 bg-[#0b0f19]/90 backdrop-blur-md px-6 py-4 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-cyan-400 flex items-center justify-center text-white font-extrabold text-base shadow-md shadow-blue-500/20">
+        ◈
+      </div>
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="text-sm font-extrabold text-white tracking-tight">TalentFlow AI</span>
+          <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-500/10 text-blue-400 border border-blue-500/30">Enterprise v2.4</span>
+        </div>
+        <p class="text-[11px] text-slate-400">Multi-Candidate &amp; Recruiter Automation Platform</p>
+      </div>
+    </div>
+    <a href="/" class="text-xs text-slate-400 hover:text-white transition flex items-center gap-1">
+      <span>Dashboard Demo</span> <span>&rarr;</span>
+    </a>
+  </header>
+
+  <!-- Login Card Container -->
+  <main class="flex-1 flex items-center justify-center p-4 sm:p-6">
+    <div class="w-full max-w-md bg-[#111827] border border-slate-800 rounded-2xl p-6 sm:p-8 shadow-2xl relative overflow-hidden">
+      <!-- Glow effect -->
+      <div class="absolute -top-24 -right-24 w-48 h-48 bg-blue-600/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute -bottom-24 -left-24 w-48 h-48 bg-indigo-600/10 rounded-full blur-3xl pointer-events-none"></div>
+
+      <div class="relative">
+        <div class="text-center mb-6">
+          <div class="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-blue-600/20 text-blue-400 border border-blue-500/30 text-2xl mb-3 shadow-inner">
+            🔐
+          </div>
+          <h2 class="text-xl font-extrabold text-white">Sign In to TalentFlow</h2>
+          <p class="text-xs text-slate-400 mt-1">Multi-user candidate workflows with role-based access</p>
+        </div>
+
+        <!-- Error Banner -->
+        <div id="loginErrorMsg" class="hidden mb-4 p-3 rounded-xl bg-rose-950/40 border border-rose-500/40 text-rose-300 text-xs"></div>
+
+        <!-- Form -->
+        <form onsubmit="handleLoginSubmit(event)" class="space-y-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1.5">Email Address</label>
+            <input type="email" id="loginEmail" required placeholder="name@example.com" value="kumar.ashu872@gmail.com" class="w-full bg-[#0b0f19] border border-slate-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-white rounded-xl px-3.5 py-2.5 text-xs outline-none transition">
+          </div>
+
+          <div>
+            <div class="flex items-center justify-between mb-1.5">
+              <label class="block text-xs font-semibold text-slate-300">Password</label>
+              <button type="button" onclick="togglePasswordVisibility()" class="text-[11px] text-slate-400 hover:text-slate-200">
+                <span id="showPassText">Show</span>
+              </button>
+            </div>
+            <input type="password" id="loginPassword" required placeholder="••••••••" value="admin123" class="w-full bg-[#0b0f19] border border-slate-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-white rounded-xl px-3.5 py-2.5 text-xs outline-none transition">
+          </div>
+
+          <div class="flex items-center justify-between text-xs text-slate-400 pt-1">
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" id="rememberMe" checked class="rounded border-slate-700 bg-[#0b0f19] text-blue-600 focus:ring-0">
+              <span>Remember this session</span>
+            </label>
+          </div>
+
+          <button type="submit" id="loginSubmitBtn" class="w-full py-2.5 px-4 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white transition shadow-lg shadow-blue-600/30 flex items-center justify-center gap-2">
+            <span>Sign In to Workspace</span>
+            <span>&rarr;</span>
+          </button>
+        </form>
+
+        <!-- Divider -->
+        <div class="my-6 relative flex items-center justify-center">
+          <div class="border-t border-slate-800 w-full"></div>
+          <span class="bg-[#111827] px-3 text-[10px] font-bold text-slate-400 uppercase tracking-wider relative">
+            Quick 1-Click Access (RBAC Showcase)
+          </span>
+        </div>
+
+        <!-- 1-Click Quick Login Profiles -->
+        <div class="space-y-2">
+          <!-- Admin -->
+          <button type="button" onclick="quickLogin('kumar.ashu872@gmail.com', 'admin123')" class="w-full p-2.5 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-left transition flex items-center justify-between group">
+            <div class="flex items-center gap-2.5">
+              <span class="text-xl">👨‍💻</span>
+              <div>
+                <div class="text-xs font-bold text-white flex items-center gap-1.5">
+                  <span>Ashutosh Kumar</span>
+                  <span class="px-1.5 py-0.2 rounded text-[9px] font-extrabold bg-amber-500/20 text-amber-300 border border-amber-500/40">ADMIN</span>
+                </div>
+                <div class="text-[10px] text-slate-400 font-mono">kumar.ashu872@gmail.com • Write &amp; User Admin</div>
+              </div>
+            </div>
+            <span class="text-amber-400 text-xs font-bold opacity-75 group-hover:opacity-100">&rarr;</span>
+          </button>
+
+          <!-- Editor / Write -->
+          <button type="button" onclick="quickLogin('priya.sharma@example.com', 'editor123')" class="w-full p-2.5 rounded-xl bg-blue-500/10 hover:bg-blue-500/20 border border-blue-500/30 text-left transition flex items-center justify-between group">
+            <div class="flex items-center gap-2.5">
+              <span class="text-xl">👩‍💻</span>
+              <div>
+                <div class="text-xs font-bold text-white flex items-center gap-1.5">
+                  <span>Priya Sharma</span>
+                  <span class="px-1.5 py-0.2 rounded text-[9px] font-extrabold bg-blue-500/20 text-blue-300 border border-blue-500/40">WRITE</span>
+                </div>
+                <div class="text-[10px] text-slate-400 font-mono">priya.sharma@example.com • Apply &amp; Resume Upload</div>
+              </div>
+            </div>
+            <span class="text-blue-400 text-xs font-bold opacity-75 group-hover:opacity-100">&rarr;</span>
+          </button>
+
+          <!-- Viewer / Read-Only -->
+          <button type="button" onclick="quickLogin('test.candidate@example.com', 'viewer123')" class="w-full p-2.5 rounded-xl bg-slate-800/60 hover:bg-slate-800 border border-slate-700 text-left transition flex items-center justify-between group">
+            <div class="flex items-center gap-2.5">
+              <span class="text-xl">🧪</span>
+              <div>
+                <div class="text-xs font-bold text-white flex items-center gap-1.5">
+                  <span>Test Candidate</span>
+                  <span class="px-1.5 py-0.2 rounded text-[9px] font-extrabold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">VIEW-ONLY</span>
+                </div>
+                <div class="text-[10px] text-slate-400 font-mono">test.candidate@example.com • Read Access</div>
+              </div>
+            </div>
+            <span class="text-slate-400 text-xs font-bold opacity-75 group-hover:opacity-100">&rarr;</span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-900 px-6 py-3 text-center text-[11px] text-slate-500">
+    TalentFlow AI &bull; Role-Based Candidate Workspaces &bull; Authenticated Access Control
+  </footer>
+
+  <script>
+    function togglePasswordVisibility() {
+      const input = document.getElementById('loginPassword');
+      const text = document.getElementById('showPassText');
+      if (input.type === 'password') {
+        input.type = 'text';
+        text.textContent = 'Hide';
+      } else {
+        input.type = 'password';
+        text.textContent = 'Show';
+      }
+    }
+
+    async function quickLogin(email, pass) {
+      document.getElementById('loginEmail').value = email;
+      document.getElementById('loginPassword').value = pass;
+      await performLogin(email, pass);
+    }
+
+    async function handleLoginSubmit(e) {
+      if (e) e.preventDefault();
+      const email = document.getElementById('loginEmail').value.trim();
+      const pass = document.getElementById('loginPassword').value.trim();
+      await performLogin(email, pass);
+    }
+
+    async function performLogin(email, password) {
+      const errBox = document.getElementById('loginErrorMsg');
+      const submitBtn = document.getElementById('loginSubmitBtn');
+      if (errBox) { errBox.classList.add('hidden'); errBox.textContent = ''; }
+
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span>⏳ Signing In...</span>';
+      }
+
+      try {
+        const res = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
+
+        const data = await res.json();
+        if (res.ok && data.success) {
+          // Persist session
+          localStorage.setItem('talentflow_auth', JSON.stringify({
+            token: data.token,
+            user: data.user,
+            loggedInAt: new Date().toISOString()
+          }));
+
+          // Check redirect param
+          const urlParams = new URLSearchParams(window.location.search);
+          const redirect = urlParams.get('redirect') || '/';
+          window.location.href = redirect;
+        } else {
+          if (errBox) {
+            errBox.classList.remove('hidden');
+            errBox.textContent = data.error || 'Authentication failed. Please check your credentials.';
+          }
+        }
+      } catch (err) {
+        if (errBox) {
+          errBox.classList.remove('hidden');
+          errBox.textContent = 'Network error connecting to authentication service: ' + err.message;
+        }
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = '<span>Sign In to Workspace</span> <span>&rarr;</span>';
+        }
+      }
+    }
+
+    // Auto-check existing session
+    document.addEventListener('DOMContentLoaded', () => {
+      const saved = localStorage.getItem('talentflow_auth');
+      if (saved) {
+        try {
+          const parsed = JSON.parse(saved);
+          if (parsed && parsed.user) {
+            // Already logged in - optionally pre-fill
+            document.getElementById('loginEmail').value = parsed.user.email || 'kumar.ashu872@gmail.com';
+          }
+        } catch (e) {}
+      }
+    });
+  </script>
+</body>
+</html>

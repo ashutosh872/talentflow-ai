@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interview Battle-Card — Front-End Engineer II (FBA Placement) at Amazon (ADCI)</title>
+  <style>
+    @page { size: A4; margin: 12mm 14mm 12mm 14mm; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: #f8fafc;
+      color: #0f172a;
+      line-height: 1.45;
+      font-size: 13px;
+      -webkit-font-smoothing: antialiased;
+    }
+    .no-print {
+      position: sticky;
+      top: 0;
+      background: #0f172a;
+      color: #ffffff;
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 9999;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+    }
+    .container { max-width: 900px; margin: 24px auto; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
+    .header { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); color: #ffffff; padding: 24px 30px; }
+    .header-sub { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #94a3b8; margin-bottom: 4px; font-weight: 700; }
+    .header h1 { font-size: 22px; font-weight: 800; color: #ffffff; margin-bottom: 4px; }
+    .header-meta { display: flex; flex-wrap: wrap; gap: 12px; font-size: 12px; color: #cbd5e1; margin-top: 8px; }
+    .badge { display: inline-block; padding: 3px 10px; border-radius: 6px; font-size: 11px; font-weight: 700; background: rgba(59, 130, 246, 0.2); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.4); }
+    .content { padding: 28px 30px; }
+    .section { margin-bottom: 24px; }
+    .section-title { font-size: 14px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; color: #1e293b; border-bottom: 2px solid #e2e8f0; padding-bottom: 6px; margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
+    .box { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px 18px; margin-bottom: 12px; }
+    .box-blue { border-left: 4px solid #2563eb; }
+    .box-emerald { border-left: 4px solid #10b981; }
+    .box-amber { border-left: 4px solid #f59e0b; }
+    .box-purple { border-left: 4px solid #8b5cf6; }
+    .q-title { font-weight: 700; color: #0f172a; font-size: 13.5px; margin-bottom: 6px; display: flex; align-items: baseline; gap: 6px; }
+    .q-num { background: #2563eb; color: #ffffff; padding: 1px 6px; border-radius: 4px; font-size: 10px; font-weight: 800; }
+    .q-answer { color: #334155; margin-bottom: 6px; font-size: 12.8px; line-height: 1.5; }
+    .q-evidence { font-size: 11.5px; color: #047857; font-weight: 600; background: #ecfdf5; padding: 4px 8px; border-radius: 4px; display: inline-block; }
+    .pill-list { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+    .pill { background: #f1f5f9; color: #334155; border: 1px solid #cbd5e1; padding: 4px 10px; border-radius: 6px; font-size: 11.5px; font-weight: 600; }
+    .star-grid { display: grid; grid-template-columns: 80px 1fr; gap: 6px 12px; font-size: 12.5px; }
+    .star-lbl { font-weight: 700; color: #1e40af; text-transform: uppercase; font-size: 11px; }
+    ul.checklist { list-style: none; padding-left: 0; }
+    ul.checklist li { margin-bottom: 6px; padding-left: 20px; position: relative; color: #334155; }
+    ul.checklist li::before { content: "✓"; position: absolute; left: 0; color: #10b981; font-weight: 800; }
+    .footer { background: #f8fafc; border-top: 1px solid #e2e8f0; padding: 16px 30px; font-size: 11px; color: #64748b; text-align: center; }
+  </style>
+</head>
+<body>
+
+  <!-- Top Sticky Bar for Web/Tab Viewing (Hidden on Print) -->
+  <div class="no-print">
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <span style="font-weight: 800; font-size: 14px;">🎯 INTERVIEW BATTLE-CARD</span>
+      <span style="color: #64748b;">•</span>
+      <span style="color: #60a5fa; font-weight: 600;">Amazon (ADCI)</span>
+      <span style="color: #94a3b8; font-size: 12px;">(Front-End Engineer II (FBA Placement))</span>
+    </div>
+    <div style="display: flex; gap: 10px; align-items: center;">
+      <button onclick="window.print()" style="background: #2563eb; color: #ffffff; border: none; padding: 6px 14px; border-radius: 6px; cursor: pointer; font-weight: 700; font-size: 12px; display: flex; align-items: center; gap: 5px;">
+        <span>🖨️</span> Print / Save PDF
+      </button>
+      <button onclick="window.close()" style="background: transparent; color: #94a3b8; border: 1px solid #475569; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 12px;">
+        ✕ Close Tab
+      </button>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="header">
+      <div class="header-sub">Ashutosh Kumar • Senior Frontend Engineering Technical Prep Sheet</div>
+      <h1>Front-End Engineer II (FBA Placement)</h1>
+      <div style="font-size: 16px; font-weight: 700; color: #60a5fa; margin-top: 2px;">Amazon (ADCI)</div>
+      <div class="header-meta">
+        <span class="badge">Req #A10575321</span>
+        <span>💼 Hybrid (Bengaluru / Remote Review)</span>
+        <span>💰 ₹35,00,000 - ₹55,00,000 PA</span>
+        <span>👤 Candidate: Ashutosh Kumar (8+ Yrs Exp)</span>
+      </div>
+    </div>
+
+    <div class="content">
+      <!-- Domain Context & Strategic Overview -->
+      <div class="section">
+        <div class="section-title">🏢 1. Company & Product Engineering Context</div>
+        <div class="box box-blue">
+          <p style="color: #334155; font-size: 13px;">Fulfillment by Amazon (FBA) placement interfaces handle inventory routing for millions of global third-party sellers. Amazon values operational excellence, high component reuse, zero regression, and customer obsession.</p>
+          <div style="margin-top: 10px;">
+            <strong style="font-size: 11px; text-transform: uppercase; color: #1e40af; letter-spacing: 0.5px;">Core Competency Focus for this Role:</strong>
+            <div class="pill-list">
+              <span class="pill">⚡ FBA Seller Scale & High-Throughput Portals</span><span class="pill">⚡ Angular & Modular Component Architectures</span><span class="pill">⚡ Strict WCAG 2.1 Accessibility</span><span class="pill">⚡ Core Web Vitals & Latency Under Load</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- High-Yield Technical Deep-Dive Q&A -->
+      <div class="section">
+        <div class="section-title">🧠 2. High-Yield Technical Interview Questions & Answers</div>
+        <div style="space-y: 12px;">
+          
+            <div class="box box-purple">
+              <div class="q-title">
+                <span class="q-num">Q1</span>
+                <span>How do you architect reusable component libraries that scale across multiple enterprise workflows without regressions?</span>
+              </div>
+              <p class="q-answer">At Samsung SDS and Wondrfly, I designed modular component patterns where presentational components remain strictly stateless and receive inputs via props/signals, isolating business logic in dedicated services. I enforce design tokens for color, typography, and spacing via SCSS custom properties, ensuring updates to global tokens do not trigger breaking layout shifts.</p>
+              <div>
+                <span class="q-evidence">🎯 Proof Anchor: Applied across core Samsung HQ portals; audited with zero breaking layout regressions across responsive breakpoints.</span>
+              </div>
+            </div>
+          
+            <div class="box box-purple">
+              <div class="q-title">
+                <span class="q-num">Q2</span>
+                <span>Amazon platforms must strictly meet international accessibility standards. How do you guarantee WCAG 2.1 AA compliance in complex seller workflows?</span>
+              </div>
+              <p class="q-answer">I build from semantic HTML foundations—using native `<button>`, `<fieldset>`, `<legend>`, and `<nav>` elements rather than clickable `<div>`s. For interactive modals and custom dropdowns, I manage focus trapping (`aria-modal='true'`, restoring focus to trigger upon dismissal) and ensure keyboard parity (Tab, Shift+Tab, Escape, Enter, Space). I test color contrast to meet 4.5:1 minimum ratios and verify with axe DevTools and screen readers.</p>
+              <div>
+                <span class="q-evidence">🎯 Proof Anchor: Implemented enterprise accessibility compliance across Samsung SDS enterprise platform and client applications.</span>
+              </div>
+            </div>
+          
+            <div class="box box-purple">
+              <div class="q-title">
+                <span class="q-num">Q3</span>
+                <span>FBA dashboards display dense financial and inventory data. How do you optimize frontend rendering and Core Web Vitals (LCP, CLS, INP)?</span>
+              </div>
+              <p class="q-answer">I optimize LCP by prioritizing critical CSS inlining and preloading key layout assets. To eliminate Cumulative Layout Shift (CLS), I assign explicit aspect-ratio attributes and skeleton loaders for asynchronous seller tables. For INP (Interaction to Next Paint), I debounce input handlers, offload heavy data transformations to Web Workers or lazy microtasks, and avoid synchronous layout thrashing in DOM manipulations.</p>
+              <div>
+                <span class="q-evidence">🎯 Proof Anchor: Maintained sub-100ms UI interaction responsiveness across high-density enterprise data tables.</span>
+              </div>
+            </div>
+          
+            <div class="box box-purple">
+              <div class="q-title">
+                <span class="q-num">Q4</span>
+                <span>How does your Playwright-based testing approach prevent critical seller-facing defects from shipping to production?</span>
+              </div>
+              <p class="q-answer">At Wondrfly, I contributed to Playwright-based automated verification. Rather than running slow, flaky full end-to-end suites on every commit, I conceptualized an impact-aware bug validation workflow: by analyzing Git diffs and affected component dependencies, Playwright targets the exact critical flows impacted by the change. This provides fast feedback (<3 min) while catching regressions in critical forms and purchase/placement flows.</p>
+              <div>
+                <span class="q-evidence">🎯 Proof Anchor: Conceptualized and executed targeted Playwright test workflows at Wondrfly Inc.</span>
+              </div>
+            </div>
+          
+            <div class="box box-purple">
+              <div class="q-title">
+                <span class="q-num">Q5</span>
+                <span>How do you leverage modern AI tools (Cursor AI, Claude) to accelerate development without compromising code quality?</span>
+              </div>
+              <p class="q-answer">I use Cursor AI and Claude as force multipliers for bug reproduction, generating edge-case unit test specs, and boilerplate SCSS design token translations from Figma. However, I maintain strict review standards—evaluating generated code for accessibility, clean memory lifecycles, and adherence to company architectural patterns rather than blind acceptance.</p>
+              <div>
+                <span class="q-evidence">🎯 Proof Anchor: Accelerated defect isolation and test authoring workflows across contract frontend deliverables.</span>
+              </div>
+            </div>
+          
+        </div>
+      </div>
+
+      <!-- Core STAR Behavioral & Impact Story -->
+      <div class="section">
+        <div class="section-title">🏆 3. Primary STAR Impact Story (Memorize for this Round)</div>
+        <div class="box box-emerald">
+          <div class="star-grid">
+            <div class="star-lbl">Situation</div>
+            <div>Samsung SDS required high-precision, multi-brand platform publishing with strict enterprise delivery schedules across global markets.</div>
+            <div class="star-lbl">Task</div>
+            <div>Deliver responsive, accessible UI components adhering strictly to Samsung enterprise design systems with zero defects.</div>
+            <div class="star-lbl">Action</div>
+            <div>Translated intricate Figma and Zeplin designs into production-ready HTML5, SCSS, and JavaScript components; built standardized HTML email templates; established rigorous cross-browser QA workflows.</div>
+            <div class="star-lbl">Result</div>
+            <div style="font-weight: 700; color: #047857;">Awarded a 97/100 performance rating from Samsung SDS leadership for exceptional code quality and on-schedule platform rollouts.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ashutosh's Universal Technical Anchors -->
+      <div class="section">
+        <div class="section-title">🛡️ 4. Ashutosh's Universal Technical Weaponry</div>
+        <div class="box box-amber">
+          <ul class="checklist">
+            <li><strong>Samsung SDS Track Record:</strong> Evaluated at 97/100 performance rating for exceptional UI fidelity and on-time enterprise platform delivery.</li>
+            <li><strong>Cisco BPA & SD-WAN Experience:</strong> Engineered mission-critical automation forms and router management views at Infinity Labs.</li>
+            <li><strong>Wondrfly Playwright Innovation:</strong> Conceptualized impact-aware test validation connecting Git change diffs to targeted Playwright test runs, avoiding bloated CI cycles.</li>
+            <li><strong>Design Tokens & SCSS Architecture:</strong> Pure CSS custom properties and Sass modules without breaking <code>::ng-deep</code> hacks.</li>
+            <li><strong>WCAG 2.1 AA Compliance:</strong> Native semantic HTML, focus trap management, ARIA live regions, and automated axe-core verification.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Strategic Reverse Questions -->
+      <div class="section">
+        <div class="section-title">❓ 5. Reverse Questions to Ask the Hiring Team</div>
+        <div class="box">
+          <p style="font-size: 11.5px; color: #64748b; margin-bottom: 8px;">Asking high-level architectural questions proves senior technical maturity and proactive ownership:</p>
+          <ul class="checklist">
+            <li>How does the FBA Placement engineering team balance global design system consistency with fast seller-facing feature experiments?</li><li>What is the team's continuous integration strategy for catching visual regressions across diverse international seller locales?</li><li>How are performance budgets (specifically Core Web Vitals) enforced across distributed seller applications at Amazon scale?</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      Ashutosh Kumar AI Career Engine • Interview Battle-Card Confidential<br>
+      Candidate Email: kumar.ashu872@gmail.com | Contact: +91 9310681373 | New Delhi, India
+    </div>
+  </div>
+</body>
+</html>

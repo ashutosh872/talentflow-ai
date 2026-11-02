@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>User &amp; Access Management Console — TalentFlow AI</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    code, .font-mono { font-family: 'JetBrains Mono', monospace; }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #0b0f19; }
+    ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 9999px; }
+    ::-webkit-scrollbar-thumb:hover { background: #334155; }
+  </style>
+</head>
+<body class="bg-[#0b0f19] text-slate-100 min-h-screen flex flex-col antialiased selection:bg-blue-600 selection:text-white">
+
+  <!-- ============================================================== -->
+  <!-- 1. TOP HEADER NAVIGATION (Multi-Page Integrated Navbar)         -->
+  <!-- ============================================================== -->
+  <header class="sticky top-0 z-30 bg-[#0b0f19]/90 backdrop-blur-md border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
+      
+      <!-- Brand Logo -->
+      <div class="flex items-center gap-2.5 shrink-0">
+        <a href="/" class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-cyan-400 flex items-center justify-center text-white font-extrabold text-base shadow-md shadow-blue-500/20">
+            ◈
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="text-sm font-extrabold text-white tracking-tight">TalentFlow AI</span>
+              <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/10 text-amber-400 border border-amber-500/30">
+                <span>🛡️ Admin Console</span>
+              </span>
+            </div>
+            <p class="text-[11px] text-slate-400 font-medium hidden sm:block">Multi-Candidate &amp; Role Access Control</p>
+          </div>
+        </a>
+      </div>
+
+      <!-- Center Multi-Page Routing Navigation -->
+      <nav class="hidden md:flex items-center bg-[#111827] p-1 rounded-2xl border border-slate-800 shrink-0">
+        <a href="/" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-800/80 transition flex items-center gap-1.5">
+          <span>📋</span> <span>Job Dashboard</span>
+        </a>
+        <a href="/profile.html" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-800/80 transition flex items-center gap-1.5">
+          <span>👤</span> <span>Candidate Profile</span>
+        </a>
+        <a href="/users.html" class="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-blue-600 text-white shadow-sm transition flex items-center gap-1.5">
+          <span>🛡️</span> <span>User &amp; Access Management</span>
+        </a>
+      </nav>
+
+      <!-- Right Actions: User Badge & Logout -->
+      <div class="flex items-center gap-2 shrink-0">
+        <div id="currentUserBadge" class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#111827] border border-slate-800 text-xs">
+          <span id="navUserAvatar" class="text-base">👨‍💻</span>
+          <div class="hidden sm:block text-left leading-tight">
+            <div id="navUserName" class="text-white font-bold text-[11px]">Ashutosh Kumar</div>
+            <div id="navUserRole" class="text-[9px] font-mono text-amber-400">ADMIN (WRITE)</div>
+          </div>
+        </div>
+
+        <button onclick="handleLogout()" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-800/80 hover:bg-rose-600/20 hover:text-rose-300 text-slate-300 border border-slate-700 transition flex items-center gap-1">
+          <span>🚪</span>
+          <span class="hidden sm:inline">Logout</span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Mobile Multi-Page Tab Bar -->
+  <div class="md:hidden bg-[#111827] border-b border-slate-800 px-4 py-2 flex items-center justify-around text-xs">
+    <a href="/" class="text-slate-400 font-semibold py-1">📋 Dashboard</a>
+    <a href="/profile.html" class="text-slate-400 font-semibold py-1">👤 Profile</a>
+    <a href="/users.html" class="text-blue-400 font-bold border-b-2 border-blue-500 py-1">🛡️ Users &amp; Access</a>
+  </div>
+
+  <!-- ============================================================== -->
+  <!-- 2. MAIN ADMIN CONSOLE CONTENT                                  -->
+  <!-- ============================================================== -->
+  <main class="max-w-7xl mx-auto px-4 py-6 w-full flex-1 space-y-6">
+
+    <!-- View-Only Alert Banner (Displayed for Non-Admin / Viewer) -->
+    <div id="viewOnlyAlertBanner" class="hidden p-4 rounded-2xl bg-amber-950/40 border border-amber-500/40 text-amber-200 text-xs flex items-center justify-between gap-3 shadow-lg">
+      <div class="flex items-center gap-2.5">
+        <span class="text-xl">👁️</span>
+        <div>
+          <strong class="font-bold">Read-Only Mode Active:</strong>
+          <span>You are signed in with Read/View access. Role changes and candidate profile creation are restricted to Workspace Administrators.</span>
+        </div>
+      </div>
+      <a href="/login.html" class="shrink-0 px-3 py-1 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 font-bold transition">
+        Switch to Admin 🔐
+      </a>
+    </div>
+
+    <!-- Header & Summary Cards -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div>
+        <h1 class="text-xl md:text-2xl font-extrabold text-white tracking-tight flex items-center gap-2">
+          <span>User &amp; Access Management Console</span>
+          <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-blue-600/20 text-blue-300 border border-blue-500/30">
+            RBAC v2.0
+          </span>
+        </h1>
+        <p class="text-xs text-slate-400 mt-1">
+          Manage user permissions (Read, Write, Admin) and candidate resumes stored in <code class="text-slate-300 bg-slate-900 px-1 py-0.5 rounded">data/resumes/</code>.
+        </p>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <button onclick="toggleAddUserDrawer()" class="px-4 py-2 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white transition flex items-center gap-1.5 shadow-md shadow-blue-600/30">
+          <span>➕</span>
+          <span>Add User with Resume Upload</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Metrics Cards -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+      <div class="p-4 rounded-2xl bg-[#111827] border border-slate-800">
+        <div class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Total Candidates / Users</div>
+        <div id="statTotalUsers" class="text-2xl font-extrabold text-white mt-1">3</div>
+        <div class="text-[10px] text-slate-500 mt-0.5">Agency Registry</div>
+      </div>
+
+      <div class="p-4 rounded-2xl bg-[#111827] border border-slate-800">
+        <div class="text-[11px] font-semibold text-amber-400 uppercase tracking-wider flex items-center gap-1">
+          <span>🛡️</span> <span>Workspace Admins</span>
+        </div>
+        <div id="statAdminUsers" class="text-2xl font-extrabold text-amber-300 mt-1">1</div>
+        <div class="text-[10px] text-slate-500 mt-0.5">Ashutosh Kumar (Full Control)</div>
+      </div>
+
+      <div class="p-4 rounded-2xl bg-[#111827] border border-slate-800">
+        <div class="text-[11px] font-semibold text-blue-400 uppercase tracking-wider flex items-center gap-1">
+          <span>✍️</span> <span>Write / Editor</span>
+        </div>
+        <div id="statWriteUsers" class="text-2xl font-extrabold text-blue-300 mt-1">2</div>
+        <div class="text-[10px] text-slate-500 mt-0.5">Can Apply &amp; Advance</div>
+      </div>
+
+      <div class="p-4 rounded-2xl bg-[#111827] border border-slate-800">
+        <div class="text-[11px] font-semibold text-emerald-400 uppercase tracking-wider flex items-center gap-1">
+          <span>👁️</span> <span>Read / View Only</span>
+        </div>
+        <div id="statViewUsers" class="text-2xl font-extrabold text-emerald-300 mt-1">1</div>
+        <div class="text-[10px] text-slate-500 mt-0.5">Inspection Showcase</div>
+      </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- 3. ADD USER WITH RESUME UPLOAD DRAWER / FORM                   -->
+    <!-- ============================================================== -->
+    <div id="addUserDrawer" class="hidden bg-[#111827] border border-blue-500/40 rounded-2xl p-5 shadow-2xl transition">
+      <div class="flex items-center justify-between pb-3 mb-4 border-b border-slate-800">
+        <div class="flex items-center gap-2.5">
+          <span class="text-2xl">👤➕</span>
+          <div>
+            <h3 class="text-sm font-bold text-white">Add New Candidate User Profile</h3>
+            <p class="text-[11px] text-slate-400">Configure candidate credentials, set initial access permissions, and upload resume document</p>
+          </div>
+        </div>
+        <button onclick="toggleAddUserDrawer()" class="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800">
+          ✕
+        </button>
+      </div>
+
+      <form onsubmit="handleCreateUserSubmit(event)" class="space-y-4 text-xs">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div>
+            <label class="block text-slate-300 font-bold mb-1">Full Name *</label>
+            <input type="text" id="formName" required placeholder="e.g. Vikramaditya Sen" class="w-full bg-[#0b0f19] border border-slate-700 text-white rounded-xl p-2.5 focus:border-blue-500 focus:outline-none">
+          </div>
+          <div>
+            <label class="block text-slate-300 font-bold mb-1">Target Professional Role *</label>
+            <input type="text" id="formTitle" required placeholder="e.g. Lead Frontend Architect" class="w-full bg-[#0b0f19] border border-slate-700 text-white rounded-xl p-2.5 focus:border-blue-500 focus:outline-none">
+          </div>
+          <div>
+            <label class="block text-slate-300 font-bold mb-1">Avatar Emoji</label>
+            <input type="text" id="formAvatar" value="👨‍💻" class="w-full bg-[#0b0f19] border border-slate-700 text-white rounded-xl p-2.5">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div>
+            <label class="block text-slate-300 font-bold mb-1">Email Address *</label>
+            <input type="email" id="formEmail" required placeholder="candidate@example.com" class="w-full bg-[#0b0f19] border border-slate-700 text-white rounded-xl p-2.5 focus:border-blue-500 focus:outline-none">
+          </div>
+          <div>
+            <label class="block text-slate-300 font-bold mb-1">Phone Number</label>
+            <input type="text" id="formPhone" placeholder="+91 98XXXXXXXX" value="+91 9811223344" class="w-full bg-[#0b0f19] border border-slate-700 text-white rounded-xl p-2.5">
+          </div>
+          <div>
+            <label class="block text-slate-300 font-bold mb-1">Current Company</label>
+            <input type="text" id="formCompany" placeholder="e.g. Enterprise Solutions Corp" class="w-full bg-[#0b0f19] border border-slate-700 text-white rounded-xl p-2.5">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-4 gap-3">
+          <div>
+            <label class="block text-slate-300 font-bold mb-1">Experience (Years)</label>
+            <input type="number" id="formExp" step="0.5" value="7.0" class="w-full bg-[#0b0f19] border border-slate-700 text-white rounded-xl p-2.5">
+          </div>
+          <div>
+            <label class="block text-slate-300 font-bold mb-1">Current CTC (LPA)</label>
+            <input type="number" id="formCurrentCtc" step="0.5" value="12.0" class="w-full bg-[#0b0f19] border border-slate-700 text-white rounded-xl p-2.5">
+          </div>
+          <div>
+            <label class="block text-slate-300 font-bold mb-1">Target CTC (LPA)</label>
+            <input type="number" id="formTargetCtc" step="0.5" value="20.0" class="w-full bg-[#0b0f19] border border-slate-700 text-white rounded-xl p-2.5">
+          </div>
+          <div>
+            <label class="block text-slate-300 font-bold mb-1">Notice Period</label>
+            <input type="text" id="formNotice" value="15 to 30 Days" class="w-full bg-[#0b0f19] border border-slate-700 text-white rounded-xl p-2.5">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-slate-300 font-bold mb-1">Location / Relocation Preferences</label>
+            <input type="text" id="formLocation" value="Delhi NCR / Remote India" class="w-full bg-[#0b0f19] border border-slate-700 text-white rounded-xl p-2.5">
+          </div>
+          <div>
+            <label class="block text-slate-300 font-bold mb-1">Core Tech Stack (Comma Separated)</label>
+            <input type="text" id="formSkills" value="Angular 16+, TypeScript, SCSS, RxJS, Playwright, Tailwind" class="w-full bg-[#0b0f19] border border-slate-700 text-white rounded-xl p-2.5">
+          </div>
+        </div>
+
+        <!-- RESUME DOCUMENT UPLOAD (Dedicated Feature) -->
+        <div class="p-4 rounded-xl bg-[#0b0f19] border-2 border-dashed border-blue-500/40 space-y-2">
+          <div class="flex items-center justify-between">
+            <label class="text-xs font-bold text-white flex items-center gap-1.5">
+              <span>📄</span>
+              <span>Upload Candidate Resume (.pdf, .doc, .docx, .txt, .md)</span>
+            </label>
+            <span class="text-[10px] text-blue-400 font-mono">Will save to data/resumes/</span>
+          </div>
+
+          <div class="flex flex-col sm:flex-row items-center gap-3">
+            <input type="file" id="formResumeFile" accept=".pdf,.doc,.docx,.txt,.md" onchange="handleFileSelected(event)" class="w-full sm:flex-1 text-xs text-slate-300 file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-blue-600 file:text-white hover:file:bg-blue-500 cursor-pointer">
+            <div id="fileUploadPreview" class="hidden text-xs text-emerald-400 font-mono flex items-center gap-1.5">
+              <span>✓</span>
+              <span id="previewFileName">filename.pdf</span>
+              <span id="previewFileSize" class="text-slate-400 text-[10px]">(0 KB)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Access Role Permissions Selection -->
+        <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-800 space-y-2">
+          <label class="block text-xs font-bold text-white">Access Permissions &amp; Role Privilege Level</label>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+            <label class="flex items-start gap-2.5 p-3 rounded-xl border border-slate-700 hover:border-blue-500 bg-[#0b0f19] cursor-pointer">
+              <input type="radio" name="formAccessLevel" value="write" checked class="mt-0.5 text-blue-600">
+              <div>
+                <div class="font-bold text-white flex items-center gap-1">
+                  <span>🟢 Write (Editor)</span>
+                </div>
+                <div class="text-[10px] text-slate-400">Can apply, advance recruiter stages, update profile and upload documents</div>
+              </div>
+            </label>
+
+            <label class="flex items-start gap-2.5 p-3 rounded-xl border border-slate-700 hover:border-emerald-500 bg-[#0b0f19] cursor-pointer">
+              <input type="radio" name="formAccessLevel" value="read" class="mt-0.5 text-emerald-600">
+              <div>
+                <div class="font-bold text-white flex items-center gap-1">
+                  <span>🔵 Read / View (Viewer)</span>
+                </div>
+                <div class="text-[10px] text-slate-400">Read-only view for recruiter showcase; mutations &amp; actions locked</div>
+              </div>
+            </label>
+
+            <label class="flex items-start gap-2.5 p-3 rounded-xl border border-slate-700 hover:border-amber-500 bg-[#0b0f19] cursor-pointer">
+              <input type="radio" name="formAccessLevel" value="admin" class="mt-0.5 text-amber-600">
+              <div>
+                <div class="font-bold text-white flex items-center gap-1">
+                  <span>🛡️ Workspace Admin</span>
+                </div>
+                <div class="text-[10px] text-slate-400">Full control over all users, permissions, scrapers, and agency settings</div>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-end gap-2.5 pt-2">
+          <button type="button" onclick="toggleAddUserDrawer()" class="px-4 py-2 rounded-xl text-xs font-bold bg-slate-800 hover:bg-slate-700 text-slate-300">
+            Cancel
+          </button>
+          <button type="submit" id="submitUserBtn" class="px-5 py-2 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white shadow-md flex items-center gap-1.5">
+            <span>💾</span>
+            <span>Create Candidate &amp; Save Resume</span>
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- 4. USER DIRECTORY & ACCESS CONTROL MATRIX                      -->
+    <!-- ============================================================== -->
+    <div class="bg-[#111827] border border-slate-800 rounded-2xl overflow-hidden shadow-lg">
+      <div class="p-4 border-b border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-slate-900/60">
+        <div>
+          <h2 class="text-sm font-bold text-white flex items-center gap-2">
+            <span>Registered Candidates &amp; Users</span>
+            <span id="userCountBadge" class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-slate-800 text-slate-300 border border-slate-700">3 Users</span>
+          </h2>
+          <p class="text-[11px] text-slate-400">Admin privilege allows immediate switching between Read, Write, and View access levels</p>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <input type="text" id="userSearchInput" oninput="filterUsers()" placeholder="Search user or skill..." class="bg-[#0b0f19] border border-slate-700 text-white rounded-xl px-3 py-1.5 text-xs outline-none focus:border-blue-500">
+          <button onclick="loadUsersTable()" class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs" title="Refresh User List">
+            🔄
+          </button>
+        </div>
+      </div>
+
+      <!-- Users Table -->
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs">
+          <thead class="bg-slate-950/80 text-slate-400 font-mono text-[11px] border-b border-slate-800">
+            <tr>
+              <th class="p-3.5">Candidate / User</th>
+              <th class="p-3.5">Role &amp; Seniority</th>
+              <th class="p-3.5">Verification</th>
+              <th class="p-3.5">Resume Portfolio</th>
+              <th class="p-3.5">Access Role Control (Admin Change)</th>
+              <th class="p-3.5 text-right">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="userTableBody" class="divide-y divide-slate-800">
+            <!-- Rendered by JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ============================================================== -->
+  <!-- 5. UPLOAD RESUME MODAL (For existing users)                    -->
+  <!-- ============================================================== -->
+  <div id="uploadResumeModal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-[#111827] border border-blue-500/40 rounded-2xl max-w-md w-full p-5 shadow-2xl text-white space-y-4">
+      <div class="flex items-center justify-between pb-2 border-b border-slate-800">
+        <div class="flex items-center gap-2">
+          <span class="text-xl">📄</span>
+          <div>
+            <h3 class="text-sm font-bold text-white">Upload Candidate Resume</h3>
+            <p id="modalUploadCandName" class="text-[11px] text-slate-400">Ashutosh Kumar</p>
+          </div>
+        </div>
+        <button onclick="closeUploadResumeModal()" class="text-slate-400 hover:text-white p-1">✕</button>
+      </div>
+
+      <div class="space-y-3">
+        <div class="p-4 rounded-xl bg-[#0b0f19] border-2 border-dashed border-blue-500/40 text-center space-y-2">
+          <input type="file" id="modalResumeFileInput" accept=".pdf,.doc,.docx,.txt,.md" class="w-full text-xs text-slate-300 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-blue-600 file:text-white cursor-pointer">
+          <p class="text-[10px] text-slate-400">Supported formats: PDF, DOCX, DOC, TXT, Markdown</p>
+        </div>
+        <div id="modalUploadStatus" class="hidden text-xs p-2.5 rounded-xl"></div>
+      </div>
+
+      <div class="flex items-center justify-end gap-2 pt-2 border-t border-slate-800">
+        <button type="button" onclick="closeUploadResumeModal()" class="px-4 py-2 rounded-xl text-xs font-bold bg-slate-800 text-slate-300">Cancel</button>
+        <button type="button" id="btnModalUploadSubmit" onclick="submitModalResumeUpload()" class="px-4 py-2 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white">Upload &amp; Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toastContainer" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <script>
+    let usersList = [];
+    let currentUserSession = null;
+    let selectedFileBase64 = null;
+    let selectedFileName = null;
+    let modalTargetCandId = null;
+
+    // Toast notification helper
+    function showToast(msg, isSuccess = true) {
+      const container = document.getElementById('toastContainer');
+      const toast = document.createElement('div');
+      toast.className = `p-3 rounded-xl shadow-xl text-xs font-semibold flex items-center gap-2 border transition transform duration-300 ${isSuccess ? 'bg-emerald-950/90 border-emerald-500 text-emerald-200' : 'bg-rose-950/90 border-rose-500 text-rose-200'}`;
+      toast.innerHTML = `<span>${isSuccess ? '✅' : '⚠️'}</span> <span>${msg}</span>`;
+      container.appendChild(toast);
+      setTimeout(() => toast.remove(), 4000);
+    }
+
+    // Init Auth Check
+    function checkAuth() {
+      const saved = localStorage.getItem('talentflow_auth');
+      if (saved) {
+        try {
+          currentUserSession = JSON.parse(saved);
+        } catch (e) {}
+      }
+
+      // Default fallback to Admin Ashutosh Kumar if testing without login
+      if (!currentUserSession || !currentUserSession.user) {
+        currentUserSession = {
+          user: {
+            id: 'ashutosh-kumar',
+            name: 'Ashutosh Kumar',
+            email: 'kumar.ashu872@gmail.com',
+            role: 'admin',
+            access: 'write',
+            isAdmin: true,
+            avatar: '👨‍💻'
+          }
+        };
+      }
+
+      const u = currentUserSession.user;
+      document.getElementById('navUserName').textContent = u.name;
+      document.getElementById('navUserAvatar').textContent = u.avatar || '👨‍💻';
+      document.getElementById('navUserRole').textContent = `${(u.role || 'ADMIN').toUpperCase()} (${(u.access || 'WRITE').toUpperCase()})`;
+
+      // If user has view-only access, display alert and restrict actions
+      if (u.access === 'read' || u.role === 'viewer') {
+        document.getElementById('viewOnlyAlertBanner').classList.remove('hidden');
+      }
+    }
+
+    function handleLogout() {
+      localStorage.removeItem('talentflow_auth');
+      window.location.href = '/login.html';
+    }
+
+    function toggleAddUserDrawer() {
+      const drawer = document.getElementById('addUserDrawer');
+      drawer.classList.toggle('hidden');
+      if (!drawer.classList.contains('hidden')) {
+        drawer.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    function handleFileSelected(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      selectedFileName = file.name;
+      const preview = document.getElementById('fileUploadPreview');
+      const nameEl = document.getElementById('previewFileName');
+      const sizeEl = document.getElementById('previewFileSize');
+
+      if (nameEl) nameEl.textContent = file.name;
+      if (sizeEl) sizeEl.textContent = `(${(file.size / 1024).toFixed(1)} KB)`;
+      if (preview) preview.classList.remove('hidden');
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        selectedFileBase64 = reader.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    async function handleCreateUserSubmit(e) {
+      e.preventDefault();
+
+      const name = document.getElementById('formName').value.trim();
+      const title = document.getElementById('formTitle').value.trim();
+      const avatar = document.getElementById('formAvatar').value.trim() || '👤';
+      const email = document.getElementById('formEmail').value.trim();
+      const phone = document.getElementById('formPhone').value.trim();
+      const company = document.getElementById('formCompany').value.trim();
+      const exp = parseFloat(document.getElementById('formExp').value) || 5;
+      const currentCtc = parseFloat(document.getElementById('formCurrentCtc').value) || 10;
+      const targetCtc = parseFloat(document.getElementById('formTargetCtc').value) || 18;
+      const notice = document.getElementById('formNotice').value.trim();
+      const location = document.getElementById('formLocation').value.trim();
+      const skills = document.getElementById('formSkills').value.trim();
+      
+      const accessLevelRadio = document.querySelector('input[name="formAccessLevel"]:checked');
+      const accessLevel = accessLevelRadio ? accessLevelRadio.value : 'write';
+
+      let role = 'editor';
+      let access = 'write';
+      if (accessLevel === 'admin') {
+        role = 'admin';
+        access = 'write';
+      } else if (accessLevel === 'read') {
+        role = 'viewer';
+        access = 'read';
+      }
+
+      const payload = {
+        name,
+        title,
+        avatar,
+        email,
+        phone,
+        currentCompany: company || 'Enterprise Technology Partner',
+        experienceYears: exp,
+        experienceLabel: `${exp}+ Years`,
+        currentCtc: `₹${currentCtc},00,000 PA`,
+        currentCtcVal: currentCtc,
+        targetCtc: `₹${targetCtc},00,000+ PA`,
+        targetCtcMin: targetCtc,
+        noticePeriod: notice || 'Immediate to 30 Days',
+        location: location || 'Delhi NCR / Remote',
+        coreStack: skills.split(',').map(s => s.trim()),
+        role,
+        access,
+        isAdmin: role === 'admin',
+        resumeBase64: selectedFileBase64,
+        resumeFileName: selectedFileName
+      };
+
+      const btn = document.getElementById('submitUserBtn');
+      btn.disabled = true;
+      btn.innerHTML = '<span>⏳ Saving Candidate...</span>';
+
+      try {
+        const res = await fetch('/api/candidates', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await res.json();
+        if (res.ok && data.success) {
+          showToast(`✓ Candidate ${data.candidate.name} created successfully!`);
+          toggleAddUserDrawer();
+          // Reset form
+          e.target.reset();
+          selectedFileBase64 = null;
+          selectedFileName = null;
+          document.getElementById('fileUploadPreview').classList.add('hidden');
+          loadUsersTable();
+        } else {
+          showToast(data.error || 'Failed to create candidate.', false);
+        }
+      } catch (err) {
+        showToast('Network error: ' + err.message, false);
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<span>💾</span> <span>Create Candidate &amp; Save Resume</span>';
+      }
+    }
+
+    async function loadUsersTable() {
+      try {
+        const res = await fetch('/api/candidates');
+        if (res.ok) {
+          usersList = await res.json();
+          renderUsersTable(usersList);
+          updateMetrics(usersList);
+        }
+      } catch (e) {
+        console.warn('[Load Users Err]:', e);
+      }
+    }
+
+    function updateMetrics(list) {
+      document.getElementById('statTotalUsers').textContent = list.length;
+      document.getElementById('userCountBadge').textContent = `${list.length} Candidates`;
+      document.getElementById('statAdminUsers').textContent = list.filter(u => u.isAdmin || u.role === 'admin').length;
+      document.getElementById('statWriteUsers').textContent = list.filter(u => u.access === 'write' || u.role === 'editor').length;
+      document.getElementById('statViewUsers').textContent = list.filter(u => u.access === 'read' || u.role === 'viewer').length;
+    }
+
+    function filterUsers() {
+      const q = document.getElementById('userSearchInput').value.toLowerCase().trim();
+      if (!q) {
+        renderUsersTable(usersList);
+        return;
+      }
+      const filtered = usersList.filter(u =>
+        u.name.toLowerCase().includes(q) ||
+        u.title.toLowerCase().includes(q) ||
+        u.email.toLowerCase().includes(q) ||
+        (u.coreStack && u.coreStack.some(s => s.toLowerCase().includes(q)))
+      );
+      renderUsersTable(filtered);
+    }
+
+    function renderUsersTable(list) {
+      const tbody = document.getElementById('userTableBody');
+      if (!tbody) return;
+
+      if (!list || list.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" class="p-8 text-center text-slate-500">No candidate users found matching criteria.</td></tr>`;
+        return;
+      }
+
+      const isCurrentAdmin = currentUserSession && currentUserSession.user && (currentUserSession.user.isAdmin || currentUserSession.user.role === 'admin');
+
+      tbody.innerHTML = list.map(user => {
+        const hasResume = !!user.resumeFile;
+        const currentRole = user.role || (user.isAdmin ? 'admin' : 'viewer');
+        const currentAccess = user.access || (user.isAdmin ? 'write' : 'read');
+
+        return `
+          <tr class="hover:bg-slate-900/50 transition border-b border-slate-800/80">
+            <!-- Candidate Info -->
+            <td class="p-3.5">
+              <div class="flex items-center gap-3">
+                <span class="text-2xl">${user.avatar || '👤'}</span>
+                <div>
+                  <div class="font-bold text-white text-xs flex items-center gap-1.5">
+                    <span>${user.name}</span>
+                    ${user.isAdmin ? '<span class="px-1.5 py-0.2 rounded text-[9px] font-extrabold bg-amber-500/20 text-amber-300 border border-amber-500/40">ADMIN</span>' : ''}
+                  </div>
+                  <div class="text-[11px] text-slate-400 font-mono">${user.email}</div>
+                  <div class="text-[10px] text-slate-500">${user.phone || ''} &bull; ${user.location || ''}</div>
+                </div>
+              </div>
+            </td>
+
+            <!-- Role & Seniority -->
+            <td class="p-3.5">
+              <div class="text-white font-medium">${user.title}</div>
+              <div class="text-[11px] text-slate-400 mt-0.5">${user.experienceLabel || user.experienceYears + ' Yrs'} &bull; ${user.currentCompany || 'Contract'}</div>
+              <div class="text-[10px] text-emerald-400 font-mono mt-0.5">${user.targetCtc || ''}</div>
+            </td>
+
+            <!-- Verification Status -->
+            <td class="p-3.5">
+              ${user.isAdmin ? `
+                <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[10px] font-extrabold bg-amber-500/20 text-amber-300 border border-amber-500/40">
+                  <span>🛡️ Verified Admin</span>
+                </span>
+              ` : user.isVerified ? `
+                <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[10px] font-extrabold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
+                  <span>✓ Email Verified</span>
+                </span>
+              ` : `
+                <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[10px] font-bold bg-amber-500/20 text-amber-400 border border-amber-500/40">
+                  <span>⏳ Pending</span>
+                </span>
+              `}
+            </td>
+
+            <!-- Resume Column -->
+            <td class="p-3.5">
+              ${hasResume ? `
+                <div class="space-y-1">
+                  <div class="flex items-center gap-1.5">
+                    <a href="/${user.resumeFile}" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1 rounded-lg bg-blue-600/20 hover:bg-blue-600 hover:text-white text-blue-300 border border-blue-500/40 font-bold text-[11px] transition inline-flex items-center gap-1">
+                      <span>📄</span> <span>View Resume ↗</span>
+                    </a>
+                    <a href="/${user.resumeFile}" download class="p-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-[11px]" title="Download Resume">
+                      📥
+                    </a>
+                  </div>
+                  <div class="text-[9px] text-slate-400 font-mono truncate max-w-[140px]" title="${user.resumeFileName || ''}">
+                    ${user.resumeFileName || 'Resume.pdf'}
+                  </div>
+                </div>
+              ` : `
+                <div class="space-y-1">
+                  <span class="text-[10px] text-slate-400 font-mono">⚠️ No Resume</span>
+                  <div>
+                    <button onclick="openUploadResumeModal('${user.id}', '${user.name}')" class="px-2 py-0.5 rounded-lg bg-slate-800 hover:bg-blue-600 hover:text-white text-slate-300 border border-slate-700 text-[10px] font-semibold transition">
+                      + Upload Resume
+                    </button>
+                  </div>
+                </div>
+              `}
+            </td>
+
+            <!-- ACCESS ROLE CONTROL (Admin Change Access per Read, Write, View) -->
+            <td class="p-3.5">
+              <div class="flex items-center gap-1 bg-[#0b0f19] p-1 rounded-xl border border-slate-800 w-fit">
+                <button onclick="updateUserAccess('${user.id}', 'write', 'editor')" class="px-2.5 py-1 rounded-lg text-[10px] font-bold transition ${currentAccess === 'write' && currentRole !== 'admin' ? 'bg-blue-600 text-white shadow-sm' : 'text-slate-400 hover:text-white'}" title="Grant Write / Editing Access (Apply, Advance Stages)">
+                  Write
+                </button>
+                <button onclick="updateUserAccess('${user.id}', 'read', 'viewer')" class="px-2.5 py-1 rounded-lg text-[10px] font-bold transition ${currentAccess === 'read' ? 'bg-emerald-600 text-white shadow-sm' : 'text-slate-400 hover:text-white'}" title="Set Read / View Only Mode">
+                  Read/View
+                </button>
+                <button onclick="updateUserAccess('${user.id}', 'write', 'admin')" class="px-2.5 py-1 rounded-lg text-[10px] font-bold transition ${currentRole === 'admin' ? 'bg-amber-600 text-white shadow-sm' : 'text-slate-400 hover:text-white'}" title="Promote to Workspace Administrator">
+                  Admin
+                </button>
+              </div>
+              <div class="text-[9px] text-slate-400 font-mono mt-1">
+                Current: <strong class="${currentRole === 'admin' ? 'text-amber-400' : currentAccess === 'write' ? 'text-blue-400' : 'text-emerald-400'}">${currentRole.toUpperCase()} (${currentAccess.toUpperCase()})</strong>
+              </div>
+            </td>
+
+            <!-- Actions -->
+            <td class="p-3.5 text-right space-x-1">
+              <a href="/profile.html?candidate=${user.id}" class="px-2.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-[11px] font-semibold transition inline-flex items-center gap-1">
+                <span>👤</span>
+                <span>Profile ↗</span>
+              </a>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    // Admin Access Change Function
+    async function updateUserAccess(candidateId, access, role) {
+      try {
+        const res = await fetch('/api/candidates/update-access', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ candidateId, access, role })
+        });
+
+        const data = await res.json();
+        if (res.ok && data.success) {
+          showToast(`✓ Updated access for ${data.candidate.name} to ${role.toUpperCase()} (${access.toUpperCase()})`);
+          // Update in local cache
+          const idx = usersList.findIndex(u => u.id === candidateId);
+          if (idx !== -1) {
+            usersList[idx] = data.candidate;
+          }
+          renderUsersTable(usersList);
+          updateMetrics(usersList);
+        } else {
+          showToast(data.error || 'Failed to update access permissions.', false);
+        }
+      } catch (err) {
+        showToast('Error updating permissions: ' + err.message, false);
+      }
+    }
+
+    // Open upload resume modal for user
+    function openUploadResumeModal(candId, candName) {
+      modalTargetCandId = candId;
+      document.getElementById('modalUploadCandName').textContent = candName;
+      document.getElementById('modalResumeFileInput').value = '';
+      const status = document.getElementById('modalUploadStatus');
+      status.className = 'hidden text-xs p-2.5 rounded-xl';
+      document.getElementById('uploadResumeModal').classList.remove('hidden');
+    }
+
+    function closeUploadResumeModal() {
+      document.getElementById('uploadResumeModal').classList.add('hidden');
+    }
+
+    async function submitModalResumeUpload() {
+      const input = document.getElementById('modalResumeFileInput');
+      const file = input ? input.files[0] : null;
+      if (!file || !modalTargetCandId) {
+        alert('Please choose a resume file to upload.');
+        return;
+      }
+
+      const btn = document.getElementById('btnModalUploadSubmit');
+      btn.disabled = true;
+      btn.textContent = 'Uploading...';
+
+      const reader = new FileReader();
+      reader.onload = async () => {
+        try {
+          const res = await fetch('/api/candidates/upload-resume', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              candidateId: modalTargetCandId,
+              fileName: file.name,
+              fileBase64: reader.result
+            })
+          });
+
+          const data = await res.json();
+          if (res.ok && data.success) {
+            showToast(`✓ Resume uploaded successfully for candidate!`);
+            closeUploadResumeModal();
+            loadUsersTable();
+          } else {
+            alert(data.error || 'Failed to upload resume.');
+          }
+        } catch (e) {
+          alert('Upload failed: ' + e.message);
+        } finally {
+          btn.disabled = false;
+          btn.textContent = 'Upload & Save';
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      checkAuth();
+      loadUsersTable();
+    });
+  </script>
+</body>
+</html>

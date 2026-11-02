@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Verify Your Candidate Profile on TalentFlow AI [OTP: 930271]</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: #0b0f19; margin: 0; padding: 24px; color: #f8fafc; }
+    .card { max-width: 620px; margin: 0 auto; background: #111827; border-radius: 16px; border: 1px solid #1e293b; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
+    .header { background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%); color: #ffffff; padding: 28px 32px; border-bottom: 1px solid #1e293b; }
+    .header h1 { margin: 0; font-size: 20px; font-weight: 800; color: #ffffff; letter-spacing: 0.3px; }
+    .badge { display: inline-block; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 700; margin-top: 10px; background: rgba(59, 130, 246, 0.2); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.4); }
+    .body { padding: 28px 32px; font-size: 14px; line-height: 1.6; color: #cbd5e1; }
+    .greeting { font-size: 16px; font-weight: 700; color: #ffffff; margin-bottom: 12px; }
+    .otp-box { background: #0f172a; border: 2px dashed #3b82f6; border-radius: 12px; padding: 20px; text-align: center; margin: 24px 0; }
+    .otp-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; color: #94a3b8; font-weight: bold; margin-bottom: 6px; }
+    .otp-code { font-family: 'Courier New', monospace; font-size: 32px; font-weight: 900; color: #38bdf8; letter-spacing: 6px; }
+    .otp-expiry { font-size: 11px; color: #64748b; margin-top: 6px; }
+    .btn-verify { display: inline-block; background: #2563eb; color: #ffffff !important; text-decoration: none; font-weight: 700; padding: 12px 28px; border-radius: 10px; margin: 16px 0; font-size: 14px; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3); }
+    .info-table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 12px; background: #0b0f19; border-radius: 8px; overflow: hidden; border: 1px solid #1e293b; }
+    .info-table td { padding: 10px 14px; border-bottom: 1px solid #1e293b; }
+    .info-table td.label { color: #94a3b8; font-weight: 600; width: 35%; }
+    .info-table td.val { color: #f1f5f9; font-weight: bold; }
+    .footer { background: #0b0f19; border-top: 1px solid #1e293b; padding: 18px 32px; font-size: 11px; color: #64748b; text-align: center; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; color: #93c5fd; font-weight: bold; margin-bottom: 6px;">TalentFlow AI • Candidate Identity Verification</div>
+      <h1>Email Verification Required</h1>
+      <span class="badge">Candidate Activation Token</span>
+    </div>
+
+    <div class="body">
+      <div class="greeting">Dear Test Candidate,</div>
+      <p>
+        A new candidate profile has been registered under your email address for the role of <strong>Full-Stack Test Engineer</strong> on the TalentFlow AI Platform.
+      </p>
+      <p>
+        To verify that this email address belongs to you and to authorize autonomous recruiter submissions and interview notifications, please enter the following 6-digit verification code:
+      </p>
+
+      <div class="otp-box">
+        <div class="otp-label">One-Time Verification Code (OTP)</div>
+        <div class="otp-code">930271</div>
+        <div class="otp-expiry">Valid for 30 minutes • Do not share this code with anyone</div>
+      </div>
+
+      <div style="text-align: center;">
+        <a href="http://localhost:5000/api/candidates/verify?id=test-candidate&code=930271&token=tok_1793611143785_bqy29q" class="btn-verify">✓ Verify Email Address Instantly</a>
+      </div>
+
+      <table class="info-table">
+        <tr><td class="label">Candidate Name</td><td class="val">Test Candidate</td></tr>
+        <tr><td class="label">Target Role</td><td class="val">Full-Stack Test Engineer</td></tr>
+        <tr><td class="label">Experience Level</td><td class="val">5 Years</td></tr>
+        <tr><td class="label">Registered Email</td><td class="val">test.candidate@example.com</td></tr>
+        <tr><td class="label">Dispatch Time</td><td class="val">Monday, November 2, 2026 at 2:49:03 PM (IST)</td></tr>
+      </table>
+
+      <p style="font-size: 12px; color: #94a3b8;">
+        Once verified, this profile can be selected in the agency switcher and applications will be submitted on your behalf. If you did not request this profile, please ignore this email.
+      </p>
+    </div>
+
+    <div class="footer">
+      TalentFlow AI Candidate Management System<br>
+      Automated Verification Dispatcher • Workspace Admin: Ashutosh Kumar (kumar.ashu872@gmail.com)
+    </div>
+  </div>
+</body>
+</html>

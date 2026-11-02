@@ -1,0 +1,43 @@
+{
+  "name": "ashutosh-job-search-agent",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Ashutosh Kumar — AI Job Search & Application Agent",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "node scripts/serve-dashboard.js",
+    "agent": "tsx src/index.ts",
+    "search": "tsx src/index.ts --mode search",
+    "dry-run": "tsx src/index.ts --mode dry-run",
+    "report": "tsx src/index.ts --mode report",
+    "serve": "node scripts/serve-dashboard.js",
+    "tunnel": "node scripts/start-tunnel.js",
+    "discover:daily": "node scripts/daily-discovery-cron.js",
+    "battlecards": "node scripts/generate-battlecards.js",
+    "autofill": "tsx src/applications/browser-autofill.ts",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "build": "tsc"
+  },
+  "keywords": [
+    "job-search",
+    "agent",
+    "automation",
+    "frontend",
+    "ats"
+  ],
+  "author": "Ashutosh Kumar",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "@types/nodemailer": "^8.0.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "nodemailer": "^10.3.0",
+    "playwright": "^1.64.1"
+  }
+}

@@ -1,0 +1,322 @@
+[
+  {
+    "folder": "Amazon__ADCI__linkedin-4478053400",
+    "company": "Amazon (ADCI)",
+    "role": "Front-End Engineer II (FBA Placement)",
+    "reqId": "A10575321",
+    "salary": "₹35,00,000 - ₹55,00,000 PA",
+    "workMode": "Hybrid (Bengaluru / Remote Review)",
+    "keyThemes": [
+      "FBA Seller Scale & High-Throughput Portals",
+      "Angular & Modular Component Architectures",
+      "Strict WCAG 2.1 Accessibility",
+      "Core Web Vitals & Latency Under Load"
+    ],
+    "htmlPath": "/data/interview-battlecards/Amazon__ADCI__linkedin-4478053400/Interview_Battle_Card.html",
+    "mdPath": "/data/interview-battlecards/Amazon__ADCI__linkedin-4478053400/Interview_Battle_Card.md"
+  },
+  {
+    "folder": "Samsung_SDS_Global_job-mock-002",
+    "company": "Samsung SDS Global",
+    "role": "Senior Frontend Engineer (UI/UX Engineering)",
+    "reqId": "SSDS-2026-8821",
+    "salary": "₹22,00,000 - ₹30,00,000 PA",
+    "workMode": "Remote (India)",
+    "keyThemes": [
+      "Enterprise Angular & Angular Material UI",
+      "Design Systems & Token Hierarchies",
+      "97/100 Proven Track Record",
+      "Cross-Browser Enterprise Compatibility"
+    ],
+    "htmlPath": "/data/interview-battlecards/Samsung_SDS_Global_job-mock-002/Interview_Battle_Card.html",
+    "mdPath": "/data/interview-battlecards/Samsung_SDS_Global_job-mock-002/Interview_Battle_Card.md"
+  },
+  {
+    "folder": "Nagarro_Enterprises_job-mock-001",
+    "company": "Nagarro Enterprises",
+    "role": "Senior UI Developer - Design Systems",
+    "reqId": "NAG-2026-9012",
+    "salary": "₹18,00,000 - ₹26,00,000 PA",
+    "workMode": "Hybrid (Gurugram / Noida)",
+    "keyThemes": [
+      "Design Systems & Design Tokens",
+      "Angular Material UI Customization",
+      "Figma-to-Code Precision",
+      "Playwright Test Verification"
+    ],
+    "htmlPath": "/data/interview-battlecards/Nagarro_Enterprises_job-mock-001/Interview_Battle_Card.html",
+    "mdPath": "/data/interview-battlecards/Nagarro_Enterprises_job-mock-001/Interview_Battle_Card.md"
+  },
+  {
+    "folder": "Cisco_Systems_Partner_Network_job-mock-006",
+    "company": "Cisco Systems Partner Network",
+    "role": "Senior UI/Frontend Engineer",
+    "reqId": "CSCO-BPA-3391",
+    "salary": "₹24,00,000 - ₹32,00,000 PA",
+    "workMode": "Remote (India)",
+    "keyThemes": [
+      "Cisco BPA & SD-WAN UI Familiarity",
+      "Angular Material & Enterprise Workflows",
+      "Complex Form Validations",
+      "High-Reliability Enterprise Portals"
+    ],
+    "htmlPath": "/data/interview-battlecards/Cisco_Systems_Partner_Network_job-mock-006/Interview_Battle_Card.html",
+    "mdPath": "/data/interview-battlecards/Cisco_Systems_Partner_Network_job-mock-006/Interview_Battle_Card.md"
+  },
+  {
+    "folder": "Publicis_Sapient_naukri-002",
+    "company": "Publicis Sapient",
+    "role": "Senior Frontend Developer (WCAG Accessibility & Design Systems)",
+    "reqId": "PS-DEL-5591",
+    "salary": "₹20,00,000 - ₹28,00,000 PA",
+    "workMode": "Hybrid (Gurugram / Noida)",
+    "keyThemes": [
+      "WCAG 2.1/2.2 AA Enterprise Compliance",
+      "Accessible Design Systems",
+      "Figma-to-Code Precision",
+      "Section 508 Legal Standards"
+    ],
+    "htmlPath": "/data/interview-battlecards/Publicis_Sapient_naukri-002/Interview_Battle_Card.html",
+    "mdPath": "/data/interview-battlecards/Publicis_Sapient_naukri-002/Interview_Battle_Card.md"
+  },
+  {
+    "folder": "MakeMyTrip_India_linkedin-002",
+    "company": "MakeMyTrip India",
+    "role": "Lead Frontend UI Developer",
+    "reqId": "MMT-GUR-4412",
+    "salary": "₹26,00,000 - ₹38,00,000 PA",
+    "workMode": "Hybrid (Gurugram)",
+    "keyThemes": [
+      "High-Traffic Travel Booking Speed",
+      "Pixel-Perfect Responsive Layouts",
+      "Core Web Vitals & Sub-Second Latency",
+      "Micro-Interactions"
+    ],
+    "htmlPath": "/data/interview-battlecards/MakeMyTrip_India_linkedin-002/Interview_Battle_Card.html",
+    "mdPath": "/data/interview-battlecards/MakeMyTrip_India_linkedin-002/Interview_Battle_Card.md"
+  },
+  {
+    "folder": "Wipro_Digital_job-mock-003",
+    "company": "Wipro Digital",
+    "role": "Lead UI Engineer / Design Systems Architect",
+    "reqId": "WIP-DEL-7731",
+    "salary": "₹20,00,000 - ₹28,00,000 PA",
+    "workMode": "Hybrid (Noida)",
+    "keyThemes": [
+      "Design Systems Architecture",
+      "Design Tokens & SCSS Architecture",
+      "Angular & Modular UI",
+      "Playwright Automation"
+    ],
+    "htmlPath": "/data/interview-battlecards/Wipro_Digital_job-mock-003/Interview_Battle_Card.html",
+    "mdPath": "/data/interview-battlecards/Wipro_Digital_job-mock-003/Interview_Battle_Card.md"
+  },
+  {
+    "folder": "Info_Edge_India__Naukri_Enterp_naukri-001",
+    "company": "Info Edge India (Naukri Enterprise)",
+    "role": "Senior UI / Angular Developer (8+ Yrs Experience)",
+    "reqId": "NAUKRI-IE-8812",
+    "salary": "₹18,00,000 - ₹25,00,000 PA",
+    "workMode": "Hybrid (Noida Sector 132)",
+    "keyThemes": [
+      "High-Scale Recruitment Portals",
+      "Angular & Angular Material UI",
+      "SEO-Friendly Semantic Markup",
+      "Figma-to-Code Precision"
+    ],
+    "htmlPath": "/data/interview-battlecards/Info_Edge_India__Naukri_Enterp_naukri-001/Interview_Battle_Card.html",
+    "mdPath": "/data/interview-battlecards/Info_Edge_India__Naukri_Enterp_naukri-001/Interview_Battle_Card.md"
+  },
+  {
+    "folder": "Zomato___Blinkit_indeed-003",
+    "company": "Zomato / Blinkit",
+    "role": "UI Developer (Figma-to-Code & Design Systems)",
+    "reqId": "ZOM-GUR-5501",
+    "salary": "₹16,00,000 - ₹24,00,000 PA",
+    "workMode": "In-Office / Hybrid (Gurugram)",
+    "keyThemes": [
+      "Figma-to-Code Craftsmanship",
+      "Quick-Commerce Real-Time UI",
+      "Micro-Interactions & CSS Animation",
+      "Pixel-Perfect Speed"
+    ],
+    "htmlPath": "/data/interview-battlecards/Zomato___Blinkit_indeed-003/Interview_Battle_Card.html",
+    "mdPath": "/data/interview-battlecards/Zomato___Blinkit_indeed-003/Interview_Battle_Card.md"
+  },
+  {
+    "folder": "EPAM_Systems_indeed-002",
+    "company": "EPAM Systems",
+    "role": "Senior Frontend Engineer (Remote India)",
+    "reqId": "EPAM-IND-7791",
+    "salary": "₹20,00,000 - ₹28,00,000 PA",
+    "workMode": "Remote (India)",
+    "keyThemes": [
+      "Global Enterprise Consulting",
+      "Modern SCSS & CSS Architecture",
+      "Playwright Automated Testing",
+      "Code Quality & Governance"
+    ],
+    "htmlPath": "/data/interview-battlecards/EPAM_Systems_indeed-002/Interview_Battle_Card.html",
+    "mdPath": "/data/interview-battlecards/EPAM_Systems_indeed-002/Interview_Battle_Card.md"
+  },
+  {
+    "folder": "Commonwealth_Bank_of_Australia_linkedin-001",
+    "company": "Commonwealth Bank of Australia",
+    "role": "Senior UI Engineer (Angular & Design Tokens)",
+    "reqId": "CBA-IND-9921",
+    "salary": "₹24,00,000 - ₹34,00,000 PA",
+    "workMode": "Hybrid (Bengaluru / Remote Review)",
+    "keyThemes": [
+      "Banking Grade Security & Precision",
+      "Design Tokens at Enterprise Scale",
+      "Angular & Angular Material",
+      "WCAG 2.1 AA Financial Compliance"
+    ],
+    "htmlPath": "/data/interview-battlecards/Commonwealth_Bank_of_Australia_linkedin-001/Interview_Battle_Card.html",
+    "mdPath": "/data/interview-battlecards/Commonwealth_Bank_of_Australia_linkedin-001/Interview_Battle_Card.md"
+  },
+  {
+    "folder": "Incedo_Inc__job-mock-010",
+    "company": "Incedo Inc.",
+    "role": "Senior UI/UX Developer",
+    "reqId": "INC-UI-8820",
+    "salary": "₹16,00,000 - ₹22,00,000 PA",
+    "workMode": "Hybrid (Gurugram)",
+    "keyThemes": [
+      "Enterprise UI/UX Engineering",
+      "HTML5/SCSS/Angular Material",
+      "Figma-to-Code Fidelity",
+      "Agile Client Delivery"
+    ],
+    "htmlPath": "/data/interview-battlecards/Incedo_Inc__job-mock-010/Interview_Battle_Card.html",
+    "mdPath": "/data/interview-battlecards/Incedo_Inc__job-mock-010/Interview_Battle_Card.md"
+  },
+  {
+    "folder": "Experience_Commerce__Cheil_Gro_job-mock-005",
+    "company": "Experience Commerce (Cheil Group)",
+    "role": "Senior UI Developer & Email Operations Specialist",
+    "reqId": "EC-CHL-8832",
+    "salary": "₹14,00,000 - ₹19,00,000 PA",
+    "workMode": "Hybrid (Gurugram, Delhi NCR)",
+    "keyThemes": [
+      "Pixel-Perfect Web Publishing",
+      "Cross-Client Responsive HTML Email Architecture",
+      "Outlook MSO Quirks & Table Layouts",
+      "Client SLA & Fast Jira Turnaround"
+    ],
+    "htmlPath": "/data/interview-battlecards/Experience_Commerce__Cheil_Gro_job-mock-005/Interview_Battle_Card.html",
+    "mdPath": "/data/interview-battlecards/Experience_Commerce__Cheil_Gro_job-mock-005/Interview_Battle_Card.md"
+  },
+  {
+    "folder": "GitLab_Partner_Ecosystem_job-mock-004",
+    "company": "GitLab Partner Ecosystem",
+    "role": "Senior Frontend Developer (Remote India)",
+    "reqId": "GTLB-IND-4421",
+    "salary": "₹20,00,000 - ₹28,00,000 PA",
+    "workMode": "Remote (India)",
+    "keyThemes": [
+      "Asynchronous Remote Collaboration",
+      "Scalable Component Architectures",
+      "Git Workflow & CI/CD",
+      "Web Performance & Core Web Vitals"
+    ],
+    "htmlPath": "/data/interview-battlecards/GitLab_Partner_Ecosystem_job-mock-004/Interview_Battle_Card.html",
+    "mdPath": "/data/interview-battlecards/GitLab_Partner_Ecosystem_job-mock-004/Interview_Battle_Card.md"
+  },
+  {
+    "folder": "Acme_Global_Cloud_job-mock-007",
+    "company": "Acme Global Cloud",
+    "role": "Frontend UI Engineer (Design Systems)",
+    "reqId": "ACME-GLB-2201",
+    "salary": "$50,000 - $70,000 USD/year (₹41-58 LPA)",
+    "workMode": "Worldwide Remote (India Eligible)",
+    "keyThemes": [
+      "Cloud Management Dashboards",
+      "Design Systems & Design Tokens",
+      "Modern CSS Grid & Flexbox",
+      "Cross-Browser Performance"
+    ],
+    "htmlPath": "/data/interview-battlecards/Acme_Global_Cloud_job-mock-007/Interview_Battle_Card.html",
+    "mdPath": "/data/interview-battlecards/Acme_Global_Cloud_job-mock-007/Interview_Battle_Card.md"
+  },
+  {
+    "folder": "Mindrops_Digital_Studio_job-mock-008",
+    "company": "Mindrops Digital Studio",
+    "role": "Senior WordPress & Frontend Developer",
+    "reqId": "MND-DIG-3390",
+    "salary": "₹12,00,000 - ₹16,00,000 PA",
+    "workMode": "On-site (New Delhi)",
+    "keyThemes": [
+      "Custom WordPress Theme Engineering",
+      "Modern SCSS/JavaScript Integration",
+      "Pixel-Perfect Client Delivery",
+      "Core Web Vitals Optimization"
+    ],
+    "htmlPath": "/data/interview-battlecards/Mindrops_Digital_Studio_job-mock-008/Interview_Battle_Card.html",
+    "mdPath": "/data/interview-battlecards/Mindrops_Digital_Studio_job-mock-008/Interview_Battle_Card.md"
+  },
+  {
+    "folder": "Cognitive_Web_Labs_job-mock-009",
+    "company": "Cognitive Web Labs",
+    "role": "Senior Frontend Engineer - AI Workflows",
+    "reqId": "CGN-WEB-5512",
+    "salary": "₹18,00,000 - ₹25,00,000 PA",
+    "workMode": "Hybrid (Delhi NCR)",
+    "keyThemes": [
+      "AI Workflow UX & Streaming Text",
+      "Real-Time UI State Management",
+      "Interactive Data Visualizations",
+      "Complex Form Systems"
+    ],
+    "htmlPath": "/data/interview-battlecards/Cognitive_Web_Labs_job-mock-009/Interview_Battle_Card.html",
+    "mdPath": "/data/interview-battlecards/Cognitive_Web_Labs_job-mock-009/Interview_Battle_Card.md"
+  },
+  {
+    "folder": "Tech_Mahindra_indeed-001",
+    "company": "Tech Mahindra",
+    "role": "Senior UI Engineer - Enterprise Angular Modernization",
+    "reqId": "TM-NOI-3381",
+    "salary": "₹18,00,000 - ₹26,00,000 PA",
+    "workMode": "Hybrid (Noida / Delhi NCR)",
+    "keyThemes": [
+      "Enterprise Angular Modernization",
+      "Component Modularization",
+      "WCAG 2.1 AA Accessibility",
+      "Automated UI Verification"
+    ],
+    "htmlPath": "/data/interview-battlecards/Tech_Mahindra_indeed-001/Interview_Battle_Card.html",
+    "mdPath": "/data/interview-battlecards/Tech_Mahindra_indeed-001/Interview_Battle_Card.md"
+  },
+  {
+    "folder": "HCL_Technologies_naukri-003",
+    "company": "HCL Technologies",
+    "role": "Senior UI / Frontend Engineer - Enterprise Systems",
+    "reqId": "HCL-ENT-7704",
+    "salary": "₹16,00,000 - ₹24,00,000 PA",
+    "workMode": "Hybrid (Noida / Delhi NCR)",
+    "keyThemes": [
+      "Large-Scale Enterprise Portals",
+      "Angular Material UI",
+      "High-Volume Data Grids",
+      "Cross-Browser Compatibility"
+    ],
+    "htmlPath": "/data/interview-battlecards/HCL_Technologies_naukri-003/Interview_Battle_Card.html",
+    "mdPath": "/data/interview-battlecards/HCL_Technologies_naukri-003/Interview_Battle_Card.md"
+  },
+  {
+    "folder": "Paytm_Payments_Bank_linkedin-003",
+    "company": "Paytm Payments Bank",
+    "role": "Senior UI Developer (Design Systems & Microfrontends)",
+    "reqId": "PTM-NOI-8810",
+    "salary": "₹20,00,000 - ₹30,00,000 PA",
+    "workMode": "Hybrid (Noida)",
+    "keyThemes": [
+      "Fintech UI Performance",
+      "Microfrontend Architectures",
+      "High-Security Form Flows",
+      "Strict Input Sanitization"
+    ],
+    "htmlPath": "/data/interview-battlecards/Paytm_Payments_Bank_linkedin-003/Interview_Battle_Card.html",
+    "mdPath": "/data/interview-battlecards/Paytm_Payments_Bank_linkedin-003/Interview_Battle_Card.md"
+  }
+]

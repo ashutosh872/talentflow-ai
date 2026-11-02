@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interview Battle-Card — Senior UI/Frontend Engineer at Cisco Systems Partner Network</title>
+  <style>
+    @page { size: A4; margin: 12mm 14mm 12mm 14mm; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: #f8fafc;
+      color: #0f172a;
+      line-height: 1.45;
+      font-size: 13px;
+      -webkit-font-smoothing: antialiased;
+    }
+    .no-print {
+      position: sticky;
+      top: 0;
+      background: #0f172a;
+      color: #ffffff;
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 9999;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+    }
+    .container { max-width: 900px; margin: 24px auto; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
+    .header { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); color: #ffffff; padding: 24px 30px; }
+    .header-sub { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #94a3b8; margin-bottom: 4px; font-weight: 700; }
+    .header h1 { font-size: 22px; font-weight: 800; color: #ffffff; margin-bottom: 4px; }
+    .header-meta { display: flex; flex-wrap: wrap; gap: 12px; font-size: 12px; color: #cbd5e1; margin-top: 8px; }
+    .badge { display: inline-block; padding: 3px 10px; border-radius: 6px; font-size: 11px; font-weight: 700; background: rgba(59, 130, 246, 0.2); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.4); }
+    .content { padding: 28px 30px; }
+    .section { margin-bottom: 24px; }
+    .section-title { font-size: 14px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; color: #1e293b; border-bottom: 2px solid #e2e8f0; padding-bottom: 6px; margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
+    .box { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px 18px; margin-bottom: 12px; }
+    .box-blue { border-left: 4px solid #2563eb; }
+    .box-emerald { border-left: 4px solid #10b981; }
+    .box-amber { border-left: 4px solid #f59e0b; }
+    .box-purple { border-left: 4px solid #8b5cf6; }
+    .q-title { font-weight: 700; color: #0f172a; font-size: 13.5px; margin-bottom: 6px; display: flex; align-items: baseline; gap: 6px; }
+    .q-num { background: #2563eb; color: #ffffff; padding: 1px 6px; border-radius: 4px; font-size: 10px; font-weight: 800; }
+    .q-answer { color: #334155; margin-bottom: 6px; font-size: 12.8px; line-height: 1.5; }
+    .q-evidence { font-size: 11.5px; color: #047857; font-weight: 600; background: #ecfdf5; padding: 4px 8px; border-radius: 4px; display: inline-block; }
+    .pill-list { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+    .pill { background: #f1f5f9; color: #334155; border: 1px solid #cbd5e1; padding: 4px 10px; border-radius: 6px; font-size: 11.5px; font-weight: 600; }
+    .star-grid { display: grid; grid-template-columns: 80px 1fr; gap: 6px 12px; font-size: 12.5px; }
+    .star-lbl { font-weight: 700; color: #1e40af; text-transform: uppercase; font-size: 11px; }
+    ul.checklist { list-style: none; padding-left: 0; }
+    ul.checklist li { margin-bottom: 6px; padding-left: 20px; position: relative; color: #334155; }
+    ul.checklist li::before { content: "✓"; position: absolute; left: 0; color: #10b981; font-weight: 800; }
+    .footer { background: #f8fafc; border-top: 1px solid #e2e8f0; padding: 16px 30px; font-size: 11px; color: #64748b; text-align: center; }
+  </style>
+</head>
+<body>
+
+  <!-- Top Sticky Bar for Web/Tab Viewing (Hidden on Print) -->
+  <div class="no-print">
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <span style="font-weight: 800; font-size: 14px;">🎯 INTERVIEW BATTLE-CARD</span>
+      <span style="color: #64748b;">•</span>
+      <span style="color: #60a5fa; font-weight: 600;">Cisco Systems Partner Network</span>
+      <span style="color: #94a3b8; font-size: 12px;">(Senior UI/Frontend Engineer)</span>
+    </div>
+    <div style="display: flex; gap: 10px; align-items: center;">
+      <button onclick="window.print()" style="background: #2563eb; color: #ffffff; border: none; padding: 6px 14px; border-radius: 6px; cursor: pointer; font-weight: 700; font-size: 12px; display: flex; align-items: center; gap: 5px;">
+        <span>🖨️</span> Print / Save PDF
+      </button>
+      <button onclick="window.close()" style="background: transparent; color: #94a3b8; border: 1px solid #475569; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 12px;">
+        ✕ Close Tab
+      </button>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="header">
+      <div class="header-sub">Ashutosh Kumar • Senior Frontend Engineering Technical Prep Sheet</div>
+      <h1>Senior UI/Frontend Engineer</h1>
+      <div style="font-size: 16px; font-weight: 700; color: #60a5fa; margin-top: 2px;">Cisco Systems Partner Network</div>
+      <div class="header-meta">
+        <span class="badge">Req #CSCO-BPA-3391</span>
+        <span>💼 Remote (India)</span>
+        <span>💰 ₹24,00,000 - ₹32,00,000 PA</span>
+        <span>👤 Candidate: Ashutosh Kumar (8+ Yrs Exp)</span>
+      </div>
+    </div>
+
+    <div class="content">
+      <!-- Domain Context & Strategic Overview -->
+      <div class="section">
+        <div class="section-title">🏢 1. Company & Product Engineering Context</div>
+        <div class="box box-blue">
+          <p style="color: #334155; font-size: 13px;">Cisco network platforms require zero-downtime, accessible, high-performance UI components. Ashutosh previously engineered components for the Cisco Business Process Automation (BPA) Portal and SD-WAN UI interfaces.</p>
+          <div style="margin-top: 10px;">
+            <strong style="font-size: 11px; text-transform: uppercase; color: #1e40af; letter-spacing: 0.5px;">Core Competency Focus for this Role:</strong>
+            <div class="pill-list">
+              <span class="pill">⚡ Cisco BPA & SD-WAN UI Familiarity</span><span class="pill">⚡ Angular Material & Enterprise Workflows</span><span class="pill">⚡ Complex Form Validations</span><span class="pill">⚡ High-Reliability Enterprise Portals</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- High-Yield Technical Deep-Dive Q&A -->
+      <div class="section">
+        <div class="section-title">🧠 2. High-Yield Technical Interview Questions & Answers</div>
+        <div style="space-y: 12px;">
+          
+            <div class="box box-purple">
+              <div class="q-title">
+                <span class="q-num">Q1</span>
+                <span>What was your direct involvement with Cisco platforms during your tenure at Infinity Labs?</span>
+              </div>
+              <p class="q-answer">At Infinity Labs, I directly developed frontend components for the Cisco Business Process Automation (BPA) Portal and SD-WAN UI interfaces. I built complex enterprise data input forms with dynamic validations, breadcrumb navigation, and responsive layouts using HTML5, CSS3/Bootstrap, and JavaScript, ensuring network engineers could configure critical network nodes error-free.</p>
+              <div>
+                <span class="q-evidence">🎯 Proof Anchor: Direct project track record engineering Cisco BPA Portal and SD-WAN UI interfaces (2018–2020).</span>
+              </div>
+            </div>
+          
+            <div class="box box-purple">
+              <div class="q-title">
+                <span class="q-num">Q2</span>
+                <span>How do you manage complex, multi-step asynchronous forms with interdependent fields in enterprise portals?</span>
+              </div>
+              <p class="q-answer">I model multi-step forms using reactive form architectures with clear state transitions. Dynamic validation rules are decoupled into pure validator functions, and interdependent fields use reactive streams (`valueChanges`) with debounce operators to prevent redundant validation cycles. Form state is persisted in memory so users never lose entered network configuration data upon stepping backwards.</p>
+              <div>
+                <span class="q-evidence">🎯 Proof Anchor: Implemented multi-step enterprise configuration forms for Cisco automation workflows.</span>
+              </div>
+            </div>
+          
+        </div>
+      </div>
+
+      <!-- Core STAR Behavioral & Impact Story -->
+      <div class="section">
+        <div class="section-title">🏆 3. Primary STAR Impact Story (Memorize for this Round)</div>
+        <div class="box box-emerald">
+          <div class="star-grid">
+            <div class="star-lbl">Situation</div>
+            <div>Network administrators required an intuitive, zero-defect web interface to automate complex router and SD-WAN provisioning workflows.</div>
+            <div class="star-lbl">Task</div>
+            <div>Deliver robust, responsive frontend modules for the Cisco BPA portal.</div>
+            <div class="star-lbl">Action</div>
+            <div>Created accessible, responsive UI templates, integrated complex form validations, and collaborated with backend network engineers to streamline UI API contracts.</div>
+            <div class="star-lbl">Result</div>
+            <div style="font-weight: 700; color: #047857;">Delivered on-schedule enterprise platform modules adopted across global partner network deployments.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ashutosh's Universal Technical Anchors -->
+      <div class="section">
+        <div class="section-title">🛡️ 4. Ashutosh's Universal Technical Weaponry</div>
+        <div class="box box-amber">
+          <ul class="checklist">
+            <li><strong>Samsung SDS Track Record:</strong> Evaluated at 97/100 performance rating for exceptional UI fidelity and on-time enterprise platform delivery.</li>
+            <li><strong>Cisco BPA & SD-WAN Experience:</strong> Engineered mission-critical automation forms and router management views at Infinity Labs.</li>
+            <li><strong>Wondrfly Playwright Innovation:</strong> Conceptualized impact-aware test validation connecting Git change diffs to targeted Playwright test runs, avoiding bloated CI cycles.</li>
+            <li><strong>Design Tokens & SCSS Architecture:</strong> Pure CSS custom properties and Sass modules without breaking <code>::ng-deep</code> hacks.</li>
+            <li><strong>WCAG 2.1 AA Compliance:</strong> Native semantic HTML, focus trap management, ARIA live regions, and automated axe-core verification.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Strategic Reverse Questions -->
+      <div class="section">
+        <div class="section-title">❓ 5. Reverse Questions to Ask the Hiring Team</div>
+        <div class="box">
+          <p style="font-size: 11.5px; color: #64748b; margin-bottom: 8px;">Asking high-level architectural questions proves senior technical maturity and proactive ownership:</p>
+          <ul class="checklist">
+            <li>How is the Cisco Partner platform transitioning its legacy enterprise views into modern Angular component architectures?</li><li>What are the key security and data validation standards enforced on frontend partner network configuration tools?</li><li>What is the team's approach to telemetry and monitoring client-side runtime errors across remote deployments?</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      Ashutosh Kumar AI Career Engine • Interview Battle-Card Confidential<br>
+      Candidate Email: kumar.ashu872@gmail.com | Contact: +91 9310681373 | New Delhi, India
+    </div>
+  </div>
+</body>
+</html>

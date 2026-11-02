@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Candidate Profile &amp; Resume Hub — TalentFlow AI</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    code, .font-mono { font-family: 'JetBrains Mono', monospace; }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #0b0f19; }
+    ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 9999px; }
+    ::-webkit-scrollbar-thumb:hover { background: #334155; }
+  </style>
+</head>
+<body class="bg-[#0b0f19] text-slate-100 min-h-screen flex flex-col antialiased selection:bg-blue-600 selection:text-white">
+
+  <!-- ============================================================== -->
+  <!-- 1. TOP HEADER NAVIGATION (Multi-Page Integrated Navbar)         -->
+  <!-- ============================================================== -->
+  <header class="sticky top-0 z-30 bg-[#0b0f19]/90 backdrop-blur-md border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
+      
+      <!-- Brand Logo -->
+      <div class="flex items-center gap-2.5 shrink-0">
+        <a href="/" class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-cyan-400 flex items-center justify-center text-white font-extrabold text-base shadow-md shadow-blue-500/20">
+            ◈
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="text-sm font-extrabold text-white tracking-tight">TalentFlow AI</span>
+              <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-purple-500/10 text-purple-400 border border-purple-500/30">
+                <span>👤 Candidate Portfolio</span>
+              </span>
+            </div>
+            <p class="text-[11px] text-slate-400 font-medium hidden sm:block">Executive Resume &amp; Skills Hub</p>
+          </div>
+        </a>
+      </div>
+
+      <!-- Center Multi-Page Routing Navigation -->
+      <nav class="hidden md:flex items-center bg-[#111827] p-1 rounded-2xl border border-slate-800 shrink-0">
+        <a href="/" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-800/80 transition flex items-center gap-1.5">
+          <span>📋</span> <span>Job Dashboard</span>
+        </a>
+        <a href="/profile.html" class="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-blue-600 text-white shadow-sm transition flex items-center gap-1.5">
+          <span>👤</span> <span>Candidate Profile</span>
+        </a>
+        <a href="/users.html" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-800/80 transition flex items-center gap-1.5">
+          <span>🛡️</span> <span>User &amp; Access Management</span>
+        </a>
+      </nav>
+
+      <!-- Right Header Actions -->
+      <div class="flex items-center gap-2 shrink-0">
+        <!-- Candidate Profile Switcher Dropdown -->
+        <div class="relative">
+          <select id="headerCandidateSelect" onchange="switchProfile(this.value)" class="bg-[#111827] border border-slate-700 text-white text-xs font-bold rounded-xl px-3 py-1.5 outline-none cursor-pointer hover:border-blue-500 transition">
+            <!-- Populated via JS -->
+          </select>
+        </div>
+
+        <button onclick="handleLogout()" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-800/80 hover:bg-rose-600/20 hover:text-rose-300 text-slate-300 border border-slate-700 transition flex items-center gap-1">
+          <span>🚪</span>
+          <span class="hidden sm:inline">Logout</span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Mobile Multi-Page Tab Bar -->
+  <div class="md:hidden bg-[#111827] border-b border-slate-800 px-4 py-2 flex items-center justify-around text-xs">
+    <a href="/" class="text-slate-400 font-semibold py-1">📋 Dashboard</a>
+    <a href="/profile.html" class="text-blue-400 font-bold border-b-2 border-blue-500 py-1">👤 Profile</a>
+    <a href="/users.html" class="text-slate-400 font-semibold py-1">🛡️ Users &amp; Access</a>
+  </div>
+
+  <!-- ============================================================== -->
+  <!-- 2. MAIN CANDIDATE PROFILE CONTENT                              -->
+  <!-- ============================================================== -->
+  <main class="max-w-7xl mx-auto px-4 py-6 w-full flex-1 space-y-6">
+
+    <!-- Candidate Hero Showcase -->
+    <div class="bg-gradient-to-r from-[#111827] via-[#131d33] to-[#0f172a] border border-slate-800 rounded-2xl p-5 md:p-6 shadow-md">
+      <div class="flex flex-col md:flex-row md:items-start justify-between gap-5">
+        
+        <!-- Left: Avatar & Info -->
+        <div class="flex items-start gap-4">
+          <div id="profAvatar" class="w-16 h-16 rounded-2xl bg-slate-800/80 border border-slate-700 flex items-center justify-center text-3xl shadow-inner shrink-0">
+            👨‍💻
+          </div>
+
+          <div class="space-y-1.5">
+            <div class="flex flex-wrap items-center gap-2">
+              <span id="profExpBadge" class="px-2.5 py-0.5 rounded-md text-[10px] font-extrabold bg-blue-600/30 text-blue-300 border border-blue-500/40 uppercase tracking-wider">
+                8+ Years Seniority
+              </span>
+              <span id="profNoticeBadge" class="text-xs text-slate-400 font-mono">
+                Immediate to 15 Days Notice
+              </span>
+              <span id="profStatusBadge"></span>
+              <span id="profRoleBadge" class="px-2 py-0.5 rounded text-[10px] font-extrabold bg-amber-500/20 text-amber-300 border border-amber-500/40">
+                ADMIN (WRITE)
+              </span>
+            </div>
+
+            <h1 id="profName" class="text-xl md:text-2xl font-extrabold text-white tracking-tight">
+              Ashutosh Kumar
+            </h1>
+
+            <p id="profTitle" class="text-xs md:text-sm text-slate-300 font-semibold">
+              Senior Frontend Engineer &amp; UI Architect
+            </p>
+
+            <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-slate-400 font-mono pt-1">
+              <span>📧 <a id="profEmail" href="mailto:kumar.ashu872@gmail.com" class="text-blue-400 hover:underline">kumar.ashu872@gmail.com</a></span>
+              <span>📞 <span id="profPhone" class="text-slate-300">+91 9310681373</span></span>
+              <span>📍 <span id="profLocation" class="text-slate-300">Delhi NCR / Remote India</span></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Actions & Upload -->
+        <div class="flex flex-wrap md:flex-col items-end gap-2 shrink-0">
+          <button onclick="openUploadModal()" class="px-4 py-2 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white transition flex items-center gap-1.5 shadow-md shadow-blue-600/30">
+            <span>📤</span>
+            <span>Upload Updated Resume</span>
+          </button>
+          <a href="/users.html" class="px-4 py-2 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition flex items-center gap-1.5">
+            <span>🛡️</span>
+            <span>Manage Access Roles</span>
+          </a>
+        </div>
+
+      </div>
+
+      <!-- Quick Metrics Grid -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-5 pt-4 border-t border-slate-800 text-xs">
+        <div>
+          <div class="text-[10px] text-slate-400 font-mono uppercase">Current CTC Baseline</div>
+          <div id="profCurrentCtc" class="text-base font-extrabold text-white mt-0.5">₹6,00,000 PA</div>
+          <div id="profCurrentCompany" class="text-[10px] text-slate-400 truncate">Frontend Developer (Wondrfly Contract)</div>
+        </div>
+        <div>
+          <div class="text-[10px] text-slate-400 font-mono uppercase">Target Compensation</div>
+          <div id="profTargetCtc" class="text-base font-extrabold text-emerald-400 mt-0.5">₹12,00,000+ PA</div>
+          <div class="text-[10px] text-slate-400">Remote / NCR Baseline</div>
+        </div>
+        <div>
+          <div class="text-[10px] text-slate-400 font-mono uppercase">Active Opportunities</div>
+          <div id="profActiveApps" class="text-base font-extrabold text-blue-400 mt-0.5">14 Active</div>
+          <div class="text-[10px] text-slate-400">Recruiter Pipeline</div>
+        </div>
+        <div>
+          <div class="text-[10px] text-slate-400 font-mono uppercase">Verified Evaluation</div>
+          <div id="profTotalEval" class="text-base font-extrabold text-purple-400 mt-0.5">340 Evaluated</div>
+          <div class="text-[10px] text-slate-400">Job Match Score: 90%+</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Candidate Skills, Anchors & Bio -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      
+      <!-- Left Column: Core Stack & Anchors -->
+      <div class="space-y-4">
+        <!-- Skills -->
+        <div class="bg-[#111827] border border-slate-800 rounded-2xl p-4 space-y-3">
+          <h3 class="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2">
+            <span>⚡</span> <span>Core Technical Stack</span>
+          </h3>
+          <div id="profStackList" class="flex flex-wrap gap-1.5">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- Verified Accomplishments -->
+        <div class="bg-[#111827] border border-slate-800 rounded-2xl p-4 space-y-3">
+          <h3 class="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2">
+            <span>🏆</span> <span>Verified Enterprise Anchors</span>
+          </h3>
+          <div id="profAnchorsList" class="space-y-2 text-xs">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- Bio -->
+        <div class="bg-[#111827] border border-slate-800 rounded-2xl p-4 space-y-2">
+          <h3 class="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2">
+            <span>📝</span> <span>Executive Summary</span>
+          </h3>
+          <p id="profBio" class="text-xs text-slate-300 leading-relaxed">
+            Senior Frontend Engineer with 8+ years specializing in enterprise Angular Material design systems, Core Web Vitals performance, and robust automated UI test suites.
+          </p>
+        </div>
+      </div>
+
+      <!-- Right Column: Interactive Resume Document Hub -->
+      <div class="lg:col-span-2 space-y-4">
+        <div class="bg-[#111827] border border-slate-800 rounded-2xl overflow-hidden shadow-lg flex flex-col h-[750px]">
+          
+          <!-- Document Hub Header Toolbar -->
+          <div class="p-3.5 bg-slate-900/80 border-b border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div class="flex items-center gap-2.5">
+              <span class="text-xl">📄</span>
+              <div>
+                <h3 id="docHeaderTitle" class="text-xs font-bold text-white">Ashutosh Kumar Resume.pdf</h3>
+                <div id="docHeaderMeta" class="text-[10px] text-slate-400 font-mono">Stored in data/resumes/</div>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-2">
+              <a id="btnDocOpenNewTab" href="#" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-xl bg-blue-600/20 hover:bg-blue-600 hover:text-white text-blue-300 border border-blue-500/40 text-xs font-bold transition flex items-center gap-1">
+                <span>↗</span>
+                <span>Open in New Window</span>
+              </a>
+              <a id="btnDocDownload" href="#" download class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-bold transition flex items-center gap-1">
+                <span>📥</span>
+                <span>Download File</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Document Embedded Frame View -->
+          <div class="flex-1 bg-[#0b0f19] relative">
+            <iframe id="resumeViewerIframe" src="" class="w-full h-full border-0"></iframe>
+            
+            <div id="noResumePlaceholder" class="hidden absolute inset-0 flex flex-col items-center justify-center p-6 text-center space-y-3 bg-[#0b0f19]">
+              <span class="text-4xl">📄</span>
+              <h4 class="text-sm font-bold text-white">No Resume Document Uploaded Yet</h4>
+              <p class="text-xs text-slate-400 max-w-sm">Upload a PDF, Word document, or text resume to embed and preview the candidate's portfolio.</p>
+              <button onclick="openUploadModal()" class="px-4 py-2 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white shadow-md">
+                + Upload Candidate Resume (.pdf)
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Upload Resume Modal -->
+  <div id="uploadProfileModal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-[#111827] border border-blue-500/40 rounded-2xl max-w-md w-full p-5 shadow-2xl text-white space-y-4">
+      <div class="flex items-center justify-between pb-2 border-b border-slate-800">
+        <div class="flex items-center gap-2">
+          <span class="text-xl">📄</span>
+          <div>
+            <h3 class="text-sm font-bold text-white">Upload New Resume Version</h3>
+            <p id="modalCandTargetName" class="text-[11px] text-slate-400">Candidate Name</p>
+          </div>
+        </div>
+        <button onclick="closeUploadModal()" class="text-slate-400 hover:text-white p-1">✕</button>
+      </div>
+
+      <div class="space-y-3">
+        <div class="p-4 rounded-xl bg-[#0b0f19] border-2 border-dashed border-blue-500/40 text-center space-y-2">
+          <input type="file" id="profileResumeFile" accept=".pdf,.doc,.docx,.txt,.md" class="w-full text-xs text-slate-300 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-blue-600 file:text-white cursor-pointer">
+          <p class="text-[10px] text-slate-400">Accepted formats: .pdf, .docx, .doc, .txt, .md</p>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-end gap-2 pt-2 border-t border-slate-800">
+        <button type="button" onclick="closeUploadModal()" class="px-4 py-2 rounded-xl text-xs font-bold bg-slate-800 text-slate-300">Cancel</button>
+        <button type="button" id="btnSubmitProfileResume" onclick="submitProfileResumeUpload()" class="px-4 py-2 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white">Upload &amp; Save</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let allCandidates = [];
+    let activeCand = null;
+
+    function handleLogout() {
+      localStorage.removeItem('talentflow_auth');
+      window.location.href = '/login.html';
+    }
+
+    async function initProfilePage() {
+      try {
+        const res = await fetch('/api/candidates');
+        if (res.ok) {
+          allCandidates = await res.json();
+        }
+      } catch (e) {
+        console.warn('[Candidates fetch failed]:', e);
+      }
+
+      if (!allCandidates || allCandidates.length === 0) {
+        allCandidates = [
+          {
+            id: 'ashutosh-kumar',
+            name: 'Ashutosh Kumar',
+            title: 'Senior Frontend Engineer & UI Architect',
+            avatar: '👨‍💻',
+            email: 'kumar.ashu872@gmail.com',
+            phone: '+91 9310681373',
+            experienceLabel: '8+ Years',
+            noticePeriod: 'Immediate to 15 Days',
+            currentCtc: '₹6,00,000 PA',
+            targetCtc: '₹12,00,000+ PA',
+            location: 'Delhi NCR / Remote India',
+            coreStack: ['Angular 15+', 'Angular Material UI', 'TypeScript', 'HTML5/SCSS', 'Playwright'],
+            verifiedAnchors: ['Samsung SDS Global (97/100 rating)', 'Cisco Systems BPA Portal Modernization'],
+            bio: 'Senior Frontend Engineer with 8+ years specializing in enterprise Angular Material design systems.',
+            role: 'admin',
+            access: 'write',
+            isAdmin: true,
+            isVerified: true,
+            resumeFile: 'data/resumes/Ashutosh Kumar Senior Frontend Engineer Resume.pdf',
+            resumeFileName: 'Ashutosh Kumar Senior Frontend Engineer Resume.pdf'
+          }
+        ];
+      }
+
+      // Populate Candidate Switcher Select
+      const select = document.getElementById('headerCandidateSelect');
+      select.innerHTML = allCandidates.map(c => `
+        <option value="${c.id}">${c.avatar || '👤'} ${c.name} (${(c.role || 'viewer').toUpperCase()})</option>
+      `).join('');
+
+      // Check URL param ?candidate=...
+      const urlParams = new URLSearchParams(window.location.search);
+      const candParam = urlParams.get('candidate');
+      let target = allCandidates.find(c => c.id === candParam);
+      if (!target) target = allCandidates[0];
+
+      select.value = target.id;
+      renderCandidateProfile(target);
+    }
+
+    function switchProfile(candId) {
+      const target = allCandidates.find(c => c.id === candId);
+      if (!target) return;
+
+      const url = new URL(window.location.href);
+      url.searchParams.set('candidate', target.id);
+      window.history.replaceState(null, '', url.toString());
+
+      renderCandidateProfile(target);
+    }
+
+    function renderCandidateProfile(cand) {
+      activeCand = cand;
+
+      document.getElementById('profAvatar').textContent = cand.avatar || '👤';
+      document.getElementById('profName').textContent = cand.name;
+      document.getElementById('profTitle').textContent = cand.title;
+      document.getElementById('profEmail').textContent = cand.email;
+      document.getElementById('profEmail').href = `mailto:${cand.email}`;
+      document.getElementById('profPhone').textContent = cand.phone || 'Not Specified';
+      document.getElementById('profLocation').textContent = cand.location || 'Remote / NCR';
+
+      document.getElementById('profExpBadge').textContent = cand.experienceLabel || `${cand.experienceYears || 5}+ Years Seniority`;
+      document.getElementById('profNoticeBadge').textContent = `${cand.noticePeriod || '30 Days'} Notice`;
+
+      const roleBadge = document.getElementById('profRoleBadge');
+      const roleStr = (cand.role || (cand.isAdmin ? 'admin' : 'viewer')).toUpperCase();
+      const accessStr = (cand.access || (cand.isAdmin ? 'write' : 'read')).toUpperCase();
+      roleBadge.textContent = `${roleStr} (${accessStr})`;
+      roleBadge.className = cand.isAdmin
+        ? 'px-2 py-0.5 rounded text-[10px] font-extrabold bg-amber-500/20 text-amber-300 border border-amber-500/40'
+        : (accessStr === 'WRITE' ? 'px-2 py-0.5 rounded text-[10px] font-extrabold bg-blue-500/20 text-blue-300 border border-blue-500/40' : 'px-2 py-0.5 rounded text-[10px] font-extrabold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40');
+
+      const statusBadge = document.getElementById('profStatusBadge');
+      if (cand.isAdmin) {
+        statusBadge.innerHTML = '<span class="px-2 py-0.5 rounded text-[10px] font-extrabold bg-amber-500/20 text-amber-300 border border-amber-500/40">🛡️ Verified Admin</span>';
+      } else if (cand.isVerified) {
+        statusBadge.innerHTML = '<span class="px-2 py-0.5 rounded text-[10px] font-extrabold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">✓ Verified</span>';
+      } else {
+        statusBadge.innerHTML = '<span class="px-2 py-0.5 rounded text-[10px] font-extrabold bg-amber-500/20 text-amber-400 border border-amber-500/40">⏳ Pending</span>';
+      }
+
+      document.getElementById('profCurrentCtc').textContent = cand.currentCtc || '₹10,00,000 PA';
+      document.getElementById('profCurrentCompany').textContent = cand.currentCompany || 'Technology Partner';
+      document.getElementById('profTargetCtc').textContent = cand.targetCtc || '₹18,00,000+ PA';
+      document.getElementById('profActiveApps').textContent = `${cand.activeApplicationsCount || 10} Active`;
+      document.getElementById('profTotalEval').textContent = `${cand.totalEvaluated || 200}+ Evaluated`;
+
+      // Skills
+      const stackContainer = document.getElementById('profStackList');
+      const stack = cand.coreStack || ['Angular', 'TypeScript', 'HTML5', 'CSS3'];
+      stackContainer.innerHTML = stack.map(s => `
+        <span class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-blue-600/20 text-blue-300 border border-blue-500/30">
+          ${s}
+        </span>
+      `).join('');
+
+      // Anchors
+      const anchorsContainer = document.getElementById('profAnchorsList');
+      const anchors = cand.verifiedAnchors || ['Enterprise Architectural Platform'];
+      anchorsContainer.innerHTML = anchors.map(a => `
+        <div class="p-2.5 rounded-xl bg-[#0b0f19] border border-slate-800 text-slate-300 flex items-start gap-2">
+          <span class="text-emerald-400 text-sm">✓</span>
+          <span>${a}</span>
+        </div>
+      `).join('');
+
+      document.getElementById('profBio').textContent = cand.bio || (cand.title + ' with solid enterprise background.');
+
+      // Resume Document Hub
+      renderResumeViewer(cand);
+    }
+
+    function renderResumeViewer(cand) {
+      const iframe = document.getElementById('resumeViewerIframe');
+      const placeholder = document.getElementById('noResumePlaceholder');
+      const headerTitle = document.getElementById('docHeaderTitle');
+      const headerMeta = document.getElementById('docHeaderMeta');
+      const openBtn = document.getElementById('btnDocOpenNewTab');
+      const downloadBtn = document.getElementById('btnDocDownload');
+
+      let resumePath = cand.resumeFile;
+      // Fallback: If no resume file, check if Ashutosh default or tailored exists
+      if (!resumePath && cand.id === 'ashutosh-kumar') {
+        resumePath = 'data/resumes/Ashutosh Kumar Senior Frontend Engineer Resume.pdf';
+      }
+
+      if (resumePath) {
+        iframe.classList.remove('hidden');
+        placeholder.classList.add('hidden');
+
+        const cleanUrl = '/' + resumePath.replace(/^\/+/, '');
+        iframe.src = cleanUrl;
+        openBtn.href = cleanUrl;
+        downloadBtn.href = cleanUrl;
+        downloadBtn.setAttribute('download', cand.resumeFileName || 'Resume.pdf');
+
+        headerTitle.textContent = cand.resumeFileName || `${cand.name} Resume.pdf`;
+        headerMeta.textContent = `Location: ${resumePath}`;
+      } else {
+        iframe.src = '';
+        iframe.classList.add('hidden');
+        placeholder.classList.remove('hidden');
+
+        headerTitle.textContent = 'No Document';
+        headerMeta.textContent = 'Upload resume above to display';
+        openBtn.href = '#';
+        downloadBtn.href = '#';
+      }
+    }
+
+    function openUploadModal() {
+      if (!activeCand) return;
+      document.getElementById('modalCandTargetName').textContent = `${activeCand.name} (${activeCand.title})`;
+      document.getElementById('profileResumeFile').value = '';
+      document.getElementById('uploadProfileModal').classList.remove('hidden');
+    }
+
+    function closeUploadModal() {
+      document.getElementById('uploadProfileModal').classList.add('hidden');
+    }
+
+    async function submitProfileResumeUpload() {
+      const input = document.getElementById('profileResumeFile');
+      const file = input ? input.files[0] : null;
+      if (!file || !activeCand) {
+        alert('Please select a file to upload.');
+        return;
+      }
+
+      const btn = document.getElementById('btnSubmitProfileResume');
+      btn.disabled = true;
+      btn.textContent = 'Uploading...';
+
+      const reader = new FileReader();
+      reader.onload = async () => {
+        try {
+          const res = await fetch('/api/candidates/upload-resume', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              candidateId: activeCand.id,
+              fileName: file.name,
+              fileBase64: reader.result
+            })
+          });
+
+          const data = await res.json();
+          if (res.ok && data.success) {
+            closeUploadModal();
+            // Update activeCand
+            activeCand.resumeFile = data.resumeFile;
+            activeCand.resumeFileName = data.resumeFileName;
+            renderResumeViewer(activeCand);
+            alert(`✓ Resume ${file.name} uploaded successfully!`);
+          } else {
+            alert(data.error || 'Upload failed.');
+          }
+        } catch (e) {
+          alert('Upload failed: ' + e.message);
+        } finally {
+          btn.disabled = false;
+          btn.textContent = 'Upload & Save';
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+
+    document.addEventListener('DOMContentLoaded', initProfilePage);
+  </script>
+</body>
+</html>

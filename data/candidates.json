@@ -1,0 +1,143 @@
+[
+  {
+    "id": "ashutosh-kumar",
+    "name": "Ashutosh Kumar",
+    "avatar": "👨‍💻",
+    "title": "Senior Frontend Engineer & UI Architect",
+    "isAdmin": true,
+    "isVerified": true,
+    "verificationStatus": "VERIFIED_ADMIN",
+    "role": "admin",
+    "access": "write",
+    "permissions": [
+      "read",
+      "write",
+      "admin"
+    ],
+    "password": "admin123",
+    "resumeFile": "data/resumes/Ashutosh Kumar Senior Frontend Engineer Resume.pdf",
+    "resumeFileName": "Ashutosh Kumar Senior Frontend Engineer Resume.pdf",
+    "resumeUploadedAt": "2026-10-27T14:30:00Z",
+    "experienceYears": 8.2,
+    "experienceLabel": "8+ Years",
+    "currentCompany": "Frontend Developer at Wondrfly Inc. (Contract)",
+    "currentCtc": "₹6,00,000 PA",
+    "currentCtcVal": 6,
+    "targetCtc": "₹12,00,000+ (Remote/NCR) • ₹15,00,000+ (Out of NCR)",
+    "targetCtcMin": 12,
+    "targetCtcRelocation": 15,
+    "noticePeriod": "Immediate to 15 Days",
+    "location": "New Delhi (Delhi NCR) / Remote India",
+    "email": "kumar.ashu872@gmail.com",
+    "phone": "+91 9310681373",
+    "coreStack": [
+      "Angular 15+",
+      "Angular Material UI",
+      "TypeScript",
+      "HTML5 / SCSS",
+      "Design Systems & Tokens",
+      "Playwright UI Testing",
+      "WCAG 2.1 AA Accessibility",
+      "Figma-to-Code"
+    ],
+    "verifiedAnchors": [
+      "Samsung SDS Global (97/100 performance rating)",
+      "Cisco Systems BPA & SD-WAN UI Modernization",
+      "Wondrfly Inc. Automated Playwright Test Suite"
+    ],
+    "bio": "Senior Frontend Engineer with 8+ years specializing in enterprise Angular Material design systems, Core Web Vitals performance, and robust automated UI test suites.",
+    "activeApplicationsCount": 14,
+    "totalEvaluated": 340
+  },
+  {
+    "id": "priya-sharma",
+    "name": "Priya Sharma",
+    "avatar": "👩‍💻",
+    "title": "Senior UI/UX & Angular Developer",
+    "isAdmin": false,
+    "isVerified": true,
+    "verificationStatus": "VERIFIED",
+    "role": "editor",
+    "access": "write",
+    "permissions": [
+      "read",
+      "write"
+    ],
+    "password": "editor123",
+    "resumeFile": "",
+    "resumeFileName": "",
+    "resumeUploadedAt": "",
+    "experienceYears": 6.5,
+    "experienceLabel": "6+ Years",
+    "currentCompany": "Global UI Solutions",
+    "currentCtc": "₹9,50,000 PA",
+    "currentCtcVal": 9.5,
+    "targetCtc": "₹16,00,000+ PA",
+    "targetCtcMin": 16,
+    "targetCtcRelocation": 18,
+    "noticePeriod": "15 Days",
+    "location": "Noida (Delhi NCR) / Remote",
+    "email": "priya.sharma@example.com",
+    "phone": "+91 9811223344",
+    "coreStack": [
+      "Angular 16+",
+      "TypeScript",
+      "SCSS",
+      "RxJS",
+      "Tailwind CSS",
+      "Jest"
+    ],
+    "verifiedAnchors": [
+      "Enterprise Dashboard Design System",
+      "Micro-Frontend Migration"
+    ],
+    "bio": "Frontend Engineer specializing in scalable enterprise component architectures, responsive web apps, and design tokens.",
+    "activeApplicationsCount": 4,
+    "totalEvaluated": 180
+  },
+  {
+    "id": "test-candidate",
+    "name": "Test Candidate",
+    "avatar": "🧪",
+    "title": "Full-Stack Test Engineer",
+    "isAdmin": false,
+    "isVerified": false,
+    "verificationStatus": "PENDING_VERIFICATION",
+    "role": "viewer",
+    "access": "read",
+    "permissions": [
+      "read"
+    ],
+    "password": "viewer123",
+    "resumeFile": "",
+    "resumeFileName": "",
+    "resumeUploadedAt": "",
+    "verificationOtp": "482910",
+    "verificationToken": "tok_test_verify_482910",
+    "experienceYears": 5,
+    "experienceLabel": "5+ Years",
+    "currentCompany": "Software Testing Enterprise",
+    "currentCtc": "₹10,00,000 PA",
+    "currentCtcVal": 10,
+    "targetCtc": "₹18,00,000 PA",
+    "targetCtcMin": 18,
+    "targetCtcRelocation": 20,
+    "noticePeriod": "30 Days",
+    "location": "Delhi NCR / Remote",
+    "email": "test.candidate@example.com",
+    "phone": "+91 9876543210",
+    "coreStack": [
+      "React",
+      "Node.js",
+      "TypeScript",
+      "Playwright",
+      "Jest"
+    ],
+    "verifiedAnchors": [
+      "Automated End-to-End Test Infrastructure"
+    ],
+    "bio": "Test Candidate profile for verifying email authentication, OTP confirmation, and agency workflows.",
+    "activeApplicationsCount": 0,
+    "totalEvaluated": 50
+  }
+]

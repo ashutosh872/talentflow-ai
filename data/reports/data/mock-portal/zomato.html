@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zomato / Blinkit — UI Developer (Figma-to-Code & Design Systems) (ZOM-GUR-5501)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+    .privacy-masked {
+      background: rgba(100, 116, 139, 0.2);
+      color: #94a3b8;
+      font-family: monospace;
+      padding: 2px 6px;
+      border-radius: 4px;
+      cursor: pointer;
+      user-select: none;
+    }
+  </style>
+</head>
+<body class="bg-slate-900 text-slate-100 antialiased min-h-screen p-4 md:p-8">
+  <div class="max-w-4xl mx-auto space-y-6">
+
+    <!-- Top Navigation -->
+    <div class="flex items-center justify-between py-2">
+      <a href="../../index.html" class="inline-flex items-center gap-2 text-xs font-semibold text-slate-400 hover:text-white transition">
+        <span>←</span> Back to Job Dashboard
+      </a>
+      <div class="flex items-center gap-2">
+        <button id="privacyToggle" onclick="togglePrivacy()" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-500/20 transition">
+          🛡️ Privacy: <span id="privacyLabel">ON</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Job Opening Header Banner -->
+    <div class="bg-gradient-to-r from-rose-600 to-red-950 border border-slate-700 rounded-2xl p-6 md:p-8 shadow-2xl">
+      <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
+        <span class="text-xs font-bold uppercase tracking-wider bg-white/20 text-white px-3 py-1 rounded-full">
+          Requisition #ZOM-GUR-5501
+        </span>
+        <div class="flex items-center gap-2">
+          <span class="text-xs font-bold px-3 py-1 rounded-full bg-emerald-500 text-white shadow-xs">
+            Match Score: 75/100 (Strong Match)
+          </span>
+          <span class="text-xs font-bold px-3 py-1 rounded-full bg-blue-500/30 text-blue-200 border border-blue-400/30">
+            Active Listing
+          </span>
+        </div>
+      </div>
+      <h1 class="text-2xl md:text-3xl font-extrabold text-white tracking-tight">UI Developer (Figma-to-Code & Design Systems)</h1>
+      <p class="text-slate-200 text-sm md:text-base mt-1.5 font-medium">Zomato / Blinkit • Hybrid (Gurugram, Delhi NCR) • Posted: 2026-10-27</p>
+
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-6 pt-6 border-t border-white/10 text-xs">
+        <div>
+          <span class="text-slate-300 block">Target Experience</span>
+          <span class="font-bold text-white text-sm mt-0.5 block">6-9 Years UI Engineering</span>
+        </div>
+        <div>
+          <span class="text-slate-300 block">Work Arrangement</span>
+          <span class="font-bold text-white text-sm mt-0.5 block">Hybrid</span>
+        </div>
+        <div>
+          <span class="text-slate-300 block">Location</span>
+          <span class="font-bold text-white text-sm mt-0.5 block">Gurugram, Delhi NCR</span>
+        </div>
+        <div>
+          <span class="text-slate-300 block">Stated Compensation</span>
+          <span id="salaryDisplay" class="font-bold text-emerald-300 text-sm mt-0.5 block privacy-masked" onclick="toggleSingleMask(this, '₹20,00,000 - ₹28,00,000 PA', '••••••••••••')" title="Click to reveal">••••••••••••</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Candidate Alignment Analysis -->
+    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-sm">
+      <h2 class="text-base font-bold text-white flex items-center gap-2 mb-3">
+        <span class="text-emerald-400">✓</span> Verified Candidate Match Analysis (Ashutosh Kumar)
+      </h2>
+      <ul class="space-y-2 text-xs text-slate-300">
+        <li class="flex items-start gap-2"><span class="text-emerald-400 font-bold mt-0.5">•</span> Strong Figma-to-code execution with zero regression</li><li class="flex items-start gap-2"><span class="text-emerald-400 font-bold mt-0.5">•</span> Design systems and responsive layouts background</li><li class="flex items-start gap-2"><span class="text-emerald-400 font-bold mt-0.5">•</span> Prime Gurugram location</li>
+      </ul>
+      <div class="mt-4 pt-4 border-t border-slate-700 flex flex-wrap items-center justify-between gap-3 text-xs">
+        <span class="text-slate-400">Ready for review & application:</span>
+        <div class="flex items-center gap-2">
+          <a href="#apply-form" class="px-3.5 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 font-semibold text-white shadow-xs transition">
+            ↓ Jump to Application Form
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Opening Details: Role Overview & Responsibilities -->
+    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-6 md:p-8 space-y-6 shadow-sm">
+      <div>
+        <h2 class="text-lg font-bold text-white mb-2">About the Role</h2>
+        <p class="text-slate-300 text-sm leading-relaxed">Zomato and Blinkit are hiring a UI Developer to craft pixel-perfect consumer and merchant interfaces from Figma design tokens.</p>
+      </div>
+
+      <div>
+        <h2 class="text-lg font-bold text-white mb-2">Key Responsibilities</h2>
+        <ul class="space-y-2 text-sm text-slate-300">
+          <li class="flex items-start gap-2.5"><span class="text-blue-400 font-bold mt-1">▸</span> Translate Figma wireframes into production-ready HTML5, CSS3, and SCSS.</li><li class="flex items-start gap-2.5"><span class="text-blue-400 font-bold mt-1">▸</span> Build reusable UI components and maintain brand design tokens.</li><li class="flex items-start gap-2.5"><span class="text-blue-400 font-bold mt-1">▸</span> Validate cross-device responsiveness and mobile touch interactions.</li>
+        </ul>
+      </div>
+
+      <div>
+        <h2 class="text-lg font-bold text-white mb-2">Required Skills & Technologies</h2>
+        <div class="flex flex-wrap gap-2 pt-1">
+          <span class="px-3 py-1 rounded-lg text-xs font-semibold bg-slate-900 text-slate-200 border border-slate-700">HTML5</span><span class="px-3 py-1 rounded-lg text-xs font-semibold bg-slate-900 text-slate-200 border border-slate-700">SCSS</span><span class="px-3 py-1 rounded-lg text-xs font-semibold bg-slate-900 text-slate-200 border border-slate-700">JavaScript (ES6)</span><span class="px-3 py-1 rounded-lg text-xs font-semibold bg-slate-900 text-slate-200 border border-slate-700">Figma-to-Code</span><span class="px-3 py-1 rounded-lg text-xs font-semibold bg-slate-900 text-slate-200 border border-slate-700">Design Systems</span><span class="px-3 py-1 rounded-lg text-xs font-semibold bg-slate-900 text-slate-200 border border-slate-700">Core Web Vitals</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Application Form -->
+    <div id="apply-form-container" class="bg-slate-800 border border-slate-700 rounded-2xl p-6 md:p-8 shadow-xl">
+      <div class="border-b border-slate-700 pb-4 mb-6">
+        <div class="flex items-center justify-between">
+          <div>
+            <h2 class="text-lg font-bold text-white">Official Candidate Application Portal</h2>
+            <p class="text-xs text-slate-400 mt-0.5">Review pre-filled candidate profile and submit for Zomato / Blinkit</p>
+          </div>
+          <span class="text-xs font-semibold px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/30">
+            ⚡ Autofill Ready
+          </span>
+        </div>
+      </div>
+
+      <form id="apply-form" class="space-y-6" onsubmit="handlePortalSubmit(event)">
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label for="first_name" class="block text-xs font-semibold text-slate-300 mb-1">First Name *</label>
+            <input type="text" id="first_name" name="first_name" value="Ashutosh" required class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-sm text-white focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+          </div>
+          <div>
+            <label for="last_name" class="block text-xs font-semibold text-slate-300 mb-1">Last Name *</label>
+            <input type="text" id="last_name" name="last_name" value="Kumar" required class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-sm text-white focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label for="email" class="block text-xs font-semibold text-slate-300 mb-1">Email Address *</label>
+            <input type="email" id="email" name="email" value="kumar.ashu872@gmail.com" required class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-sm text-white focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+          </div>
+          <div>
+            <label for="phone" class="block text-xs font-semibold text-slate-300 mb-1">Phone Number *</label>
+            <input type="tel" id="phone" name="phone" value="+91 9310681373" required class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-sm text-white focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label for="location" class="block text-xs font-semibold text-slate-300 mb-1">Current Location *</label>
+            <input type="text" id="location" name="location" value="New Delhi, India" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-sm text-white focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+          </div>
+          <div>
+            <label for="linkedin" class="block text-xs font-semibold text-slate-300 mb-1">LinkedIn Profile *</label>
+            <input type="url" id="linkedin" name="linkedin" value="https://linkedin.com/in/kumarashu872" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-sm text-white focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label for="company" class="block text-xs font-semibold text-slate-300 mb-1">Current Employer (Contract) *</label>
+            <input type="text" id="company" name="company" value="Wondrfly Inc." class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-sm text-white focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+          </div>
+          <div>
+            <label for="title" class="block text-xs font-semibold text-slate-300 mb-1">Current Job Title *</label>
+            <input type="text" id="title" name="title" value="Frontend Developer" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-sm text-white focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label for="experience" class="block text-xs font-semibold text-slate-300 mb-1">Frontend/UI Experience (Years) *</label>
+            <input type="number" id="experience" name="experience" value="8" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-sm text-white focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+          </div>
+          <div>
+            <label for="notice_period" class="block text-xs font-semibold text-slate-300 mb-1">Notice Period / Availability *</label>
+            <input type="text" id="notice_period" name="notice_period" value="Immediate to 15 Days" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-sm text-white focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Attached Candidate Resume (PDF) *</label>
+          <div class="flex items-center gap-3 p-3 bg-slate-900 border border-slate-700 rounded-lg text-xs text-slate-300">
+            <span class="text-lg">📄</span>
+            <div class="flex-1">
+              <span class="font-semibold text-white">Ashutosh_Kumar_Resume.pdf</span>
+              <span class="text-slate-500 text-xs block">Official Candidate Resume & Portfolio • 8+ Years Enterprise Frontend Experience</span>
+            </div>
+            <span class="px-2.5 py-1 rounded-md bg-emerald-500/20 text-emerald-300 text-xs font-medium border border-emerald-500/30">Attached</span>
+          </div>
+        </div>
+
+        <div>
+          <label for="cover_letter" class="block text-xs font-semibold text-slate-300 mb-1">Cover Letter</label>
+          <textarea id="cover_letter" name="cover_letter" rows="5" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-xs leading-relaxed text-slate-200 focus:ring-2 focus:ring-blue-500 focus:outline-none">Dear Hiring Team at Zomato / Blinkit,
+
+I am writing to express my strong interest in the UI Developer (Figma-to-Code & Design Systems) role. With 8+ years of experience delivering responsive, accessible, and high-performance web interfaces—including Samsung SDS and Cisco enterprise portals—I specialize in translating Figma designs into production-ready HTML5, SCSS, and Angular Material component architectures with automated Playwright UI verification.
+
+I look forward to discussing how my frontend depth can contribute to Zomato / Blinkit.
+
+Sincerely,
+Ashutosh Kumar</textarea>
+        </div>
+
+        <div class="pt-4 flex flex-wrap items-center justify-between gap-3 border-t border-slate-700">
+          <span class="text-xs text-slate-400">🔒 Safe human-in-the-loop assisted submission</span>
+          <button type="submit" id="submit-application-btn" class="bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm px-6 py-3 rounded-lg shadow-md transition flex items-center gap-2">
+            <span>Submit Application to Zomato / Blinkit</span>
+            <span>→</span>
+          </button>
+        </div>
+      </form>
+
+      <!-- Confirmation Screen -->
+      <div id="confirmation-card" class="hidden py-12 px-6 text-center">
+        <div class="w-16 h-16 bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold">✓</div>
+        <h2 class="text-2xl font-extrabold text-white mb-2">Application Confirmed &amp; Logged!</h2>
+        <p class="text-slate-300 text-sm max-w-lg mx-auto mb-4">
+          Your formal application for <strong>UI Developer (Figma-to-Code & Design Systems)</strong> has been successfully recorded for <strong>Zomato / Blinkit</strong>.
+        </p>
+
+        <!-- Revert Confirmation Email Notice -->
+        <div class="max-w-lg mx-auto bg-gradient-to-r from-blue-950/80 via-slate-900 to-indigo-950/80 border border-blue-500/40 rounded-xl p-4 mb-6 text-left shadow-lg">
+          <div class="flex items-center gap-2 text-blue-400 font-bold text-xs uppercase tracking-wider mb-2">
+            <span>📧</span>
+            <span>Confirmation Revert Email Dispatched</span>
+          </div>
+          <div class="text-xs text-slate-300 space-y-1.5">
+            <div>• <strong>Recipient Account:</strong> <code class="text-emerald-400 font-bold">kumar.ashu872@gmail.com</code></div>
+            <div>• <strong>Vacancy Source:</strong> <span class="bg-slate-800 px-2 py-0.5 rounded text-white font-semibold">Indeed.com</span></div>
+            <div>• <strong>Way of Submission:</strong> <span class="text-emerald-400 font-bold">Via Opening Portal</span></div>
+            <div>• <strong>Attached Documents:</strong> <span class="text-slate-200">Ashutosh_Kumar_Resume.pdf &amp; Ashutosh_Kumar_Cover_Letter.pdf</span></div>
+          </div>
+          <div class="mt-3.5 pt-3 border-t border-slate-700/80 flex flex-wrap gap-2">
+            <a id="emailReceiptBtn" href="#" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 text-xs font-bold rounded-lg bg-blue-600 hover:bg-blue-500 text-white transition flex items-center gap-1">
+              <span>📧</span>
+              <span>Open Revert Email Receipt ↗</span>
+            </a>
+            <a id="mailtoForwardBtn" href="mailto:kumar.ashu872@gmail.com?subject=Application%20Confirmation%20-%20UI%20Developer%20(Figma-to-Code%20%26%20Design%20Systems)%20at%20Zomato%20%2F%20Blinkit&body=Application%20Confirmation%20for%20UI%20Developer%20(Figma-to-Code%20%26%20Design%20Systems)%20at%20Zomato%20%2F%20Blinkit%0AConfirmation%20ID%3A%20CONF-ZOM-GUR-5501-SUCCESS%0ASubmitted%3A%20Via%20Opening%20Portal%0APortal%3A%20Indeed.com" class="px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center gap-1">
+              <span>📨</span>
+              <span>Forward to Gmail</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Way of Submission details box -->
+        <div class="inline-flex flex-col sm:flex-row items-center gap-4 bg-slate-900 border border-emerald-500/30 rounded-xl px-6 py-3.5 text-xs mb-6 text-slate-300 shadow-lg">
+          <div>
+            <span class="text-slate-500 block text-[10px] uppercase font-bold">Way of Submission</span>
+            <span class="font-extrabold text-emerald-400 text-sm" id="submissionWayDisplay">Via Opening Portal</span>
+          </div>
+          <div class="hidden sm:block text-slate-700">|</div>
+          <div>
+            <span class="text-slate-500 block text-[10px] uppercase font-bold">Confirmation Reference</span>
+            <span class="font-mono font-bold text-white text-xs">CONF-ZOM-GUR-5501-SUCCESS</span>
+          </div>
+          <div class="hidden sm:block text-slate-700">|</div>
+          <div>
+            <span class="text-slate-500 block text-[10px] uppercase font-bold">Submission Status</span>
+            <span class="font-bold text-emerald-300">SUBMITTED</span>
+          </div>
+        </div>
+
+        <div class="flex justify-center gap-3">
+          <a href="../../index.html" class="px-5 py-2.5 text-xs font-bold rounded-xl bg-blue-600 text-white hover:bg-blue-500 transition shadow-sm flex items-center gap-1.5">
+            <span>← Return to Job Dashboard</span>
+            <span class="text-emerald-300 text-[11px]">(Status Updated: Via Opening Portal)</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    let isPrivacy = true;
+    function togglePrivacy() {
+      isPrivacy = !isPrivacy;
+      document.getElementById('privacyLabel').innerText = isPrivacy ? 'ON' : 'OFF';
+      const sal = document.getElementById('salaryDisplay');
+      if (isPrivacy) {
+        sal.innerText = '••••••••••••';
+      } else {
+        sal.innerText = '₹20,00,000 - ₹28,00,000 PA';
+      }
+    }
+
+    function toggleSingleMask(el, revealed, masked) {
+      if (el.innerText.includes('•')) {
+        el.innerText = revealed;
+      } else {
+        el.innerText = masked;
+      }
+    }
+
+    function handlePortalSubmit(event) {
+      event.preventDefault();
+      const confirmationId = 'CONF-ZOM-GUR-5501-SUCCESS';
+      const appliedDate = new Date().toISOString().split('T')[0];
+      const vacancyPortal = 'Indeed.com';
+      const submissionData = {
+        jobId: 'indeed-003',
+        company: 'Zomato / Blinkit',
+        role: 'UI Developer (Figma-to-Code & Design Systems)',
+        vacancyPortal: vacancyPortal,
+        status: 'SUBMITTED',
+        submissionMethod: 'Via Opening Portal',
+        appliedDate: appliedDate,
+        confirmationId: confirmationId
+      };
+
+      // 1. Save locally in localStorage for instant offline dashboard synchronization
+      try {
+        const existing = JSON.parse(localStorage.getItem('job_submissions') || '{}');
+        existing['indeed-003'] = submissionData;
+        localStorage.setItem('job_submissions', JSON.stringify(existing));
+      } catch(e) {
+        console.warn('LocalStorage save notice:', e);
+      }
+
+      // 2. Call local dashboard API to update tracker CSV & dispatch revert email
+      fetch('/api/record-submission', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(submissionData)
+      }).then(res => res.json()).then(data => {
+        console.log('Submission recorded in tracker & email dispatched:', data);
+        if (data.emailDispatch && data.emailDispatch.webUrl) {
+          const btn = document.getElementById('emailReceiptBtn');
+          if (btn) btn.href = data.emailDispatch.webUrl;
+        }
+      }).catch(err => {
+        console.log('Server sync notice:', err.message);
+      });
+
+      // 3. Update confirmation display
+      document.getElementById('apply-form').classList.add('hidden');
+      document.getElementById('confirmation-card').classList.remove('hidden');
+    }
+  </script>
+</body>
+</html>

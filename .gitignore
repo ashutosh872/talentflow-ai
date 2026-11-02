@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# Environment & Sensitive Credentials
+.env
+.env.local
+.env.*.local
+data/gmail-config.json
+data/tunnel-url.txt
+
+# Build and test outputs
+dist/
+coverage/
+*.log
+npm-debug.log*
+
+# Operating System files
+.DS_Store
+Thumbs.db
+
+# Antigravity & IDE cache
+.gemini/
+.idea/
+.vscode/

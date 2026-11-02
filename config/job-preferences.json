@@ -1,0 +1,107 @@
+{
+  "candidate": {
+    "name": "Ashutosh Kumar",
+    "email": "kumar.ashu872@gmail.com",
+    "phone": "+91 9310681373",
+    "location": "New Delhi, India",
+    "linkedin": "https://linkedin.com/in/kumarashu872",
+    "experienceYears": 8,
+    "currentRole": "Frontend Developer (Contract) at Wondrfly",
+    "currentRoleStart": "2025-09"
+  },
+  "roles": {
+    "priority": [
+      "Senior UI Developer",
+      "Senior UI Engineer",
+      "Senior Frontend Developer",
+      "Frontend UI Engineer",
+      "UI Engineer",
+      "Angular UI Developer",
+      "Design Systems Engineer"
+    ],
+    "secondary": [
+      "WordPress Developer",
+      "Email Developer",
+      "UI/UX Developer",
+      "Frontend Automation Engineer",
+      "AI Frontend Developer"
+    ]
+  },
+  "coreSkills": [
+    "HTML5",
+    "CSS3",
+    "SCSS",
+    "JavaScript",
+    "ES6",
+    "jQuery",
+    "Bootstrap",
+    "Responsive Web Design",
+    "CSS Grid",
+    "Flexbox",
+    "Angular",
+    "Angular Material",
+    "Figma-to-Code",
+    "Design Systems",
+    "Design Tokens",
+    "Accessibility",
+    "WCAG",
+    "WCAG 2.1",
+    "Section 508",
+    "Performance Optimization",
+    "Core Web Vitals",
+    "SEO-friendly markup",
+    "Responsive HTML Email Templating",
+    "Playwright",
+    "Playwright Test",
+    "UI Validation",
+    "Bug Reproduction",
+    "Git",
+    "Figma",
+    "Cursor",
+    "Claude",
+    "ChatGPT",
+    "ClickUp",
+    "Jira",
+    "WordPress"
+  ],
+  "disqualifiers": {
+    "reactMandatory": true,
+    "maxExperienceRequirement": 12,
+    "minExperienceRequirement": 0,
+    "excludedLocations": [
+      "On-site outside Delhi NCR",
+      "US-only relocation required",
+      "EU-only residency required",
+      "Requires in-person daily attendance outside Delhi NCR"
+    ]
+  },
+  "locations": {
+    "allowedCities": ["Delhi", "New Delhi", "Noida", "Gurugram", "Gurgaon", "Faridabad", "Ghaziabad", "Delhi NCR"],
+    "workModes": ["Remote", "Hybrid", "On-site"],
+    "internationalRemoteAllowedIfIndiaEligible": true
+  },
+  "employmentTypes": ["Full-time", "Contract", "Long-term Contract"],
+  "compensation": {
+    "minLPA": 10.0,
+    "currency": "INR",
+    "preferHigher": true
+  },
+  "postingRecencyDays": {
+    "freshDays": 7,
+    "maxDays": 30
+  },
+  "scoringRubric": {
+    "technicalSkillsWeight": 30,
+    "experienceSeniorityWeight": 20,
+    "uiDesignSystemsWeight": 15,
+    "locationWorkModeWeight": 15,
+    "compensationStabilityWeight": 10,
+    "careerGrowthCredibilityWeight": 10
+  },
+  "scoreThresholds": {
+    "excellent": 85,
+    "strong": 75,
+    "manualReview": 60,
+    "rejectBelow": 60
+  }
+}

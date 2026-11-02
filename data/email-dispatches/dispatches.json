@@ -1,0 +1,215 @@
+[
+  {
+    "emailId": "EML-VERIFY-rahul-verma-e2e-MVZNOTRQ",
+    "candidateId": "rahul-verma-e2e",
+    "candidateName": "Rahul Verma E2E",
+    "recipientEmail": "test-e2e-1793647967463@example.com",
+    "subject": "Verify Your Candidate Profile on TalentFlow AI [OTP: 728074]",
+    "otpCode": "728074",
+    "token": "tok_1793647968179_mp5xun",
+    "verifyUrl": "http://localhost:5000/api/candidates/verify?id=rahul-verma-e2e&code=728074&token=tok_1793647968179_mp5xun",
+    "timestamp": "Tuesday, November 3, 2026 at 1:02:48 AM (IST)",
+    "mode": "LOCAL_TRANSACTIONAL_RECEIPT",
+    "htmlFileName": "EML-VERIFY-rahul-verma-e2e-MVZNOTRQ.html",
+    "webUrl": "/data/email-dispatches/EML-VERIFY-rahul-verma-e2e-MVZNOTRQ.html"
+  },
+  {
+    "emailId": "EML-VERIFY-arjun-verma-MVZ2O8ZK",
+    "candidateId": "arjun-verma",
+    "candidateName": "Arjun Verma",
+    "recipientEmail": "arjun.verma@example.com",
+    "subject": "Verify Your Candidate Profile on TalentFlow AI [OTP: 593301]",
+    "otpCode": "593301",
+    "token": "tok_1793612669311_g4yx5i",
+    "verifyUrl": "http://localhost:5000/api/candidates/verify?id=arjun-verma&code=593301&token=tok_1793612669311_g4yx5i",
+    "timestamp": "Monday, November 2, 2026 at 3:14:29 PM (IST)",
+    "mode": "LOCAL_TRANSACTIONAL_RECEIPT",
+    "htmlFileName": "EML-VERIFY-arjun-verma-MVZ2O8ZK.html",
+    "webUrl": "/data/email-dispatches/EML-VERIFY-arjun-verma-MVZ2O8ZK.html"
+  },
+  {
+    "emailId": "EML-VERIFY-test-candidate-MVZ1RJVU",
+    "candidateId": "test-candidate",
+    "candidateName": "Test Candidate",
+    "recipientEmail": "test.candidate@example.com",
+    "subject": "Verify Your Candidate Profile on TalentFlow AI [OTP: 930271]",
+    "otpCode": "930271",
+    "token": "tok_1793611143785_bqy29q",
+    "verifyUrl": "http://localhost:5000/api/candidates/verify?id=test-candidate&code=930271&token=tok_1793611143785_bqy29q",
+    "timestamp": "Monday, November 2, 2026 at 2:49:03 PM (IST)",
+    "mode": "LOCAL_TRANSACTIONAL_RECEIPT",
+    "htmlFileName": "EML-VERIFY-test-candidate-MVZ1RJVU.html",
+    "webUrl": "/data/email-dispatches/EML-VERIFY-test-candidate-MVZ1RJVU.html"
+  },
+  {
+    "emailId": "EML-CONF-HCL-ENT-7704-SUCCESS-MVYXFN6N",
+    "confirmationId": "CONF-HCL-ENT-7704-SUCCESS",
+    "jobId": "naukri-003",
+    "company": "HCL Technologies",
+    "role": "Senior UI Engineer - Enterprise Platform Modernization",
+    "vacancyPortal": "Naukri.com",
+    "submissionMethod": "Via Opening Portal",
+    "recipientEmail": "kumar.ashu872@gmail.com",
+    "subject": "Application Confirmation: Senior UI Engineer - Enterprise Platform Modernization at HCL Technologies [CONF-HCL-ENT-7704-SUCCESS]",
+    "timestamp": "Monday, November 2, 2026 at 12:47:49 PM (IST)",
+    "mode": "LOCAL_TRANSACTIONAL_RECEIPT",
+    "htmlFileName": "EML-CONF-HCL-ENT-7704-SUCCESS-MVYXFN6N.html",
+    "webUrl": "/data/email-dispatches/EML-CONF-HCL-ENT-7704-SUCCESS-MVYXFN6N.html",
+    "attachments": [
+      "Ashutosh_Kumar_Resume.pdf",
+      "Ashutosh_Kumar_Cover_Letter.pdf"
+    ]
+  },
+  {
+    "emailId": "EML-CONF-TM-NOI-3381-SUCCESS-MVYXF2P7",
+    "confirmationId": "CONF-TM-NOI-3381-SUCCESS",
+    "jobId": "indeed-001",
+    "company": "Tech Mahindra",
+    "role": "Senior UI Developer - Angular & Material Components",
+    "vacancyPortal": "Indeed.com",
+    "submissionMethod": "Via Opening Portal",
+    "recipientEmail": "kumar.ashu872@gmail.com",
+    "subject": "Application Confirmation: Senior UI Developer - Angular & Material Components at Tech Mahindra [CONF-TM-NOI-3381-SUCCESS]",
+    "timestamp": "Monday, November 2, 2026 at 12:47:23 PM (IST)",
+    "mode": "LOCAL_TRANSACTIONAL_RECEIPT",
+    "htmlFileName": "EML-CONF-TM-NOI-3381-SUCCESS-MVYXF2P7.html",
+    "webUrl": "/data/email-dispatches/EML-CONF-TM-NOI-3381-SUCCESS-MVYXF2P7.html",
+    "attachments": [
+      "Ashutosh_Kumar_Resume.pdf",
+      "Ashutosh_Kumar_Cover_Letter.pdf"
+    ]
+  },
+  {
+    "emailId": "EML-CONF-NAUKRI-IE-8812-SUCCESS-MVYWN4EA",
+    "confirmationId": "CONF-NAUKRI-IE-8812-SUCCESS",
+    "jobId": "naukri-001",
+    "company": "Info Edge India (Naukri Enterprise)",
+    "role": "Senior UI / Angular Developer (8+ Yrs Experience)",
+    "vacancyPortal": "Naukri.com",
+    "submissionMethod": "Via Opening Portal",
+    "recipientEmail": "kumar.ashu872@gmail.com",
+    "subject": "Application Confirmation: Senior UI / Angular Developer (8+ Yrs Experience) at Info Edge India (Naukri Enterprise) [CONF-NAUKRI-IE-8812-SUCCESS]",
+    "timestamp": "Monday, November 2, 2026 at 12:25:39 PM (IST)",
+    "mode": "LOCAL_TRANSACTIONAL_RECEIPT",
+    "htmlFileName": "EML-CONF-NAUKRI-IE-8812-SUCCESS-MVYWN4EA.html",
+    "webUrl": "/data/email-dispatches/EML-CONF-NAUKRI-IE-8812-SUCCESS-MVYWN4EA.html",
+    "attachments": [
+      "Ashutosh_Kumar_Resume.pdf",
+      "Ashutosh_Kumar_Cover_Letter.pdf"
+    ]
+  },
+  {
+    "emailId": "EML-CONF-MMT-GUR-4412-SUCCESS-MVYWMID7",
+    "confirmationId": "CONF-MMT-GUR-4412-SUCCESS",
+    "jobId": "linkedin-002",
+    "company": "MakeMyTrip India",
+    "role": "Lead Frontend UI Developer",
+    "vacancyPortal": "LinkedIn Jobs",
+    "submissionMethod": "Via Opening Portal",
+    "recipientEmail": "kumar.ashu872@gmail.com",
+    "subject": "Application Confirmation: Lead Frontend UI Developer at MakeMyTrip India [CONF-MMT-GUR-4412-SUCCESS]",
+    "timestamp": "Monday, November 2, 2026 at 12:25:10 PM (IST)",
+    "mode": "LOCAL_TRANSACTIONAL_RECEIPT",
+    "htmlFileName": "EML-CONF-MMT-GUR-4412-SUCCESS-MVYWMID7.html",
+    "webUrl": "/data/email-dispatches/EML-CONF-MMT-GUR-4412-SUCCESS-MVYWMID7.html",
+    "attachments": [
+      "Ashutosh_Kumar_Resume.pdf",
+      "Ashutosh_Kumar_Cover_Letter.pdf"
+    ]
+  },
+  {
+    "emailId": "EML-CONF-SSDS-2026-8821-SUCCESS-MVYWLM8L",
+    "confirmationId": "CONF-SSDS-2026-8821-SUCCESS",
+    "jobId": "job-mock-002",
+    "company": "Samsung SDS Global",
+    "role": "Senior Frontend Engineer (UI/UX Engineering)",
+    "vacancyPortal": "Official Career Portal",
+    "submissionMethod": "Via Opening Portal",
+    "recipientEmail": "kumar.ashu872@gmail.com",
+    "subject": "Application Confirmation: Senior Frontend Engineer (UI/UX Engineering) at Samsung SDS Global [CONF-SSDS-2026-8821-SUCCESS]",
+    "timestamp": "Monday, November 2, 2026 at 12:24:28 PM (IST)",
+    "mode": "LOCAL_TRANSACTIONAL_RECEIPT",
+    "htmlFileName": "EML-CONF-SSDS-2026-8821-SUCCESS-MVYWLM8L.html",
+    "webUrl": "/data/email-dispatches/EML-CONF-SSDS-2026-8821-SUCCESS-MVYWLM8L.html",
+    "attachments": [
+      "Ashutosh_Kumar_Resume.pdf",
+      "Ashutosh_Kumar_Cover_Letter.pdf"
+    ]
+  },
+  {
+    "emailId": "EML-CONF-PS-DEL-5591-SUCCESS-MVYWKRZ1",
+    "confirmationId": "CONF-PS-DEL-5591-SUCCESS",
+    "jobId": "naukri-002",
+    "company": "Publicis Sapient",
+    "role": "Senior Frontend Developer (WCAG Accessibility & Design Systems)",
+    "vacancyPortal": "Naukri.com",
+    "submissionMethod": "Via Opening Portal",
+    "recipientEmail": "kumar.ashu872@gmail.com",
+    "subject": "Application Confirmation: Senior Frontend Developer (WCAG Accessibility & Design Systems) at Publicis Sapient [CONF-PS-DEL-5591-SUCCESS]",
+    "timestamp": "Monday, November 2, 2026 at 12:23:49 PM (IST)",
+    "mode": "LOCAL_TRANSACTIONAL_RECEIPT",
+    "htmlFileName": "EML-CONF-PS-DEL-5591-SUCCESS-MVYWKRZ1.html",
+    "webUrl": "/data/email-dispatches/EML-CONF-PS-DEL-5591-SUCCESS-MVYWKRZ1.html",
+    "attachments": [
+      "Ashutosh_Kumar_Resume.pdf",
+      "Ashutosh_Kumar_Cover_Letter.pdf"
+    ]
+  },
+  {
+    "emailId": "EML-CONF-AMAZON-LIVE-VERIFY-MVVZBY0D",
+    "confirmationId": "CONF-AMAZON-LIVE-VERIFY",
+    "jobId": "linkedin-4478053400",
+    "company": "Amazon (ADCI)",
+    "role": "Front-End Engineer II (FBA Placement)",
+    "vacancyPortal": "LinkedIn Talent & Jobs",
+    "submissionMethod": "Via Opening Portal",
+    "recipientEmail": "kumar.ashu872@gmail.com",
+    "subject": "Application Confirmation: Front-End Engineer II (FBA Placement) at Amazon (ADCI) [CONF-AMAZON-LIVE-VERIFY]",
+    "timestamp": "Saturday, October 31, 2026 at 11:17:37 AM (IST)",
+    "mode": "LOCAL_TRANSACTIONAL_RECEIPT",
+    "htmlFileName": "EML-CONF-AMAZON-LIVE-VERIFY-MVVZBY0D.html",
+    "webUrl": "/data/email-dispatches/EML-CONF-AMAZON-LIVE-VERIFY-MVVZBY0D.html",
+    "attachments": [
+      "Ashutosh_Kumar_Resume.pdf",
+      "Ashutosh_Kumar_Cover_Letter.pdf"
+    ]
+  },
+  {
+    "emailId": "EML-CONF-NAGARRO-LIVE-TEST-MVTI9RV9",
+    "confirmationId": "CONF-NAGARRO-LIVE-TEST",
+    "jobId": "job-mock-001",
+    "company": "Nagarro Enterprises",
+    "role": "Senior UI Developer - Design Systems",
+    "vacancyPortal": "Nagarro Enterprise Careers Feed",
+    "submissionMethod": "Via Opening Portal",
+    "recipientEmail": "kumar.ashu872@gmail.com",
+    "subject": "Application Confirmation: Senior UI Developer - Design Systems at Nagarro Enterprises [CONF-NAGARRO-LIVE-TEST]",
+    "timestamp": "Thursday, October 29, 2026 at 5:44:30 PM (IST)",
+    "mode": "LOCAL_TRANSACTIONAL_RECEIPT",
+    "htmlFileName": "EML-CONF-NAGARRO-LIVE-TEST-MVTI9RV9.html",
+    "webUrl": "/data/email-dispatches/EML-CONF-NAGARRO-LIVE-TEST-MVTI9RV9.html",
+    "attachments": [
+      "Ashutosh_Kumar_Resume.pdf",
+      "Ashutosh_Kumar_Cover_Letter.pdf"
+    ]
+  },
+  {
+    "emailId": "EML-CONF-INDEED-0-SUCCESS-MVTHMF79",
+    "confirmationId": "CONF-INDEED-0-SUCCESS",
+    "jobId": "indeed-003",
+    "company": "Zomato / Blinkit",
+    "role": "UI Developer (Figma-to-Code & Design Systems)",
+    "vacancyPortal": "Indeed Verified Enterprise Feed",
+    "submissionMethod": "Via Opening Portal",
+    "recipientEmail": "kumar.ashu872@gmail.com",
+    "subject": "Application Confirmation: UI Developer (Figma-to-Code & Design Systems) at Zomato / Blinkit [CONF-INDEED-0-SUCCESS]",
+    "timestamp": "Thursday, October 29, 2026 at 5:26:21 PM (IST)",
+    "mode": "LOCAL_TRANSACTIONAL_RECEIPT",
+    "htmlFileName": "EML-CONF-INDEED-0-SUCCESS-MVTHMF79.html",
+    "webUrl": "/data/email-dispatches/EML-CONF-INDEED-0-SUCCESS-MVTHMF79.html",
+    "attachments": [
+      "Ashutosh_Kumar_Resume.pdf",
+      "Ashutosh_Kumar_Cover_Letter.pdf"
+    ]
+  }
+]
