@@ -369,5 +369,208 @@
     "bio": "Lead Full Stack React Engineer with 6.5+ years specializing in React, Node.js, TypeScript, AWS.",
     "activeApplicationsCount": 0,
     "totalEvaluated": 120
+  },
+  {
+    "id": "rahul-verma-test-bvww",
+    "name": "Rahul Verma Test",
+    "avatar": "👤",
+    "title": "Lead Full Stack React Engineer",
+    "seniority": "Mid",
+    "isAdmin": false,
+    "isVerified": true,
+    "verificationStatus": "VERIFIED",
+    "role": "editor",
+    "access": "write",
+    "permissions": [
+      "read",
+      "write"
+    ],
+    "password": "rahulSecurePassword789",
+    "resumeFile": "data/resumes/rahul-verma-test-bvww-Rahul_Verma_Resume.pdf",
+    "resumeFileName": "Rahul_Verma_Resume.pdf",
+    "resumeUploadedAt": "2026-11-02T22:10:35.928Z",
+    "experienceYears": 6.5,
+    "experienceLabel": "6.5+ Years",
+    "currentCompany": "Technology Enterprise",
+    "currentCtc": "₹12 PA",
+    "currentCtcVal": 10,
+    "targetCtc": "₹22 PA",
+    "targetCtcMin": 18,
+    "targetCtcRelocation": 21,
+    "noticePeriod": "Immediate to 30 Days",
+    "location": "Delhi NCR / Remote",
+    "email": "rahul.test.1793657435921@example.com",
+    "phone": "+91 9999999999",
+    "coreStack": [
+      "React",
+      "Node.js",
+      "TypeScript",
+      "AWS",
+      "Next.js",
+      "PostgreSQL"
+    ],
+    "skills": {
+      "primary": [
+        "React",
+        "Node.js",
+        "TypeScript",
+        "AWS",
+        "Next.js",
+        "PostgreSQL"
+      ],
+      "secondary": []
+    },
+    "preferences": {
+      "targetTitles": [
+        "Lead Full Stack React Engineer"
+      ],
+      "preferredCompanies": [],
+      "preferredLocations": [
+        "Delhi NCR / Remote India"
+      ],
+      "workModes": [
+        "Remote",
+        "Hybrid"
+      ],
+      "expectedSalaryINR": 1800000,
+      "minSalaryINR": 1800000,
+      "experienceLevel": "Mid",
+      "employmentTypes": [
+        "Full-time"
+      ],
+      "preferredTechnologies": [
+        "React",
+        "Node.js",
+        "TypeScript",
+        "AWS",
+        "Next.js",
+        "PostgreSQL"
+      ]
+    },
+    "employmentHistory": [],
+    "education": [],
+    "integrations": {
+      "gmailConnected": false,
+      "msConnected": false
+    },
+    "verifiedAnchors": [
+      "Lead Full Stack React Engineer Enterprise Background",
+      "Verified Profile (React, Node.js, TypeScript)"
+    ],
+    "bio": "Lead Full Stack React Engineer with 6.5+ years specializing in React, Node.js, TypeScript, AWS.",
+    "activeApplicationsCount": 0,
+    "totalEvaluated": 120
+  },
+  {
+    "id": "alok-gupta-y01r",
+    "name": "Alok Gupta",
+    "avatar": "👤",
+    "title": "SENIOR FRONTEND ENGINEER",
+    "seniority": "Senior",
+    "isAdmin": false,
+    "isVerified": true,
+    "verificationStatus": "VERIFIED",
+    "role": "editor",
+    "access": "write",
+    "permissions": [
+      "read",
+      "write"
+    ],
+    "password": "alokPass123",
+    "resumeFile": "data/resumes/alok-gupta-y01r-Ashutosh_Kumar_Senior_Frontend_Engineer_Resume.pdf",
+    "resumeFileName": "Ashutosh Kumar Senior Frontend Engineer Resume.pdf",
+    "resumeUploadedAt": "2026-11-02T22:12:43.745Z",
+    "experienceYears": 8,
+    "experienceLabel": "8+ Years",
+    "currentCompany": "Enterprise Technology Solutions",
+    "currentCtc": "₹10 PA",
+    "currentCtcVal": 10,
+    "targetCtc": "₹18 PA",
+    "targetCtcMin": 18,
+    "targetCtcRelocation": 21,
+    "noticePeriod": "Immediate to 30 Days",
+    "location": "New Delhi, India",
+    "email": "test.e2e.1793657563069@example.com",
+    "phone": "+91 9999999999",
+    "coreStack": [
+      "Angular",
+      "JavaScript",
+      "HTML5",
+      "CSS3",
+      "Sass",
+      "SCSS",
+      "Bootstrap",
+      "Git",
+      "Playwright",
+      "Figma"
+    ],
+    "skills": {
+      "primary": [
+        "Angular",
+        "JavaScript",
+        "HTML5",
+        "CSS3",
+        "Sass",
+        "SCSS",
+        "Bootstrap",
+        "Git",
+        "Playwright",
+        "Figma"
+      ],
+      "secondary": []
+    },
+    "preferences": {
+      "targetTitles": [
+        "Senior Frontend Engineer",
+        "Lead UI Developer",
+        "Frontend Architect"
+      ],
+      "preferredCompanies": [
+        "Samsung",
+        "Nagarro",
+        "Incedo",
+        "Cisco",
+        "Wipro",
+        "Publicis Sapient"
+      ],
+      "preferredLocations": [
+        "New Delhi, India"
+      ],
+      "workModes": [
+        "Remote",
+        "Hybrid"
+      ],
+      "expectedSalaryINR": 1800000,
+      "minSalaryINR": 1800000,
+      "experienceLevel": "Senior",
+      "employmentTypes": [
+        "Full-time"
+      ],
+      "preferredTechnologies": [
+        "Angular",
+        "JavaScript",
+        "HTML5",
+        "CSS3",
+        "Sass",
+        "SCSS",
+        "Bootstrap",
+        "Git",
+        "Playwright",
+        "Figma"
+      ]
+    },
+    "employmentHistory": [],
+    "education": [],
+    "integrations": {
+      "gmailConnected": false,
+      "msConnected": false
+    },
+    "verifiedAnchors": [
+      "SENIOR FRONTEND ENGINEER Enterprise Background",
+      "Verified Profile (Angular, JavaScript, HTML5)"
+    ],
+    "bio": "Ashutosh Kumar is a SENIOR FRONTEND ENGINEER with 8+ years of enterprise experience specializing in Angular, JavaScript, HTML5, CSS3. Proven track record of architecting scalable web applications, optimizing Core Web Vitals, and leading high-velocity frontend teams.",
+    "activeApplicationsCount": 0,
+    "totalEvaluated": 120
   }
 ]

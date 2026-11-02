@@ -4,6 +4,7 @@ import * as path from 'path';
 import * as os from 'os';
 import nodemailer from 'nodemailer';
 import { sendApplicationConfirmationEmail, sendCandidateVerificationEmail } from './mailer.js';
+import { parseResumeIntelligence } from './resume-parser.js';
 import {
   loadGmailConfig,
   saveGmailConfig,
@@ -399,7 +400,70 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
-  // Authentication: Register New Candidate Account with Resume Storage
+  // Resume Intelligence: Parse and extract candidate information from uploaded resume buffer
+  if (pathname === '/api/resume/parse' && req.method === 'POST') {
+    let body = '';
+    req.on('data', chunk => { body += chunk; });
+    req.on('end', async () => {
+      try {
+        const payload = JSON.parse(body || '{}');
+        if (!payload.resumeBase64) {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: false, error: 'resumeBase64 is required.' }));
+          return;
+        }
+        const cleanBase64 = payload.resumeBase64.replace(/^data:[^;]+;base64,/, '');
+        const buffer = Buffer.from(cleanBase64, 'base64');
+        const fileName = payload.resumeFileName || 'resume.pdf';
+        const parsed = await parseResumeIntelligence(buffer, fileName);
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: true, parsed }));
+      } catch (err) {
+        console.error('[Resume Parse API Error]:', err);
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: false, error: err.message }));
+      }
+    });
+    return;
+  }
+
+  // Authentication: Forgot Password recovery initiation
+  if (pathname === '/api/auth/forgot-password' && req.method === 'POST') {
+    let body = '';
+    req.on('data', chunk => { body += chunk; });
+    req.on('end', () => {
+      try {
+        const payload = JSON.parse(body || '{}');
+        const email = (payload.email || '').trim().toLowerCase();
+        if (!email) {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: false, error: 'Email address is required.' }));
+          return;
+        }
+        const candPath = path.resolve('data/candidates.json');
+        let candidates = [];
+        if (fs.existsSync(candPath)) {
+          try { candidates = JSON.parse(fs.readFileSync(candPath, 'utf8')); } catch(e) {}
+        }
+        const candidate = candidates.find(c => c.email && c.email.toLowerCase() === email);
+        const resetToken = 'RESET-' + Math.random().toString(36).substring(2, 8).toUpperCase();
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({
+          success: true,
+          message: candidate 
+            ? `Password reset code sent to ${candidate.email}. Use verification code: ${resetToken}` 
+            : 'If this email is registered, recovery instructions have been dispatched.',
+          resetCode: candidate ? resetToken : undefined
+        }));
+      } catch (err) {
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: false, error: err.message }));
+      }
+    });
+    return;
+  }
+
+  // Authentication: Register New Candidate Account with Resume Storage & Preferences
   if (pathname === '/api/auth/register' && req.method === 'POST') {
     let body = '';
     req.on('data', chunk => { body += chunk; });
@@ -469,16 +533,43 @@ const server = http.createServer(async (req, res) => {
         if (Array.isArray(payload.coreStack)) {
           coreStack = payload.coreStack;
         } else if (payload.skills) {
-          coreStack = payload.skills.split(',').map(s => s.trim()).filter(Boolean);
+          coreStack = typeof payload.skills === 'string' ? payload.skills.split(',').map(s => s.trim()).filter(Boolean) : payload.skills;
         } else if (payload.coreStack && typeof payload.coreStack === 'string') {
           coreStack = payload.coreStack.split(',').map(s => s.trim()).filter(Boolean);
         }
+
+        const experienceYears = parseFloat(payload.experienceYears) || 5;
+        const seniority = payload.seniority || (experienceYears >= 7 ? 'Senior' : (experienceYears <= 2 ? 'Junior' : 'Mid'));
+
+        // Job Preferences object (Step 3)
+        const preferences = {
+          targetTitles: Array.isArray(payload.targetTitles) && payload.targetTitles.length > 0 
+            ? payload.targetTitles 
+            : [title],
+          preferredCompanies: Array.isArray(payload.preferredCompanies) 
+            ? payload.preferredCompanies 
+            : (typeof payload.preferredCompanies === 'string' ? payload.preferredCompanies.split(',').map(s => s.trim()).filter(Boolean) : []),
+          preferredLocations: Array.isArray(payload.preferredLocations) && payload.preferredLocations.length > 0
+            ? payload.preferredLocations 
+            : [payload.location || 'Delhi NCR / Remote India'],
+          workModes: Array.isArray(payload.workModes) && payload.workModes.length > 0
+            ? payload.workModes 
+            : ['Remote', 'Hybrid'],
+          expectedSalaryINR: (parseFloat(payload.targetCtcMin) || 18) * 100000,
+          minSalaryINR: (parseFloat(payload.targetCtcMin) || 18) * 100000,
+          experienceLevel: seniority,
+          employmentTypes: Array.isArray(payload.employmentTypes) && payload.employmentTypes.length > 0
+            ? payload.employmentTypes 
+            : ['Full-time'],
+          preferredTechnologies: coreStack
+        };
 
         const newCandidate = {
           id,
           name,
           avatar: payload.avatar || '👤',
           title,
+          seniority,
           isAdmin: false,
           isVerified: true,
           verificationStatus: 'VERIFIED',
@@ -489,8 +580,8 @@ const server = http.createServer(async (req, res) => {
           resumeFile,
           resumeFileName,
           resumeUploadedAt,
-          experienceYears: parseFloat(payload.experienceYears) || 5,
-          experienceLabel: (payload.experienceYears || '5') + '+ Years',
+          experienceYears,
+          experienceLabel: experienceYears + '+ Years',
           currentCompany: payload.currentCompany || 'Technology Enterprise',
           currentCtc: payload.currentCtc ? `₹${payload.currentCtc} PA` : '₹10,00,000 PA',
           currentCtcVal: parseFloat(payload.currentCtcVal) || 10,
@@ -502,11 +593,22 @@ const server = http.createServer(async (req, res) => {
           email,
           phone: payload.phone || '+91 9999999999',
           coreStack,
+          skills: {
+            primary: coreStack,
+            secondary: Array.isArray(payload.secondarySkills) ? payload.secondarySkills : []
+          },
+          preferences,
+          employmentHistory: Array.isArray(payload.employmentHistory) ? payload.employmentHistory : [],
+          education: Array.isArray(payload.education) ? payload.education : [],
+          integrations: {
+            gmailConnected: Boolean(payload.gmailConnected),
+            msConnected: Boolean(payload.msConnected)
+          },
           verifiedAnchors: [
             `${title} Enterprise Background`,
             `Verified Profile (${coreStack.slice(0, 3).join(', ')})`
           ],
-          bio: payload.bio || `${title} with ${payload.experienceYears || 5}+ years specializing in ${coreStack.slice(0, 4).join(', ')}.`,
+          bio: payload.bio || `${title} with ${experienceYears}+ years specializing in ${coreStack.slice(0, 4).join(', ')}.`,
           activeApplicationsCount: 0,
           totalEvaluated: 120
         };

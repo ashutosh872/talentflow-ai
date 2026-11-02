@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Sign In &amp; Candidate Registration — TalentFlow AI</title>
+  <title>Unified AI Job Search &amp; CRM — Sign In &amp; Onboarding</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,6 +15,9 @@
     ::-webkit-scrollbar-track { background: #0b0f19; }
     ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 9999px; }
     ::-webkit-scrollbar-thumb:hover { background: #334155; }
+    .step-active { border-color: #3b82f6; background-color: rgba(59, 130, 246, 0.15); color: #60a5fa; }
+    .step-done { border-color: #10b981; background-color: rgba(16, 185, 129, 0.15); color: #34d399; }
+    .step-inactive { border-color: #334155; color: #64748b; }
   </style>
 </head>
 <body class="bg-[#0b0f19] text-slate-100 min-h-screen flex flex-col justify-between selection:bg-blue-600 selection:text-white">
@@ -28,20 +31,20 @@
       <div>
         <div class="flex items-center gap-2">
           <span class="text-sm font-extrabold text-white tracking-tight">TalentFlow AI</span>
-          <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-500/10 text-blue-400 border border-blue-500/30">Enterprise v2.4</span>
+          <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-500/10 text-blue-400 border border-blue-500/30">Enterprise CRM v2.4</span>
         </div>
-        <p class="text-[11px] text-slate-400">Strict Password Authentication &bull; Multi-User Candidate Hub</p>
+        <p class="text-[11px] text-slate-400">Unified Multi-Platform Job Search &bull; AI Application CRM</p>
       </div>
     </div>
     <div class="flex items-center gap-3 text-xs">
-      <span class="text-slate-400 hidden sm:inline">Protected Workspace</span>
+      <span class="text-slate-400 hidden sm:inline">Protected SaaS Workspace</span>
       <span class="px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 font-mono text-[10px] font-bold">24/7 Cloud Active</span>
     </div>
   </header>
 
   <!-- Login & Registration Card Container -->
   <main class="flex-1 flex items-center justify-center p-4 sm:p-6 my-4">
-    <div class="w-full max-w-lg bg-[#111827] border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl relative overflow-hidden">
+    <div class="w-full max-w-2xl bg-[#111827] border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl relative overflow-hidden transition-all duration-300">
       <!-- Glow effect -->
       <div class="absolute -top-24 -right-24 w-48 h-48 bg-blue-600/10 rounded-full blur-3xl pointer-events-none"></div>
       <div class="absolute -bottom-24 -left-24 w-48 h-48 bg-indigo-600/10 rounded-full blur-3xl pointer-events-none"></div>
@@ -53,16 +56,16 @@
             🔐
           </div>
           <h2 class="text-xl font-extrabold text-white" id="cardMainHeading">Access TalentFlow AI Workspace</h2>
-          <p class="text-xs text-slate-400 mt-1" id="cardSubHeading">Enter your credentials or register a candidate with resume upload</p>
+          <p class="text-xs text-slate-400 mt-1" id="cardSubHeading">Enter your credentials or launch guided 4-step candidate onboarding</p>
         </div>
 
-        <!-- Mode Tabs: Sign In vs Create Account -->
+        <!-- Mode Tabs: Sign In vs Guided Onboarding -->
         <div class="grid grid-cols-2 gap-2 p-1 bg-[#0b0f19] rounded-2xl border border-slate-800 mb-6 text-xs font-bold">
           <button type="button" id="tabSignInBtn" onclick="switchAuthMode('login')" class="py-2.5 rounded-xl transition text-center flex items-center justify-center gap-2 bg-blue-600 text-white shadow-md">
             <span>🔑</span> <span>Sign In</span>
           </button>
           <button type="button" id="tabRegisterBtn" onclick="switchAuthMode('register')" class="py-2.5 rounded-xl transition text-center flex items-center justify-center gap-2 text-slate-400 hover:text-white">
-            <span>👤➕</span> <span>Register &amp; Upload Resume</span>
+            <span>🚀</span> <span>Guided 4-Step Onboarding</span>
           </button>
         </div>
 
@@ -99,6 +102,9 @@
               <input type="checkbox" id="rememberMe" checked class="rounded border-slate-700 bg-[#0b0f19] text-blue-600 focus:ring-0">
               <span>Remember session on this device</span>
             </label>
+            <button type="button" onclick="openForgotPasswordModal()" class="text-blue-400 hover:text-blue-300 transition text-[11px] font-semibold">
+              Forgot Password?
+            </button>
           </div>
 
           <button type="submit" id="loginSubmitBtn" class="w-full py-2.5 px-4 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white transition shadow-lg shadow-blue-600/30 flex items-center justify-center gap-2">
@@ -134,32 +140,16 @@
 
             <div class="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800 text-left flex items-center justify-between">
               <div class="flex items-center gap-2.5">
-                <span class="text-xl">👩‍💻</span>
+                <span class="text-xl">👩‍💼</span>
                 <div>
                   <div class="text-xs font-bold text-white flex items-center gap-1.5">
                     <span>Priya Sharma</span>
-                    <span class="px-1.5 py-0.2 rounded text-[9px] font-extrabold bg-blue-500/20 text-blue-300 border border-blue-500/40">WRITE</span>
+                    <span class="px-1.5 py-0.2 rounded text-[9px] font-extrabold bg-blue-500/20 text-blue-300 border border-blue-500/40">EDITOR</span>
                   </div>
-                  <div class="text-[10px] text-slate-400 font-mono">priya.sharma@example.com</div>
+                  <div class="text-[10px] text-slate-400 font-mono">priya.sharma@talentflow.internal</div>
                 </div>
               </div>
-              <button type="button" onclick="fillEmail('priya.sharma@example.com')" class="px-2.5 py-1 rounded-lg text-[10px] font-bold bg-slate-800 hover:bg-blue-600 text-slate-300 hover:text-white transition">
-                Select
-              </button>
-            </div>
-
-            <div class="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800 text-left flex items-center justify-between">
-              <div class="flex items-center gap-2.5">
-                <span class="text-xl">🧪</span>
-                <div>
-                  <div class="text-xs font-bold text-white flex items-center gap-1.5">
-                    <span>Test Candidate</span>
-                    <span class="px-1.5 py-0.2 rounded text-[9px] font-extrabold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">VIEW-ONLY</span>
-                  </div>
-                  <div class="text-[10px] text-slate-400 font-mono">test.candidate@example.com</div>
-                </div>
-              </div>
-              <button type="button" onclick="fillEmail('test.candidate@example.com')" class="px-2.5 py-1 rounded-lg text-[10px] font-bold bg-slate-800 hover:bg-blue-600 text-slate-300 hover:text-white transition">
+              <button type="button" onclick="fillEmail('priya.sharma@talentflow.internal')" class="px-2.5 py-1 rounded-lg text-[10px] font-bold bg-slate-800 hover:bg-blue-600 text-slate-300 hover:text-white transition">
                 Select
               </button>
             </div>
@@ -167,96 +157,353 @@
         </form>
 
         <!-- ========================================== -->
-        <!-- FORM 2: NEW USER REGISTRATION WITH RESUME -->
+        <!-- FORM 2: GUIDED 4-STEP ONBOARDING WIZARD    -->
         <!-- ========================================== -->
-        <form id="registerForm" onsubmit="handleRegisterSubmit(event)" class="hidden space-y-3.5 text-xs">
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <div>
-              <label class="block font-semibold text-slate-300 mb-1">Full Name *</label>
-              <input type="text" id="regName" required placeholder="e.g. Rahul Verma" class="w-full bg-[#0b0f19] border border-slate-700 text-white rounded-xl p-2.5 focus:border-blue-500 focus:outline-none">
-            </div>
-            <div>
-              <label class="block font-semibold text-slate-300 mb-1">Target Professional Role *</label>
-              <input type="text" id="regTitle" required placeholder="e.g. Senior Full Stack Engineer" class="w-full bg-[#0b0f19] border border-slate-700 text-white rounded-xl p-2.5 focus:border-blue-500 focus:outline-none">
-            </div>
+        <form id="registerForm" onsubmit="handleRegisterSubmit(event)" class="hidden space-y-5 text-xs">
+          
+          <!-- STEPPER NAVIGATION CHIPS -->
+          <div class="grid grid-cols-4 gap-2 mb-2 p-1.5 bg-[#0b0f19] rounded-2xl border border-slate-800 sticky top-0 z-20 backdrop-blur-md">
+            <a href="#step1" onclick="highlightStep(1)" id="stepTab1" class="py-2 px-1.5 rounded-xl text-center border text-[11px] font-bold transition flex flex-col items-center gap-1 step-active">
+              <span class="w-5 h-5 rounded-full flex items-center justify-center text-[10px] bg-blue-600 text-white font-mono">1</span>
+              <span>Account</span>
+            </a>
+            <a href="#step2" onclick="highlightStep(2)" id="stepTab2" class="py-2 px-1.5 rounded-xl text-center border text-[11px] font-bold transition flex flex-col items-center gap-1 step-inactive">
+              <span class="w-5 h-5 rounded-full flex items-center justify-center text-[10px] bg-slate-800 text-slate-400 font-mono">2</span>
+              <span>Resume</span>
+            </a>
+            <a href="#step3" onclick="highlightStep(3)" id="stepTab3" class="py-2 px-1.5 rounded-xl text-center border text-[11px] font-bold transition flex flex-col items-center gap-1 step-inactive">
+              <span class="w-5 h-5 rounded-full flex items-center justify-center text-[10px] bg-slate-800 text-slate-400 font-mono">3</span>
+              <span>Preferences</span>
+            </a>
+            <a href="#step4" onclick="highlightStep(4)" id="stepTab4" class="py-2 px-1.5 rounded-xl text-center border text-[11px] font-bold transition flex flex-col items-center gap-1 step-inactive">
+              <span class="w-5 h-5 rounded-full flex items-center justify-center text-[10px] bg-slate-800 text-slate-400 font-mono">4</span>
+              <span>Integrations</span>
+            </a>
           </div>
 
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <div>
-              <label class="block font-semibold text-slate-300 mb-1">Email Address *</label>
-              <input type="email" id="regEmail" required placeholder="name@example.com" class="w-full bg-[#0b0f19] border border-slate-700 text-white rounded-xl p-2.5 focus:border-blue-500 focus:outline-none">
-            </div>
-            <div>
-              <div class="flex items-center justify-between mb-1">
-                <label class="block font-semibold text-slate-300">Password * (Min 4 chars)</label>
-                <button type="button" onclick="togglePasswordVisibility('regPassword', 'showRegPassText')" class="text-[10px] text-slate-400 hover:text-slate-200">
-                  <span id="showRegPassText">Show</span>
-                </button>
+          <!-- ========================================== -->
+          <!-- STEP 1: ACCOUNT CREATION                   -->
+          <!-- ========================================== -->
+          <div id="step1" class="p-4 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-3.5">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+              <div class="flex items-center gap-2">
+                <span class="w-6 h-6 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold text-xs">1</span>
+                <span class="font-bold text-white text-xs">Step 1: Account Creation &amp; Verification</span>
               </div>
-              <input type="password" id="regPassword" required minlength="4" placeholder="Create your password" class="w-full bg-[#0b0f19] border border-slate-700 text-white rounded-xl p-2.5 focus:border-blue-500 focus:outline-none">
+              <span class="px-2 py-0.5 rounded text-[10px] bg-blue-500/20 text-blue-400 font-mono">REQUIRED</span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label class="block font-semibold text-slate-300 mb-1">Full Legal Name *</label>
+                <input type="text" id="regName" required placeholder="e.g. Alok Gupta" class="w-full bg-[#0b0f19] border border-slate-700 text-white rounded-xl p-2.5 focus:border-blue-500 focus:outline-none">
+              </div>
+              <div>
+                <label class="block font-semibold text-slate-300 mb-1">Target Professional Role *</label>
+                <input type="text" id="regTitle" required placeholder="e.g. Senior Frontend Engineer" class="w-full bg-[#0b0f19] border border-slate-700 text-white rounded-xl p-2.5 focus:border-blue-500 focus:outline-none">
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label class="block font-semibold text-slate-300 mb-1">Email Address *</label>
+                <input type="email" id="regEmail" required placeholder="name@example.com" class="w-full bg-[#0b0f19] border border-slate-700 text-white rounded-xl p-2.5 focus:border-blue-500 focus:outline-none">
+              </div>
+              <div>
+                <div class="flex items-center justify-between mb-1">
+                  <label class="block font-semibold text-slate-300">Password * (Min 4 chars)</label>
+                  <button type="button" onclick="togglePasswordVisibility('regPassword', 'showRegPassText')" class="text-[10px] text-slate-400 hover:text-slate-200">
+                    <span id="showRegPassText">Show</span>
+                  </button>
+                </div>
+                <input type="password" id="regPassword" required minlength="4" oninput="checkPasswordStrength(this.value)" placeholder="Create secure password" class="w-full bg-[#0b0f19] border border-slate-700 text-white rounded-xl p-2.5 focus:border-blue-500 focus:outline-none">
+                <!-- Strength bar -->
+                <div class="mt-1.5 flex items-center gap-1.5">
+                  <div class="flex-1 h-1 bg-slate-800 rounded-full overflow-hidden">
+                    <div id="passwordStrengthBar" class="h-full w-0 transition-all duration-300 bg-rose-500"></div>
+                  </div>
+                  <span id="passwordStrengthLabel" class="text-[10px] text-slate-500">Too Short</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-2 p-2 rounded-xl bg-[#0b0f19] border border-slate-800">
+              <input type="checkbox" id="regEmailVerified" checked class="rounded border-slate-700 bg-[#0b0f19] text-emerald-500 focus:ring-0">
+              <span class="text-[11px] text-emerald-400 font-semibold">✓ Instant Verified State (Ready for immediate CRM login)</span>
             </div>
           </div>
 
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <div>
-              <label class="block font-semibold text-slate-300 mb-1">Experience (Years)</label>
-              <input type="number" id="regExp" step="0.5" value="5.0" class="w-full bg-[#0b0f19] border border-slate-700 text-white rounded-xl p-2.5">
+          <!-- ========================================== -->
+          <!-- STEP 2: RESUME UPLOAD & AI EXTRACTION      -->
+          <!-- ========================================== -->
+          <div id="step2" class="p-4 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-3.5">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+              <div class="flex items-center gap-2">
+                <span class="w-6 h-6 rounded-lg bg-indigo-600 text-white flex items-center justify-center font-bold text-xs">2</span>
+                <span class="font-bold text-white text-xs">Step 2: Resume Upload &amp; AI Intelligence Extraction</span>
+              </div>
+              <span class="px-2 py-0.5 rounded text-[10px] bg-indigo-500/20 text-indigo-400 font-mono">AUTO-PARSED</span>
             </div>
-            <div>
-              <label class="block font-semibold text-slate-300 mb-1">Current CTC (LPA)</label>
-              <input type="number" id="regCurrentCtc" step="0.5" value="10.0" class="w-full bg-[#0b0f19] border border-slate-700 text-white rounded-xl p-2.5">
+
+            <!-- Upload dropzone -->
+            <div class="p-3.5 rounded-2xl bg-[#0b0f19] border-2 border-dashed border-blue-500/40 space-y-2">
+              <div class="flex items-center justify-between">
+                <label class="text-xs font-bold text-white flex items-center gap-1.5">
+                  <span>📄</span>
+                  <span>Upload Resume (.pdf, .doc, .docx, .txt, .md) *</span>
+                </label>
+                <span class="text-[10px] text-blue-400 font-mono">Saved in data/resumes/</span>
+              </div>
+
+              <div class="space-y-2">
+                <input type="file" id="regResumeFile" accept=".pdf,.doc,.docx,.txt,.md" onchange="handleRegisterFileSelected(event)" class="w-full text-xs text-slate-300 file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-blue-600 file:text-white hover:file:bg-blue-500 cursor-pointer">
+                
+                <div id="regResumeLoading" class="hidden text-xs text-blue-400 font-mono flex items-center gap-2 p-2 rounded-xl bg-blue-950/40 border border-blue-500/40 animate-pulse">
+                  <span>⏳</span>
+                  <span>AI Parsing Candidate Intelligence from Resume...</span>
+                </div>
+
+                <div id="regResumePreview" class="hidden text-xs text-emerald-400 font-mono flex items-center justify-between p-2 rounded-xl bg-emerald-950/30 border border-emerald-500/30">
+                  <div class="flex items-center gap-1.5">
+                    <span>✓ Selected:</span>
+                    <span id="regPreviewFileName" class="font-bold">file.pdf</span>
+                    <span id="regPreviewFileSize" class="text-slate-400 text-[10px]">(0 KB)</span>
+                  </div>
+                  <span class="px-2 py-0.5 rounded text-[10px] bg-emerald-500/20 text-emerald-300 font-bold">PARSED</span>
+                </div>
+              </div>
             </div>
+
+            <!-- Editable Extracted Attributes -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <div>
+                <label class="block font-semibold text-slate-300 mb-1">Seniority Level</label>
+                <select id="regSeniority" class="w-full bg-[#0b0f19] border border-slate-700 text-white rounded-xl p-2.5 focus:border-blue-500 focus:outline-none">
+                  <option value="Senior" selected>Senior</option>
+                  <option value="Lead">Lead / Architect</option>
+                  <option value="Mid">Mid-Level</option>
+                  <option value="Junior">Junior</option>
+                </select>
+              </div>
+              <div>
+                <label class="block font-semibold text-slate-300 mb-1">Experience (Years)</label>
+                <input type="number" id="regExp" step="0.5" value="5.0" class="w-full bg-[#0b0f19] border border-slate-700 text-white rounded-xl p-2.5">
+              </div>
+              <div>
+                <label class="block font-semibold text-slate-300 mb-1">Current Company</label>
+                <input type="text" id="regCurrentCompany" placeholder="e.g. Technology Solutions" value="Enterprise Technology Solutions" class="w-full bg-[#0b0f19] border border-slate-700 text-white rounded-xl p-2.5">
+              </div>
+            </div>
+
             <div>
-              <label class="block font-semibold text-slate-300 mb-1">Target CTC (LPA)</label>
-              <input type="number" id="regTargetCtc" step="0.5" value="18.0" class="w-full bg-[#0b0f19] border border-slate-700 text-white rounded-xl p-2.5">
+              <label class="block font-semibold text-slate-300 mb-1">Verified Technical Skills (Comma Separated) *</label>
+              <input type="text" id="regSkills" placeholder="e.g. React, TypeScript, JavaScript, HTML5, CSS3, Redux" value="React, TypeScript, JavaScript, HTML5, CSS3" class="w-full bg-[#0b0f19] border border-slate-700 text-white rounded-xl p-2.5">
+              <p class="text-[10px] text-slate-500 mt-1">Our AI Matching Engine calibrates 100-point match scores against these verified skills.</p>
+            </div>
+
+            <div>
+              <label class="block font-semibold text-slate-300 mb-1">Current Location</label>
+              <input type="text" id="regLocation" placeholder="e.g. Delhi NCR / Remote" value="Delhi NCR / Remote India" class="w-full bg-[#0b0f19] border border-slate-700 text-white rounded-xl p-2.5">
+            </div>
+
+            <div>
+              <label class="block font-semibold text-slate-300 mb-1">Candidate Professional Summary (Bio)</label>
+              <textarea id="regBio" rows="2" class="w-full bg-[#0b0f19] border border-slate-700 text-white rounded-xl p-2.5 text-xs focus:border-blue-500 focus:outline-none" placeholder="Professional background summary..."></textarea>
             </div>
           </div>
 
-          <div>
-            <label class="block font-semibold text-slate-300 mb-1">Primary Tech Skills (Comma Separated)</label>
-            <input type="text" id="regSkills" placeholder="e.g. React, Node.js, TypeScript, AWS, PostgreSQL" value="React, Node.js, TypeScript, PostgreSQL" class="w-full bg-[#0b0f19] border border-slate-700 text-white rounded-xl p-2.5">
-            <p class="text-[10px] text-slate-500 mt-1">Job match scores will dynamically calculate against these skills.</p>
-          </div>
-
-          <!-- RESUME FILE UPLOAD BOX -->
-          <div class="p-3.5 rounded-2xl bg-[#0b0f19] border-2 border-dashed border-blue-500/40 space-y-2">
-            <div class="flex items-center justify-between">
-              <label class="text-xs font-bold text-white flex items-center gap-1.5">
-                <span>📄</span>
-                <span>Candidate Resume (.pdf, .doc, .docx, .txt, .md) *</span>
-              </label>
-              <span class="text-[10px] text-blue-400 font-mono">Stored in data/resumes/</span>
+          <!-- ========================================== -->
+          <!-- STEP 3: JOB PREFERENCES                   -->
+          <!-- ========================================== -->
+          <div id="step3" class="p-4 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-3.5">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+              <div class="flex items-center gap-2">
+                <span class="w-6 h-6 rounded-lg bg-purple-600 text-white flex items-center justify-center font-bold text-xs">3</span>
+                <span class="font-bold text-white text-xs">Step 3: Target Job Preferences &amp; Compensation</span>
+              </div>
+              <span class="px-2 py-0.5 rounded text-[10px] bg-purple-500/20 text-purple-400 font-mono">MATCH VECTOR</span>
             </div>
 
+            <div>
+              <label class="block font-semibold text-slate-300 mb-1">Target Job Titles (Comma Separated)</label>
+              <input type="text" id="prefTitles" placeholder="e.g. Senior Frontend Engineer, UI Architect, Lead UI Developer" value="Senior Frontend Engineer, Lead UI Developer, Frontend Architect" class="w-full bg-[#0b0f19] border border-slate-700 text-white rounded-xl p-2.5">
+            </div>
+
+            <div>
+              <label class="block font-semibold text-slate-300 mb-1">Preferred Target Companies (Optional)</label>
+              <input type="text" id="prefCompanies" placeholder="e.g. Samsung, Google, Nagarro, Incedo, Cisco, Wipro" value="Samsung, Nagarro, Incedo, Cisco, Wipro, Publicis Sapient" class="w-full bg-[#0b0f19] border border-slate-700 text-white rounded-xl p-2.5">
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label class="block font-semibold text-slate-300 mb-1">Current CTC (LPA)</label>
+                <input type="number" id="regCurrentCtc" step="0.5" value="10.0" class="w-full bg-[#0b0f19] border border-slate-700 text-white rounded-xl p-2.5">
+              </div>
+              <div>
+                <label class="block font-semibold text-slate-300 mb-1">Expected Minimum CTC (LPA) *</label>
+                <input type="number" id="regTargetCtc" step="0.5" value="18.0" class="w-full bg-[#0b0f19] border border-slate-700 text-white rounded-xl p-2.5">
+              </div>
+            </div>
+
+            <div>
+              <label class="block font-semibold text-slate-300 mb-1.5">Preferred Work Modes</label>
+              <div class="grid grid-cols-3 gap-2">
+                <label class="p-2.5 rounded-xl bg-[#0b0f19] border border-slate-800 flex items-center gap-2 cursor-pointer hover:border-blue-500">
+                  <input type="checkbox" name="workModes" value="Remote" checked class="rounded border-slate-700 text-blue-600">
+                  <span class="text-xs font-semibold text-slate-200">Remote</span>
+                </label>
+                <label class="p-2.5 rounded-xl bg-[#0b0f19] border border-slate-800 flex items-center gap-2 cursor-pointer hover:border-blue-500">
+                  <input type="checkbox" name="workModes" value="Hybrid" checked class="rounded border-slate-700 text-blue-600">
+                  <span class="text-xs font-semibold text-slate-200">Hybrid</span>
+                </label>
+                <label class="p-2.5 rounded-xl bg-[#0b0f19] border border-slate-800 flex items-center gap-2 cursor-pointer hover:border-blue-500">
+                  <input type="checkbox" name="workModes" value="On-Site" class="rounded border-slate-700 text-blue-600">
+                  <span class="text-xs font-semibold text-slate-200">On-Site</span>
+                </label>
+              </div>
+            </div>
+
+            <div>
+              <label class="block font-semibold text-slate-300 mb-1.5">Employment Type</label>
+              <div class="grid grid-cols-3 gap-2">
+                <label class="p-2.5 rounded-xl bg-[#0b0f19] border border-slate-800 flex items-center gap-2 cursor-pointer hover:border-blue-500">
+                  <input type="checkbox" name="empTypes" value="Full-time" checked class="rounded border-slate-700 text-blue-600">
+                  <span class="text-xs font-semibold text-slate-200">Full-Time</span>
+                </label>
+                <label class="p-2.5 rounded-xl bg-[#0b0f19] border border-slate-800 flex items-center gap-2 cursor-pointer hover:border-blue-500">
+                  <input type="checkbox" name="empTypes" value="Contract" class="rounded border-slate-700 text-blue-600">
+                  <span class="text-xs font-semibold text-slate-200">Contract</span>
+                </label>
+                <label class="p-2.5 rounded-xl bg-[#0b0f19] border border-slate-800 flex items-center gap-2 cursor-pointer hover:border-blue-500">
+                  <input type="checkbox" name="empTypes" value="Part-time" class="rounded border-slate-700 text-blue-600">
+                  <span class="text-xs font-semibold text-slate-200">Part-Time</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- ========================================== -->
+          <!-- STEP 4: INTEGRATIONS & FINISH              -->
+          <!-- ========================================== -->
+          <div id="step4" class="p-4 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-3.5">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+              <div class="flex items-center gap-2">
+                <span class="w-6 h-6 rounded-lg bg-emerald-600 text-white flex items-center justify-center font-bold text-xs">4</span>
+                <span class="font-bold text-white text-xs">Step 4: Integrations &amp; Launch</span>
+              </div>
+              <span class="px-2 py-0.5 rounded text-[10px] bg-emerald-500/20 text-emerald-400 font-mono">SANCTIONED</span>
+            </div>
+
+            <!-- Email Providers -->
             <div class="space-y-2">
-              <input type="file" id="regResumeFile" accept=".pdf,.doc,.docx,.txt,.md" onchange="handleRegisterFileSelected(event)" class="w-full text-xs text-slate-300 file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-blue-600 file:text-white hover:file:bg-blue-500 cursor-pointer">
-              <div id="regResumePreview" class="hidden text-xs text-emerald-400 font-mono flex items-center gap-1.5 p-2 rounded-xl bg-emerald-950/30 border border-emerald-500/30">
-                <span>✓ Selected:</span>
-                <span id="regPreviewFileName" class="font-bold">file.pdf</span>
-                <span id="regPreviewFileSize" class="text-slate-400 text-[10px]">(0 KB)</span>
+              <span class="font-bold text-white text-xs">Authorized Email Sync (OAuth 2.0)</span>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                <div class="p-2.5 rounded-xl bg-[#0b0f19] border border-slate-800 flex items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <span>📬</span>
+                    <div>
+                      <div class="text-xs font-bold text-white">Google Gmail</div>
+                      <div class="text-[10px] text-slate-400">OAuth 2.0 PKCE</div>
+                    </div>
+                  </div>
+                  <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-500/20 text-blue-400 border border-blue-500/30">Available</span>
+                </div>
+
+                <div class="p-2.5 rounded-xl bg-[#0b0f19] border border-slate-800 flex items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <span>📧</span>
+                    <div>
+                      <div class="text-xs font-bold text-white">Microsoft Outlook</div>
+                      <div class="text-[10px] text-slate-400">MS Graph API</div>
+                    </div>
+                  </div>
+                  <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-indigo-500/20 text-indigo-400 border border-indigo-500/30">Available</span>
+                </div>
               </div>
             </div>
-            <p class="text-[10px] text-slate-400">All previous 23 jobs &amp; application history will remain preserved, while match scores re-calibrate to your resume.</p>
+
+            <!-- Active Public ATS Connectors -->
+            <div class="space-y-2">
+              <span class="font-bold text-white text-xs">Public ATS Feeds (Greenhouse, Lever, Ashby)</span>
+              <div class="grid grid-cols-3 gap-2 text-[10px]">
+                <div class="p-2 rounded-lg bg-[#0b0f19] border border-slate-800 text-center font-semibold text-slate-300">
+                  🟢 Greenhouse
+                </div>
+                <div class="p-2 rounded-lg bg-[#0b0f19] border border-slate-800 text-center font-semibold text-slate-300">
+                  🟢 Lever
+                </div>
+                <div class="p-2 rounded-lg bg-[#0b0f19] border border-slate-800 text-center font-semibold text-slate-300">
+                  🟢 Ashby
+                </div>
+              </div>
+            </div>
+
+            <!-- Transparency Notice for Walled-Garden Portals -->
+            <div class="p-3 bg-amber-950/20 border border-amber-500/20 rounded-xl space-y-1 text-amber-300">
+              <div class="text-xs font-bold flex items-center gap-1.5">
+                <span>🔒</span>
+                <span>Walled-Garden Portals (LinkedIn, Naukri, Indeed)</span>
+              </div>
+              <p class="text-[10px] text-slate-400 leading-relaxed">
+                These platforms do not provide public candidate search APIs. TalentFlow provides direct pre-calibrated Boolean search links, instant 1-click manual URL import, and forwarded email ingestion. We never solicit or store your external portal passwords.
+              </p>
+            </div>
+
+            <!-- Final Submission Button -->
+            <button type="submit" id="registerSubmitBtn" class="w-full py-3 px-4 rounded-xl text-xs font-bold bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white transition shadow-lg shadow-blue-600/30 flex items-center justify-center gap-2">
+              <span>Complete Onboarding &amp; Enter CRM Dashboard</span>
+              <span>&rarr;</span>
+            </button>
           </div>
 
-          <button type="submit" id="registerSubmitBtn" class="w-full py-2.5 px-4 rounded-xl text-xs font-bold bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white transition shadow-lg shadow-blue-600/30 flex items-center justify-center gap-2">
-            <span>Create Candidate &amp; Save Resume</span>
-            <span>&rarr;</span>
-          </button>
         </form>
 
       </div>
     </div>
   </main>
 
+  <!-- FORGOT PASSWORD MODAL -->
+  <div id="forgotPasswordModal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="w-full max-w-md bg-[#111827] border border-slate-800 rounded-3xl p-6 shadow-2xl space-y-4">
+      <div class="flex items-center justify-between">
+        <h3 class="text-sm font-extrabold text-white flex items-center gap-2">
+          <span>🔑</span>
+          <span>Password Recovery</span>
+        </h3>
+        <button type="button" onclick="closeForgotPasswordModal()" class="text-slate-400 hover:text-white text-lg font-mono">&times;</button>
+      </div>
+
+      <p class="text-xs text-slate-400">
+        Enter your registered email address to receive password reset instructions.
+      </p>
+
+      <div id="forgotMsg" class="hidden p-3 rounded-xl text-xs flex items-center gap-2"></div>
+
+      <div>
+        <label class="block text-xs font-semibold text-slate-300 mb-1">Email Address</label>
+        <input type="email" id="forgotEmail" placeholder="name@example.com" class="w-full bg-[#0b0f19] border border-slate-700 text-white rounded-xl p-2.5 text-xs focus:border-blue-500 focus:outline-none">
+      </div>
+
+      <div class="flex items-center justify-end gap-2 pt-2">
+        <button type="button" onclick="closeForgotPasswordModal()" class="px-4 py-2 rounded-xl text-xs text-slate-400 hover:text-white">
+          Cancel
+        </button>
+        <button type="button" onclick="submitForgotPassword()" id="forgotSubmitBtn" class="px-4 py-2 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white shadow-md">
+          Send Reset Instructions
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- Footer -->
   <footer class="border-t border-slate-900 px-6 py-3 text-center text-[11px] text-slate-500">
-    TalentFlow AI &bull; Strict Password Authentication &bull; Dynamic Resume Re-scoring Engine
+    TalentFlow AI &bull; Strict Password Authentication &bull; Dynamic Resume Re-scoring Engine &bull; Zero External Password Sharing
   </footer>
 
   <script>
     let registeredFileBase64 = null;
     let registeredFileName = null;
+    let currentStep = 1;
 
     function switchAuthMode(mode) {
       const signInForm = document.getElementById('signInForm');
@@ -276,8 +523,9 @@
         registerForm.classList.remove('hidden');
         tabSignInBtn.className = 'py-2.5 rounded-xl transition text-center flex items-center justify-center gap-2 text-slate-400 hover:text-white';
         tabRegisterBtn.className = 'py-2.5 rounded-xl transition text-center flex items-center justify-center gap-2 bg-blue-600 text-white shadow-md';
-        mainHeading.textContent = 'Register New Candidate';
-        subHeading.textContent = 'Create candidate profile, configure credentials, and upload resume';
+        mainHeading.textContent = 'Guided Candidate Onboarding';
+        subHeading.textContent = 'Complete 4 quick steps: Account, Resume Intelligence, Preferences, and Integrations';
+        goToStep(1);
       } else {
         registerForm.classList.add('hidden');
         signInForm.classList.remove('hidden');
@@ -285,6 +533,26 @@
         tabSignInBtn.className = 'py-2.5 rounded-xl transition text-center flex items-center justify-center gap-2 bg-blue-600 text-white shadow-md';
         mainHeading.textContent = 'Sign In to TalentFlow';
         subHeading.textContent = 'Enter your registered email and password to access the workspace';
+      }
+    }
+
+    function goToStep(stepNum) {
+      currentStep = stepNum;
+      for (let s = 1; s <= 4; s++) {
+        const sec = document.getElementById(`stepSection${s}`);
+        const tab = document.getElementById(`stepTab${s}`);
+        if (!sec || !tab) continue;
+
+        if (s === stepNum) {
+          sec.classList.remove('hidden');
+          tab.className = 'py-2 px-2 rounded-xl text-center border text-[11px] font-bold transition flex flex-col items-center gap-1 step-active';
+        } else if (s < stepNum) {
+          sec.classList.add('hidden');
+          tab.className = 'py-2 px-2 rounded-xl text-center border text-[11px] font-bold transition flex flex-col items-center gap-1 step-done';
+        } else {
+          sec.classList.add('hidden');
+          tab.className = 'py-2 px-2 rounded-xl text-center border text-[11px] font-bold transition flex flex-col items-center gap-1 step-inactive';
+        }
       }
     }
 
@@ -297,6 +565,26 @@
       } else {
         input.type = 'password';
         text.textContent = 'Show';
+      }
+    }
+
+    function checkPasswordStrength(val) {
+      const bar = document.getElementById('passwordStrengthBar');
+      const label = document.getElementById('passwordStrengthLabel');
+      if (!bar || !label) return;
+
+      if (!val || val.length < 4) {
+        bar.style.width = '20%';
+        bar.className = 'h-full transition-all duration-300 bg-rose-500';
+        label.textContent = 'Too Short';
+      } else if (val.length < 8) {
+        bar.style.width = '60%';
+        bar.className = 'h-full transition-all duration-300 bg-amber-500';
+        label.textContent = 'Good';
+      } else {
+        bar.style.width = '100%';
+        bar.className = 'h-full transition-all duration-300 bg-emerald-500';
+        label.textContent = 'Strong';
       }
     }
 
@@ -315,9 +603,10 @@
       if (errBox) errBox.classList.add('hidden');
     }
 
-    function handleRegisterFileSelected(e) {
+    async function handleRegisterFileSelected(e) {
       const file = e.target.files[0];
       const preview = document.getElementById('regResumePreview');
+      const loading = document.getElementById('regResumeLoading');
       const nameEl = document.getElementById('regPreviewFileName');
       const sizeEl = document.getElementById('regPreviewFileSize');
 
@@ -331,11 +620,56 @@
       registeredFileName = file.name;
       if (nameEl) nameEl.textContent = file.name;
       if (sizeEl) sizeEl.textContent = `(${(file.size / 1024).toFixed(1)} KB)`;
-      if (preview) preview.classList.remove('hidden');
+      if (loading) loading.classList.remove('hidden');
 
       const reader = new FileReader();
-      reader.onload = () => {
+      reader.onload = async () => {
         registeredFileBase64 = reader.result;
+
+        // Call backend resume parsing intelligence
+        try {
+          const res = await fetch('/api/resume/parse', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              resumeBase64: registeredFileBase64,
+              resumeFileName: registeredFileName
+            })
+          });
+          const data = await res.json();
+          if (data.success && data.parsed) {
+            const p = data.parsed;
+            if (p.name && !document.getElementById('regName').value) {
+              document.getElementById('regName').value = p.name;
+            }
+            if (p.email && !document.getElementById('regEmail').value) {
+              document.getElementById('regEmail').value = p.email;
+            }
+            if (p.currentTitle) {
+              document.getElementById('regTitle').value = p.currentTitle;
+            }
+            if (p.experienceYears) {
+              document.getElementById('regExp').value = p.experienceYears;
+            }
+            if (p.seniority && document.getElementById('regSeniority')) {
+              document.getElementById('regSeniority').value = p.seniority;
+            }
+            if (p.location && document.getElementById('regLocation')) {
+              document.getElementById('regLocation').value = p.location;
+            }
+            if (p.skills && p.skills.primary && p.skills.primary.length > 0) {
+              document.getElementById('regSkills').value = p.skills.primary.join(', ');
+            }
+            if (p.bio && document.getElementById('regBio')) {
+              document.getElementById('regBio').value = p.bio;
+            }
+          }
+        } catch (parseErr) {
+          console.warn('[Client Resume Parse Warning]:', parseErr);
+        } finally {
+          if (loading) loading.classList.add('hidden');
+          if (preview) preview.classList.remove('hidden');
+        }
       };
       reader.readAsDataURL(file);
     }
@@ -372,7 +706,6 @@
 
         const data = await res.json();
         if (res.ok && data.success) {
-          // Persist authenticated session
           localStorage.setItem('talentflow_auth', JSON.stringify({
             token: data.token,
             user: data.user,
@@ -385,7 +718,7 @@
         } else {
           if (errBox && errText) {
             errBox.classList.remove('hidden');
-            errText.textContent = data.error || 'Invalid password or user account not found. Please try again.';
+            errText.textContent = data.error || 'Incorrect password. Access denied. Please enter the correct password.';
           }
         }
       } catch (err) {
@@ -411,6 +744,22 @@
       const curCtc = parseFloat(document.getElementById('regCurrentCtc').value) || 10;
       const targetCtc = parseFloat(document.getElementById('regTargetCtc').value) || 18;
       const skills = document.getElementById('regSkills').value.trim();
+      const seniority = document.getElementById('regSeniority') ? document.getElementById('regSeniority').value : 'Senior';
+      const location = document.getElementById('regLocation') ? document.getElementById('regLocation').value : 'Delhi NCR / Remote';
+      const currentCompany = document.getElementById('regCurrentCompany') ? document.getElementById('regCurrentCompany').value : 'Enterprise Solutions';
+      const bio = document.getElementById('regBio') ? document.getElementById('regBio').value : '';
+
+      // Preferences from Step 3
+      const prefTitlesVal = document.getElementById('prefTitles') ? document.getElementById('prefTitles').value : title;
+      const prefCompaniesVal = document.getElementById('prefCompanies') ? document.getElementById('prefCompanies').value : '';
+      const targetTitles = prefTitlesVal.split(',').map(s => s.trim()).filter(Boolean);
+      const preferredCompanies = prefCompaniesVal.split(',').map(s => s.trim()).filter(Boolean);
+
+      const workModes = [];
+      document.querySelectorAll('input[name="workModes"]:checked').forEach(cb => workModes.push(cb.value));
+
+      const employmentTypes = [];
+      document.querySelectorAll('input[name="empTypes"]:checked').forEach(cb => employmentTypes.push(cb.value));
 
       const errBox = document.getElementById('authErrorMsg');
       const errText = document.getElementById('authErrorText');
@@ -439,18 +788,27 @@
 
       if (submitBtn) {
         submitBtn.disabled = true;
-        submitBtn.innerHTML = '<span>⏳ Storing Resume &amp; Creating Account...</span>';
+        submitBtn.innerHTML = '<span>⏳ Storing Resume &amp; Calibrating CRM...</span>';
       }
 
       const payload = {
         name,
         title,
+        seniority,
         email,
         password,
         experienceYears: exp,
         currentCtc: curCtc,
         targetCtc: targetCtc,
+        targetCtcMin: targetCtc,
+        location,
+        currentCompany,
+        bio,
         skills,
+        targetTitles,
+        preferredCompanies,
+        workModes,
+        employmentTypes,
         resumeBase64: registeredFileBase64,
         resumeFileName: registeredFileName,
         role: 'editor',
@@ -494,7 +852,68 @@
       } finally {
         if (submitBtn) {
           submitBtn.disabled = false;
-          submitBtn.innerHTML = '<span>Create Candidate &amp; Save Resume</span> <span>&rarr;</span>';
+          submitBtn.innerHTML = '<span>Complete Onboarding &amp; Enter CRM</span> <span>&rarr;</span>';
+        }
+      }
+    }
+
+    function openForgotPasswordModal() {
+      const modal = document.getElementById('forgotPasswordModal');
+      const emailInput = document.getElementById('forgotEmail');
+      const loginEmail = document.getElementById('loginEmail');
+      const msg = document.getElementById('forgotMsg');
+      if (msg) msg.classList.add('hidden');
+      if (emailInput && loginEmail) emailInput.value = loginEmail.value;
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function closeForgotPasswordModal() {
+      const modal = document.getElementById('forgotPasswordModal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    async function submitForgotPassword() {
+      const emailInput = document.getElementById('forgotEmail');
+      const msg = document.getElementById('forgotMsg');
+      const submitBtn = document.getElementById('forgotSubmitBtn');
+      const email = emailInput ? emailInput.value.trim() : '';
+
+      if (!email) {
+        if (msg) {
+          msg.className = 'p-3 rounded-xl text-xs flex items-center gap-2 bg-rose-950/50 border border-rose-500/50 text-rose-300';
+          msg.textContent = 'Please enter your registered email address.';
+          msg.classList.remove('hidden');
+        }
+        return;
+      }
+
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending...';
+      }
+
+      try {
+        const res = await fetch('/api/auth/forgot-password', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email })
+        });
+        const data = await res.json();
+        if (msg) {
+          msg.className = 'p-3 rounded-xl text-xs flex items-center gap-2 bg-emerald-950/50 border border-emerald-500/50 text-emerald-300';
+          msg.textContent = data.message || 'Recovery instructions dispatched to your email.';
+          msg.classList.remove('hidden');
+        }
+      } catch (err) {
+        if (msg) {
+          msg.className = 'p-3 rounded-xl text-xs flex items-center gap-2 bg-rose-950/50 border border-rose-500/50 text-rose-300';
+          msg.textContent = 'Failed to request password reset: ' + err.message;
+          msg.classList.remove('hidden');
+        }
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Send Reset Instructions';
         }
       }
     }
