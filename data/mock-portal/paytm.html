@@ -342,5 +342,89 @@ Ashutosh Kumar</textarea>
       document.getElementById('confirmation-card').classList.remove('hidden');
     }
   </script>
+
+  <!-- UNIVERSAL PORTAL DUPLICATE APPLICATION SAFEGUARD -->
+  <script id="portal-duplicate-safeguard">
+    (async function initPortalSafeguard() {
+      const currentJobId = 'linkedin-003';
+      const currentReqId = 'PYTM-FE-3319';
+      const currentCompany = 'Paytm Payments Bank';
+      let existing = null;
+
+      // 1. Check local storage
+      try {
+        const local = JSON.parse(localStorage.getItem('job_submissions') || '{}');
+        if (local[currentJobId]) existing = local[currentJobId];
+      } catch (e) {}
+
+      // 2. Check server API for verified active submission in CSV
+      try {
+        const res = await fetch('/api/submissions');
+        if (res.ok) {
+          const remote = await res.json();
+          if (remote[currentJobId]) existing = remote[currentJobId];
+          else if (currentReqId && remote[currentReqId]) existing = remote[currentReqId];
+        }
+      } catch (e) {}
+
+      const isActive = existing && (
+        existing.status === 'SUBMITTED' || 
+        existing.status === 'APPLIED' || 
+        existing.status === 'HR_SCREEN' || 
+        existing.status === 'TECH_INTERVIEW' || 
+        existing.status === 'OFFER'
+      );
+
+      if (isActive) {
+        console.log('[Portal Safeguard] Job ' + currentJobId + ' is already submitted (' + existing.status + '). Locking submit button.');
+        const btn = document.getElementById('submit-application-btn');
+        if (btn) {
+          btn.disabled = true;
+          btn.setAttribute('disabled', 'disabled');
+          btn.className = 'bg-emerald-950/80 text-emerald-300 font-bold text-sm px-6 py-3 rounded-lg border border-emerald-500/50 cursor-not-allowed flex items-center gap-2 opacity-95 shadow-inner';
+          btn.innerHTML = '<span>🔒 Application Already Submitted • Active (' + (existing.confirmationId || 'SUBMITTED') + ')</span>';
+          btn.title = 'You have already applied for this opening. Re-applying is locked until the company updates your application.';
+        }
+
+        // Prepend prominent warning banner
+        const form = document.getElementById('apply-form');
+        if (form) {
+          let notice = document.getElementById('portal-already-applied-banner');
+          if (!notice) {
+            notice = document.createElement('div');
+            notice.id = 'portal-already-applied-banner';
+            notice.className = 'p-4 rounded-xl bg-gradient-to-r from-emerald-950/80 to-slate-900 border border-emerald-500/50 text-emerald-200 text-xs mb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-lg';
+            notice.innerHTML = '<div class="space-y-1">' +
+              '<div class="flex items-center gap-2 font-bold text-emerald-300 text-sm"><span>🛡️</span> <span>Application Active &amp; Duplicate Locked</span></div>' +
+              '<div>You have already applied for this opening on <span class="font-mono text-white font-bold">' + (existing.appliedDate || '2026-10-29') + '</span> with confirmation reference <code class="px-1.5 py-0.5 rounded bg-emerald-950 border border-emerald-500/40 font-mono font-bold text-emerald-300">' + (existing.confirmationId || 'CONF-ACTIVE') + '</code>. Re-applying is disabled until the company cancels or updates your application.</div>' +
+              '</div>' +
+              '<button type="button" onclick="showConfirmationCardView()" class="px-3.5 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs shrink-0 transition shadow-sm cursor-pointer">View Confirmed Receipt →</button>';
+            form.prepend(notice);
+          }
+        }
+      }
+
+      // Intercept form submission if already submitted
+      const formEl = document.getElementById('apply-form');
+      if (formEl) {
+        formEl.addEventListener('submit', function(e) {
+          if (isActive) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            alert('Duplicate application prevented: You have already applied for this role at ' + currentCompany + '. Status: ' + (existing.status || 'SUBMITTED') + ' (' + (existing.confirmationId || '') + '). Re-applying is locked until the company cancels or updates your application.');
+            return false;
+          }
+        }, true);
+      }
+    })();
+
+    function showConfirmationCardView() {
+      const form = document.getElementById('apply-form');
+      const card = document.getElementById('confirmation-card');
+      if (form) form.classList.add('hidden');
+      if (card) card.classList.remove('hidden');
+    }
+  </script>
+
 </body>
 </html>
