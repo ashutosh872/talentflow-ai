@@ -1,5 +1,57 @@
 [
   {
+    "messageId": "6ae9673b.d2ba44e7.149235.3e62SMTPIN_ADDED_MISSING@mx.google.com",
+    "from": "Naukri <service@naukri.com>",
+    "recruiterName": "Naukri",
+    "company": "Info Edge India (Naukri Enterprise)",
+    "role": "Senior UI / Angular Developer (8+ Yrs Experience)",
+    "jobId": "naukri-001",
+    "confirmationId": "CONF-NAUKRI-IE-8812-SUCCESS",
+    "subject": "Your daily update: Jobs found & applied by Neo",
+    "receivedDate": "Nov 3, 2026, 10:16 AM",
+    "bodyText": "Real incoming recruiter email from Naukri <service@naukri.com>.\nSubject: Your daily update: Jobs found & applied by Neo\nReceived: Tue, 3 Nov 2026 10:16:36 +0530 (IST)",
+    "intent": "APPLICATION_ACK",
+    "intentTitle": "Submission Acknowledgment / In Review",
+    "suggestedStage": "SUBMITTED",
+    "badgeClass": "bg-blue-900/60 text-blue-300 border-blue-600",
+    "requiresAction": false,
+    "actionText": "Keep Monitoring",
+    "isAutomatedAlert": false,
+    "category": "DIRECT",
+    "correlationType": "DOMAIN_MATCH",
+    "sourceMode": "LIVE_GMAIL_IMAP",
+    "replyDraft": {
+      "subject": "Re: Your daily update: Jobs found & applied by Neo - Thank You [CONF-NAUKRI-IE-8812-SUCCESS]",
+      "body": "Dear Naukri,\n\nThank you for the update regarding my application for the Senior UI / Angular Developer (8+ Yrs Experience) position at Info Edge India (Naukri Enterprise).\n\nI remain very interested in contributing my 8+ years of enterprise UI engineering experience to your team. Please do let me know if any additional documentation, code samples, or architecture artifacts are required.\n\nBest regards,\n\nAshutosh Kumar\nPhone: +91 9310681373\nEmail: kumar.ashu872@gmail.com"
+    }
+  },
+  {
+    "messageId": "6ae95cbe.b7fb41aa.107567.8c8aSMTPIN_ADDED_MISSING@mx.google.com",
+    "from": "\"info@naukri.com\" <info@naukri.com>",
+    "recruiterName": "info@naukri.com",
+    "company": "Info Edge India (Naukri Enterprise)",
+    "role": "Senior UI / Angular Developer (8+ Yrs Experience)",
+    "jobId": "naukri-001",
+    "confirmationId": "CONF-NAUKRI-IE-8812-SUCCESS",
+    "subject": "Be first to apply—with Neo🚀",
+    "receivedDate": "Nov 3, 2026, 09:31 AM",
+    "bodyText": "Real incoming recruiter email from \"info@naukri.com\" <info@naukri.com>.\nSubject: Be first to apply—with Neo🚀\nReceived: Tue, 3 Nov 2026 09:31:36 +0530 (IST)",
+    "intent": "APPLICATION_ACK",
+    "intentTitle": "Submission Acknowledgment / In Review",
+    "suggestedStage": "SUBMITTED",
+    "badgeClass": "bg-blue-900/60 text-blue-300 border-blue-600",
+    "requiresAction": false,
+    "actionText": "Keep Monitoring",
+    "isAutomatedAlert": false,
+    "category": "DIRECT",
+    "correlationType": "DOMAIN_MATCH",
+    "sourceMode": "LIVE_GMAIL_IMAP",
+    "replyDraft": {
+      "subject": "Re: Be first to apply—with Neo🚀 - Thank You [CONF-NAUKRI-IE-8812-SUCCESS]",
+      "body": "Dear info@naukri.com,\n\nThank you for the update regarding my application for the Senior UI / Angular Developer (8+ Yrs Experience) position at Info Edge India (Naukri Enterprise).\n\nI remain very interested in contributing my 8+ years of enterprise UI engineering experience to your team. Please do let me know if any additional documentation, code samples, or architecture artifacts are required.\n\nBest regards,\n\nAshutosh Kumar\nPhone: +91 9310681373\nEmail: kumar.ashu872@gmail.com"
+    }
+  },
+  {
     "messageId": "6ae9199b.fc9155f7.3b9e86.b2a3SMTPIN_ADDED_MISSING@mx.google.com",
     "from": "Naukri <info@naukri.com>",
     "recruiterName": "Naukri",

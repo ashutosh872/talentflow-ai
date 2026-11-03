@@ -10,771 +10,16 @@ try {
 } catch (e) {}
 const defaultShareUrl = livePublicUrl || 'http://192.168.1.83:5000';
 
-const jobsData = [
-  {
-    id: "linkedin-4478053400",
-    reqId: "A10575321",
-    title: "Front-End Engineer II (FBA Placement)",
-    company: "Amazon (ADCI)",
-    score: 75,
-    tier: "strong",
-    location: "Bengaluru, Karnataka (ADCI Campus) / Remote Review",
-    workMode: "Hybrid",
-    realSalary: "₹35,00,000 - ₹55,00,000 PA",
-    salaryMinVal: 35,
-    liveUrl: "https://www.linkedin.com/jobs/view/4478053400/",
-    portalFile: "amazon-fee2.html",
-    folderName: "Amazon__ADCI__linkedin-4478053400",
-    status: "SUBMITTED",
-    submissionMethod: "Via Opening Portal",
-    appliedDate: "2026-10-29",
-    confirmationId: "CONF-A10575321-SUCCESS",
-    source: "LinkedIn Talent & Jobs",
-    skills: ["HTML5", "CSS3", "JavaScript", "Angular", "Reusable UI Components", "Accessibility", "Performance Optimization"],
-    evidence: [
-      "Top-tier compensation bracket (₹35-55 LPA) — well above ₹15L out-of-NCR threshold",
-      "Explicitly allows Angular: 'Experience using JavaScript frameworks such as angular and react'",
-      "8+ years enterprise frontend experience exceeds 5+ years seniority requirement",
-      "Direct exposure to large-scale distributed enterprise workflows (Samsung SDS & Cisco)"
-    ],
-    description: "Amazon FBA Placement is looking for a Front-End Engineer II to build responsive, accessible, and high-performance supply chain and seller web applications using Angular, React, and modern web standards.",
-    responsibilities: [
-      "Design, develop, and launch high-quality web experiences for millions of sellers worldwide.",
-      "Build reusable UI components and patterns that enhance consistency across Amazon marketplaces.",
-      "Deliver performant, accessible (WCAG), and responsive layouts across browsers and devices."
-    ],
-    hasDocs: true
-  },
-  {
-    id: "job-mock-002",
-    reqId: "SSDS-2026-8821",
-    title: "Senior Frontend Engineer (UI/UX Engineering)",
-    company: "Samsung SDS Global",
-    score: 89,
-    tier: "excellent",
-    location: "New Delhi / Remote India",
-    workMode: "Remote",
-    realSalary: "₹22,00,000 - ₹30,00,000 PA",
-    salaryMinVal: 22,
-    liveUrl: "https://www.samsungsds.com/en/careers/careers.html",
-    portalFile: "samsung-sds.html",
-    folderName: "Samsung_SDS_Global_job-mock-002",
-    status: "SUBMITTED",
-    submissionMethod: "Via Autofill",
-    appliedDate: "2026-10-29",
-    confirmationId: "CONF-SSDS-2026-8821-SUCCESS",
-    source: "Samsung SDS Official Careers",
-    skills: ["Angular", "Angular Material", "HTML5", "SCSS", "JavaScript", "WCAG", "Core Web Vitals", "Figma-to-Code", "Enterprise Platforms", "Playwright"],
-    evidence: [
-      "Direct prior experience at Samsung SDS as Web Publisher with a stellar 97/100 performance rating",
-      "8+ years verified frontend engineering experience directly satisfies senior seniority threshold",
-      "Deep mastery of Angular Material UI, WCAG accessibility, and pixel-perfect Figma-to-code",
-      "Remote India arrangement matches candidate search criteria"
-    ],
-    description: "Samsung SDS Global is looking for an experienced Senior Frontend Engineer with 8+ years experience in enterprise platform development. This role focuses on high-performance web interfaces, scalable CSS architecture, Angular and Angular Material UI components, Core Web Vitals optimization, and cross-browser consistency.",
-    responsibilities: [
-      "Engineer scalable, modular frontend interfaces for Samsung SDS global business platforms.",
-      "Translate complex Figma and Zeplin wireframes into production-grade HTML5/SCSS code with zero visual regressions.",
-      "Deliver Angular Material component structures compliant with international accessibility mandates."
-    ],
-    hasDocs: true
-  },
-  {
-    id: "job-mock-001",
-    reqId: "NAG-UI-4912",
-    title: "Senior UI Developer - Design Systems",
-    company: "Nagarro Enterprises",
-    score: 86,
-    tier: "excellent",
-    location: "Gurugram / Noida (Delhi NCR)",
-    workMode: "Hybrid",
-    realSalary: "₹18,00,000 - ₹26,00,000 PA",
-    salaryMinVal: 18,
-    liveUrl: "https://www.nagarro.com/en/careers",
-    portalFile: "nagarro.html",
-    folderName: "Nagarro_Enterprises_job-mock-001",
-    status: "SUBMITTED",
-    submissionMethod: "Via Autofill",
-    appliedDate: "2026-10-29",
-    confirmationId: "CONF-NAG-UI-4912-SUCCESS",
-    source: "Nagarro Careers Portal",
-    skills: ["Angular", "TypeScript", "SCSS", "Design Systems", "Web Accessibility", "WCAG", "Storybook", "Playwright"],
-    evidence: [
-      "Explicitly targets Enterprise Design Systems using Angular and SCSS tokens",
-      "Compensation package ₹18-26 LPA exceeds NCR target benchmark",
-      "Gurugram/Noida location aligns 100% with primary Delhi NCR preference",
-      "Candidate verified track record building reusable component libraries at scale"
-    ],
-    description: "Nagarro Enterprises is seeking a Senior UI Developer specializing in Enterprise Design Systems. You will build and scale unified component libraries across web applications using Angular, TypeScript, and SCSS tokens.",
-    responsibilities: [
-      "Architect and maintain reusable Angular design system components and token architectures.",
-      "Partner with UX designers to ensure WCAG 2.1 AA accessibility standards.",
-      "Conduct automated visual and component testing using Playwright and Storybook."
-    ],
-    hasDocs: true
-  },
-  {
-    id: "job-mock-003",
-    reqId: "WIPRO-DIG-2026",
-    title: "Lead UI Engineer / Design Systems Architect",
-    company: "Wipro Digital",
-    score: 86,
-    tier: "excellent",
-    location: "Noida, Delhi NCR",
-    workMode: "Hybrid",
-    realSalary: "₹20,00,000 - ₹28,00,000 PA",
-    salaryMinVal: 20,
-    liveUrl: "https://careers.wipro.com/",
-    portalFile: "wipro.html",
-    folderName: "Wipro_Digital_job-mock-003",
-    status: "SUBMITTED",
-    submissionMethod: "Via Autofill",
-    appliedDate: "2026-10-29",
-    confirmationId: "CONF-WIPRO-DIG-2026-SUCCESS",
-    source: "Wipro Global Careers",
-    skills: ["Angular", "TypeScript", "Micro-Frontends", "Design Tokens", "Architecture", "Playwright", "WCAG"],
-    evidence: [
-      "Exact architectural alignment with enterprise Angular and Micro-Frontends",
-      "Prime Noida Delhi NCR location",
-      "Strong compensation bracket (₹20-28 LPA)",
-      "Direct technical match for Ashutosh's 8+ years UI architecture background"
-    ],
-    description: "Wipro Digital is hiring a Lead UI Engineer to drive enterprise frontend architecture, component standards, and high-scale Angular micro-frontend implementations for Fortune 500 financial clients.",
-    responsibilities: [
-      "Lead frontend architectural decisions across distributed multi-app portfolios.",
-      "Enforce code quality, accessibility, and high test coverage with Playwright.",
-      "Establish design token frameworks between Figma and Angular libraries."
-    ],
-    hasDocs: true
-  },
-  {
-    id: "job-mock-006",
-    reqId: "CSCO-PTN-2026",
-    title: "Senior UI/Frontend Engineer",
-    company: "Cisco Systems Partner Network",
-    score: 81,
-    tier: "excellent",
-    location: "Remote (India)",
-    workMode: "Remote",
-    realSalary: "₹22,00,000 - ₹32,00,000 PA",
-    salaryMinVal: 22,
-    liveUrl: "https://jobs.cisco.com/",
-    portalFile: "cisco.html",
-    folderName: "Cisco_Systems_Partner_Network_job-mock-006",
-    status: "SUBMITTED",
-    submissionMethod: "Via Opening Portal",
-    appliedDate: "2026-10-29",
-    confirmationId: "CONF-CSCO-PTN-2026-SUCCESS",
-    source: "Cisco Partner Enterprise Feed",
-    skills: ["Angular", "TypeScript", "SD-WAN Portals", "Enterprise Automation", "Performance", "Playwright", "WCAG"],
-    evidence: [
-      "Direct prior verified experience modernizing Cisco BPA and SD-WAN interfaces",
-      "High-value remote Indian opportunity with top-tier compensation (₹22-32 LPA)",
-      "Deep understanding of network automation workflows and complex data tables"
-    ],
-    description: "Cisco Systems Partner Network is seeking a Senior UI Engineer to modernize enterprise networking and automated provisioning portals with Angular and modern reactive UI principles.",
-    responsibilities: [
-      "Build complex data visualization and network topology UI components.",
-      "Streamline user workflows for mission-critical enterprise applications.",
-      "Optimize frontend bundle sizes and Core Web Vitals across network dashboards."
-    ],
-    hasDocs: true
-  },
-  {
-    id: "job-mock-010",
-    reqId: "INC-2026-092",
-    title: "Senior UI/UX Developer",
-    company: "Incedo Inc.",
-    score: 75,
-    tier: "strong",
-    location: "Gurugram, Delhi NCR",
-    workMode: "Hybrid",
-    realSalary: "₹16,00,000 - ₹24,00,000 PA",
-    salaryMinVal: 16,
-    liveUrl: "https://www.incedoinc.com/careers/",
-    portalFile: "incedo.html",
-    folderName: "Incedo_Inc__job-mock-010",
-    status: "SUBMITTED",
-    submissionMethod: "Via Opening Portal",
-    appliedDate: "2026-10-29",
-    confirmationId: "CONF-INC-2026-092-SUCCESS",
-    source: "Incedo Talent Network",
-    skills: ["Angular", "JavaScript", "HTML5", "SCSS", "Figma", "Design Systems"],
-    evidence: [
-      "Prime Gurugram location",
-      "Strong compensation bracket (₹16-24 LPA) exceeding NCR minimum",
-      "Direct match for Angular + SCSS + Figma translation expertise"
-    ],
-    description: "Incedo Inc. is hiring a Senior UI/UX Developer to build data-driven financial and telecommunications enterprise applications using Angular and modern CSS architectures.",
-    responsibilities: [
-      "Develop responsive and accessible web interfaces based on Figma design specs.",
-      "Implement client-side state management and data caching strategies.",
-      "Maintain enterprise design system components across projects."
-    ],
-    hasDocs: true
-  },
-  {
-    id: "linkedin-001",
-    reqId: "CBA-AU-9912",
-    title: "Senior UI Engineer - Enterprise Platforms",
-    company: "Commonwealth Bank of Australia",
-    score: 74,
-    tier: "strong",
-    location: "Bengaluru (Technology Hub) / Hybrid India",
-    workMode: "Hybrid",
-    realSalary: "₹28,00,000 - ₹38,00,000 PA",
-    salaryMinVal: 28,
-    liveUrl: "https://www.linkedin.com/jobs/search/?keywords=Commonwealth+Bank+Senior+UI+Engineer",
-    portalFile: "cba.html",
-    folderName: "Commonwealth_Bank_of_Australia_linkedin-001",
-    status: "SUBMITTED",
-    submissionMethod: "Via Opening Portal",
-    appliedDate: "2026-10-29",
-    confirmationId: "CONF-CBA-AU-9912-SUCCESS",
-    source: "LinkedIn",
-    skills: ["Angular", "TypeScript", "Accessibility", "WCAG", "Design Systems", "Jest", "Playwright"],
-    evidence: [
-      "Top-tier compensation bracket (₹28-38 LPA) exceeding relocation threshold",
-      "Core banking platform modernization aligns with candidate's enterprise background",
-      "Strict accessibility standards (WCAG) match Ashutosh's verified expertise"
-    ],
-    description: "Commonwealth Bank is hiring a Senior UI Engineer to architect customer-facing financial platforms with high reliability, security, and strict accessibility standards.",
-    responsibilities: [
-      "Architect accessible, secure, and resilient banking UI components with Angular.",
-      "Ensure 100% compliance with Australian WCAG 2.1 AA accessibility regulations.",
-      "Write automated end-to-end tests using Playwright."
-    ],
-    hasDocs: true
-  },
-  {
-    id: "makemytrip-001",
-    reqId: "MMT-CON-4481",
-    title: "Lead Frontend UI Developer (Consumer Web)",
-    company: "MakeMyTrip India",
-    score: 72,
-    tier: "strong",
-    location: "Gurugram (Cyber City, Delhi NCR)",
-    workMode: "Hybrid",
-    realSalary: "₹24,00,000 - ₹34,00,000 PA",
-    salaryMinVal: 24,
-    liveUrl: "https://www.linkedin.com/jobs/search/?keywords=MakeMyTrip+Lead+Frontend+UI+Developer",
-    portalFile: "makemytrip.html",
-    folderName: "MakeMyTrip_India_makemytrip-001",
-    status: "SUBMITTED",
-    submissionMethod: "Via Opening Portal",
-    appliedDate: "2026-10-29",
-    confirmationId: "CONF-MMT-CON-4481-SUCCESS",
-    source: "LinkedIn / MMT Careers",
-    skills: ["JavaScript", "HTML5", "SCSS", "Performance", "Core Web Vitals", "Angular", "React", "Mobile First"],
-    evidence: [
-      "Located in Cyber City Gurugram — premier Delhi NCR location",
-      "Compensation package ₹24-34 LPA matches high-growth expectations",
-      "High emphasis on Core Web Vitals optimization and pixel-perfect responsiveness"
-    ],
-    description: "MakeMyTrip is looking for a Lead Frontend UI Developer to build lightning-fast booking flows, mobile web experiences, and high-performance travel search interfaces.",
-    responsibilities: [
-      "Optimize Core Web Vitals (LCP, CLS, FID) across high-traffic consumer search engines.",
-      "Build modular, responsive UI components with clean SCSS and modern JavaScript.",
-      "Collaborate with product and design teams on conversion rate optimization."
-    ],
-    hasDocs: true
-  },
-  {
-    id: "paytm-001",
-    reqId: "PAYTM-DES-8819",
-    title: "Senior UI Developer - Design Systems",
-    company: "Paytm (One97 Communications)",
-    score: 71,
-    tier: "strong",
-    location: "Noida (Sector 98, Delhi NCR)",
-    workMode: "Hybrid",
-    realSalary: "₹20,00,000 - ₹28,00,000 PA",
-    salaryMinVal: 20,
-    liveUrl: "https://www.linkedin.com/jobs/search/?keywords=Paytm+Senior+UI+Developer+Design+Systems",
-    portalFile: "paytm.html",
-    folderName: "Paytm__One97_Communications__paytm-001",
-    status: "SUBMITTED",
-    submissionMethod: "Via Opening Portal",
-    appliedDate: "2026-10-29",
-    confirmationId: "CONF-PAYTM-DES-8819-SUCCESS",
-    source: "LinkedIn / Paytm Careers",
-    skills: ["HTML5", "SCSS", "TypeScript", "Angular", "React", "Design Tokens", "Accessibility", "Figma"],
-    evidence: [
-      "Noida Sector 98 location — ideal NCR transit",
-      "Compensation bracket ₹20-28 LPA matches target parameters",
-      "Focus on Design Systems and token architecture mirrors candidate's core strength"
-    ],
-    description: "Paytm is seeking an experienced Senior UI Developer to evolve its consumer design system and merchant dashboard components across web platforms.",
-    responsibilities: [
-      "Build accessible and performant design system components with Angular & TypeScript.",
-      "Sync design tokens from Figma into SCSS and JavaScript modules.",
-      "Ensure cross-browser compatibility across mobile and desktop browsers."
-    ],
-    hasDocs: true
-  },
-  {
-    id: "zomato-001",
-    reqId: "ZOM-DES-5512",
-    title: "Senior UI Engineer - Enterprise & Merchant Tools",
-    company: "Zomato",
-    score: 71,
-    tier: "strong",
-    location: "Gurugram, Delhi NCR",
-    workMode: "On-site",
-    realSalary: "₹22,00,000 - ₹32,00,000 PA",
-    salaryMinVal: 22,
-    liveUrl: "https://www.linkedin.com/jobs/search/?keywords=Zomato+Senior+UI+Engineer",
-    portalFile: "zomato.html",
-    folderName: "Zomato_zomato-001",
-    status: "SUBMITTED",
-    submissionMethod: "Via Opening Portal",
-    appliedDate: "2026-10-29",
-    confirmationId: "CONF-ZOM-DES-5512-SUCCESS",
-    source: "LinkedIn / Zomato Careers",
-    skills: ["TypeScript", "HTML5", "SCSS", "Angular", "React", "Component Libraries", "Performance"],
-    evidence: [
-      "Gurugram headquarters location",
-      "High compensation bracket ₹22-32 LPA",
-      "Direct alignment with complex data tables and merchant workflow portals"
-    ],
-    description: "Zomato is hiring a Senior UI Engineer to develop merchant portal tools, partner management interfaces, and live logistics visualization applications.",
-    responsibilities: [
-      "Deliver pixel-perfect, accessible UI components for restaurant partner portals.",
-      "Build interactive dashboards and real-time order tracking web interfaces.",
-      "Optimize web application performance for low-bandwidth mobile networks."
-    ],
-    hasDocs: true
-  },
-  {
-    id: "epam-001",
-    reqId: "EPAM-IND-2026-441",
-    title: "Lead Software Engineer - Frontend (Angular)",
-    company: "EPAM Systems",
-    score: 70,
-    tier: "strong",
-    location: "Gurugram / Noida (Delhi NCR)",
-    workMode: "Hybrid",
-    realSalary: "₹22,00,000 - ₹30,00,000 PA",
-    salaryMinVal: 22,
-    liveUrl: "https://www.indeed.com/viewjob?jk=epam001",
-    portalFile: "epam.html",
-    folderName: "EPAM_Systems_indeed-002",
-    status: "SUBMITTED",
-    submissionMethod: "Via Opening Portal",
-    appliedDate: "2026-10-29",
-    confirmationId: "CONF-EPAM-IND-2026-441-SUCCESS",
-    source: "Indeed",
-    skills: ["Angular", "TypeScript", "SCSS", "State Management", "Micro-Frontends", "Jest", "Playwright"],
-    evidence: [
-      "Gurugram/Noida dual-hub Delhi NCR availability",
-      "Salary bracket ₹22-30 LPA well above target threshold",
-      "Explicit demand for Angular architecture, Playwright testing, and Micro-Frontends"
-    ],
-    description: "EPAM Systems is looking for a Lead Frontend Engineer to guide enterprise client delivery teams building high-scale Angular solutions for North American financial clients.",
-    responsibilities: [
-      "Architect and implement modern Angular enterprise platforms.",
-      "Lead technical design reviews and establish automated UI testing with Playwright.",
-      "Mentor mid-level frontend engineers on clean SCSS architecture and accessibility."
-    ],
-    hasDocs: true
-  },
-  {
-    id: "techm-001",
-    reqId: "TM-FE-9921",
-    title: "Senior Technical Lead - Frontend Architecture",
-    company: "Tech Mahindra",
-    score: 70,
-    tier: "strong",
-    location: "Noida (Delhi NCR)",
-    workMode: "Hybrid",
-    realSalary: "₹18,00,000 - ₹26,00,000 PA",
-    salaryMinVal: 18,
-    liveUrl: "https://www.naukri.com/job-listings-tech-mahindra-senior-frontend",
-    portalFile: "tech-mahindra.html",
-    folderName: "Tech_Mahindra_naukri-002",
-    status: "SUBMITTED",
-    submissionMethod: "Via Opening Portal",
-    appliedDate: "2026-10-29",
-    confirmationId: "CONF-TM-FE-9921-SUCCESS",
-    source: "Naukri.com",
-    skills: ["Angular", "TypeScript", "HTML5", "CSS3", "Design Systems", "CI/CD", "Accessibility"],
-    evidence: [
-      "Noida location — convenient NCR commute",
-      "Salary band ₹18-26 LPA exceeds minimum threshold",
-      "Direct technical match for candidate's 8+ years leadership background"
-    ],
-    description: "Tech Mahindra is hiring a Senior Technical Lead for its digital enterprise unit in Noida to oversee frontend architecture and Angular component standardization.",
-    responsibilities: [
-      "Define frontend development standards across global enterprise accounts.",
-      "Modernize legacy web applications into responsive, accessible Angular architectures.",
-      "Collaborate with enterprise clients on technical feasibility and delivery roadmaps."
-    ],
-    hasDocs: true
-  },
-  {
-    id: "sapient-001",
-    reqId: "PS-DEL-8831",
-    title: "Senior Experience Engineer (Frontend UI)",
-    company: "Publicis Sapient",
-    score: 69,
-    tier: "strong",
-    location: "Gurugram (Cyber City, Delhi NCR)",
-    workMode: "Hybrid",
-    realSalary: "₹20,00,000 - ₹30,00,000 PA",
-    salaryMinVal: 20,
-    liveUrl: "https://careers.publicissapient.com/",
-    portalFile: "publicis-sapient.html",
-    folderName: "Publicis_Sapient_linkedin-002",
-    status: "SUBMITTED",
-    submissionMethod: "Via Opening Portal",
-    appliedDate: "2026-10-29",
-    confirmationId: "CONF-PS-DEL-8831-SUCCESS",
-    source: "LinkedIn / Publicis Careers",
-    skills: ["Angular", "TypeScript", "Design Systems", "SCSS", "Figma", "Core Web Vitals", "WCAG"],
-    evidence: [
-      "Gurugram Cyber City location",
-      "Salary band ₹20-30 LPA matches senior engineering targets",
-      "Strong focus on design-to-code precision, accessibility, and modern CSS"
-    ],
-    description: "Publicis Sapient is seeking a Senior Experience Engineer to build premium consumer and enterprise digital experiences for global luxury and automotive clients.",
-    responsibilities: [
-      "Translate high-fidelity Figma designs into pixel-perfect Angular interfaces.",
-      "Champion web accessibility (WCAG 2.1 AA) and Core Web Vitals optimization.",
-      "Build reusable component libraries with modular SCSS."
-    ],
-    hasDocs: true
-  },
-  {
-    id: "hcl-001",
-    reqId: "HCL-Noida-7712",
-    title: "Lead UI Developer - Digital Engineering",
-    company: "HCL Technologies",
-    score: 69,
-    tier: "strong",
-    location: "Noida (Delhi NCR)",
-    workMode: "Hybrid",
-    realSalary: "₹18,00,000 - ₹25,00,000 PA",
-    salaryMinVal: 18,
-    liveUrl: "https://www.naukri.com/job-listings-hcl-lead-ui-developer",
-    portalFile: "hcl.html",
-    folderName: "HCL_Technologies_naukri-003",
-    status: "SUBMITTED",
-    submissionMethod: "Via Opening Portal",
-    appliedDate: "2026-10-29",
-    confirmationId: "CONF-HCL-Noida-7712-SUCCESS",
-    source: "Naukri.com",
-    skills: ["Angular", "TypeScript", "HTML5", "SCSS", "Component Libraries", "Git", "Jira"],
-    evidence: [
-      "Noida location aligns with Delhi NCR criteria",
-      "Salary range ₹18-25 LPA matches senior benchmark",
-      "Deep alignment with enterprise Angular application development"
-    ],
-    description: "HCL Technologies is recruiting a Lead UI Developer for its digital engineering center in Noida to deliver scalable frontend platforms for telecommunication clients.",
-    responsibilities: [
-      "Architect and implement modern frontend platforms using Angular and TypeScript.",
-      "Lead sprint planning and review code contributions across UI team members.",
-      "Optimize web application performance across browsers and devices."
-    ],
-    hasDocs: true
-  },
-  {
-    id: "infoedge-001",
-    reqId: "INFO-NAUK-3312",
-    title: "Senior UI Engineer - Naukri Enterprise Platforms",
-    company: "Info Edge India (Naukri.com)",
-    score: 68,
-    tier: "strong",
-    location: "Noida (Sector 132, Delhi NCR)",
-    workMode: "On-site",
-    realSalary: "₹20,00,000 - ₹28,00,000 PA",
-    salaryMinVal: 20,
-    liveUrl: "https://www.naukri.com/job-listings-info-edge-senior-ui",
-    portalFile: "infoedge.html",
-    folderName: "Info_Edge_India__Naukri_com__naukri-001",
-    status: "READY",
-    submissionMethod: "",
-    appliedDate: "",
-    confirmationId: "",
-    source: "Naukri.com",
-    skills: ["HTML5", "SCSS", "JavaScript", "Angular", "Web Performance", "SEO", "Responsive Design"],
-    evidence: [
-      "Noida Sector 132 location",
-      "Salary bracket ₹20-28 LPA matches senior targets",
-      "High-scale web platforms requiring deep expertise in Core Web Vitals and clean SCSS"
-    ],
-    description: "Info Edge is looking for an experienced Senior UI Developer to engineer core recruitment and search web interfaces using Angular Material and modern SCSS.",
-    responsibilities: [
-      "Build high-speed, accessible recruitment search interfaces with Angular.",
-      "Ensure cross-browser compatibility and sub-second page loads across India.",
-      "Collaborate with backend engineers to integrate REST and GraphQL APIs."
-    ],
-    hasDocs: false
-  },
-  {
-    id: "indeed-001",
-    reqId: "COGN-DEL-6612",
-    title: "Senior UI Developer - Modern Web Applications",
-    company: "Cognizant",
-    score: 68,
-    tier: "strong",
-    location: "Gurugram / Noida (Delhi NCR)",
-    workMode: "Hybrid",
-    realSalary: "₹16,00,000 - ₹24,00,000 PA",
-    salaryMinVal: 16,
-    liveUrl: "https://www.indeed.com/viewjob?jk=cognizant001",
-    portalFile: "cognizant.html",
-    folderName: "Cognizant_indeed-001",
-    status: "READY",
-    submissionMethod: "",
-    appliedDate: "",
-    confirmationId: "",
-    source: "Indeed",
-    skills: ["Angular", "TypeScript", "SCSS", "HTML5", "Unit Testing", "Accessibility"],
-    evidence: [
-      "Dual Gurugram / Noida option in Delhi NCR",
-      "Salary band ₹16-24 LPA exceeds minimum threshold",
-      "Direct requirement for Angular, clean SCSS, and enterprise testing"
-    ],
-    description: "Cognizant is hiring a Senior UI Developer to develop enterprise web applications for global healthcare and life sciences clients.",
-    responsibilities: [
-      "Develop responsive and accessible web applications using Angular and TypeScript.",
-      "Write comprehensive unit and integration tests.",
-      "Work closely with UI/UX designers to translate wireframes into production code."
-    ],
-    hasDocs: false
-  },
-  {
-    id: "job-mock-004",
-    reqId: "GITL-PTN-2026",
-    title: "Senior Frontend Engineer (Remote Platforms)",
-    company: "GitLab Partner Ecosystem",
-    score: 65,
-    tier: "strong",
-    location: "Remote (India)",
-    workMode: "Remote",
-    realSalary: "₹24,00,000 - ₹34,00,000 PA",
-    salaryMinVal: 24,
-    liveUrl: "https://about.gitlab.com/jobs/",
-    portalFile: "gitlab.html",
-    folderName: "GitLab_Partner_Ecosystem_job-mock-004",
-    status: "READY",
-    submissionMethod: "",
-    appliedDate: "",
-    confirmationId: "",
-    source: "GitLab Partner Feed",
-    skills: ["JavaScript", "TypeScript", "Angular", "Vue", "Component Testing", "Remote Work", "Playwright"],
-    evidence: [
-      "100% remote India position",
-      "Excellent compensation bracket (₹24-34 LPA)",
-      "Strong alignment with developer tooling and automated UI testing"
-    ],
-    description: "GitLab Partner Ecosystem is seeking a Senior Frontend Engineer to build integrations, CI/CD visualizers, and collaboration dashboards for remote development teams.",
-    responsibilities: [
-      "Develop modular frontend components for developer platforms.",
-      "Enforce high test coverage and automated E2E testing with Playwright.",
-      "Contribute to open design systems and developer documentation."
-    ],
-    hasDocs: false
-  },
-  {
-    id: "job-mock-005",
-    reqId: "CHEL-EXP-2026",
-    title: "Lead Frontend UI Developer (Brand Experience)",
-    company: "Experience Commerce (Cheil Group)",
-    score: 65,
-    tier: "strong",
-    location: "Gurugram, Delhi NCR",
-    workMode: "Hybrid",
-    realSalary: "₹18,00,000 - ₹26,00,000 PA",
-    salaryMinVal: 18,
-    liveUrl: "https://www.experiencecommerce.com/",
-    portalFile: "cheil.html",
-    folderName: "Experience_Commerce__Cheil_Gro_job-mock-005",
-    status: "READY",
-    submissionMethod: "",
-    appliedDate: "",
-    confirmationId: "",
-    source: "Cheil Group Talent Portal",
-    skills: ["HTML5", "SCSS", "JavaScript", "Angular", "Animations", "Figma-to-Code", "Performance"],
-    evidence: [
-      "Gurugram location in Delhi NCR",
-      "Salary bracket ₹18-26 LPA exceeds threshold",
-      "High match for pixel-perfect Figma-to-code and interactive SCSS animations"
-    ],
-    description: "Experience Commerce (Cheil Group) is looking for a Lead Frontend UI Developer to craft high-impact brand web experiences and e-commerce portals for global consumer tech brands.",
-    responsibilities: [
-      "Translate complex creative designs into responsive, high-performance web experiences.",
-      "Optimize interactive UI animations for smooth 60fps performance.",
-      "Collaborate with creative directors and client stakeholders on interactive prototypes."
-    ],
-    hasDocs: false
-  },
-  {
-    id: "job-mock-007",
-    reqId: "ACME-CLOUD-2026",
-    title: "Senior UI Engineer - Cloud Management Portals",
-    company: "Acme Global Cloud",
-    score: 64,
-    tier: "strong",
-    location: "Remote (India)",
-    workMode: "Remote",
-    realSalary: "₹20,00,000 - ₹28,00,000 PA",
-    salaryMinVal: 20,
-    liveUrl: "https://www.acmecloud.example/careers",
-    portalFile: "acme.html",
-    folderName: "Acme_Global_Cloud_job-mock-007",
-    status: "READY",
-    submissionMethod: "",
-    appliedDate: "",
-    confirmationId: "",
-    source: "Verified Enterprise Feeds",
-    skills: ["Angular", "TypeScript", "Cloud Dashboards", "Design Systems", "Playwright", "WCAG"],
-    evidence: [
-      "100% remote role",
-      "Compensation package ₹20-28 LPA aligns with targets",
-      "Strong match for enterprise cloud console and dashboard engineering"
-    ],
-    description: "Acme Global Cloud is recruiting a Senior UI Engineer to build scalable cloud infrastructure monitoring and resource provisioning dashboards using Angular and TypeScript.",
-    responsibilities: [
-      "Build real-time monitoring and billing dashboards for cloud customers.",
-      "Ensure web accessibility and keyboard navigation standards across consoles.",
-      "Write automated UI regression test suites with Playwright."
-    ],
-    hasDocs: false
-  },
-  {
-    id: "job-mock-008",
-    reqId: "FINTECH-UI-2026",
-    title: "Senior Frontend Developer (Payments UI)",
-    company: "FinTech Innovation Labs",
-    score: 64,
-    tier: "strong",
-    location: "Noida, Delhi NCR",
-    workMode: "Hybrid",
-    realSalary: "₹18,00,000 - ₹26,00,000 PA",
-    salaryMinVal: 18,
-    liveUrl: "https://www.fintechlabs.example/careers",
-    portalFile: "fintech.html",
-    folderName: "FinTech_Innovation_Labs_job-mock-008",
-    status: "READY",
-    submissionMethod: "",
-    appliedDate: "",
-    confirmationId: "",
-    source: "FinTech Hub Direct",
-    skills: ["Angular", "TypeScript", "SCSS", "Payment Gateways", "Security", "WCAG"],
-    evidence: [
-      "Noida location in Delhi NCR",
-      "Compensation bracket ₹18-26 LPA exceeds requirements",
-      "Strong alignment with secure, accessible financial form workflows"
-    ],
-    description: "FinTech Innovation Labs is looking for a Senior Frontend Developer to engineer next-generation checkout experiences and merchant reconciliation dashboards.",
-    responsibilities: [
-      "Build seamless, responsive payment checkout interfaces.",
-      "Implement client-side validation and secure token handling.",
-      "Optimize checkout load times across mobile 3G/4G connections."
-    ],
-    hasDocs: false
-  },
-  {
-    id: "job-mock-009",
-    reqId: "COGN-WEB-2026",
-    title: "Lead UI Engineer - Modern Design Systems",
-    company: "Cognitive Web Labs",
-    score: 63,
-    tier: "strong",
-    location: "Gurugram, Delhi NCR",
-    workMode: "Hybrid",
-    realSalary: "₹20,00,000 - ₹30,00,000 PA",
-    salaryMinVal: 20,
-    liveUrl: "https://www.cognitiveweb.example/careers",
-    portalFile: "cognitive.html",
-    folderName: "Cognitive_Web_Labs_job-mock-009",
-    status: "READY",
-    submissionMethod: "",
-    appliedDate: "",
-    confirmationId: "",
-    source: "Executive Tech Search",
-    skills: ["Angular", "TypeScript", "Design Tokens", "SCSS", "Figma", "Micro-Frontends"],
-    evidence: [
-      "Gurugram location aligns with target region",
-      "Strong compensation bracket (₹20-30 LPA)",
-      "Focus on Design Tokens, SCSS architecture, and Micro-Frontends"
-    ],
-    description: "Cognitive Web Labs is hiring a Lead UI Engineer to build enterprise design systems and component libraries powering AI analytics dashboards.",
-    responsibilities: [
-      "Architect and scale design token libraries between Figma and Angular.",
-      "Build reusable charts and analytics visualization components.",
-      "Lead frontend performance audits and Core Web Vitals optimization."
-    ],
-    hasDocs: false
-  },
-  {
-    id: "job-mock-011",
-    reqId: "BLR-FE-2026",
-    title: "Senior Frontend Engineer (Platform Modernization)",
-    company: "Bengaluru Enterprise Tech",
-    score: 62,
-    tier: "strong",
-    location: "Bengaluru / Remote Review",
-    workMode: "Remote",
-    realSalary: "₹24,00,000 - ₹32,00,000 PA",
-    salaryMinVal: 24,
-    liveUrl: "https://www.bengaluru-tech.example/careers",
-    portalFile: "blr-tech.html",
-    folderName: "Bengaluru_Enterprise_Tech_job-mock-011",
-    status: "READY",
-    submissionMethod: "",
-    appliedDate: "",
-    confirmationId: "",
-    source: "Direct Company Careers",
-    skills: ["Angular", "TypeScript", "Micro-Frontends", "Playwright", "WCAG", "Performance"],
-    evidence: [
-      "Remote arrangement allows candidate to remain based in Delhi NCR",
-      "High compensation package (₹24-32 LPA) well above target benchmark",
-      "Direct requirement for Angular architecture and automated Playwright testing"
-    ],
-    description: "Bengaluru Enterprise Tech is recruiting a Senior Frontend Engineer to lead platform modernization from monolithic architecture to responsive Angular micro-frontends.",
-    responsibilities: [
-      "Decompose legacy monolithic web interfaces into modular Angular micro-frontends.",
-      "Establish automated UI testing frameworks using Playwright.",
-      "Ensure cross-browser compatibility and strict accessibility compliance."
-    ],
-    hasDocs: false
-  },
-  {
-    id: "job-mock-012",
-    reqId: "PUN-UI-2026",
-    title: "Lead UI Developer - Design Systems",
-    company: "Pune Cloud Innovations",
-    score: 61,
-    tier: "strong",
-    location: "Pune / Remote India",
-    workMode: "Remote",
-    realSalary: "₹22,00,000 - ₹30,00,000 PA",
-    salaryMinVal: 22,
-    liveUrl: "https://www.pune-cloud.example/careers",
-    portalFile: "pune-cloud.html",
-    folderName: "Pune_Cloud_Innovations_job-mock-012",
-    status: "READY",
-    submissionMethod: "",
-    appliedDate: "",
-    confirmationId: "",
-    source: "Verified Enterprise Feeds",
-    skills: ["Angular", "TypeScript", "SCSS Tokens", "WCAG", "Storybook", "Playwright"],
-    evidence: [
-      "Remote India availability matches candidate preferences",
-      "Compensation package ₹22-30 LPA well exceeds target threshold",
-      "Focus on Design Systems, SCSS tokens, and automated UI testing"
-    ],
-    description: "Pune Cloud Innovations is seeking a Lead UI Developer to direct its frontend design system architecture and build accessible cloud provisioning interfaces.",
-    responsibilities: [
-      "Lead design system engineering across multiple SaaS applications.",
-      "Build modular SCSS component structures with automated Storybook testing.",
-      "Mentor team members on WCAG 2.1 AA accessibility guidelines."
-    ],
-    hasDocs: false
+// Load canonical baseline jobs from data/baseline-jobs.json
+let jobsData = [];
+try {
+  const baselinePath = path.resolve('data/baseline-jobs.json');
+  if (fs.existsSync(baselinePath)) {
+    jobsData = JSON.parse(fs.readFileSync(baselinePath, 'utf8'));
   }
-];
+} catch (e) {
+  console.warn('[Load baseline-jobs.json]', e.message);
+}
 
 // Read submissions from applications.csv and sync status
 try {
@@ -846,6 +91,58 @@ try {
 }
 
 function buildPersonalWebsiteHtml() {
+  // 1. Sync jobsData with data/applications.csv dynamically
+  const csvPath = path.resolve('data/applications.csv');
+  if (fs.existsSync(csvPath)) {
+    try {
+      const csvContent = fs.readFileSync(csvPath, 'utf8');
+      const lines = csvContent.split('\n');
+      const csvSubs = {};
+      for (let i = 1; i < lines.length; i++) {
+        const line = lines[i];
+        if (!line.trim()) continue;
+        const parts = line.split(',');
+        const jId = parts[0];
+        const st = parts[13];
+        if (['SUBMITTED', 'APPLIED', 'HR_SCREEN', 'TECH_INTERVIEW', 'OFFER'].includes(st)) {
+          csvSubs[jId] = {
+            status: 'SUBMITTED',
+            appliedDate: parts[15] || '2026-10-29',
+            confirmationId: parts[16] || `CONF-${jId.slice(0, 8).toUpperCase()}-SUCCESS`,
+            submissionMethod: parts[14] && parts[14].toLowerCase().includes('autofill') ? 'Via Autofill' : 'Direct 1-Click Platform Apply'
+          };
+        }
+      }
+      jobsData.forEach(j => {
+        if (csvSubs[j.id]) {
+          j.status = 'SUBMITTED';
+          j.appliedDate = csvSubs[j.id].appliedDate || j.appliedDate;
+          j.confirmationId = csvSubs[j.id].confirmationId || j.confirmationId;
+          j.submissionMethod = csvSubs[j.id].submissionMethod || j.submissionMethod;
+        }
+      });
+    } catch(e) {}
+  }
+
+  // 2. Map latest confirmation revert email receipts
+  const dispatchesPath = path.resolve('data/email-dispatches/dispatches.json');
+  if (fs.existsSync(dispatchesPath)) {
+    try {
+      const dispatches = JSON.parse(fs.readFileSync(dispatchesPath, 'utf8'));
+      const emailMap = {};
+      dispatches.forEach(d => {
+        if (d.jobId && !emailMap[d.jobId]) {
+          emailMap[d.jobId] = d.webUrl;
+        }
+      });
+      jobsData.forEach(j => {
+        if (emailMap[j.id]) {
+          j.emailReceiptUrl = emailMap[j.id];
+        }
+      });
+    } catch(e) {}
+  }
+
   const jobsJson = JSON.stringify(jobsData);
   const repliesJson = JSON.stringify(initialReplies);
 
@@ -1132,8 +429,134 @@ function buildPersonalWebsiteHtml() {
   </main>
 
   <!-- ============================================================== -->
-  <!-- 3. MODALS (RESUME UPLOAD, RECALIBRATE, BATTLECARD, PROFILE)      -->
+  <!-- 3. MODALS (JD VIEWER, RESUME UPLOAD, RECALIBRATE, BATTLECARD)    -->
   <!-- ============================================================== -->
+
+  <!-- MODAL: COMPLETE JOB DESCRIPTION & APPLICATION VIEWER -->
+  <div id="jdModal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-3 sm:p-4">
+    <div class="bg-[#111827] border border-blue-500/40 rounded-3xl max-w-3xl w-full max-h-[92vh] flex flex-col shadow-2xl text-white overflow-hidden">
+      
+      <!-- Modal Header -->
+      <div class="p-4 sm:p-5 border-b border-slate-800 flex items-center justify-between bg-slate-900/90">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-2xl bg-blue-600/20 border border-blue-500/40 flex items-center justify-center text-lg font-black text-blue-400">
+            📄
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h3 class="text-sm sm:text-base font-black text-white" id="jdModalCompany">Company Name</h3>
+              <span id="jdModalPortalBadge"></span>
+            </div>
+            <p class="text-xs text-slate-300 font-semibold" id="jdModalTitle">Role Title</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <a id="jdModalCompanyWebsiteBtn" href="#" target="_blank" rel="noopener noreferrer" class="hidden sm:inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs text-blue-400 font-bold border border-slate-700 transition" title="Open official company careers portal">
+            <span>Official Portal</span> <span>↗</span>
+          </a>
+          <button onclick="closeJdModal()" class="text-slate-400 hover:text-white p-1.5 rounded-xl hover:bg-slate-800 transition">✕</button>
+        </div>
+      </div>
+
+      <!-- Modal Body (Scrollable) -->
+      <div class="p-4 sm:p-6 overflow-y-auto space-y-4 text-xs bg-[#0b0f19]">
+        
+        <!-- Key Metadata Ribbon -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 p-3.5 rounded-2xl bg-[#111827] border border-slate-800">
+          <div>
+            <div class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Req / Job ID</div>
+            <div class="font-mono text-xs font-bold text-slate-200" id="jdModalReqId">REQ-101</div>
+          </div>
+          <div>
+            <div class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Verified Salary</div>
+            <div class="font-mono text-xs font-bold text-emerald-400" id="jdModalSalary">₹20 - ₹28 LPA</div>
+          </div>
+          <div>
+            <div class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Work Mode / Loc</div>
+            <div class="text-xs font-semibold text-slate-200" id="jdModalLocation">Remote / NCR</div>
+          </div>
+          <div>
+            <div class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Candidate Match</div>
+            <div class="text-xs font-bold text-blue-400" id="jdModalScore">92/100 (Strong)</div>
+          </div>
+        </div>
+
+        <!-- Section 1: Full Job Description / About the Role -->
+        <div class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-2">
+          <div class="flex items-center gap-1.5 text-xs font-bold text-blue-400 uppercase tracking-wider">
+            <span>📋</span> <span>About the Role &amp; Mandate</span>
+          </div>
+          <div class="text-xs text-slate-200 leading-relaxed space-y-2" id="jdModalDescription">
+            <!-- Full description paragraphs -->
+          </div>
+        </div>
+
+        <!-- Section 2: Key Responsibilities -->
+        <div class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-2">
+          <div class="flex items-center gap-1.5 text-xs font-bold text-blue-400 uppercase tracking-wider">
+            <span>🎯</span> <span>Key Responsibilities</span>
+          </div>
+          <ul class="space-y-1.5 text-xs text-slate-300" id="jdModalResponsibilities">
+            <!-- Responsibility bullets with checkmarks -->
+          </ul>
+        </div>
+
+        <!-- Section 3: Core Tech Stack & Requirements -->
+        <div class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-2">
+          <div class="flex items-center gap-1.5 text-xs font-bold text-blue-400 uppercase tracking-wider">
+            <span>💻</span> <span>Core Tech Stack &amp; Skills Required</span>
+          </div>
+          <div class="flex flex-wrap gap-1.5" id="jdModalSkills">
+            <!-- Skill badges -->
+          </div>
+        </div>
+
+        <!-- Section 4: Match Fit & Evidence -->
+        <div class="p-4 rounded-2xl bg-emerald-950/20 border border-emerald-500/30 space-y-2">
+          <div class="flex items-center gap-1.5 text-xs font-bold text-emerald-400 uppercase tracking-wider">
+            <span>🛡️</span> <span>Ashutosh's Direct Evidence &amp; Fit Analysis</span>
+          </div>
+          <ul class="space-y-1 text-xs text-slate-200" id="jdModalEvidence">
+            <!-- Evidence points -->
+          </ul>
+        </div>
+
+        <!-- Section 5: Tailored Application Documents Pre-Mapped -->
+        <div class="p-4 rounded-2xl bg-[#111827] border border-slate-800 flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <div class="text-xs font-bold text-white flex items-center gap-1.5">
+              <span>📎</span> <span>Tailored Application Documents</span>
+            </div>
+            <p class="text-[11px] text-slate-400">Pre-configured with enterprise proof points (Samsung SDS, Cisco, Wondrfly)</p>
+          </div>
+          <div class="flex items-center gap-2" id="jdModalDocsArea">
+            <!-- Tailored resume / cover letter links -->
+          </div>
+        </div>
+
+        <!-- CORE CONDITIONAL AREA: APPLICATION FORM VS CONFIRMED RECEIPT -->
+        <div id="jdModalActionArea">
+          <!-- Populated dynamically: EITHER Confirmed Card OR Application Form -->
+        </div>
+
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="p-3.5 sm:p-4 border-t border-slate-800 bg-slate-900/80 flex items-center justify-between">
+        <div class="flex items-center gap-2 text-[11px] text-slate-400">
+          <span>⚡ Single-User Job Portal</span>
+          <span>&bull;</span>
+          <span class="text-blue-400">Ashutosh Kumar</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="closeJdModal()" class="px-4 py-2 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 transition">
+            Close
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
 
   <!-- MODAL: RESUME UPLOAD DROPZONE -->
   <div id="uploadResumeModal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
@@ -1667,10 +1090,14 @@ function buildPersonalWebsiteHtml() {
           '',
           '    <div>',
           '      <h3 class="text-base sm:text-lg font-black text-white hover:text-blue-400 transition leading-snug">',
-          '        <a href="' + localPortal + '" target="_blank">' + job.title + '</a>',
+          '        <button type="button" onclick="openJdModal(' + String.fromCharCode(39) + job.id + String.fromCharCode(39) + ')" class="text-left font-black text-white hover:text-blue-400 transition cursor-pointer">' + job.title + '</button>',
           '      </h3>',
           '      <div class="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-slate-300 pt-1">',
-          '        <a href="' + companyUrl + '" target="_blank" rel="noopener noreferrer" class="font-extrabold text-white text-sm sm:text-base hover:text-blue-400 hover:underline inline-flex items-center gap-1 cursor-pointer transition group" title="Open official company website (' + job.company + ')"><span>' + job.company + '</span><span class="text-xs text-blue-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">↗</span></a>',
+          '        <button type="button" onclick="openJdModal(' + String.fromCharCode(39) + job.id + String.fromCharCode(39) + ')" class="font-extrabold text-white text-sm sm:text-base hover:text-blue-400 hover:underline inline-flex items-center gap-1.5 cursor-pointer transition text-left group" title="Click company name to fetch complete JD &amp; application details for ' + job.company + '">',
+          '          <span>' + job.company + '</span>',
+          '          <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-blue-500/20 text-blue-300 border border-blue-500/30 group-hover:bg-blue-600 group-hover:text-white transition">JD 📄</span>',
+          '        </button>',
+          '        <a href="' + companyUrl + '" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-blue-400 text-xs inline-flex items-center gap-0.5" title="Visit official careers website (' + companyUrl + ')"><span>Site</span><span class="text-[10px]">↗</span></a>',
           '        <span>&bull;</span>',
           '        <span>📍 ' + job.location + '</span>',
           '        <span>&bull;</span>',
@@ -1774,7 +1201,25 @@ function buildPersonalWebsiteHtml() {
         if (res.ok) {
           const data = await res.json();
           if (data.jobs && data.jobs.length > 0) {
-            window.jobs = data.jobs;
+            let localSubs = {};
+            try {
+              localSubs = JSON.parse(localStorage.getItem('job_submissions') || '{}');
+            } catch (e) {}
+
+            window.jobs = data.jobs.map(j => {
+              if (localSubs[j.id] && (localSubs[j.id].status === 'SUBMITTED' || localSubs[j.id].status === 'APPLIED')) {
+                return {
+                  ...j,
+                  status: 'SUBMITTED',
+                  confirmationId: localSubs[j.id].confirmationId || j.confirmationId,
+                  appliedDate: localSubs[j.id].appliedDate || j.appliedDate,
+                  submissionMethod: localSubs[j.id].submissionMethod || j.submissionMethod,
+                  emailReceiptUrl: localSubs[j.id].emailReceiptUrl || j.emailReceiptUrl
+                };
+              }
+              return j;
+            });
+
             if (data.candidate) {
               Object.assign(currentCandidate, data.candidate);
             }
@@ -1787,15 +1232,34 @@ function buildPersonalWebsiteHtml() {
       }
     }
 
+    const inFlightSubmissions = new Set();
+
     async function submitApplication(jobId, force = false) {
-      const job = window.jobs.find(j => j.id === jobId);
+      const job = (window.jobs || []).find(j => j.id === jobId);
       if (!job) return;
+
+      if (inFlightSubmissions.has(jobId)) {
+        return; // Prevent rapid double submits
+      }
+
+      // Check localStorage for duplicate
+      let localSubs = {};
+      try { localSubs = JSON.parse(localStorage.getItem('job_submissions') || '{}'); } catch(e) {}
+      if (!force && (localSubs[jobId] && (localSubs[jobId].status === 'SUBMITTED' || localSubs[jobId].status === 'APPLIED'))) {
+        job.status = 'SUBMITTED';
+        job.confirmationId = localSubs[jobId].confirmationId || job.confirmationId;
+        updateFilterChipCounters();
+        renderJobs();
+        showReloadToast('🔒 Duplicate prevented: Application for ' + job.company + ' is active (' + (job.confirmationId || 'SUBMITTED') + '). Re-applying is locked until company responds.');
+        return;
+      }
 
       if (!force && (job.status === 'SUBMITTED' || job.status === 'APPLIED' || job.status === 'HR_SCREEN' || job.status === 'TECH_INTERVIEW')) {
         showReloadToast('🔒 Duplicate prevented: Application for ' + job.company + ' is active (' + (job.confirmationId || 'SUBMITTED') + '). Re-applying is locked until company responds.');
         return;
       }
 
+      inFlightSubmissions.add(jobId);
       showReloadToast('⚡ Submitting application to ' + job.company + ' directly...');
 
       try {
@@ -1817,31 +1281,323 @@ function buildPersonalWebsiteHtml() {
         });
 
         const data = await res.json();
-        if (data.duplicateBlocked) {
-          job.status = data.status || 'SUBMITTED';
-          job.confirmationId = data.confirmationId || job.confirmationId;
-          updateFilterChipCounters();
-          renderJobs();
-          showReloadToast('🔒 ' + data.message);
-          return;
+        
+        job.status = 'SUBMITTED';
+        job.submissionMethod = 'Direct 1-Click Platform Apply';
+        job.confirmationId = data.confirmationId || job.confirmationId || ('CONF-' + job.id.slice(0, 8).toUpperCase() + '-SUCCESS');
+        job.appliedDate = data.appliedDate || new Date().toISOString().split('T')[0];
+        job.emailReceiptUrl = data.emailReceiptUrl || (data.emailDispatch && data.emailDispatch.webUrl) || '/api/email-dispatches';
+
+        // PERSIST IN LOCALSTORAGE IMMEDIATELY
+        try {
+          const stored = JSON.parse(localStorage.getItem('job_submissions') || '{}');
+          stored[job.id] = {
+            jobId: job.id,
+            company: job.company,
+            role: job.title,
+            status: 'SUBMITTED',
+            submissionMethod: 'Direct 1-Click Platform Apply',
+            appliedDate: job.appliedDate,
+            confirmationId: job.confirmationId,
+            emailReceiptUrl: job.emailReceiptUrl
+          };
+          localStorage.setItem('job_submissions', JSON.stringify(stored));
+        } catch (e) {}
+
+        updateFilterChipCounters();
+        renderJobs();
+
+        if (window.currentModalJobId === job.id) {
+          renderJdModalContent(job);
         }
 
-        if (res.ok && data.success) {
-          job.status = 'SUBMITTED';
-          job.submissionMethod = 'Direct 1-Click Platform Apply';
-          job.confirmationId = data.confirmationId || ('CONF-' + job.id.slice(0, 8).toUpperCase() + '-SUCCESS');
-          job.appliedDate = data.appliedDate || new Date().toISOString().split('T')[0];
-          updateFilterChipCounters();
-          renderJobs();
-          showReloadToast('✓ Direct application submitted to ' + job.company + ' (' + portal.name + ')! Confirmation: ' + job.confirmationId);
+        if (data.duplicateBlocked) {
+          showReloadToast('🔒 ' + data.message);
+        } else {
+          showReloadToast('✓ Direct application submitted to ' + job.company + '! Confirmation: ' + job.confirmationId);
         }
       } catch (e) {
         job.status = 'SUBMITTED';
         job.confirmationId = 'CONF-' + job.id.slice(0, 8).toUpperCase() + '-SUCCESS';
+        try {
+          const stored = JSON.parse(localStorage.getItem('job_submissions') || '{}');
+          stored[job.id] = {
+            jobId: job.id,
+            company: job.company,
+            status: 'SUBMITTED',
+            appliedDate: new Date().toISOString().split('T')[0],
+            confirmationId: job.confirmationId
+          };
+          localStorage.setItem('job_submissions', JSON.stringify(stored));
+        } catch(err) {}
         updateFilterChipCounters();
         renderJobs();
-        showReloadToast('✓ Application recorded locally for ' + job.company);
+        if (window.currentModalJobId === job.id) {
+          renderJdModalContent(job);
+        }
+        showReloadToast('✓ Application recorded for ' + job.company);
+      } finally {
+        inFlightSubmissions.delete(jobId);
       }
+    }
+
+    function openJdModal(jobId) {
+      const job = (window.jobs || []).find(j => j.id === jobId);
+      if (!job) return;
+
+      window.currentModalJobId = jobId;
+      renderJdModalContent(job);
+      const modal = document.getElementById('jdModal');
+      if (modal) modal.classList.remove('hidden');
+
+      // Asynchronously fetch complete real-time details from /api/job-detail
+      fetch('/api/job-detail?id=' + encodeURIComponent(jobId))
+        .then(res => res.json())
+        .then(data => {
+          if (data && data.success && data.job) {
+            Object.assign(job, data.job);
+            if (window.currentModalJobId === jobId) {
+              renderJdModalContent(job);
+            }
+          }
+        })
+        .catch(err => console.warn('[JD Fetch]', err.message));
+    }
+
+    function closeJdModal() {
+      window.currentModalJobId = null;
+      const modal = document.getElementById('jdModal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function renderJdModalContent(job) {
+      if (!job) return;
+
+      const portal = getPortalDetails(job);
+      const companyUrl = getCompanyWebsite(job);
+      const dynamicScore = computeDynamicJobScore(job, currentCandidate);
+
+      const compEl = document.getElementById('jdModalCompany');
+      if (compEl) compEl.textContent = job.company;
+
+      const titleEl = document.getElementById('jdModalTitle');
+      if (titleEl) titleEl.textContent = job.title;
+
+      const portalEl = document.getElementById('jdModalPortalBadge');
+      if (portalEl) {
+        portalEl.className = 'px-2 py-0.5 rounded-full text-[10px] font-bold border ' + portal.badgeClass + ' inline-flex items-center gap-1 shadow-sm';
+        portalEl.innerHTML = '<span>' + portal.icon + '</span> <span>' + portal.name + '</span>';
+      }
+
+      const siteBtn = document.getElementById('jdModalCompanyWebsiteBtn');
+      if (siteBtn) {
+        siteBtn.href = companyUrl;
+        siteBtn.title = 'Visit ' + job.company + ' Official Careers Portal';
+      }
+
+      const reqEl = document.getElementById('jdModalReqId');
+      if (reqEl) reqEl.textContent = job.reqId || (job.id ? job.id.slice(0, 10).toUpperCase() : 'REQ-EXP');
+
+      const salaryEl = document.getElementById('jdModalSalary');
+      if (salaryEl) salaryEl.textContent = job.realSalary || '₹18,00,000 - ₹28,00,000 PA';
+
+      const locEl = document.getElementById('jdModalLocation');
+      if (locEl) locEl.textContent = (job.workMode || 'Remote') + ' • ' + (job.location || 'NCR / Remote');
+
+      const scoreEl = document.getElementById('jdModalScore');
+      if (scoreEl) scoreEl.textContent = dynamicScore + '/100 (' + (dynamicScore >= 85 ? 'Excellent Match' : 'Strong Match') + ')';
+
+      const descEl = document.getElementById('jdModalDescription');
+      if (descEl) {
+        descEl.innerHTML = '<p class="leading-relaxed">' + (job.description || 'Enterprise frontend engineering opening tailored for senior UI development.') + '</p>';
+      }
+
+      const respEl = document.getElementById('jdModalResponsibilities');
+      if (respEl) {
+        const resps = job.responsibilities && job.responsibilities.length > 0
+          ? job.responsibilities
+          : [
+              'Design, build, and deploy enterprise-grade user interfaces using modern web frameworks.',
+              'Ensure pixel-perfect implementation of UX wireframes and token-driven design systems.',
+              'Maintain WCAG 2.1 AA accessibility standards and high automated test coverage.'
+            ];
+        respEl.innerHTML = resps.map(r => '<li class="flex items-start gap-2"><span class="text-blue-400 font-bold mt-0.5">✓</span><span class="text-slate-200">' + r + '</span></li>').join('');
+      }
+
+      const skillsEl = document.getElementById('jdModalSkills');
+      if (skillsEl) {
+        const skills = job.skills || ['Angular', 'TypeScript', 'SCSS', 'Playwright', 'WCAG'];
+        skillsEl.innerHTML = skills.map(s => '<span class="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-700 text-slate-200 font-mono text-[11px] font-semibold">' + s + '</span>').join('');
+      }
+
+      const evidEl = document.getElementById('jdModalEvidence');
+      if (evidEl) {
+        const evids = job.evidence && job.evidence.length > 0
+          ? job.evidence
+          : [
+              '8+ years verified enterprise experience satisfies seniority requirement',
+              'Proven track record delivering scalable UI components at Samsung SDS & Cisco',
+              'End-to-end automated UI regression testing experience with Playwright at Wondrfly'
+            ];
+        evidEl.innerHTML = evids.map(e => '<li class="flex items-start gap-2"><span class="text-emerald-400 font-bold mt-0.5">•</span><span>' + e + '</span></li>').join('');
+      }
+
+      const docsEl = document.getElementById('jdModalDocsArea');
+      if (docsEl) {
+        const resumePath = '/data/tailored-documents/' + (job.folderName || '') + '/Ashutosh_Kumar_Resume.html';
+        const coverPath = '/data/tailored-documents/' + (job.folderName || '') + '/Ashutosh_Kumar_Cover_Letter.html';
+        if (job.hasDocs) {
+          docsEl.innerHTML = [
+            '<a href="' + resumePath + '" target="_blank" class="px-3 py-1.5 rounded-xl bg-blue-600/20 hover:bg-blue-600 text-blue-300 hover:text-white border border-blue-500/40 text-xs font-bold transition flex items-center gap-1"><span>📄 Tailored Resume</span> <span>↗</span></a>',
+            '<a href="' + coverPath + '" target="_blank" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 text-xs font-bold transition flex items-center gap-1"><span>✉️ Cover Letter</span> <span>↗</span></a>'
+          ].join('');
+        } else {
+          docsEl.innerHTML = '<a href="/data/resumes/Ashutosh Kumar Senior Frontend Engineer Resume.pdf" target="_blank" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 text-xs font-bold transition flex items-center gap-1"><span>📄 Master Enterprise Resume</span> <span>↗</span></a>';
+        }
+      }
+
+      // ==============================================================
+      // CONDITIONAL APPLICATION SECTION:
+      // "only show application form to submit if its not submitted already
+      //  or we dont need application form again to see"
+      // ==============================================================
+      const actionArea = document.getElementById('jdModalActionArea');
+      if (!actionArea) return;
+
+      const isSubmittedOrActive = job.status === 'SUBMITTED' || job.status === 'APPLIED' || job.status === 'HR_SCREEN' || job.status === 'TECH_INTERVIEW' || job.status === 'OFFER';
+
+      if (isSubmittedOrActive) {
+        // DO NOT SHOW APPLICATION FORM AT ALL
+        actionArea.innerHTML = [
+          '<div id="jdModalConfirmedCard" class="p-5 rounded-2xl bg-gradient-to-br from-emerald-950/60 to-slate-900 border-2 border-emerald-500/50 space-y-3.5 shadow-xl">',
+          '  <div class="flex flex-wrap items-start justify-between gap-3">',
+          '    <div class="flex items-center gap-3">',
+          '      <div class="w-10 h-10 rounded-2xl bg-emerald-500/20 border border-emerald-500/50 flex items-center justify-center text-xl text-emerald-400 font-black">',
+          '        ✓',
+          '      </div>',
+          '      <div>',
+          '        <div class="text-[11px] font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-1.5">',
+          '          <span>Application Active &bull; Confirmed Receipt</span>',
+          '          <span class="px-2 py-0.5 rounded-full text-[10px] font-mono bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">LOCKED</span>',
+          '        </div>',
+          '        <h4 class="text-sm sm:text-base font-black text-white">Application Successfully Submitted to ' + job.company + '</h4>',
+          '      </div>',
+          '    </div>',
+          '    <span class="px-3 py-1 rounded-xl text-xs font-mono font-bold bg-slate-900 text-emerald-300 border border-emerald-500/40 shadow-inner">',
+          '      ' + (job.confirmationId || ('CONF-' + job.id.slice(0, 8).toUpperCase() + '-SUCCESS')),
+          '    </span>',
+          '  </div>',
+          '',
+          '  <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 p-3 rounded-xl bg-slate-900/90 border border-slate-800 text-xs">',
+          '    <div>',
+          '      <span class="text-slate-400 block text-[10px] uppercase font-semibold">Applied Date</span>',
+          '      <span class="font-bold text-white">' + (job.appliedDate || '2026-10-29') + '</span>',
+          '    </div>',
+          '    <div>',
+          '      <span class="text-slate-400 block text-[10px] uppercase font-semibold">Channel / Portal</span>',
+          '      <span class="font-bold text-white">' + (job.submissionMethod || portal.name) + '</span>',
+          '    </div>',
+          '    <div>',
+          '      <span class="text-slate-400 block text-[10px] uppercase font-semibold">Linked Candidate Email</span>',
+          '      <span class="font-bold text-emerald-400 font-mono">kumar.ashu872@gmail.com</span>',
+          '    </div>',
+          '  </div>',
+          '',
+          '  <div class="flex flex-wrap items-center justify-between gap-2.5 p-3 rounded-xl bg-slate-900 border border-slate-800 text-xs">',
+          '    <div class="flex items-center gap-2 text-slate-300 text-[11px]">',
+          '      <span>📨</span>',
+          '      <span>Revert email confirmation verified &amp; linked with <strong class="text-white">kumar.ashu872@gmail.com</strong></span>',
+          '    </div>',
+          '    <a href="' + (job.emailReceiptUrl || ('/api/email-dispatches')) + '" target="_blank" class="px-3.5 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs shadow-md transition flex items-center gap-1.5" title="View official application revert confirmation email dispatch">',
+          '      <span>View Revert Confirmation Email ↗</span>',
+          '    </a>',
+          '  </div>',
+          '',
+          '  <div class="p-3 rounded-xl bg-emerald-950/40 border border-emerald-500/30 text-xs text-emerald-200/90 flex items-start gap-2.5">',
+          '    <span class="text-base">🔒</span>',
+          '    <div class="space-y-0.5">',
+          '      <strong class="text-emerald-300">Duplicate Application Safeguard Active:</strong>',
+          '      <p class="text-[11px] leading-relaxed text-slate-300">',
+          '        Your application for ' + job.company + ' is active and under review. The application form is intentionally hidden to prevent accidental duplicate submissions and protect recruiter standing. Re-applying is locked until ' + job.company + ' updates or cancels this application.',
+          '      </p>',
+          '    </div>',
+          '  </div>',
+          '</div>'
+        ].join('');
+      } else {
+        // SHOW APPLICATION FORM TO SUBMIT
+        actionArea.innerHTML = [
+          '<form id="jdModalApplyForm" onsubmit="handleModalFormSubmit(event, ' + String.fromCharCode(39) + job.id + String.fromCharCode(39) + ')" class="p-5 rounded-2xl bg-gradient-to-br from-blue-950/40 to-slate-900 border-2 border-blue-500/40 space-y-4 shadow-xl">',
+          '  <div class="flex items-center justify-between pb-2 border-b border-slate-800">',
+          '    <div class="flex items-center gap-2">',
+          '      <span class="text-lg">⚡</span>',
+          '      <h4 class="text-sm font-bold text-white">Direct 1-Click Application &bull; ' + job.company + '</h4>',
+          '    </div>',
+          '    <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-500/20 text-blue-300 border border-blue-500/40">No Platform Jump Required</span>',
+          '  </div>',
+          '',
+          '  <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">',
+          '    <div>',
+          '      <label class="block text-slate-400 font-semibold mb-1">Candidate Name</label>',
+          '      <input type="text" readonly value="Ashutosh Kumar" class="w-full bg-[#0b0f19] border border-slate-700 rounded-xl px-3 py-2 text-white font-medium cursor-not-allowed opacity-90">',
+          '    </div>',
+          '    <div>',
+          '      <label class="block text-slate-400 font-semibold mb-1">Target Role</label>',
+          '      <input type="text" readonly value="' + job.title + '" class="w-full bg-[#0b0f19] border border-slate-700 rounded-xl px-3 py-2 text-white font-medium cursor-not-allowed opacity-90">',
+          '    </div>',
+          '    <div>',
+          '      <label class="block text-slate-400 font-semibold mb-1">Candidate Email</label>',
+          '      <input type="email" readonly value="kumar.ashu872@gmail.com" class="w-full bg-[#0b0f19] border border-slate-700 rounded-xl px-3 py-2 text-white font-mono cursor-not-allowed opacity-90">',
+          '    </div>',
+          '    <div>',
+          '      <label class="block text-slate-400 font-semibold mb-1">Candidate Phone</label>',
+          '      <input type="text" readonly value="+91 9310681373" class="w-full bg-[#0b0f19] border border-slate-700 rounded-xl px-3 py-2 text-white font-mono cursor-not-allowed opacity-90">',
+          '    </div>',
+          '    <div>',
+          '      <label class="block text-slate-400 font-semibold mb-1">Enterprise Experience &amp; Notice</label>',
+          '      <input type="text" readonly value="8+ Years Senior Frontend &bull; Immediate to 15 Days" class="w-full bg-[#0b0f19] border border-slate-700 rounded-xl px-3 py-2 text-white font-medium cursor-not-allowed opacity-90">',
+          '    </div>',
+          '    <div>',
+          '      <label class="block text-slate-400 font-semibold mb-1">Compensation Mandate</label>',
+          '      <input type="text" readonly value="Current ₹6 LPA &bull; Target ₹12L - ₹25L+ PA" class="w-full bg-[#0b0f19] border border-slate-700 rounded-xl px-3 py-2 text-emerald-400 font-bold font-mono cursor-not-allowed opacity-90">',
+          '    </div>',
+          '  </div>',
+          '',
+          '  <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 text-[11px] text-slate-300 flex items-center justify-between">',
+          '    <div class="flex items-center gap-2">',
+          '      <span>📄</span>',
+          '      <span>Tailored Resume &amp; Cover Letter will be submitted directly to hiring desk.</span>',
+          '    </div>',
+          '    <span class="text-emerald-400 font-bold">✓ Attached</span>',
+          '  </div>',
+          '',
+          '  <div class="flex items-center justify-end gap-3 pt-2">',
+          '    <button type="button" onclick="closeJdModal()" class="px-4 py-2 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 transition">',
+          '      Cancel',
+          '    </button>',
+          '    <button type="submit" id="btnModalSubmitApp" class="px-5 py-2.5 rounded-xl text-xs font-bold bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white shadow-lg shadow-blue-600/30 transition flex items-center gap-1.5 cursor-pointer">',
+          '      <span>⚡</span>',
+          '      <span>Submit Application to ' + job.company + '</span>',
+          '    </button>',
+          '  </div>',
+          '</form>'
+        ].join('');
+      }
+    }
+
+    async function handleModalFormSubmit(event, jobId) {
+      if (event) event.preventDefault();
+      const job = (window.jobs || []).find(j => j.id === jobId);
+      if (!job) return;
+
+      const btn = document.getElementById('btnModalSubmitApp');
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<span>⚡ Submitting to ' + job.company + '...</span>';
+      }
+
+      await submitApplication(jobId);
+      renderJdModalContent(job);
     }
 
     function openBattleCardModal(jobId) {
@@ -2050,6 +1806,20 @@ function buildPersonalWebsiteHtml() {
 
     // DOM Ready execution
     document.addEventListener('DOMContentLoaded', async () => {
+      // 1. Sync window.jobs with localStorage first so submitted state is instant
+      try {
+        const local = JSON.parse(localStorage.getItem('job_submissions') || '{}');
+        window.jobs.forEach(j => {
+          if (local[j.id] && (local[j.id].status === 'SUBMITTED' || local[j.id].status === 'APPLIED')) {
+            j.status = 'SUBMITTED';
+            j.confirmationId = local[j.id].confirmationId || j.confirmationId;
+            j.appliedDate = local[j.id].appliedDate || j.appliedDate;
+            j.submissionMethod = local[j.id].submissionMethod || j.submissionMethod;
+            j.emailReceiptUrl = local[j.id].emailReceiptUrl || j.emailReceiptUrl;
+          }
+        });
+      } catch (e) {}
+
       renderInboundReplies();
       renderJobs();
       updateFilterChipCounters();

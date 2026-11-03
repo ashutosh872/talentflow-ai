@@ -4,6 +4,69 @@ import * as path from 'path';
 const BASELINE_PATH = path.resolve('data/baseline-jobs.json');
 const GENERATED_PATH = path.resolve('data/generated-jobs.json');
 const CANDIDATES_PATH = path.resolve('data/candidates.json');
+const CSV_PATH = path.resolve('data/applications.csv');
+
+function parseCsvLine(line) {
+  const result = [];
+  let cur = '';
+  let inQuotes = false;
+  for (let i = 0; i < line.length; i++) {
+    const c = line[i];
+    if (c === '"') {
+      if (inQuotes && line[i + 1] === '"') {
+        cur += '"';
+        i++;
+      } else {
+        inQuotes = !inQuotes;
+      }
+    } else if (c === ',' && !inQuotes) {
+      result.push(cur);
+      cur = '';
+    } else {
+      cur += c;
+    }
+  }
+  result.push(cur);
+  return result;
+}
+
+function loadCsvSubmissions() {
+  if (!fs.existsSync(CSV_PATH)) return {};
+  try {
+    const content = fs.readFileSync(CSV_PATH, 'utf8');
+    const lines = content.split('\n');
+    const subs = {};
+    for (let i = 1; i < lines.length; i++) {
+      const line = lines[i];
+      if (!line.trim()) continue;
+      const cells = parseCsvLine(line);
+      const jobId = cells[0];
+      const status = cells[13];
+      const nextAction = cells[14] || '';
+      const appliedDate = cells[15] || '';
+      const confirmationId = cells[16] || '';
+      const notes = cells[17] || '';
+      const validStages = ['SUBMITTED', 'APPLIED', 'HR_SCREEN', 'TECH_INTERVIEW', 'SYSTEM_DESIGN', 'OFFER'];
+      if (validStages.includes(status)) {
+        let method = 'Via Opening Portal';
+        if (nextAction.toLowerCase().includes('autofill') || notes.toLowerCase().includes('autofill')) {
+          method = 'Via Autofill';
+        } else if (nextAction.toLowerCase().includes('platform') || notes.toLowerCase().includes('platform') || nextAction.toLowerCase().includes('1-click')) {
+          method = 'Direct 1-Click Platform Apply';
+        }
+        subs[jobId] = {
+          status: status || 'SUBMITTED',
+          confirmationId: confirmationId || `CONF-${jobId.slice(0, 8).toUpperCase()}-SUCCESS`,
+          appliedDate: appliedDate || '2026-10-29',
+          submissionMethod: method
+        };
+      }
+    }
+    return subs;
+  } catch (e) {
+    return {};
+  }
+}
 
 // Helper to load candidates
 function loadCandidates() {
@@ -279,6 +342,24 @@ export function generateFreshJobsForCandidate(candidateId) {
     generatedAt: new Date().toISOString()
   });
 
+  // Preserve any previously submitted applications so they NEVER regenerate as ready/unsubmitted
+  const existingGenerated = store[candidate.id] || [];
+  const submittedMap = {};
+  existingGenerated.forEach(j => {
+    if (j.status === 'SUBMITTED' || j.status === 'APPLIED') {
+      submittedMap[j.id] = j;
+    }
+  });
+
+  newOpportunities.forEach(j => {
+    if (submittedMap[j.id]) {
+      j.status = 'SUBMITTED';
+      j.confirmationId = submittedMap[j.id].confirmationId;
+      j.appliedDate = submittedMap[j.id].appliedDate;
+      j.submissionMethod = submittedMap[j.id].submissionMethod;
+    }
+  });
+
   // Save to generated store
   store[candidate.id] = newOpportunities;
   saveGeneratedJobsStore(store);
@@ -312,13 +393,23 @@ export function getDynamicJobsForCandidate(candidateId) {
     generated = generateFreshJobsForCandidate(candidateId);
   }
 
-  // 4. Combine and re-score dynamically
+  // Load verified CSV submissions to permanently freeze submitted openings
+  const csvSubs = loadCsvSubmissions();
+
+  // 4. Combine and re-score dynamically with persistent submission lock
   const allJobs = [...baselineJobs, ...generated].map(job => {
     const dynamicScore = computeDynamicScore(job, candidate);
+    const sub = csvSubs[job.id];
+    const isSubmitted = !!sub || job.status === 'SUBMITTED' || job.status === 'APPLIED';
+
     return {
       ...job,
       score: dynamicScore,
-      tier: dynamicScore >= 88 ? 'excellent' : (dynamicScore >= 75 ? 'strong' : 'moderate')
+      tier: dynamicScore >= 88 ? 'excellent' : (dynamicScore >= 75 ? 'strong' : 'moderate'),
+      status: isSubmitted ? (sub?.status || 'SUBMITTED') : job.status,
+      confirmationId: isSubmitted ? (sub?.confirmationId || job.confirmationId || `CONF-${job.id.slice(0, 8).toUpperCase()}-SUCCESS`) : job.confirmationId,
+      appliedDate: isSubmitted ? (sub?.appliedDate || job.appliedDate || '2026-10-29') : job.appliedDate,
+      submissionMethod: isSubmitted ? (sub?.submissionMethod || job.submissionMethod || 'Direct 1-Click Platform Apply') : job.submissionMethod
     };
   });
 

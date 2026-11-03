@@ -654,8 +654,8 @@
     "liveUrl": "https://about.gitlab.com/jobs/",
     "portalFile": "gitlab.html",
     "folderName": "GitLab_Partner_Ecosystem_job-mock-004",
-    "status": "DISCOVERED",
-    "submissionMethod": null,
+    "status": "SUBMITTED",
+    "submissionMethod": "Direct 1-Click Platform Apply",
     "source": "GitLab Partner Careers",
     "skills": [
       "Vue.js / Angular",
@@ -676,7 +676,9 @@
       "Collaborate asynchronously with global distributed engineering teams.",
       "Ensure web performance, accessibility, and high unit test coverage."
     ],
-    "hasDocs": true
+    "hasDocs": true,
+    "appliedDate": "2026-11-03",
+    "confirmationId": "CONF-JOB-MOCK-SUCCESS"
   },
   {
     "id": "job-mock-005",
@@ -771,8 +773,8 @@
     "liveUrl": "https://remoteok.com/",
     "portalFile": "acme-global.html",
     "folderName": "Acme_Global_Cloud_job-mock-007",
-    "status": "DISCOVERED",
-    "submissionMethod": null,
+    "status": "SUBMITTED",
+    "submissionMethod": "Direct 1-Click Platform Apply",
     "source": "RemoteOK International",
     "skills": [
       "JavaScript",
@@ -794,7 +796,9 @@
       "Deliver responsive, accessible cloud management screens from Figma wireframes.",
       "Optimize data-dense layouts for sub-second visual rendering."
     ],
-    "hasDocs": true
+    "hasDocs": true,
+    "appliedDate": "2026-11-03",
+    "confirmationId": "CONF-JOB-MOCK-SUCCESS"
   },
   {
     "id": "job-mock-008",
@@ -810,8 +814,8 @@
     "liveUrl": "https://mindrops.com/",
     "portalFile": "mindrops.html",
     "folderName": "Mindrops_Digital_Studio_job-mock-008",
-    "status": "DISCOVERED",
-    "submissionMethod": null,
+    "status": "SUBMITTED",
+    "submissionMethod": "Direct 1-Click Platform Apply",
     "source": "Digital Studio Direct",
     "skills": [
       "WordPress Custom Themes",
@@ -833,7 +837,9 @@
       "Ensure pixel-perfect rendering across iOS, Android, macOS, and Windows.",
       "Optimize core web vitals and cross-browser consistency."
     ],
-    "hasDocs": true
+    "hasDocs": true,
+    "appliedDate": "2026-11-03",
+    "confirmationId": "CONF-JOB-MOCK-SUCCESS"
   },
   {
     "id": "remoteok-1137562",
@@ -849,10 +855,10 @@
     "liveUrl": "https://remoteOK.com/remote-jobs/remote-senior-frontend-engineer-b2spin-1137562",
     "portalFile": null,
     "folderName": "B2spin_remoteok-1137562",
-    "status": "MANUAL_REVIEW_NEEDED",
-    "submissionMethod": null,
-    "appliedDate": "",
-    "confirmationId": "",
+    "status": "SUBMITTED",
+    "submissionMethod": "Direct 1-Click Platform Apply",
+    "appliedDate": "2026-11-03",
+    "confirmationId": "CONF-REMOTEOK-SUCCESS",
     "source": "RemoteOK API",
     "skills": [
       "front end",

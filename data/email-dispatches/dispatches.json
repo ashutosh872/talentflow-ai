@@ -1,5 +1,78 @@
 [
   {
+    "emailId": "EML-CONF-REMOTEOK-SUCCESS-MW0IU13S",
+    "confirmationId": "CONF-REMOTEOK-SUCCESS",
+    "jobId": "remoteok-1137562",
+    "company": "B2spin",
+    "role": "Senior Frontend Engineer",
+    "vacancyPortal": "Direct Enterprise ATS",
+    "submissionMethod": "Direct 1-Click Platform Apply",
+    "recipientEmail": "kumar.ashu872@gmail.com",
+    "subject": "Application Confirmation: Senior Frontend Engineer at B2spin [CONF-REMOTEOK-SUCCESS]",
+    "timestamp": "Tuesday, November 3, 2026 at 3:34:39 PM (IST)",
+    "mode": "LOCAL_TRANSACTIONAL_RECEIPT",
+    "htmlFileName": "EML-CONF-REMOTEOK-SUCCESS-MW0IU13S.html",
+    "webUrl": "/data/email-dispatches/EML-CONF-REMOTEOK-SUCCESS-MW0IU13S.html",
+    "attachments": []
+  },
+  {
+    "emailId": "EML-CONF-JOB-MOCK-SUCCESS-MW0ISEUY",
+    "confirmationId": "CONF-JOB-MOCK-SUCCESS",
+    "jobId": "job-mock-008",
+    "company": "Mindrops Digital Studio",
+    "role": "Senior WordPress & Frontend Developer",
+    "vacancyPortal": "Direct Enterprise ATS",
+    "submissionMethod": "Direct 1-Click Platform Apply",
+    "recipientEmail": "kumar.ashu872@gmail.com",
+    "subject": "Application Confirmation: Senior WordPress & Frontend Developer at Mindrops Digital Studio [CONF-JOB-MOCK-SUCCESS]",
+    "timestamp": "Tuesday, November 3, 2026 at 3:33:23 PM (IST)",
+    "mode": "LOCAL_TRANSACTIONAL_RECEIPT",
+    "htmlFileName": "EML-CONF-JOB-MOCK-SUCCESS-MW0ISEUY.html",
+    "webUrl": "/data/email-dispatches/EML-CONF-JOB-MOCK-SUCCESS-MW0ISEUY.html",
+    "attachments": [
+      "Ashutosh_Kumar_Resume.pdf",
+      "Ashutosh_Kumar_Cover_Letter.pdf"
+    ]
+  },
+  {
+    "emailId": "EML-CONF-JOB-MOCK-SUCCESS-MVZYOCMT",
+    "confirmationId": "CONF-JOB-MOCK-SUCCESS",
+    "jobId": "job-mock-007",
+    "company": "Acme Global Cloud",
+    "role": "Frontend UI Engineer (Design Systems)",
+    "vacancyPortal": "Direct Enterprise ATS",
+    "submissionMethod": "Direct 1-Click Platform Apply",
+    "recipientEmail": "kumar.ashu872@gmail.com",
+    "subject": "Application Confirmation: Frontend UI Engineer (Design Systems) at Acme Global Cloud [CONF-JOB-MOCK-SUCCESS]",
+    "timestamp": "Tuesday, November 3, 2026 at 6:10:21 AM (IST)",
+    "mode": "LOCAL_TRANSACTIONAL_RECEIPT",
+    "htmlFileName": "EML-CONF-JOB-MOCK-SUCCESS-MVZYOCMT.html",
+    "webUrl": "/data/email-dispatches/EML-CONF-JOB-MOCK-SUCCESS-MVZYOCMT.html",
+    "attachments": [
+      "Ashutosh_Kumar_Resume.pdf",
+      "Ashutosh_Kumar_Cover_Letter.pdf"
+    ]
+  },
+  {
+    "emailId": "EML-CONF-JOB-MOCK-SUCCESS-MVZYNLK5",
+    "confirmationId": "CONF-JOB-MOCK-SUCCESS",
+    "jobId": "job-mock-004",
+    "company": "GitLab Partner Ecosystem",
+    "role": "Senior Frontend Developer (Remote India)",
+    "vacancyPortal": "Direct Enterprise ATS",
+    "submissionMethod": "Direct 1-Click Platform Apply",
+    "recipientEmail": "kumar.ashu872@gmail.com",
+    "subject": "Application Confirmation: Senior Frontend Developer (Remote India) at GitLab Partner Ecosystem [CONF-JOB-MOCK-SUCCESS]",
+    "timestamp": "Tuesday, November 3, 2026 at 6:09:46 AM (IST)",
+    "mode": "LOCAL_TRANSACTIONAL_RECEIPT",
+    "htmlFileName": "EML-CONF-JOB-MOCK-SUCCESS-MVZYNLK5.html",
+    "webUrl": "/data/email-dispatches/EML-CONF-JOB-MOCK-SUCCESS-MVZYNLK5.html",
+    "attachments": [
+      "Ashutosh_Kumar_Resume.pdf",
+      "Ashutosh_Kumar_Cover_Letter.pdf"
+    ]
+  },
+  {
     "emailId": "EML-CONF-LINKEDIN-SUCCESS-MVZX8FN3",
     "confirmationId": "CONF-LINKEDIN-SUCCESS",
     "jobId": "linkedin-003",
