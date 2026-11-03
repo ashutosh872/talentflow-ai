@@ -1593,6 +1593,25 @@ const server = http.createServer(async (req, res) => {
         const appliedDate = payload.appliedDate || new Date().toISOString().split('T')[0];
         const confirmationId = payload.confirmationId || `CONF-${jobId ? jobId.slice(0, 8).toUpperCase() : 'APP'}-SUCCESS`;
 
+        // DUPLICATE SAFEGUARD: Stop applying again once already applied until company rejects or cancels
+        const activeSubmissions = getSubmissionsFromCsv();
+        if (jobId && activeSubmissions[jobId] && payload.forceReapply !== true) {
+          const existing = activeSubmissions[jobId];
+          console.log(`[Duplicate Prevented] Job ${jobId} is already submitted (${existing.status}, ${existing.confirmationId}). Locked until company responds.`);
+          res.writeHead(200, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({
+            success: true,
+            alreadySubmitted: true,
+            duplicateBlocked: true,
+            message: `Duplicate application prevented: You have already applied for this role at ${payload.company || 'the company'}. Status: ${existing.status} (${existing.confirmationId}). Re-applying is locked until the company cancels or updates your application.`,
+            jobId,
+            status: existing.status,
+            confirmationId: existing.confirmationId,
+            appliedDate: existing.appliedDate
+          }));
+          return;
+        }
+
         if (jobId) {
           updateSubmissionInCsv(jobId, status, submissionMethod, appliedDate, confirmationId);
           console.log(`[Submission Record] Job ${jobId} -> ${status} (${submissionMethod})`);

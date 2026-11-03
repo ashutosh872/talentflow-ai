@@ -15,11 +15,11 @@
       "admin"
     ],
     "password": "admin123",
-    "resumeFile": "data/resumes/ashutosh-kumar-Ashutosh_Kumar_Senior_Frontend_Engineer_Resume.pdf",
-    "resumeFileName": "Ashutosh Kumar Senior Frontend Engineer Resume.pdf",
-    "resumeUploadedAt": "2026-11-02T23:33:13.929Z",
-    "experienceYears": 8,
-    "experienceLabel": "8+ Years",
+    "resumeFile": "data/resumes/ashutosh-kumar-Ashutosh_Kumar_Updated_Resume.pdf",
+    "resumeFileName": "Ashutosh_Kumar_Updated_Resume.pdf",
+    "resumeUploadedAt": "2026-11-02T23:59:04.857Z",
+    "experienceYears": 5,
+    "experienceLabel": "5+ Years",
     "currentCompany": "Frontend Developer at Wondrfly Inc. (Contract)",
     "currentCtc": "₹6,00,000 PA",
     "currentCtcVal": 6,
@@ -31,18 +31,18 @@
     "email": "kumar.ashu872@gmail.com",
     "phone": "+91 9310681373",
     "coreStack": [
-      "Angular",
+      "React",
+      "TypeScript",
       "JavaScript",
       "HTML5",
       "CSS3",
+      "Angular",
       "Sass",
       "SCSS",
       "Bootstrap",
       "Git",
       "Playwright",
       "Figma",
-      "React",
-      "TypeScript",
       "Angular 15+",
       "Angular Material UI",
       "HTML5 / SCSS",
@@ -70,58 +70,45 @@
     "activeApplicationsCount": 14,
     "totalEvaluated": 340,
     "lastParsedIntelligence": {
-      "rawTextLength": 6517,
-      "name": "Ashutosh Kumar",
-      "email": "kumar.ashu872@gmail.com",
-      "phone": "+91 9310681373",
-      "currentTitle": "SENIOR FRONTEND ENGINEER",
-      "seniority": "Senior",
-      "experienceYears": 8,
-      "location": "New Delhi, India",
+      "rawTextLength": 0,
+      "name": "Verified Candidate",
+      "email": "",
+      "phone": "+91 9999999999",
+      "currentTitle": "Senior Frontend Engineer",
+      "seniority": "Mid",
+      "experienceYears": 5,
+      "location": "Delhi NCR / Remote India",
       "skills": {
         "primary": [
-          "Angular",
+          "React",
+          "TypeScript",
           "JavaScript",
           "HTML5",
-          "CSS3",
-          "Sass",
-          "SCSS",
-          "Bootstrap",
-          "Git",
-          "Playwright",
-          "Figma"
+          "CSS3"
         ],
-        "secondary": [
-          "Design Systems",
-          "Responsive Web Design",
-          "Web Accessibility",
-          "WCAG",
-          "Core Web Vitals",
-          "Performance Optimization"
-        ]
+        "secondary": []
       },
       "education": [
         {
-          "degree": "B.Tech / B.E. in Computer Science",
-          "institution": "Verified Academic Institution",
+          "degree": "Bachelor of Technology (Computer Science)",
+          "institution": "Technical University",
           "year": 2016
         }
       ],
       "employmentHistory": [
         {
-          "company": "Samsung SDS Global",
-          "role": "SENIOR FRONTEND ENGINEER",
-          "period": "2021 – Present",
+          "company": "Enterprise Technology Solutions",
+          "role": "Senior Frontend Engineer",
+          "period": "2020 – Present",
           "current": true,
           "highlights": [
-            "Engineered high-performance web applications using Angular, JavaScript, HTML5",
-            "Implemented responsive UI design systems and reduced page load times by 35%",
-            "Mentored frontend developers and established rigorous code review standards"
+            "Led modern frontend development utilizing ",
+            "Architected reusable component libraries and accessible UI design patterns"
           ]
         }
       ],
-      "bio": "Ashutosh Kumar is a SENIOR FRONTEND ENGINEER with 8+ years of enterprise experience specializing in Angular, JavaScript, HTML5, CSS3. Proven track record of architecting scalable web applications, optimizing Core Web Vitals, and leading high-velocity frontend teams."
+      "bio": "Candidate is a Senior Frontend Engineer with 5+ years of enterprise experience specializing in . Proven track record of architecting scalable web applications, optimizing Core Web Vitals, and leading high-velocity frontend teams."
     },
-    "seniority": "Senior"
+    "seniority": "Mid"
   }
 ]

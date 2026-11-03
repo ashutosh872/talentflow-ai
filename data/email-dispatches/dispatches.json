@@ -1,5 +1,119 @@
 [
   {
+    "emailId": "EML-CONF-LINKEDIN-SUCCESS-MVZX8FN3",
+    "confirmationId": "CONF-LINKEDIN-SUCCESS",
+    "jobId": "linkedin-003",
+    "company": "Paytm Payments Bank",
+    "role": "Senior UI Developer - Design Systems",
+    "vacancyPortal": "LinkedIn Talent",
+    "submissionMethod": "Direct 1-Click Platform Apply",
+    "recipientEmail": "kumar.ashu872@gmail.com",
+    "subject": "Application Confirmation: Senior UI Developer - Design Systems at Paytm Payments Bank [CONF-LINKEDIN-SUCCESS]",
+    "timestamp": "Tuesday, November 3, 2026 at 5:29:59 AM (IST)",
+    "mode": "LOCAL_TRANSACTIONAL_RECEIPT",
+    "htmlFileName": "EML-CONF-LINKEDIN-SUCCESS-MVZX8FN3.html",
+    "webUrl": "/data/email-dispatches/EML-CONF-LINKEDIN-SUCCESS-MVZX8FN3.html",
+    "attachments": [
+      "Ashutosh_Kumar_Resume.pdf",
+      "Ashutosh_Kumar_Cover_Letter.pdf"
+    ]
+  },
+  {
+    "emailId": "EML-CONF-LINKEDIN-SUCCESS-MVZWT749",
+    "confirmationId": "CONF-LINKEDIN-SUCCESS",
+    "jobId": "linkedin-4478053400",
+    "company": "Amazon (ADCI)",
+    "role": "Senior Frontend Engineer",
+    "vacancyPortal": "LinkedIn / Enterprise Portal",
+    "submissionMethod": "Via Opening Portal",
+    "recipientEmail": "kumar.ashu872@gmail.com",
+    "subject": "Application Confirmation: Senior Frontend Engineer at Amazon (ADCI) [CONF-LINKEDIN-SUCCESS]",
+    "timestamp": "Tuesday, November 3, 2026 at 5:18:08 AM (IST)",
+    "mode": "LOCAL_TRANSACTIONAL_RECEIPT",
+    "htmlFileName": "EML-CONF-LINKEDIN-SUCCESS-MVZWT749.html",
+    "webUrl": "/data/email-dispatches/EML-CONF-LINKEDIN-SUCCESS-MVZWT749.html",
+    "attachments": [
+      "Ashutosh_Kumar_Resume.pdf",
+      "Ashutosh_Kumar_Cover_Letter.pdf"
+    ]
+  },
+  {
+    "emailId": "EML-CONF-JOB-MOCK-APP-MVZWSFXM",
+    "confirmationId": "CONF-JOB-MOCK-APP",
+    "jobId": "job-mock-009",
+    "company": "Cognitive Web Labs",
+    "role": "Senior Frontend Engineer - AI Workflows",
+    "vacancyPortal": "Wellfound / AngelList",
+    "submissionMethod": "Via Autofill",
+    "recipientEmail": "kumar.ashu872@gmail.com",
+    "subject": "Application Confirmation: Senior Frontend Engineer - AI Workflows at Cognitive Web Labs [CONF-JOB-MOCK-APP]",
+    "timestamp": "Tuesday, November 3, 2026 at 5:17:33 AM (IST)",
+    "mode": "LOCAL_TRANSACTIONAL_RECEIPT",
+    "htmlFileName": "EML-CONF-JOB-MOCK-APP-MVZWSFXM.html",
+    "webUrl": "/data/email-dispatches/EML-CONF-JOB-MOCK-APP-MVZWSFXM.html",
+    "attachments": [
+      "Ashutosh_Kumar_Resume.pdf",
+      "Ashutosh_Kumar_Cover_Letter.pdf"
+    ]
+  },
+  {
+    "emailId": "EML-CONF-JOB-MOCK-APP-MVZWSBSU",
+    "confirmationId": "CONF-JOB-MOCK-APP",
+    "jobId": "job-mock-005",
+    "company": "Experience Commerce (Cheil Group)",
+    "role": "Senior UI Developer & Email Operations Specialist",
+    "vacancyPortal": "Company Website (Cheil Group)",
+    "submissionMethod": "Via Autofill",
+    "recipientEmail": "kumar.ashu872@gmail.com",
+    "subject": "Application Confirmation: Senior UI Developer & Email Operations Specialist at Experience Commerce (Cheil Group) [CONF-JOB-MOCK-APP]",
+    "timestamp": "Tuesday, November 3, 2026 at 5:17:28 AM (IST)",
+    "mode": "LOCAL_TRANSACTIONAL_RECEIPT",
+    "htmlFileName": "EML-CONF-JOB-MOCK-APP-MVZWSBSU.html",
+    "webUrl": "/data/email-dispatches/EML-CONF-JOB-MOCK-APP-MVZWSBSU.html",
+    "attachments": [
+      "Ashutosh_Kumar_Resume.pdf",
+      "Ashutosh_Kumar_Cover_Letter.pdf"
+    ]
+  },
+  {
+    "emailId": "EML-CONF-E2E-TEST-RECORD-MVZWOW1V",
+    "confirmationId": "CONF-E2E-TEST-RECORD",
+    "jobId": "job-mock-008",
+    "company": "Test Enterprise Submission",
+    "role": "Lead Frontend UI Engineer",
+    "vacancyPortal": "Direct Careers Portal",
+    "submissionMethod": "Via Autofill",
+    "recipientEmail": "kumar.ashu872@gmail.com",
+    "subject": "Application Confirmation: Lead Frontend UI Engineer at Test Enterprise Submission [CONF-E2E-TEST-RECORD]",
+    "timestamp": "Tuesday, November 3, 2026 at 5:14:47 AM (IST)",
+    "mode": "LOCAL_TRANSACTIONAL_RECEIPT",
+    "htmlFileName": "EML-CONF-E2E-TEST-RECORD-MVZWOW1V.html",
+    "webUrl": "/data/email-dispatches/EML-CONF-E2E-TEST-RECORD-MVZWOW1V.html",
+    "attachments": [
+      "Ashutosh_Kumar_Resume.pdf",
+      "Ashutosh_Kumar_Cover_Letter.pdf"
+    ]
+  },
+  {
+    "emailId": "EML-CONF-SSDS-2026-8821-SUCCESS-MVZWLWHN",
+    "confirmationId": "CONF-SSDS-2026-8821-SUCCESS",
+    "jobId": "job-mock-002",
+    "company": "Samsung SDS Global",
+    "role": "Senior Frontend Engineer (UI/UX Engineering)",
+    "vacancyPortal": "Official Career Portal",
+    "submissionMethod": "Via Opening Portal",
+    "recipientEmail": "kumar.ashu872@gmail.com",
+    "subject": "Application Confirmation: Senior Frontend Engineer (UI/UX Engineering) at Samsung SDS Global [CONF-SSDS-2026-8821-SUCCESS]",
+    "timestamp": "Tuesday, November 3, 2026 at 5:12:28 AM (IST)",
+    "mode": "LOCAL_TRANSACTIONAL_RECEIPT",
+    "htmlFileName": "EML-CONF-SSDS-2026-8821-SUCCESS-MVZWLWHN.html",
+    "webUrl": "/data/email-dispatches/EML-CONF-SSDS-2026-8821-SUCCESS-MVZWLWHN.html",
+    "attachments": [
+      "Ashutosh_Kumar_Resume.pdf",
+      "Ashutosh_Kumar_Cover_Letter.pdf"
+    ]
+  },
+  {
     "emailId": "EML-CONF-JOB-MOCK-APP-MVZWBJUQ",
     "confirmationId": "CONF-JOB-MOCK-APP",
     "jobId": "job-mock-005",

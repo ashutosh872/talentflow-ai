@@ -1,1 +1,80 @@
-[]
+[
+  {
+    "messageId": "6ae9199b.fc9155f7.3b9e86.b2a3SMTPIN_ADDED_MISSING@mx.google.com",
+    "from": "Naukri <info@naukri.com>",
+    "recruiterName": "Naukri",
+    "company": "Info Edge India (Naukri Enterprise)",
+    "role": "Senior UI / Angular Developer (8+ Yrs Experience)",
+    "jobId": "naukri-001",
+    "confirmationId": "CONF-NAUKRI-IE-8812-SUCCESS",
+    "subject": "You applied for 1 job on 02 Nov",
+    "receivedDate": "Nov 3, 2026, 04:45 AM",
+    "bodyText": "Real incoming recruiter email from Naukri <info@naukri.com>.\nSubject: You applied for 1 job on 02 Nov\nReceived: Tue, 3 Nov 2026 04:45:38 +0530 (IST)",
+    "intent": "APPLICATION_ACK",
+    "intentTitle": "Submission Acknowledgment / In Review",
+    "suggestedStage": "SUBMITTED",
+    "badgeClass": "bg-blue-900/60 text-blue-300 border-blue-600",
+    "requiresAction": false,
+    "actionText": "Keep Monitoring",
+    "isAutomatedAlert": false,
+    "category": "DIRECT",
+    "correlationType": "DOMAIN_MATCH",
+    "sourceMode": "LIVE_GMAIL_IMAP",
+    "replyDraft": {
+      "subject": "Re: You applied for 1 job on 02 Nov - Thank You [CONF-NAUKRI-IE-8812-SUCCESS]",
+      "body": "Dear Naukri,\n\nThank you for the update regarding my application for the Senior UI / Angular Developer (8+ Yrs Experience) position at Info Edge India (Naukri Enterprise).\n\nI remain very interested in contributing my 8+ years of enterprise UI engineering experience to your team. Please do let me know if any additional documentation, code samples, or architecture artifacts are required.\n\nBest regards,\n\nAshutosh Kumar\nPhone: +91 9310681373\nEmail: kumar.ashu872@gmail.com"
+    }
+  },
+  {
+    "messageId": "777190199.3085899.1793625846830@parrot-prod-5667b895b8-nh8rm",
+    "from": "foundit - Monster <job@monsterindia.com>",
+    "recruiterName": "foundit - Monster",
+    "company": "Priva",
+    "role": "Stage",
+    "jobId": "arbeitnow-stage-de-lier-466928",
+    "confirmationId": "",
+    "subject": "S3connections Private Limited Application Successful",
+    "receivedDate": "Nov 2, 2026, 06:54 PM",
+    "bodyText": "Real incoming recruiter email from foundit - Monster <job@monsterindia.com>.\nSubject: S3connections Private Limited Application Successful\nReceived: Mon, 2 Nov 2026 13:24:06 +0000 (GMT)",
+    "intent": "APPLICATION_ACK",
+    "intentTitle": "Submission Acknowledgment / In Review",
+    "suggestedStage": "SUBMITTED",
+    "badgeClass": "bg-blue-900/60 text-blue-300 border-blue-600",
+    "requiresAction": false,
+    "actionText": "Keep Monitoring",
+    "isAutomatedAlert": false,
+    "category": "DIRECT",
+    "correlationType": "COMPANY_NAME",
+    "sourceMode": "LIVE_GMAIL_IMAP",
+    "replyDraft": {
+      "subject": "Re: S3connections Private Limited Application Successful - Thank You []",
+      "body": "Dear foundit - Monster,\n\nThank you for the update regarding my application for the Stage position at Priva.\n\nI remain very interested in contributing my 8+ years of enterprise UI engineering experience to your team. Please do let me know if any additional documentation, code samples, or architecture artifacts are required.\n\nBest regards,\n\nAshutosh Kumar\nPhone: +91 9310681373\nEmail: kumar.ashu872@gmail.com"
+    }
+  },
+  {
+    "messageId": "6ae84356.40889322.384a21.f75bSMTPIN_ADDED_MISSING@mx.google.com",
+    "from": "TechBlocks <alnazkhanpdGJsb2Nrcy5jb20=@naukri.com>",
+    "recruiterName": "TechBlocks",
+    "company": "Info Edge India (Naukri Enterprise)",
+    "role": "Senior UI / Angular Developer (8+ Yrs Experience)",
+    "jobId": "naukri-001",
+    "confirmationId": "CONF-NAUKRI-IE-8812-SUCCESS",
+    "subject": "✉️ Job | Qa Automation Testing",
+    "receivedDate": "Nov 2, 2026, 01:31 PM",
+    "bodyText": "Real incoming recruiter email from TechBlocks <alnazkhanpdGJsb2Nrcy5jb20=@naukri.com>.\nSubject: ✉️ Job | Qa Automation Testing\nReceived: Mon, 2 Nov 2026 13:31:14 +0530 (IST)",
+    "intent": "APPLICATION_ACK",
+    "intentTitle": "Submission Acknowledgment / In Review",
+    "suggestedStage": "SUBMITTED",
+    "badgeClass": "bg-blue-900/60 text-blue-300 border-blue-600",
+    "requiresAction": false,
+    "actionText": "Keep Monitoring",
+    "isAutomatedAlert": false,
+    "category": "DIRECT",
+    "correlationType": "DOMAIN_MATCH",
+    "sourceMode": "LIVE_GMAIL_IMAP",
+    "replyDraft": {
+      "subject": "Re: ✉️ Job | Qa Automation Testing - Thank You [CONF-NAUKRI-IE-8812-SUCCESS]",
+      "body": "Dear TechBlocks,\n\nThank you for the update regarding my application for the Senior UI / Angular Developer (8+ Yrs Experience) position at Info Edge India (Naukri Enterprise).\n\nI remain very interested in contributing my 8+ years of enterprise UI engineering experience to your team. Please do let me know if any additional documentation, code samples, or architecture artifacts are required.\n\nBest regards,\n\nAshutosh Kumar\nPhone: +91 9310681373\nEmail: kumar.ashu872@gmail.com"
+    }
+  }
+]
