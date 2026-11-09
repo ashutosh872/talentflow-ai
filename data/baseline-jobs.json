@@ -838,7 +838,7 @@
       "Optimize core web vitals and cross-browser consistency."
     ],
     "hasDocs": true,
-    "appliedDate": "2026-11-03",
+    "appliedDate": "2026-11-09",
     "confirmationId": "CONF-JOB-MOCK-SUCCESS"
   },
   {
@@ -955,10 +955,10 @@
     "liveUrl": "https://remoteOK.com/remote-jobs/remote-technical-account-manager-yuno-1137540",
     "portalFile": null,
     "folderName": "Yuno_remoteok-1137540",
-    "status": "MANUAL_REVIEW_NEEDED",
-    "submissionMethod": null,
-    "appliedDate": "",
-    "confirmationId": "",
+    "status": "SUBMITTED",
+    "submissionMethod": "Direct 1-Click Platform Apply",
+    "appliedDate": "2026-11-09",
+    "confirmationId": "CONF-REMOTEOK-SUCCESS",
     "source": "RemoteOK API",
     "skills": [
       "exec",

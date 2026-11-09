@@ -5,7 +5,9 @@ import * as os from 'os';
 import nodemailer from 'nodemailer';
 import { sendApplicationConfirmationEmail, sendCandidateVerificationEmail } from './mailer.js';
 import { parseResumeIntelligence } from './resume-parser.js';
-import { getDynamicJobsForCandidate, generateFreshJobsForCandidate } from './job-generator.js';
+import { getDynamicJobsForCandidate, generateFreshJobsForCandidate, searchLatestJobUpdates } from './job-generator.js';
+import { recordEmailOpen, recordLinkClick, getTrackingRecord, getAllTrackingRecords, simulateRecruiterOpen, TRANSPARENT_GIF_1X1 } from './email-tracker.js';
+import { getSavedJobIds, getAllSavedJobs, toggleSaveJob } from './saved-jobs.js';
 import {
   loadGmailConfig,
   saveGmailConfig,
@@ -379,6 +381,146 @@ const server = http.createServer(async (req, res) => {
       'Cache-Control': 'no-cache, no-store, must-revalidate'
     });
     res.end(JSON.stringify(logs));
+    return;
+  }
+
+  // 1. Transparent Tracking Pixel Endpoint for Email Read Receipts
+  if (pathname.startsWith('/api/track/open/') || pathname === '/api/track-email-open') {
+    let trackingId = '';
+    if (pathname.startsWith('/api/track/open/')) {
+      trackingId = pathname.replace('/api/track/open/', '').trim();
+    } else {
+      trackingId = parsedUrl.searchParams.get('id') || parsedUrl.searchParams.get('trackingId') || '';
+    }
+
+    const clientIp = req.headers['x-forwarded-for'] || req.socket.remoteAddress || '127.0.0.1';
+    const userAgent = req.headers['user-agent'] || 'Email Client';
+
+    if (trackingId) {
+      recordEmailOpen(trackingId, clientIp, userAgent);
+    }
+
+    res.writeHead(200, {
+      'Content-Type': 'image/gif',
+      'Content-Length': TRANSPARENT_GIF_1X1.length,
+      'Cache-Control': 'no-store, no-cache, must-revalidate, private, post-check=0, pre-check=0',
+      'Pragma': 'no-cache',
+      'Expires': '0'
+    });
+    res.end(TRANSPARENT_GIF_1X1);
+    return;
+  }
+
+  // 2. Email Link / Resume Click Tracking & Redirect
+  if (pathname === '/api/track/click' && req.method === 'GET') {
+    const trackingId = parsedUrl.searchParams.get('id') || '';
+    const targetUrl = parsedUrl.searchParams.get('to') || parsedUrl.searchParams.get('target') || '/';
+    const clientIp = req.headers['x-forwarded-for'] || req.socket.remoteAddress || '127.0.0.1';
+    const userAgent = req.headers['user-agent'] || 'Web Browser';
+
+    if (trackingId) {
+      recordLinkClick(trackingId, targetUrl, clientIp, userAgent);
+    }
+
+    res.writeHead(302, { Location: targetUrl });
+    res.end();
+    return;
+  }
+
+  // 3. Email Tracking Status API (Single & All)
+  if (pathname === '/api/email-tracking/all' && req.method === 'GET') {
+    res.writeHead(200, {
+      'Content-Type': 'application/json',
+      'Cache-Control': 'no-cache, no-store, must-revalidate'
+    });
+    res.end(JSON.stringify(getAllTrackingRecords()));
+    return;
+  }
+
+  if (pathname === '/api/email-tracking/status' && req.method === 'GET') {
+    const id = parsedUrl.searchParams.get('id') || parsedUrl.searchParams.get('jobId') || '';
+    const record = getTrackingRecord(id);
+    res.writeHead(200, {
+      'Content-Type': 'application/json',
+      'Cache-Control': 'no-cache, no-store, must-revalidate'
+    });
+    res.end(JSON.stringify(record));
+    return;
+  }
+
+  // 4. Simulate Recruiter Open (For Testing & Verification)
+  if (pathname === '/api/email-tracking/simulate-open' && req.method === 'POST') {
+    let body = '';
+    req.on('data', chunk => { body += chunk; });
+    req.on('end', () => {
+      try {
+        const payload = JSON.parse(body || '{}');
+        const targetId = payload.jobId || payload.trackingId || 'job-mock-002';
+        const updated = simulateRecruiterOpen(targetId, {
+          simulateResumeClick: payload.simulateResumeClick === true
+        });
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({
+          success: true,
+          message: `Recruiter email open recorded successfully for ${updated.company || targetId}!`,
+          tracking: updated,
+          record: updated
+        }));
+      } catch (err) {
+        res.writeHead(400, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: false, error: err.message }));
+      }
+    });
+    return;
+  }
+
+  // 5. Saved Jobs for Later API
+  if (pathname === '/api/saved-jobs' && req.method === 'GET') {
+    res.writeHead(200, {
+      'Content-Type': 'application/json',
+      'Cache-Control': 'no-cache, no-store, must-revalidate'
+    });
+    res.end(JSON.stringify({
+      success: true,
+      savedJobIds: getSavedJobIds(),
+      savedJobs: getAllSavedJobs()
+    }));
+    return;
+  }
+
+  if (pathname === '/api/saved-jobs/toggle' && req.method === 'POST') {
+    let body = '';
+    req.on('data', chunk => { body += chunk; });
+    req.on('end', () => {
+      try {
+        const payload = JSON.parse(body || '{}');
+        const jobId = payload.jobId;
+        const result = toggleSaveJob(jobId, payload.meta || {});
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify(result));
+      } catch (err) {
+        res.writeHead(400, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: false, error: err.message }));
+      }
+    });
+    return;
+  }
+
+  // 6. Search Latest Job Updates (Live Enterprise Feeds & Re-Evaluation)
+  if ((pathname === '/api/jobs/search-updates' || pathname === '/api/jobs/fresh') && (req.method === 'GET' || req.method === 'POST')) {
+    const candId = parsedUrl.searchParams.get('candidateId') || 'ashutosh-kumar';
+    const result = searchLatestJobUpdates(candId);
+    res.writeHead(200, {
+      'Content-Type': 'application/json',
+      'Cache-Control': 'no-cache, no-store, must-revalidate'
+    });
+    res.end(JSON.stringify({
+      success: true,
+      message: `Fresh search completed! Evaluated ${result.totalCount} total openings (${result.newCount} newly discovered opportunities matching updated profile).`,
+      totalJobs: result.totalCount,
+      addedCount: result.newCount,
+      ...result
+    }));
     return;
   }
 
@@ -996,19 +1138,29 @@ const server = http.createServer(async (req, res) => {
     }
     const result = getDynamicJobsForCandidate(candId);
     const activeSubmissions = getSubmissionsFromCsv();
+    const savedJobIds = getSavedJobIds();
     const updatedJobs = (result.jobs || []).map(j => {
+      const tracking = j.tracking || getTrackingRecord(j.id);
+      const isSaved = savedJobIds.includes(j.id);
       if (activeSubmissions[j.id]) {
         return {
           ...j,
           status: activeSubmissions[j.id].status || 'SUBMITTED',
           confirmationId: activeSubmissions[j.id].confirmationId || j.confirmationId,
           appliedDate: activeSubmissions[j.id].appliedDate || j.appliedDate,
-          submissionMethod: activeSubmissions[j.id].submissionMethod || j.submissionMethod
+          submissionMethod: activeSubmissions[j.id].submissionMethod || j.submissionMethod,
+          tracking,
+          isSaved
         };
       }
-      return j;
+      return {
+        ...j,
+        tracking,
+        isSaved
+      };
     });
     result.jobs = updatedJobs;
+    result.savedCount = updatedJobs.filter(j => j.isSaved).length;
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify({ success: true, ...result }));
     return;
@@ -1035,6 +1187,8 @@ const server = http.createServer(async (req, res) => {
     const activeSubmissions = getSubmissionsFromCsv();
     const isSubmitted = !!activeSubmissions[jobId] || job.status === 'SUBMITTED';
     const sub = activeSubmissions[jobId] || {};
+    const tracking = job.tracking || getTrackingRecord(jobId);
+    const savedJobIds = getSavedJobIds();
 
     const fullJob = {
       ...job,
@@ -1042,7 +1196,9 @@ const server = http.createServer(async (req, res) => {
       confirmationId: isSubmitted ? (sub.confirmationId || job.confirmationId || 'CONF-RECORDED') : job.confirmationId,
       appliedDate: isSubmitted ? (sub.appliedDate || job.appliedDate || '2026-10-29') : job.appliedDate,
       submissionMethod: isSubmitted ? (sub.submissionMethod || job.submissionMethod || 'Direct Platform Apply') : job.submissionMethod,
-      isSubmittedOrActive: isSubmitted
+      isSubmittedOrActive: isSubmitted,
+      tracking,
+      isSaved: savedJobIds.includes(jobId)
     };
 
     res.writeHead(200, { 'Content-Type': 'application/json' });

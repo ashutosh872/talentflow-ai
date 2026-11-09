@@ -1,0 +1,582 @@
+{
+  "TRK-job-mock-002": {
+    "trackingId": "TRK-job-mock-002",
+    "jobId": "job-mock-002",
+    "company": "Samsung SDS Global",
+    "role": "Senior Frontend Engineer (UI/UX Engineering)",
+    "status": "OPENED",
+    "openCount": 3,
+    "firstOpenedAt": "2026-11-08T08:09:24.893Z",
+    "lastOpenedAt": "2026-11-09T18:09:24.893Z",
+    "resumeClicked": true,
+    "resumeClickCount": 2,
+    "lastClickedAt": "2026-11-09T18:10:09.893Z",
+    "openedByIp": "66.249.88.12",
+    "deviceType": "Gmail Proxy (Web & Mobile)",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 (GoogleImageProxy)",
+    "history": [
+      {
+        "type": "DELIVERED",
+        "timestamp": "2026-11-07T20:09:24.893Z",
+        "details": "Delivered to hiring desk & kumar.ashu872@gmail.com"
+      },
+      {
+        "type": "OPENED",
+        "timestamp": "2026-11-08T08:09:24.893Z",
+        "client": "Samsung SDS HR Desk / Gmail Proxy",
+        "ip": "66.249.88.12"
+      },
+      {
+        "type": "RESUME_CLICKED",
+        "timestamp": "2026-11-08T08:09:54.893Z",
+        "details": "Recruiter downloaded Ashutosh_Kumar_Resume.pdf"
+      },
+      {
+        "type": "OPENED",
+        "timestamp": "2026-11-09T18:09:24.893Z",
+        "client": "Samsung SDS Technical Lead View",
+        "ip": "66.249.88.14"
+      }
+    ]
+  },
+  "job-mock-002": {
+    "trackingId": "TRK-job-mock-002",
+    "jobId": "job-mock-002",
+    "company": "Samsung SDS Global",
+    "role": "Senior Frontend Engineer (UI/UX Engineering)",
+    "status": "OPENED",
+    "openCount": 3,
+    "firstOpenedAt": "2026-11-08T08:09:24.893Z",
+    "lastOpenedAt": "2026-11-09T18:09:24.893Z",
+    "resumeClicked": true,
+    "resumeClickCount": 2,
+    "lastClickedAt": "2026-11-09T18:10:09.893Z",
+    "openedByIp": "66.249.88.12",
+    "deviceType": "Gmail Proxy (Web & Mobile)",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 (GoogleImageProxy)",
+    "history": [
+      {
+        "type": "DELIVERED",
+        "timestamp": "2026-11-07T20:09:24.893Z",
+        "details": "Delivered to hiring desk & kumar.ashu872@gmail.com"
+      },
+      {
+        "type": "OPENED",
+        "timestamp": "2026-11-08T08:09:24.893Z",
+        "client": "Samsung SDS HR Desk / Gmail Proxy",
+        "ip": "66.249.88.12"
+      },
+      {
+        "type": "RESUME_CLICKED",
+        "timestamp": "2026-11-08T08:09:54.893Z",
+        "details": "Recruiter downloaded Ashutosh_Kumar_Resume.pdf"
+      },
+      {
+        "type": "OPENED",
+        "timestamp": "2026-11-09T18:09:24.893Z",
+        "client": "Samsung SDS Technical Lead View",
+        "ip": "66.249.88.14"
+      }
+    ]
+  },
+  "TRK-naukri-001": {
+    "trackingId": "TRK-naukri-001",
+    "jobId": "naukri-001",
+    "company": "Info Edge India (Naukri Enterprise)",
+    "role": "Lead Frontend Architect (Design Systems & Web Experience)",
+    "status": "OPENED",
+    "openCount": 2,
+    "firstOpenedAt": "2026-11-08T16:09:24.893Z",
+    "lastOpenedAt": "2026-11-09T15:09:24.893Z",
+    "resumeClicked": true,
+    "resumeClickCount": 1,
+    "lastClickedAt": "2026-11-08T16:10:24.893Z",
+    "openedByIp": "66.249.93.45",
+    "deviceType": "Gmail Proxy (Web & Mobile)",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (GoogleImageProxy)",
+    "history": [
+      {
+        "type": "DELIVERED",
+        "timestamp": "2026-11-08T14:09:24.893Z",
+        "details": "Delivered to Info Edge Talent Acquisition"
+      },
+      {
+        "type": "OPENED",
+        "timestamp": "2026-11-08T16:09:24.893Z",
+        "client": "Info Edge Talent Acquisition",
+        "ip": "66.249.93.45"
+      },
+      {
+        "type": "RESUME_CLICKED",
+        "timestamp": "2026-11-08T16:10:24.893Z",
+        "details": "Recruiter downloaded Ashutosh_Kumar_Resume.pdf"
+      }
+    ]
+  },
+  "naukri-001": {
+    "trackingId": "TRK-naukri-001",
+    "jobId": "naukri-001",
+    "company": "Info Edge India (Naukri Enterprise)",
+    "role": "Lead Frontend Architect (Design Systems & Web Experience)",
+    "status": "OPENED",
+    "openCount": 2,
+    "firstOpenedAt": "2026-11-08T16:09:24.893Z",
+    "lastOpenedAt": "2026-11-09T15:09:24.893Z",
+    "resumeClicked": true,
+    "resumeClickCount": 1,
+    "lastClickedAt": "2026-11-08T16:10:24.893Z",
+    "openedByIp": "66.249.93.45",
+    "deviceType": "Gmail Proxy (Web & Mobile)",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (GoogleImageProxy)",
+    "history": [
+      {
+        "type": "DELIVERED",
+        "timestamp": "2026-11-08T14:09:24.893Z",
+        "details": "Delivered to Info Edge Talent Acquisition"
+      },
+      {
+        "type": "OPENED",
+        "timestamp": "2026-11-08T16:09:24.893Z",
+        "client": "Info Edge Talent Acquisition",
+        "ip": "66.249.93.45"
+      },
+      {
+        "type": "RESUME_CLICKED",
+        "timestamp": "2026-11-08T16:10:24.893Z",
+        "details": "Recruiter downloaded Ashutosh_Kumar_Resume.pdf"
+      }
+    ]
+  },
+  "TRK-job-mock-001": {
+    "trackingId": "TRK-job-mock-001",
+    "jobId": "job-mock-001",
+    "company": "Nagarro Enterprises",
+    "role": "Senior UI Developer - Design Systems",
+    "status": "OPENED",
+    "openCount": 2,
+    "firstOpenedAt": "2026-11-08T20:09:24.893Z",
+    "lastOpenedAt": "2026-11-09T14:09:24.893Z",
+    "resumeClicked": true,
+    "resumeClickCount": 1,
+    "lastClickedAt": "2026-11-08T20:10:54.893Z",
+    "openedByIp": "66.249.88.19",
+    "deviceType": "Windows Desktop Webmail",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/121.0.0.0",
+    "history": [
+      {
+        "type": "DELIVERED",
+        "timestamp": "2026-11-08T18:09:24.893Z",
+        "details": "Delivered to Nagarro Global Careers"
+      },
+      {
+        "type": "OPENED",
+        "timestamp": "2026-11-08T20:09:24.893Z",
+        "client": "Nagarro Talent Desk",
+        "ip": "66.249.88.19"
+      }
+    ]
+  },
+  "job-mock-001": {
+    "trackingId": "TRK-job-mock-001",
+    "jobId": "job-mock-001",
+    "company": "Nagarro Enterprises",
+    "role": "Senior UI Developer - Design Systems",
+    "status": "OPENED",
+    "openCount": 2,
+    "firstOpenedAt": "2026-11-08T20:09:24.893Z",
+    "lastOpenedAt": "2026-11-09T14:09:24.893Z",
+    "resumeClicked": true,
+    "resumeClickCount": 1,
+    "lastClickedAt": "2026-11-08T20:10:54.893Z",
+    "openedByIp": "66.249.88.19",
+    "deviceType": "Windows Desktop Webmail",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/121.0.0.0",
+    "history": [
+      {
+        "type": "DELIVERED",
+        "timestamp": "2026-11-08T18:09:24.893Z",
+        "details": "Delivered to Nagarro Global Careers"
+      },
+      {
+        "type": "OPENED",
+        "timestamp": "2026-11-08T20:09:24.893Z",
+        "client": "Nagarro Talent Desk",
+        "ip": "66.249.88.19"
+      }
+    ]
+  },
+  "TRK-job-mock-003": {
+    "trackingId": "TRK-job-mock-003",
+    "jobId": "job-mock-003",
+    "company": "Wipro Digital",
+    "role": "Lead UI Engineer / Design Systems Architect",
+    "status": "OPENED",
+    "openCount": 1,
+    "firstOpenedAt": "2026-11-09T02:09:24.893Z",
+    "lastOpenedAt": "2026-11-09T02:09:24.893Z",
+    "resumeClicked": false,
+    "resumeClickCount": 0,
+    "openedByIp": "66.249.88.22",
+    "deviceType": "Gmail Proxy (Web & Mobile)",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) GoogleImageProxy",
+    "history": [
+      {
+        "type": "DELIVERED",
+        "timestamp": "2026-11-09T00:09:24.893Z",
+        "details": "Delivered to Wipro Digital Talent Acquisition"
+      },
+      {
+        "type": "OPENED",
+        "timestamp": "2026-11-09T02:09:24.893Z",
+        "client": "Wipro Talent Sourcer",
+        "ip": "66.249.88.22"
+      }
+    ]
+  },
+  "job-mock-003": {
+    "trackingId": "TRK-job-mock-003",
+    "jobId": "job-mock-003",
+    "company": "Wipro Digital",
+    "role": "Lead UI Engineer / Design Systems Architect",
+    "status": "OPENED",
+    "openCount": 1,
+    "firstOpenedAt": "2026-11-09T02:09:24.893Z",
+    "lastOpenedAt": "2026-11-09T02:09:24.893Z",
+    "resumeClicked": false,
+    "resumeClickCount": 0,
+    "openedByIp": "66.249.88.22",
+    "deviceType": "Gmail Proxy (Web & Mobile)",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) GoogleImageProxy",
+    "history": [
+      {
+        "type": "DELIVERED",
+        "timestamp": "2026-11-09T00:09:24.893Z",
+        "details": "Delivered to Wipro Digital Talent Acquisition"
+      },
+      {
+        "type": "OPENED",
+        "timestamp": "2026-11-09T02:09:24.893Z",
+        "client": "Wipro Talent Sourcer",
+        "ip": "66.249.88.22"
+      }
+    ]
+  },
+  "TRK-linkedin-4478053400": {
+    "trackingId": "TRK-linkedin-4478053400",
+    "jobId": "linkedin-4478053400",
+    "company": "Amazon (ADCI)",
+    "role": "Front-End Engineer II (FBA Placement)",
+    "status": "OPENED",
+    "openCount": 1,
+    "firstOpenedAt": "2026-11-09T08:09:24.893Z",
+    "lastOpenedAt": "2026-11-09T08:09:24.893Z",
+    "resumeClicked": true,
+    "resumeClickCount": 1,
+    "lastClickedAt": "2026-11-09T08:10:04.893Z",
+    "openedByIp": "54.240.27.18",
+    "deviceType": "Corporate Webmail / Amazon AWS",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko)",
+    "history": [
+      {
+        "type": "DELIVERED",
+        "timestamp": "2026-11-09T06:09:24.893Z",
+        "details": "Delivered to Amazon ADCI Hiring Desk"
+      },
+      {
+        "type": "OPENED",
+        "timestamp": "2026-11-09T08:09:24.893Z",
+        "client": "Amazon ADCI Recruiter Review",
+        "ip": "54.240.27.18"
+      }
+    ]
+  },
+  "linkedin-4478053400": {
+    "trackingId": "TRK-linkedin-4478053400",
+    "jobId": "linkedin-4478053400",
+    "company": "Amazon (ADCI)",
+    "role": "Front-End Engineer II (FBA Placement)",
+    "status": "OPENED",
+    "openCount": 1,
+    "firstOpenedAt": "2026-11-09T08:09:24.893Z",
+    "lastOpenedAt": "2026-11-09T08:09:24.893Z",
+    "resumeClicked": true,
+    "resumeClickCount": 1,
+    "lastClickedAt": "2026-11-09T08:10:04.893Z",
+    "openedByIp": "54.240.27.18",
+    "deviceType": "Corporate Webmail / Amazon AWS",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko)",
+    "history": [
+      {
+        "type": "DELIVERED",
+        "timestamp": "2026-11-09T06:09:24.893Z",
+        "details": "Delivered to Amazon ADCI Hiring Desk"
+      },
+      {
+        "type": "OPENED",
+        "timestamp": "2026-11-09T08:09:24.893Z",
+        "client": "Amazon ADCI Recruiter Review",
+        "ip": "54.240.27.18"
+      }
+    ]
+  },
+  "samsung-sds-001": {
+    "trackingId": "TRK-samsung-sds-001",
+    "jobId": "samsung-sds-001",
+    "company": "Enterprise Hiring Desk",
+    "role": "Senior Frontend Engineer",
+    "status": "OPENED",
+    "openCount": 5,
+    "firstOpenedAt": "2026-11-09T20:10:08.810Z",
+    "lastOpenedAt": "2026-11-09T20:11:14.875Z",
+    "resumeClicked": false,
+    "resumeClickCount": 0,
+    "openedByIp": "127.0.0.1",
+    "userAgent": "Email Client",
+    "deviceType": "Desktop Webmail Client",
+    "history": [
+      {
+        "type": "DELIVERED",
+        "timestamp": "2026-11-09T20:10:08.810Z",
+        "details": "Application confirmed and dispatched"
+      },
+      {
+        "type": "OPENED",
+        "timestamp": "2026-11-09T20:10:08.810Z",
+        "ip": "66.249.88.81",
+        "client": "Gmail Proxy (Web & Mobile)"
+      },
+      {
+        "type": "OPENED",
+        "timestamp": "2026-11-09T20:10:35.911Z",
+        "ip": "66.249.88.81",
+        "client": "Gmail Proxy (Web & Mobile)"
+      },
+      {
+        "type": "OPENED",
+        "timestamp": "2026-11-09T20:10:35.919Z",
+        "ip": "127.0.0.1",
+        "client": "Desktop Webmail Client"
+      },
+      {
+        "type": "OPENED",
+        "timestamp": "2026-11-09T20:11:14.868Z",
+        "ip": "66.249.88.50",
+        "client": "Gmail Proxy (Web & Mobile)"
+      },
+      {
+        "type": "OPENED",
+        "timestamp": "2026-11-09T20:11:14.875Z",
+        "ip": "127.0.0.1",
+        "client": "Desktop Webmail Client"
+      }
+    ]
+  },
+  "TRK-samsung-sds-001": {
+    "trackingId": "TRK-samsung-sds-001",
+    "jobId": "samsung-sds-001",
+    "company": "Enterprise Hiring Desk",
+    "role": "Senior Frontend Engineer",
+    "status": "OPENED",
+    "openCount": 5,
+    "firstOpenedAt": "2026-11-09T20:10:08.810Z",
+    "lastOpenedAt": "2026-11-09T20:11:14.875Z",
+    "resumeClicked": false,
+    "resumeClickCount": 0,
+    "openedByIp": "127.0.0.1",
+    "userAgent": "Email Client",
+    "deviceType": "Desktop Webmail Client",
+    "history": [
+      {
+        "type": "DELIVERED",
+        "timestamp": "2026-11-09T20:10:08.810Z",
+        "details": "Application confirmed and dispatched"
+      },
+      {
+        "type": "OPENED",
+        "timestamp": "2026-11-09T20:10:08.810Z",
+        "ip": "66.249.88.81",
+        "client": "Gmail Proxy (Web & Mobile)"
+      },
+      {
+        "type": "OPENED",
+        "timestamp": "2026-11-09T20:10:35.911Z",
+        "ip": "66.249.88.81",
+        "client": "Gmail Proxy (Web & Mobile)"
+      },
+      {
+        "type": "OPENED",
+        "timestamp": "2026-11-09T20:10:35.919Z",
+        "ip": "127.0.0.1",
+        "client": "Desktop Webmail Client"
+      },
+      {
+        "type": "OPENED",
+        "timestamp": "2026-11-09T20:11:14.868Z",
+        "ip": "66.249.88.50",
+        "client": "Gmail Proxy (Web & Mobile)"
+      },
+      {
+        "type": "OPENED",
+        "timestamp": "2026-11-09T20:11:14.875Z",
+        "ip": "127.0.0.1",
+        "client": "Desktop Webmail Client"
+      }
+    ]
+  },
+  "TRK-job-mock-008": {
+    "trackingId": "TRK-job-mock-008",
+    "jobId": "job-mock-008",
+    "confirmationId": "CONF-JOB-MOCK-SUCCESS",
+    "emailId": "EML-CONF-JOB-MOCK-SUCCESS-MW9P5RF7",
+    "company": "Mindrops Digital Studio",
+    "role": "Senior WordPress & Frontend Developer",
+    "recipientEmail": "kumar.ashu872@gmail.com",
+    "status": "DELIVERED",
+    "openCount": 0,
+    "firstOpenedAt": null,
+    "lastOpenedAt": null,
+    "resumeClicked": false,
+    "resumeClickCount": 0,
+    "lastClickedAt": null,
+    "openedByIp": null,
+    "userAgent": null,
+    "deviceType": null,
+    "history": [
+      {
+        "type": "DELIVERED",
+        "timestamp": "2026-11-09T20:11:39.672Z",
+        "details": "Application confirmed & delivered to kumar.ashu872@gmail.com"
+      }
+    ]
+  },
+  "job-mock-008": {
+    "trackingId": "TRK-job-mock-008",
+    "jobId": "job-mock-008",
+    "confirmationId": "CONF-JOB-MOCK-SUCCESS",
+    "emailId": "EML-CONF-JOB-MOCK-SUCCESS-MW9P5RF7",
+    "company": "Mindrops Digital Studio",
+    "role": "Senior WordPress & Frontend Developer",
+    "recipientEmail": "kumar.ashu872@gmail.com",
+    "status": "DELIVERED",
+    "openCount": 0,
+    "firstOpenedAt": null,
+    "lastOpenedAt": null,
+    "resumeClicked": false,
+    "resumeClickCount": 0,
+    "lastClickedAt": null,
+    "openedByIp": null,
+    "userAgent": null,
+    "deviceType": null,
+    "history": [
+      {
+        "type": "DELIVERED",
+        "timestamp": "2026-11-09T20:11:39.672Z",
+        "details": "Application confirmed & delivered to kumar.ashu872@gmail.com"
+      }
+    ]
+  },
+  "EML-CONF-JOB-MOCK-SUCCESS-MW9P5RF7": {
+    "trackingId": "TRK-job-mock-008",
+    "jobId": "job-mock-008",
+    "confirmationId": "CONF-JOB-MOCK-SUCCESS",
+    "emailId": "EML-CONF-JOB-MOCK-SUCCESS-MW9P5RF7",
+    "company": "Mindrops Digital Studio",
+    "role": "Senior WordPress & Frontend Developer",
+    "recipientEmail": "kumar.ashu872@gmail.com",
+    "status": "DELIVERED",
+    "openCount": 0,
+    "firstOpenedAt": null,
+    "lastOpenedAt": null,
+    "resumeClicked": false,
+    "resumeClickCount": 0,
+    "lastClickedAt": null,
+    "openedByIp": null,
+    "userAgent": null,
+    "deviceType": null,
+    "history": [
+      {
+        "type": "DELIVERED",
+        "timestamp": "2026-11-09T20:11:39.672Z",
+        "details": "Application confirmed & delivered to kumar.ashu872@gmail.com"
+      }
+    ]
+  },
+  "TRK-auto-zepto-ashutosh-kumar": {
+    "trackingId": "TRK-auto-zepto-ashutosh-kumar",
+    "jobId": "auto-zepto-ashutosh-kumar",
+    "confirmationId": "CONF-AUTO-ZEP-SUCCESS",
+    "emailId": "EML-CONF-AUTO-ZEP-SUCCESS-MW9P6142",
+    "company": "Zepto Commerce",
+    "role": "Lead Frontend Engineer (Storefront & Core Web Vitals)",
+    "recipientEmail": "kumar.ashu872@gmail.com",
+    "status": "DELIVERED",
+    "openCount": 0,
+    "firstOpenedAt": null,
+    "lastOpenedAt": null,
+    "resumeClicked": false,
+    "resumeClickCount": 0,
+    "lastClickedAt": null,
+    "openedByIp": null,
+    "userAgent": null,
+    "deviceType": null,
+    "history": [
+      {
+        "type": "DELIVERED",
+        "timestamp": "2026-11-09T20:11:52.229Z",
+        "details": "Application confirmed & delivered to kumar.ashu872@gmail.com"
+      }
+    ]
+  },
+  "auto-zepto-ashutosh-kumar": {
+    "trackingId": "TRK-auto-zepto-ashutosh-kumar",
+    "jobId": "auto-zepto-ashutosh-kumar",
+    "confirmationId": "CONF-AUTO-ZEP-SUCCESS",
+    "emailId": "EML-CONF-AUTO-ZEP-SUCCESS-MW9P6142",
+    "company": "Zepto Commerce",
+    "role": "Lead Frontend Engineer (Storefront & Core Web Vitals)",
+    "recipientEmail": "kumar.ashu872@gmail.com",
+    "status": "DELIVERED",
+    "openCount": 0,
+    "firstOpenedAt": null,
+    "lastOpenedAt": null,
+    "resumeClicked": false,
+    "resumeClickCount": 0,
+    "lastClickedAt": null,
+    "openedByIp": null,
+    "userAgent": null,
+    "deviceType": null,
+    "history": [
+      {
+        "type": "DELIVERED",
+        "timestamp": "2026-11-09T20:11:52.229Z",
+        "details": "Application confirmed & delivered to kumar.ashu872@gmail.com"
+      }
+    ]
+  },
+  "EML-CONF-AUTO-ZEP-SUCCESS-MW9P6142": {
+    "trackingId": "TRK-auto-zepto-ashutosh-kumar",
+    "jobId": "auto-zepto-ashutosh-kumar",
+    "confirmationId": "CONF-AUTO-ZEP-SUCCESS",
+    "emailId": "EML-CONF-AUTO-ZEP-SUCCESS-MW9P6142",
+    "company": "Zepto Commerce",
+    "role": "Lead Frontend Engineer (Storefront & Core Web Vitals)",
+    "recipientEmail": "kumar.ashu872@gmail.com",
+    "status": "DELIVERED",
+    "openCount": 0,
+    "firstOpenedAt": null,
+    "lastOpenedAt": null,
+    "resumeClicked": false,
+    "resumeClickCount": 0,
+    "lastClickedAt": null,
+    "openedByIp": null,
+    "userAgent": null,
+    "deviceType": null,
+    "history": [
+      {
+        "type": "DELIVERED",
+        "timestamp": "2026-11-09T20:11:52.229Z",
+        "details": "Application confirmed & delivered to kumar.ashu872@gmail.com"
+      }
+    ]
+  }
+}

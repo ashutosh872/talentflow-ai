@@ -2,6 +2,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as https from 'https';
 import * as tls from 'tls';
+import { buildRichEmailHtml } from './generate-rich-emails.js';
 
 // Storage paths
 const CONFIG_PATH = path.resolve('data/gmail-config.json');
@@ -688,56 +689,11 @@ export function recordInboundReply(replyData) {
 
   fs.writeFileSync(REPLIES_INDEX_PATH, JSON.stringify(replies, null, 2), 'utf8');
 
-  // Also write full HTML view
+  // Also write full rich HTML view with all clickable links same like mail itself
   const htmlFileName = `${replyData.messageId}.html`;
   const htmlFilePath = path.join(INBOUND_DIR, htmlFileName);
 
-  const htmlDoc = `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Inbound Recruiter Email: ${replyData.subject}</title>
-  <style>
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #0f172a; color: #f8fafc; padding: 24px; margin: 0; }
-    .card { max-width: 720px; margin: 0 auto; background: #1e293b; border-radius: 12px; border: 1px solid #334155; padding: 28px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
-    .badge { display: inline-block; padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: bold; }
-    .badge-interview { background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid #10b981; }
-    .badge-test { background: rgba(168, 85, 247, 0.2); color: #c084fc; border: 1px solid #a855f7; }
-    .meta-row { display: flex; justify-content: space-between; border-bottom: 1px solid #334155; padding-bottom: 16px; margin-bottom: 16px; font-size: 13px; color: #94a3b8; }
-    .email-body { font-size: 14px; line-height: 1.7; color: #e2e8f0; white-space: pre-wrap; background: #0f172a; padding: 20px; border-radius: 8px; border: 1px solid #334155; }
-    .reply-box { margin-top: 24px; background: #1e3a8a/30; border: 1px solid #3b82f6; border-radius: 8px; padding: 16px; }
-    .reply-title { font-weight: bold; color: #60a5fa; font-size: 13px; text-transform: uppercase; margin-bottom: 8px; }
-  </style>
-</head>
-<body>
-  <div class="card">
-    <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:16px;">
-      <div>
-        <span class="badge ${replyData.intent === 'TECH_ASSESSMENT' ? 'badge-test' : 'badge-interview'}">${replyData.intentTitle}</span>
-        <h2 style="margin: 8px 0 4px 0; color:#ffffff; font-size: 20px;">${replyData.subject}</h2>
-        <div style="color:#38bdf8; font-size:13px; font-weight:600;">${replyData.company} • ${replyData.role}</div>
-      </div>
-      <div style="text-align:right; font-size:12px; color:#94a3b8;">
-        <div>${replyData.receivedDate}</div>
-        <div style="margin-top:4px;"><code style="color:#10b981;">${replyData.confirmationId}</code></div>
-      </div>
-    </div>
-
-    <div class="meta-row">
-      <div><strong>From:</strong> ${replyData.from}</div>
-      <div><strong>Correlated Job:</strong> ${replyData.jobId}</div>
-    </div>
-
-    <div class="email-body">${replyData.bodyText}</div>
-
-    ${replyData.replyDraft ? `
-    <div class="reply-box">
-      <div class="reply-title">✉️ AI-Crafted Response Draft for Ashutosh</div>
-      <div style="font-size:13px; color:#cbd5e1; white-space:pre-wrap;">${replyData.replyDraft.body}</div>
-    </div>` : ''}
-  </div>
-</body>
-</html>`;
+  const htmlDoc = buildRichEmailHtml(replyData);
 
   fs.writeFileSync(htmlFilePath, htmlDoc, 'utf8');
   return replyData;

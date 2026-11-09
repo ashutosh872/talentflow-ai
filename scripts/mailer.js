@@ -1,11 +1,13 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import nodemailer from 'nodemailer';
+import { registerEmailDispatch } from './email-tracker.js';
 
 export async function sendApplicationConfirmationEmail(payload) {
   const recipient = payload.recipientEmail || 'kumar.ashu872@gmail.com';
   const confirmationId = payload.confirmationId || `CONF-${Date.now().toString(36).toUpperCase()}`;
   const emailId = `EML-${confirmationId}-${Date.now().toString(36).toUpperCase()}`;
+  const trackingId = `TRK-${payload.jobId || confirmationId}`;
   const timestamp = new Date().toLocaleString('en-US', {
     timeZone: 'Asia/Kolkata',
     dateStyle: 'full',
@@ -167,8 +169,13 @@ export async function sendApplicationConfirmationEmail(payload) {
     <div class="footer">
       Ashutosh Kumar AI Job Search &amp; Application Workflow Agent<br>
       Automated Transactional Revert Dispatcher • Account: ${recipient}
+      <div style="font-size: 10px; color: #94a3b8; margin-top: 8px; border-top: 1px dashed #cbd5e1; padding-top: 6px;">
+        📡 Real-Time Dispatch Read Receipt Tracking ID: <code style="font-family: monospace; font-weight: bold; color: #2563eb;">${trackingId}</code> • Monitored via Delivery Engine
+      </div>
     </div>
   </div>
+  <!-- Real-Time Email Open Tracking Beacon -->
+  <img src="/api/track/open/${trackingId}" width="1" height="1" alt="" style="display:none!important;width:1px;height:1px;border:0;opacity:0;" />
 </body>
 </html>`;
 
@@ -179,6 +186,18 @@ export async function sendApplicationConfirmationEmail(payload) {
   const htmlFileName = `${emailId}.html`;
   const htmlPath = path.join(dispatchesDir, htmlFileName);
   fs.writeFileSync(htmlPath, htmlContent, 'utf8');
+
+  // Register in Email Tracker Store
+  try {
+    registerEmailDispatch({
+      emailId,
+      confirmationId,
+      jobId: payload.jobId,
+      company,
+      role,
+      recipientEmail: recipient
+    });
+  } catch (e) {}
 
   // Try live SMTP if environment variables are configured
   let dispatchMode = 'LOCAL_TRANSACTIONAL_RECEIPT';
@@ -222,6 +241,7 @@ export async function sendApplicationConfirmationEmail(payload) {
     emailId,
     confirmationId,
     jobId: payload.jobId,
+    trackingId,
     company,
     role,
     vacancyPortal,
@@ -232,6 +252,9 @@ export async function sendApplicationConfirmationEmail(payload) {
     mode: dispatchMode,
     htmlFileName,
     webUrl: `/data/email-dispatches/${htmlFileName}`,
+    trackingUrl: `/api/track/open/${trackingId}`,
+    openStatus: 'DELIVERED',
+    openCount: 0,
     attachments: attachmentNames
   };
 
