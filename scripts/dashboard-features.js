@@ -721,8 +721,8 @@ function openScreeningModal(jobId) {
     currentCompany: 'Frontend Developer contract at Wondrfly Inc.',
     targetCtc: '₹12,00,000 - ₹16,00,000 PA',
     targetCtcMin: 12,
-    coreStack: ['Angular 15+', 'Angular Material UI', 'TypeScript', 'HTML5/SCSS', 'Design Systems', 'Playwright'],
-    verifiedAnchors: ['Samsung SDS (97/100 rating)', 'Cisco BPA portal', 'Wondrfly Playwright test suites']
+    coreStack: ['HTML5/SCSS', 'JavaScript (ES6)', 'Angular Material UI', 'Design Systems', 'Figma-to-Code', 'Playwright UI Testing', 'WCAG 2.1/2.2'],
+    verifiedAnchors: ['Samsung SDS Global (97/100 rating)', 'Cisco BPA portal & SD-WAN UI', 'Wondrfly Playwright test suites']
   };
 
   title.textContent = job.title;
@@ -1350,7 +1350,7 @@ async function initCandidateManager() {
         location: "New Delhi (Delhi NCR) / Remote India",
         email: "kumar.ashu872@gmail.com",
         phone: "+91 9310681373",
-        coreStack: ["Angular 15+", "Angular Material UI", "TypeScript", "SCSS", "Design Systems", "Playwright", "WCAG 2.1 AA"],
+        coreStack: ["HTML5", "CSS3/SCSS", "JavaScript (ES6)", "Angular Material UI", "Reusable UI Components", "Design Systems", "Figma-to-Code", "Playwright UI Testing", "WCAG 2.1/2.2"],
         activeApplicationsCount: 14,
         totalEvaluated: 340
       }

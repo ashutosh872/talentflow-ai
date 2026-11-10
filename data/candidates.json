@@ -31,83 +31,111 @@
     "email": "kumar.ashu872@gmail.com",
     "phone": "+91 9310681373",
     "coreStack": [
-      "React",
-      "TypeScript",
-      "JavaScript",
       "HTML5",
       "CSS3",
-      "Angular",
-      "Sass",
-      "SCSS",
-      "Bootstrap",
-      "Git",
-      "Playwright",
-      "Figma",
-      "Angular 15+",
+      "SCSS/Sass",
+      "JavaScript (ES6)",
       "Angular Material UI",
-      "HTML5 / SCSS",
-      "Design Systems & Tokens",
+      "Reusable UI Components",
+      "Component-Based Architecture",
+      "Design Systems",
+      "Figma-to-Code",
       "Playwright UI Testing",
-      "WCAG 2.1 AA Accessibility",
-      "Figma-to-Code"
+      "WCAG 2.1/2.2 Accessibility",
+      "Web Performance Optimization",
+      "Cursor AI & Claude"
     ],
     "skills": [
-      "Angular 15+",
-      "Angular Material UI",
-      "TypeScript",
       "HTML5 / SCSS",
-      "Design Systems & Tokens",
+      "JavaScript (ES6)",
+      "Angular Material UI",
+      "Design Systems & Reusable Components",
+      "Figma-to-Code",
       "Playwright UI Testing",
-      "WCAG 2.1 AA Accessibility",
-      "Figma-to-Code"
+      "WCAG Accessibility",
+      "Web Performance & SEO"
     ],
     "verifiedAnchors": [
-      "Samsung SDS Global (97/100 performance rating)",
-      "Cisco Systems BPA & SD-WAN UI Modernization",
-      "Wondrfly Inc. Automated Playwright Test Suite"
+      "Samsung SDS Global (97/100 Rating)",
+      "Cisco Systems (BPA Portal & SD-WAN UI)",
+      "Wondrfly Inc. (Playwright UI Validation & Bug-Fix Workflow)"
     ],
-    "bio": "Senior Frontend Engineer with 8+ years specializing in enterprise Angular Material design systems, Core Web Vitals performance, and robust automated UI test suites.",
+    "bio": "Senior Frontend/UI Engineer with 8+ years of experience delivering responsive, accessible, and high-performance web interfaces for enterprise clients and growing businesses, including Samsung SDS, Cisco, and Wondrfly. Skilled in HTML5, CSS3, SCSS/Sass, JavaScript (ES6), Angular Material UI, reusable UI patterns, design systems, and pixel-perfect Figma-to-code implementation with WCAG accessibility and Playwright UI validation.",
     "activeApplicationsCount": 14,
     "totalEvaluated": 340,
     "lastParsedIntelligence": {
-      "rawTextLength": 0,
-      "name": "Verified Candidate",
-      "email": "",
-      "phone": "+91 9999999999",
-      "currentTitle": "Senior Frontend Engineer",
+      "rawTextLength": 4120,
+      "name": "Ashutosh Kumar",
+      "email": "kumar.ashu872@gmail.com",
+      "phone": "+91 9310681373",
+      "currentTitle": "Senior Frontend Engineer & UI Architect",
       "seniority": "Senior",
-      "experienceYears": 5,
-      "location": "Delhi NCR / Remote India",
+      "experienceYears": 8.2,
+      "location": "New Delhi (Delhi NCR) / Remote India",
       "skills": {
         "primary": [
-          "React",
-          "TypeScript",
-          "JavaScript",
           "HTML5",
-          "CSS3"
+          "CSS3",
+          "SCSS/Sass",
+          "JavaScript (ES6)",
+          "Angular Material UI",
+          "Playwright",
+          "WCAG 2.1/2.2"
         ],
-        "secondary": []
+        "secondary": [
+          "Bootstrap",
+          "jQuery",
+          "Figma",
+          "Cursor AI",
+          "Claude"
+        ]
       },
       "education": [
         {
-          "degree": "Bachelor of Technology (Computer Science)",
-          "institution": "Technical University",
+          "degree": "Master of Computer Applications (MCA)",
+          "institution": "Guru Gobind Singh Indraprastha University, New Delhi",
           "year": 2016
+        },
+        {
+          "degree": "Bachelor of Computer Applications (BCA)",
+          "institution": "Sikkim Manipal University",
+          "year": 2013
         }
       ],
       "employmentHistory": [
         {
-          "company": "Enterprise Technology Solutions",
-          "role": "Senior Frontend Engineer",
-          "period": "2020 – Present",
+          "company": "Wondrfly Inc.",
+          "role": "Frontend Developer (Contract)",
+          "period": "Sep 2025 – Present",
           "current": true,
           "highlights": [
-            "Led modern frontend development utilizing ",
-            "Architected reusable component libraries and accessible UI design patterns"
+            "Build responsive, pixel-perfect web interfaces from Figma designs using HTML5, SCSS, JavaScript, and Angular Material UI",
+            "Contribute to Playwright-based browser automation to validate UI behavior and catch regressions in critical flows",
+            "Leverage Cursor AI & Claude to accelerate bug investigation and test authoring workflows"
+          ]
+        },
+        {
+          "company": "Samsung SDS",
+          "role": "Assistant Manager - Web Publisher",
+          "period": "Sep 2022 – Mar 2023",
+          "current": false,
+          "highlights": [
+            "Delivered enterprise web interfaces for Samsung HQ platforms with 97/100 performance rating",
+            "Maintained responsive behavior, content accuracy, and web accessibility standards"
+          ]
+        },
+        {
+          "company": "Infinity Labs India (Cisco Client)",
+          "role": "Associate Software Engineer",
+          "period": "Dec 2018 – Jul 2020",
+          "current": false,
+          "highlights": [
+            "Engineered front-end interfaces for Cisco Business Process Automation (BPA) Portal and SD-WAN UI",
+            "Constructed UI components using HTML, CSS, Bootstrap, and Angular Material UI"
           ]
         }
       ],
-      "bio": "Candidate is a Senior Frontend Engineer with 5+ years of enterprise experience specializing in . Proven track record of architecting scalable web applications, optimizing Core Web Vitals, and leading high-velocity frontend teams."
+      "bio": "Senior Frontend/UI Engineer with 8+ years of experience delivering responsive, accessible, and high-performance web interfaces for enterprise clients including Samsung SDS, Cisco, and Wondrfly. Skilled in HTML5, CSS3, SCSS/Sass, JavaScript (ES6), Angular Material UI, design systems, Figma-to-code, Playwright UI testing, and WCAG accessibility."
     },
     "seniority": "Senior"
   }

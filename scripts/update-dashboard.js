@@ -283,7 +283,7 @@ function buildPersonalWebsiteHtml() {
             </h2>
 
             <p class="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-3xl">
-              Specializing in enterprise <strong>Angular 15+</strong> Material design systems, Core Web Vitals performance, automated <strong>Playwright UI testing</strong>, and <strong>WCAG 2.1 AA</strong> compliant architecture with 8+ years verified track record.
+              Senior Frontend &amp; UI Engineer with <strong>8+ years</strong> delivering responsive, accessible, and high-performance web interfaces for enterprise platforms and commercial clients including <strong>Samsung SDS</strong>, <strong>Cisco</strong>, and <strong>Wondrfly</strong>. Skilled in <strong>HTML5, CSS3, SCSS/Sass, JavaScript (ES6)</strong>, <strong>Angular Material UI</strong>, reusable component patterns, design systems, and pixel-perfect <strong>Figma-to-code</strong> implementation with <strong>WCAG 2.1/2.2 accessibility</strong> and <strong>Playwright UI validation</strong>. Actively leverages Cursor AI &amp; Claude to accelerate workflows.
             </p>
 
             <!-- Verified Enterprise Anchors -->
@@ -293,23 +293,24 @@ function buildPersonalWebsiteHtml() {
                 🔹 Samsung SDS Global (97/100 Rating)
               </span>
               <span class="px-2.5 py-1 rounded-lg bg-indigo-950/60 border border-indigo-500/30 text-indigo-300 font-medium text-[11px]">
-                🔹 Cisco Systems (BPA &amp; SD-WAN UI)
+                🔹 Cisco Systems (BPA Portal &amp; SD-WAN UI)
               </span>
               <span class="px-2.5 py-1 rounded-lg bg-cyan-950/60 border border-cyan-500/30 text-cyan-300 font-medium text-[11px]">
-                🔹 Wondrfly Inc. (Playwright Suites)
+                🔹 Wondrfly Inc. (Playwright UI Validation &amp; Bug-Fix Workflow)
               </span>
             </div>
 
             <!-- Core Stack Pills -->
             <div class="pt-1 flex flex-wrap items-center gap-1.5 text-xs">
-              <span class="px-2.5 py-0.5 rounded-md bg-slate-800/80 text-slate-200 border border-slate-700 font-mono text-[11px]">Angular 15+</span>
-              <span class="px-2.5 py-0.5 rounded-md bg-slate-800/80 text-slate-200 border border-slate-700 font-mono text-[11px]">Angular Material</span>
-              <span class="px-2.5 py-0.5 rounded-md bg-slate-800/80 text-slate-200 border border-slate-700 font-mono text-[11px]">TypeScript</span>
+              <span class="px-2.5 py-0.5 rounded-md bg-slate-800/80 text-slate-200 border border-slate-700 font-mono text-[11px]">Angular Material UI</span>
+              <span class="px-2.5 py-0.5 rounded-md bg-slate-800/80 text-slate-200 border border-slate-700 font-mono text-[11px]">JavaScript (ES6)</span>
               <span class="px-2.5 py-0.5 rounded-md bg-slate-800/80 text-slate-200 border border-slate-700 font-mono text-[11px]">HTML5 / SCSS</span>
+              <span class="px-2.5 py-0.5 rounded-md bg-slate-800/80 text-slate-200 border border-slate-700 font-mono text-[11px]">Reusable UI Components</span>
               <span class="px-2.5 py-0.5 rounded-md bg-slate-800/80 text-slate-200 border border-slate-700 font-mono text-[11px]">Design Systems</span>
-              <span class="px-2.5 py-0.5 rounded-md bg-slate-800/80 text-slate-200 border border-slate-700 font-mono text-[11px]">Playwright UI</span>
-              <span class="px-2.5 py-0.5 rounded-md bg-slate-800/80 text-slate-200 border border-slate-700 font-mono text-[11px]">WCAG 2.1 AA</span>
               <span class="px-2.5 py-0.5 rounded-md bg-slate-800/80 text-slate-200 border border-slate-700 font-mono text-[11px]">Figma-to-Code</span>
+              <span class="px-2.5 py-0.5 rounded-md bg-slate-800/80 text-slate-200 border border-slate-700 font-mono text-[11px]">Playwright UI Testing</span>
+              <span class="px-2.5 py-0.5 rounded-md bg-slate-800/80 text-slate-200 border border-slate-700 font-mono text-[11px]">WCAG 2.1/2.2</span>
+              <span class="px-2.5 py-0.5 rounded-md bg-slate-800/80 text-slate-200 border border-slate-700 font-mono text-[11px]">Cursor AI &amp; Claude</span>
             </div>
           </div>
 
@@ -964,7 +965,8 @@ function buildPersonalWebsiteHtml() {
       location: 'New Delhi (Delhi NCR) / Remote India',
       email: 'kumar.ashu872@gmail.com',
       phone: '+91 9310681373',
-      coreStack: ['Angular 15+', 'Angular Material UI', 'TypeScript', 'HTML5 / SCSS', 'Design Systems & Tokens', 'Playwright UI Testing', 'WCAG 2.1 AA Accessibility', 'Figma-to-Code'],
+      coreStack: ['HTML5', 'CSS3', 'SCSS/Sass', 'JavaScript (ES6)', 'Angular Material UI', 'Reusable UI Components', 'Design Systems', 'Figma-to-Code', 'Playwright UI Testing', 'WCAG 2.1/2.2 Accessibility', 'Web Performance Optimization', 'Cursor AI & Claude'],
+      skills: ['HTML5 / SCSS', 'JavaScript (ES6)', 'Angular Material UI', 'Design Systems & Reusable Components', 'Figma-to-Code', 'Playwright UI Testing', 'WCAG Accessibility', 'Web Performance & SEO'],
       isAdmin: true,
       isVerified: true
     };
@@ -1463,7 +1465,7 @@ function buildPersonalWebsiteHtml() {
         '',
         'I am writing to briefly follow up on my candidate submission for the ' + job.title + ' position (Ref: ' + (job.confirmationId || 'CONF-REF') + ').',
         '',
-        'With 8+ years hands-on experience architecting enterprise Angular 15+ design systems, optimizing Core Web Vitals, and leading automated UI testing suites, I remain very enthusiastic about the opportunity to contribute to ' + job.company + '.',
+        'With 8+ years hands-on experience delivering enterprise web interfaces, Angular Material UI, and automated Playwright UI testing suites, I remain very enthusiastic about the opportunity to contribute to ' + job.company + '.',
         '',
         'Please let me know if you need any additional portfolio samples, code repositories, or references. I am available for a brief introductory call at your convenience.',
         '',
@@ -1850,7 +1852,7 @@ function buildPersonalWebsiteHtml() {
 
 
       // ATS Keyword Gap Analyzer & Cheatsheet
-      const masterSkills = (currentCandidate && currentCandidate.skills) ? currentCandidate.skills : ['Angular 15+', 'TypeScript', 'RxJS', 'Material UI', 'Design Systems', 'Playwright', 'Core Web Vitals', 'WCAG 2.1 AA', 'Tailwind CSS', 'REST APIs', 'State Management'];
+      const masterSkills = (currentCandidate && currentCandidate.skills) ? currentCandidate.skills : ['Angular Material UI', 'JavaScript (ES6)', 'HTML5 / SCSS', 'Design Systems', 'Figma-to-Code', 'Playwright UI Testing', 'WCAG 2.1/2.2', 'Web Performance'];
       const jobSkillsList = (job.skills || []).map(s => s.toLowerCase());
       const jobTextLower = ((job.description || '') + ' ' + (job.title || '') + ' ' + (job.skills || []).join(' ')).toLowerCase();
       
@@ -1859,7 +1861,7 @@ function buildPersonalWebsiteHtml() {
         return jobSkillsList.some(js => js.includes(sLower) || sLower.includes(js)) || jobTextLower.includes(sLower);
       });
 
-      const highValuePool = ['Microfrontends', 'Nx Monorepo', 'State Management', 'Performance Budgets', 'CI/CD Pipelines', 'Clean Architecture', 'Unit Testing', 'Signals'];
+      const highValuePool = ['Component Architecture', 'Design Tokens', 'State Management', 'Web Performance', 'CI/CD Pipelines', 'Clean Code', 'Responsive UI', 'Cross-Browser'];
       const recommended = highValuePool.filter(kw => jobTextLower.includes(kw.toLowerCase()) || !matched.map(m=>m.toLowerCase()).includes(kw.toLowerCase())).slice(0, 4);
 
       const atsMatchedEl = document.getElementById('jdModalMatchedSkills');
@@ -1881,12 +1883,12 @@ function buildPersonalWebsiteHtml() {
       // Interview Cheatsheet & Elevator Pitch
       const pitchEl = document.getElementById('jdModalElevatorPitch');
       if (pitchEl) {
-        pitchEl.textContent = '"I am a Senior Frontend Engineer & UI Architect with 8+ years hands-on experience building enterprise-grade Angular architectures and tokenized design systems. For ' + job.company + ', I can immediately drive UI performance, Core Web Vitals, and scalable component governance while mentoring engineers and ensuring WCAG accessibility compliance."';
+        pitchEl.textContent = '"I am Ashutosh Kumar, a Senior Frontend Engineer & UI Developer with 8+ years hands-on experience delivering enterprise web interfaces for Samsung SDS, Cisco, and Wondrfly. Skilled in HTML5, CSS3/SCSS, JavaScript, Angular Material UI, reusable component design systems, and Playwright UI validation. For ' + job.company + ', I can immediately drive UI quality, pixel-perfect Figma-to-code execution, and WCAG accessibility standards."';
       }
 
       const archEl = document.getElementById('jdModalArchFocus');
       if (archEl) {
-        archEl.textContent = 'Prioritize enterprise Angular modularization, lazy-loaded feature modules, token-based design systems with WCAG 2.1 AA standards, and automated Playwright E2E suites for zero-regression releases.';
+        archEl.textContent = 'Prioritize component-based architecture, reusable UI patterns, token-based design systems with WCAG 2.1/2.2 accessibility, and targeted Playwright UI validation suites for zero-regression releases.';
       }
 
       const probEl = document.getElementById('jdModalProbableQuestions');

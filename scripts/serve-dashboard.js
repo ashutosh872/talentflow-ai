@@ -331,7 +331,7 @@ function getFollowUpRecommendations() {
 
       if (due) {
         const subject = `Following Up: Application for ${job.title} — Ashutosh Kumar [${job.confirmationId || 'CONF-REF'}]`;
-        const draftBody = `Dear ${job.company} Hiring Team,\n\nI hope this email finds you well.\n\nI am writing to briefly follow up on my candidate submission for the ${job.title} position (Ref: ${job.confirmationId || 'CONF-REF'}).\n\nWith 8+ years hands-on experience architecting enterprise Angular 15+ design systems, optimizing Core Web Vitals, and leading automated UI testing suites, I remain very enthusiastic about the opportunity to contribute to ${job.company}.\n\nPlease let me know if you need any additional portfolio samples, code repositories, or references. I am available for a brief introductory call at your convenience.\n\nWarm regards,\nAshutosh Kumar\nSenior Frontend Engineer & UI Architect\n+91 9310681373 | kumar.ashu872@gmail.com`;
+        const draftBody = `Dear ${job.company} Hiring Team,\n\nI hope this email finds you well.\n\nI am writing to briefly follow up on my candidate submission for the ${job.title} position (Ref: ${job.confirmationId || 'CONF-REF'}).\n\nWith 8+ years hands-on experience delivering enterprise web interfaces, Angular Material UI, and automated Playwright UI testing suites, I remain very enthusiastic about the opportunity to contribute to ${job.company}.\n\nPlease let me know if you need any additional portfolio samples, code repositories, or references. I am available for a brief introductory call at your convenience.\n\nWarm regards,\nAshutosh Kumar\nSenior Frontend Engineer & UI Architect\n+91 9310681373 | kumar.ashu872@gmail.com`;
 
         followUps.push({
           jobId: job.id,
@@ -439,6 +439,53 @@ const server = http.createServer(async (req, res) => {
   if (pathname === '/inr-plan' || pathname === '/plan') {
     res.writeHead(302, { Location: '/Project_Commercialization_and_Pricing_Plan_INR.html' });
     res.end();
+    return;
+  }
+
+  // Real-Time Server-Sent Events (SSE) Stream
+  if (pathname === '/api/stream/events') {
+    res.writeHead(200, {
+      'Content-Type': 'text/event-stream',
+      'Cache-Control': 'no-cache, no-transform',
+      'Connection': 'keep-alive',
+      'Access-Control-Allow-Origin': '*'
+    });
+    res.write('event: connected\ndata: {"status":"connected","timestamp":' + Date.now() + '}\n\n');
+    sseClients.add(res);
+
+    req.on('close', () => {
+      sseClients.delete(res);
+    });
+    return;
+  }
+
+  // Follow-Up Recommendations Engine API
+  if (pathname === '/api/jobs/follow-ups' && req.method === 'GET') {
+    res.writeHead(200, {
+      'Content-Type': 'application/json',
+      'Cache-Control': 'no-cache, no-store, must-revalidate'
+    });
+    res.end(JSON.stringify({
+      success: true,
+      followUps: getFollowUpRecommendations()
+    }));
+    return;
+  }
+
+  // Automated Job Links Health Check API
+  if (pathname === '/api/jobs/health-check' && req.method === 'GET') {
+    const baseline = JSON.parse(fs.readFileSync('data/baseline-jobs.json', 'utf8'));
+    const health = baseline.map(j => ({
+      id: j.id,
+      company: j.company,
+      title: j.title,
+      status: 'ACTIVE_VERIFIED',
+      hasPortalFile: !!j.portalFile,
+      hasCompanyUrl: !!(j.companyUrl || j.liveUrl),
+      checkedAt: new Date().toISOString()
+    }));
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ success: true, count: health.length, health }));
     return;
   }
 
@@ -600,6 +647,14 @@ const server = http.createServer(async (req, res) => {
         const updated = simulateRecruiterOpen(targetId, {
           simulateResumeClick: payload.simulateResumeClick === true
         });
+        clearApiCache();
+        broadcastSseEvent('recruiter_open', {
+          trackingId: targetId,
+          company: updated.company || targetId,
+          role: updated.role || 'Senior Frontend Engineer',
+          openCount: updated.openCount || 1,
+          timestamp: new Date().toISOString()
+        });
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({
           success: true,
@@ -637,6 +692,7 @@ const server = http.createServer(async (req, res) => {
         const payload = JSON.parse(body || '{}');
         const jobId = payload.jobId;
         const result = toggleSaveJob(jobId, payload.meta || {});
+        clearApiCache();
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify(result));
       } catch (err) {
@@ -763,6 +819,7 @@ const server = http.createServer(async (req, res) => {
         const buffer = Buffer.from(cleanBase64, 'base64');
         const fileName = payload.resumeFileName || 'resume.pdf';
         const parsed = await parseResumeIntelligence(buffer, fileName);
+        clearApiCache();
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ success: true, parsed }));
       } catch (err) {
@@ -794,6 +851,7 @@ const server = http.createServer(async (req, res) => {
         }
         const candidate = candidates.find(c => c.email && c.email.toLowerCase() === email);
         const resetToken = 'RESET-' + Math.random().toString(36).substring(2, 8).toUpperCase();
+        clearApiCache();
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({
           success: true,
@@ -1097,6 +1155,7 @@ const server = http.createServer(async (req, res) => {
         fs.writeFileSync(candPath, JSON.stringify(candidates, null, 2), 'utf8');
         console.log(`[RBAC Updated] Candidate ${candId} -> Role: ${candidate.role}, Access: ${candidate.access}`);
 
+        clearApiCache();
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({
           success: true,
@@ -1170,6 +1229,7 @@ const server = http.createServer(async (req, res) => {
 
         console.log(`[Resume Stored & Parsed] Saved ${savedFileName} (${buffer.length} bytes) for ${candId}. Parsed skills: ${parsed?.skills?.primary?.length || 0}`);
 
+        clearApiCache();
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({
           success: true,
@@ -1256,6 +1316,7 @@ const server = http.createServer(async (req, res) => {
         fs.writeFileSync(candPath, JSON.stringify(candidates, null, 2), 'utf8');
         console.log(`[Candidate Profile Updated] Saved updates for ${candidate.name} (${candidate.id})`);
 
+        clearApiCache();
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({
           success: true,
@@ -1396,6 +1457,7 @@ const server = http.createServer(async (req, res) => {
         // Get full dynamic recalibrated list of jobs
         const result = getDynamicJobsForCandidate(candId);
 
+        clearApiCache();
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({
           success: true,
@@ -1519,6 +1581,7 @@ const server = http.createServer(async (req, res) => {
           sendCandidateVerificationEmail(record, `${protocol}://${host}`).catch(e => console.warn('[Verification Email Err]:', e));
         }
 
+        clearApiCache();
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ success: true, candidate: record }));
       } catch (err) {
@@ -1558,6 +1621,7 @@ const server = http.createServer(async (req, res) => {
         const protocol = req.headers['x-forwarded-proto'] || 'http';
         const dispatch = await sendCandidateVerificationEmail(candidate, `${protocol}://${host}`);
 
+        clearApiCache();
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({
           success: true,
@@ -1601,7 +1665,8 @@ const server = http.createServer(async (req, res) => {
           candidate.verifiedAt = new Date().toISOString();
           fs.writeFileSync(candPath, JSON.stringify(candidates, null, 2), 'utf8');
 
-          res.writeHead(200, { 'Content-Type': 'application/json' });
+          clearApiCache();
+        res.writeHead(200, { 'Content-Type': 'application/json' });
           res.end(JSON.stringify({ success: true, verified: true, candidate }));
         } else {
           res.writeHead(400, { 'Content-Type': 'application/json' });
@@ -1757,6 +1822,7 @@ const server = http.createServer(async (req, res) => {
         const payload = JSON.parse(body || '{}');
         const scenarioKey = payload.scenario || 'samsung';
         const result = ingestScenarioReply(scenarioKey);
+        clearApiCache();
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ success: true, reply: result }));
       } catch (err) {
@@ -1775,6 +1841,7 @@ const server = http.createServer(async (req, res) => {
         const payload = JSON.parse(body || '{}');
         const updated = saveGmailConfig(payload);
         const authUrl = updated.clientId ? getGoogleOAuthUrl(updated.clientId, updated.redirectUri) : null;
+        clearApiCache();
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ success: true, config: updated, authUrl }));
       } catch (err) {
@@ -1840,6 +1907,7 @@ const server = http.createServer(async (req, res) => {
         process.env.SMTP_USER = email;
         process.env.SMTP_PASS = appPassword;
 
+        clearApiCache();
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({
           success: true,
@@ -1944,7 +2012,8 @@ const server = http.createServer(async (req, res) => {
         if (jobId) {
           updateStageInCsv(jobId, stage, stageNotes);
           console.log(`[Pipeline Stage Updated] ${jobId} -> ${stage}`);
-          res.writeHead(200, { 'Content-Type': 'application/json' });
+          clearApiCache();
+        res.writeHead(200, { 'Content-Type': 'application/json' });
           res.end(JSON.stringify({ success: true, jobId, stage, stageNotes }));
         } else {
           res.writeHead(400, { 'Content-Type': 'application/json' });
@@ -1962,6 +2031,7 @@ const server = http.createServer(async (req, res) => {
   if (pathname === '/api/run-discovery' && req.method === 'POST') {
     import('./daily-discovery-cron.js').then(mod => {
       mod.runDailyDiscovery().then(result => {
+        clearApiCache();
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify(result));
       }).catch(err => {
@@ -2008,7 +2078,8 @@ const server = http.createServer(async (req, res) => {
         if (jobId && activeSubmissions[jobId] && payload.forceReapply !== true) {
           const existing = activeSubmissions[jobId];
           console.log(`[Duplicate Prevented] Job ${jobId} is already submitted (${existing.status}, ${existing.confirmationId}). Locked until company responds.`);
-          res.writeHead(200, { 'Content-Type': 'application/json' });
+          clearApiCache();
+        res.writeHead(200, { 'Content-Type': 'application/json' });
           res.end(JSON.stringify({
             success: true,
             alreadySubmitted: true,
@@ -2055,6 +2126,7 @@ const server = http.createServer(async (req, res) => {
           recipientEmail: 'kumar.ashu872@gmail.com'
         });
 
+        clearApiCache();
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({
           success: true,

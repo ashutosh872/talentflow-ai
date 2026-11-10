@@ -231,8 +231,8 @@ async function runComprehensiveSingleUserE2ETest() {
       const txtResume = `
 Ashutosh Kumar - Senior Frontend Engineer & UI Architect
 Email: kumar.ashu872@gmail.com | Phone: +91 9310681373
-Summary: 8+ years experience building enterprise Angular 15+, TypeScript, Design Systems, Playwright, WCAG.
-Skills: Angular 15+, TypeScript, SCSS, RxJS, Playwright, WCAG 2.1 AA, Micro-Frontends.
+Summary: 8+ years experience building enterprise Angular Material UI, HTML5/SCSS, Design Systems, Playwright, WCAG.
+Skills: Angular Material UI, JavaScript, HTML5, SCSS, Playwright, WCAG 2.1/2.2, Figma-to-Code.
 Experience:
 Senior Frontend Developer at Wondrfly Inc (2022-Present): Led automated UI testing with Playwright.
 Frontend Consultant at Samsung SDS Global: Delivered high-performance portals.
