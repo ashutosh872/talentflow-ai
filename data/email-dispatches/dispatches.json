@@ -1,5 +1,28 @@
 [
   {
+    "emailId": "EML-CONF-JOB-MOCK-SUCCESS-MWAFXY57",
+    "confirmationId": "CONF-JOB-MOCK-SUCCESS",
+    "jobId": "job-mock-008",
+    "trackingId": "TRK-job-mock-008",
+    "company": "Mindrops Digital Studio",
+    "role": "Senior WordPress & Frontend Developer",
+    "vacancyPortal": "Direct Enterprise ATS",
+    "submissionMethod": "Direct 1-Click Platform Apply",
+    "recipientEmail": "kumar.ashu872@gmail.com",
+    "subject": "Application Confirmation: Senior WordPress & Frontend Developer at Mindrops Digital Studio [CONF-JOB-MOCK-SUCCESS]",
+    "timestamp": "Tuesday, November 10, 2026 at 2:11:24 PM (IST)",
+    "mode": "LOCAL_TRANSACTIONAL_RECEIPT",
+    "htmlFileName": "EML-CONF-JOB-MOCK-SUCCESS-MWAFXY57.html",
+    "webUrl": "/data/email-dispatches/EML-CONF-JOB-MOCK-SUCCESS-MWAFXY57.html",
+    "trackingUrl": "/api/track/open/TRK-job-mock-008",
+    "openStatus": "DELIVERED",
+    "openCount": 0,
+    "attachments": [
+      "Ashutosh_Kumar_Resume.pdf",
+      "Ashutosh_Kumar_Cover_Letter.pdf"
+    ]
+  },
+  {
     "emailId": "EML-CONF-AUTO-ZEP-SUCCESS-MW9P6142",
     "confirmationId": "CONF-AUTO-ZEP-SUCCESS",
     "jobId": "auto-zepto-ashutosh-kumar",
@@ -316,8 +339,8 @@
     "htmlFileName": "EML-VERIFY-rahul-verma-e2e-MVZNOTRQ.html",
     "webUrl": "/data/email-dispatches/EML-VERIFY-rahul-verma-e2e-MVZNOTRQ.html",
     "openStatus": "OPENED",
-    "openCount": 5,
-    "lastOpenedAt": "2026-11-09T20:11:14.875Z",
+    "openCount": 7,
+    "lastOpenedAt": "2026-11-10T08:41:04.223Z",
     "resumeClicked": false
   },
   {
@@ -334,8 +357,8 @@
     "htmlFileName": "EML-VERIFY-arjun-verma-MVZ2O8ZK.html",
     "webUrl": "/data/email-dispatches/EML-VERIFY-arjun-verma-MVZ2O8ZK.html",
     "openStatus": "OPENED",
-    "openCount": 5,
-    "lastOpenedAt": "2026-11-09T20:11:14.875Z",
+    "openCount": 7,
+    "lastOpenedAt": "2026-11-10T08:41:04.223Z",
     "resumeClicked": false
   },
   {
@@ -352,8 +375,8 @@
     "htmlFileName": "EML-VERIFY-test-candidate-MVZ1RJVU.html",
     "webUrl": "/data/email-dispatches/EML-VERIFY-test-candidate-MVZ1RJVU.html",
     "openStatus": "OPENED",
-    "openCount": 5,
-    "lastOpenedAt": "2026-11-09T20:11:14.875Z",
+    "openCount": 7,
+    "lastOpenedAt": "2026-11-10T08:41:04.223Z",
     "resumeClicked": false
   },
   {

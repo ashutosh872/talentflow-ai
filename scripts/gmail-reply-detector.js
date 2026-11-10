@@ -365,7 +365,6 @@ export function correlateMessageWithJob(from, subject, body, trackedJobs) {
   // 4. Domain matching from sender email address (high-confidence verified domain)
   const domainMap = [
     { domain: 'samsungsds.com', company: 'Samsung SDS Global' },
-    { domain: 'naukri.com', company: 'Info Edge India (Naukri Enterprise)' },
     { domain: 'infoedge.in', company: 'Info Edge India (Naukri Enterprise)' },
     { domain: 'amazon.com', company: 'Amazon (ADCI)' },
     { domain: 'makemytrip.com', company: 'MakeMyTrip India' },
@@ -378,7 +377,8 @@ export function correlateMessageWithJob(from, subject, body, trackedJobs) {
     { domain: 'commbank.com.au', company: 'Commonwealth Bank of Australia' },
     { domain: 'wipro.com', company: 'Wipro Digital' },
     { domain: 'zomato.com', company: 'Zomato / Blinkit' },
-    { domain: 'blinkit.com', company: 'Zomato / Blinkit' }
+    { domain: 'blinkit.com', company: 'Zomato / Blinkit' },
+    { domain: 'techblocks.com', company: 'TechBlocks Technologies' }
   ];
 
   for (const entry of domainMap) {

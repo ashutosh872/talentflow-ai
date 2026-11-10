@@ -15,11 +15,11 @@
       "admin"
     ],
     "password": "admin123",
-    "resumeFile": "data/resumes/ashutosh-kumar-Ashutosh_Kumar_Updated_Resume.pdf",
-    "resumeFileName": "Ashutosh_Kumar_Updated_Resume.pdf",
+    "resumeFile": "data/resumes/Ashutosh Kumar Senior Frontend Engineer Resume.pdf",
+    "resumeFileName": "Ashutosh Kumar Senior Frontend Engineer Resume.pdf",
     "resumeUploadedAt": "2026-11-03T10:04:57.643Z",
-    "experienceYears": 5,
-    "experienceLabel": "5+ Years",
+    "experienceYears": 8.2,
+    "experienceLabel": "8+ Years",
     "currentCompany": "Frontend Developer at Wondrfly Inc. (Contract)",
     "currentCtc": "₹6,00,000 PA",
     "currentCtcVal": 6,
@@ -75,7 +75,7 @@
       "email": "",
       "phone": "+91 9999999999",
       "currentTitle": "Senior Frontend Engineer",
-      "seniority": "Mid",
+      "seniority": "Senior",
       "experienceYears": 5,
       "location": "Delhi NCR / Remote India",
       "skills": {
@@ -109,6 +109,6 @@
       ],
       "bio": "Candidate is a Senior Frontend Engineer with 5+ years of enterprise experience specializing in . Proven track record of architecting scalable web applications, optimizing Core Web Vitals, and leading high-velocity frontend teams."
     },
-    "seniority": "Mid"
+    "seniority": "Senior"
   }
 ]

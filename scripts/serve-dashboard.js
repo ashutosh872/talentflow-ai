@@ -1942,11 +1942,53 @@ const server = http.createServer(async (req, res) => {
   }
 
   // Normalize path and prevent directory traversal
-  const safePath = path.normalize(path.join(rootDir, pathname));
+  let safePath = path.normalize(path.join(rootDir, pathname));
   if (!safePath.startsWith(rootDir)) {
     res.writeHead(403, { 'Content-Type': 'text/plain' });
     res.end('403 Forbidden');
     return;
+  }
+
+  // Smart resolver for tailored documents & interview battlecards to prevent 404 or blank profile views
+  if (!fs.existsSync(safePath) || !fs.statSync(safePath).isFile()) {
+    if (pathname.startsWith('/data/tailored-documents/')) {
+      const parts = pathname.replace('/data/tailored-documents/', '').split('/');
+      const requestedFolder = parts[0];
+      const requestedFile = parts.slice(1).join('/') || 'Ashutosh_Kumar_Resume.html';
+      const tailoredBase = path.resolve('data/tailored-documents');
+      if (fs.existsSync(tailoredBase)) {
+        const dirs = fs.readdirSync(tailoredBase);
+        const match = dirs.find(d => d === requestedFolder || d.endsWith(requestedFolder) || d.includes(requestedFolder));
+        if (match) {
+          const candidateFile = path.join(tailoredBase, match, requestedFile);
+          if (fs.existsSync(candidateFile) && fs.statSync(candidateFile).isFile()) {
+            safePath = candidateFile;
+          }
+        }
+      }
+      // If still not found and requesting a resume, fall back to master PDF resume so user NEVER sees blank screen
+      if ((!fs.existsSync(safePath) || !fs.statSync(safePath).isFile()) && requestedFile.toLowerCase().includes('resume')) {
+        const masterPdf = path.resolve('data/resumes/Ashutosh Kumar Senior Frontend Engineer Resume.pdf');
+        if (fs.existsSync(masterPdf)) {
+          safePath = masterPdf;
+        }
+      }
+    } else if (pathname.startsWith('/data/interview-battlecards/')) {
+      const parts = pathname.replace('/data/interview-battlecards/', '').split('/');
+      const requestedFolder = parts[0];
+      const requestedFile = parts.slice(1).join('/') || 'Interview_Battle_Card.html';
+      const battleBase = path.resolve('data/interview-battlecards');
+      if (fs.existsSync(battleBase)) {
+        const dirs = fs.readdirSync(battleBase);
+        const match = dirs.find(d => d === requestedFolder || d.endsWith(requestedFolder) || d.includes(requestedFolder));
+        if (match) {
+          const candidateFile = path.join(battleBase, match, requestedFile);
+          if (fs.existsSync(candidateFile) && fs.statSync(candidateFile).isFile()) {
+            safePath = candidateFile;
+          }
+        }
+      }
+    }
   }
 
   if (fs.existsSync(safePath) && fs.statSync(safePath).isFile()) {

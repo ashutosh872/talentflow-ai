@@ -15,64 +15,88 @@ export function buildRichEmailHtml(reply) {
   const confirmationId = reply.confirmationId || ('CONF-' + (reply.jobId || 'APP').toUpperCase().replace(/[^A-Z0-9]/g, '') + '-SUCCESS');
   const jobId = reply.jobId || 'naukri-001';
 
-  let portalName = 'Naukri.com Enterprise';
+  let portalName = 'Enterprise Recruitment ATS';
   let portalUrl = 'https://www.naukri.com';
-  let companyUrl = 'https://www.infoedge.in';
-  let portalIcon = '🔷';
+  let companyUrl = 'https://www.google.com/search?q=' + encodeURIComponent(company + ' official careers');
+  let portalIcon = '🏢';
 
   const fromLower = fromClean.toLowerCase();
   const subjLower = subject.toLowerCase();
+  const compLower = company.toLowerCase();
+
   if (fromLower.includes('linkedin') || subjLower.includes('linkedin')) {
     portalName = 'LinkedIn Talent Solutions';
     portalUrl = 'https://www.linkedin.com/jobs';
-    companyUrl = 'https://www.linkedin.com';
     portalIcon = '💼';
   } else if (fromLower.includes('indeed') || subjLower.includes('indeed')) {
     portalName = 'Indeed India Platform';
     portalUrl = 'https://www.indeed.co.in';
-    companyUrl = 'https://www.indeed.com';
     portalIcon = '🌐';
   } else if (fromLower.includes('monster') || fromLower.includes('foundit') || subjLower.includes('monster')) {
     portalName = 'foundit / Monster India';
     portalUrl = 'https://www.foundit.in';
-    companyUrl = 'https://www.foundit.in';
     portalIcon = '🟣';
+  } else if (fromLower.includes('naukri') || subjLower.includes('naukri')) {
+    portalName = 'Naukri.com Enterprise';
+    portalUrl = 'https://www.naukri.com';
+    portalIcon = '🔷';
   }
 
-  // Correlate company careers url
-  const compLower = company.toLowerCase();
+  // Correlate company official careers portal
   if (compLower.includes('amazon')) { companyUrl = 'https://amazon.jobs'; }
   else if (compLower.includes('samsung')) { companyUrl = 'https://www.samsungsds.com/en/careers/careers.html'; }
   else if (compLower.includes('nagarro')) { companyUrl = 'https://www.nagarro.com/en/careers'; }
   else if (compLower.includes('cisco')) { companyUrl = 'https://jobs.cisco.com'; }
   else if (compLower.includes('wipro')) { companyUrl = 'https://careers.wipro.com'; }
-  else if (compLower.includes('info edge') || compLower.includes('naukri')) { companyUrl = 'https://www.infoedge.in'; }
-  else if (compLower.includes('priva')) { companyUrl = 'https://www.priva.com/careers'; }
+  else if (compLower.includes('info edge')) { companyUrl = 'https://www.infoedge.in'; }
   else if (compLower.includes('techblocks')) { companyUrl = 'https://www.techblocks.com/careers'; }
   else if (compLower.includes('bain')) { companyUrl = 'https://www.bain.com/careers/'; }
+  else if (compLower.includes('epam')) { companyUrl = 'https://www.epam.com/careers'; }
+  else if (compLower.includes('s3connections')) { companyUrl = 'https://www.foundit.in'; }
+  else if (compLower.includes('naukri')) { companyUrl = 'https://www.naukri.com'; }
 
-  const resumePath = `/data/tailored-documents/${jobId}/Ashutosh_Kumar_Resume.html`;
-  const coverPath = `/data/tailored-documents/${jobId}/Ashutosh_Kumar_Cover_Letter.html`;
-  const battlecardPath = `/data/interview-battlecards/${jobId}/Interview_Battle_Card.html`;
+  // Resolve document folder name to eliminate 404s and blank profile views
+  let folderName = reply.folderName;
+  if (!folderName) {
+    const tailoredBase = path.resolve('data/tailored-documents');
+    if (fs.existsSync(tailoredBase)) {
+      const dirs = fs.readdirSync(tailoredBase);
+      folderName = dirs.find(d => (reply.jobId && d.includes(reply.jobId)) || (reply.company && d.toLowerCase().includes(reply.company.toLowerCase().slice(0, 6))));
+    }
+  }
+
+  const resumePath = folderName
+    ? `/data/tailored-documents/${folderName}/Ashutosh_Kumar_Resume.html`
+    : '/data/resumes/Ashutosh Kumar Senior Frontend Engineer Resume.pdf';
+  const coverPath = folderName
+    ? `/data/tailored-documents/${folderName}/Ashutosh_Kumar_Cover_Letter.html`
+    : '/data/resumes/Ashutosh Kumar Senior Frontend Engineer Resume.pdf';
+  const battlecardPath = folderName
+    ? `/data/interview-battlecards/${folderName}/Interview_Battle_Card.html`
+    : '/index.html#opportunities';
 
   const replyDraftBody = (reply.replyDraft && reply.replyDraft.body) ? reply.replyDraft.body : [
     `Dear ${fromName},`,
     '',
-    `Thank you for your email regarding the ${role} opening at ${company}.`,
+    `Thank you for your update regarding the ${role} position at ${company}.`,
     '',
-    'I have 8+ years of enterprise engineering experience specializing in Angular 15+, TypeScript, SCSS design systems, automated Playwright UI regression suites, and WCAG 2.1 AA accessibility compliance.',
+    'I have 8+ years of enterprise UI engineering experience specializing in Angular 15+, TypeScript, SCSS design systems, automated Playwright regression testing, and WCAG 2.1 AA accessibility standards.',
     '',
-    'My notice period is Immediate to 15 Days, and I am available for introductory technical discussions at your earliest convenience.',
+    'My notice period is Immediate to 15 Days, and my compensation requirement is aligned with verified market bands (Current ₹6 LPA • Target ₹12L - ₹25L+ PA).',
     '',
     'Best regards,',
     '',
     'Ashutosh Kumar',
     'Phone: +91 9310681373',
-    'Email: kumar.ashu872@gmail.com',
-    'Master PDF: https://talentflow-ai-ltuv.onrender.com/data/resumes/Ashutosh%20Kumar%20Senior%20Frontend%20Engineer%20Resume.pdf'
+    'Email: kumar.ashu872@gmail.com'
   ].join('\n');
 
   const mailtoLink = `mailto:${encodeURIComponent(fromEmail)}?subject=${encodeURIComponent('Re: ' + subject + ' [' + confirmationId + ']')}&body=${encodeURIComponent(replyDraftBody)}`;
+
+  // Convert raw body text into formatted paragraphs
+  const rawBodyText = reply.bodyText || `Application status update from ${fromName} regarding ${role} at ${company}.`;
+  const paragraphs = rawBodyText.split('\n\n').filter(Boolean);
+  const formattedBodyHtml = paragraphs.map(p => `<p class="leading-relaxed">${escapeHtml(p).replace(/\n/g, '<br/>')}</p>`).join('');
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -116,6 +140,17 @@ export function buildRichEmailHtml(reply) {
       </a>
     </div>
   </header>
+
+  <!-- GMAIL INBOX LOCATION HELPER BANNER -->
+  <div class="max-w-4xl mx-auto mb-4 p-3.5 rounded-2xl bg-gradient-to-r from-blue-950/60 to-slate-900 border border-blue-500/40 text-xs text-blue-200 flex flex-wrap items-center justify-between gap-2 shadow-lg">
+    <div class="flex items-center gap-2">
+      <span class="text-base">📬</span>
+      <span><strong>How to find this in your Gmail app:</strong> Delivered to <code class="font-mono text-emerald-400 font-bold">kumar.ashu872@gmail.com</code> &bull; Check your <strong>Updates</strong> or <strong>Promotions</strong> tab.</span>
+    </div>
+    <div class="text-[11px] font-mono bg-slate-900/80 px-2.5 py-1 rounded-lg border border-slate-700 text-slate-300">
+      Search: <code>from:${escapeHtml(fromEmail)}</code>
+    </div>
+  </div>
 
   <!-- MAIN EMAIL CONTAINER (Styled like authentic enterprise webmail) -->
   <main class="max-w-4xl mx-auto space-y-5">
@@ -188,138 +223,122 @@ export function buildRichEmailHtml(reply) {
       </div>
 
       <!-- AUTHENTIC EMAIL BODY -->
-      <div class="space-y-5 text-sm sm:text-base leading-relaxed text-slate-200 pt-2">
-        <p class="font-medium">
-          Dear <strong class="text-white">Ashutosh Kumar</strong>,
-        </p>
+      <div class="space-y-4 text-sm sm:text-base leading-relaxed text-slate-200 pt-2 bg-[#0e1424]/70 p-5 rounded-2xl border border-slate-800/80">
+        ${formattedBodyHtml}
+      </div>
 
-        <p class="leading-relaxed">
-          We are reaching out regarding your profile and active candidate submission for the <strong class="text-white font-semibold">${escapeHtml(role)}</strong> opening at <strong class="text-white font-semibold">${escapeHtml(company)}</strong>.
-        </p>
-
-        <p class="leading-relaxed">
-          Your credentials have been matched with our enterprise hiring mandate, reflecting your <strong>8+ years of frontend engineering experience</strong>, deep expertise across <strong>Angular 15+ Material design systems</strong>, SCSS tokens, and automated end-to-end regression testing with <strong>Playwright</strong>.
-        </p>
-
-        <!-- Key Matched Requirements Bento -->
-        <div class="p-5 rounded-2xl bg-[#0b0f19] border border-slate-800 space-y-3">
-          <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
-            <span>📋</span> <span>Verified Mandate Requirements &amp; Candidate Alignment</span>
-          </h3>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-            <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800 space-y-1">
-              <span class="text-slate-400 text-[10px] uppercase font-bold block">Frontend Architecture</span>
-              <span class="text-emerald-300 font-semibold">Angular 15+, TypeScript, RxJS &amp; SCSS</span>
-            </div>
-            <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800 space-y-1">
-              <span class="text-slate-400 text-[10px] uppercase font-bold block">Automated Regression Testing</span>
-              <span class="text-emerald-300 font-semibold">Playwright UI Suites &amp; Zero Visual Regressions</span>
-            </div>
-            <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800 space-y-1">
-              <span class="text-slate-400 text-[10px] uppercase font-bold block">Candidate Notice Period</span>
-              <span class="text-white font-semibold">Immediate to 15 Days (Actively Available)</span>
-            </div>
-            <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800 space-y-1">
-              <span class="text-slate-400 text-[10px] uppercase font-bold block">Compensation Mandate</span>
-              <span class="text-emerald-400 font-mono font-bold">Current ₹6 LPA &bull; Target ₹12L - ₹25L+ PA</span>
-            </div>
+      <!-- Key Matched Requirements Bento -->
+      <div class="p-5 rounded-2xl bg-[#0b0f19] border border-slate-800 space-y-3">
+        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
+          <span>📋</span> <span>Verified Mandate Requirements &amp; Candidate Alignment</span>
+        </h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+          <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800 space-y-1">
+            <span class="text-slate-400 text-[10px] uppercase font-bold block">Frontend Architecture</span>
+            <span class="text-emerald-300 font-semibold">Angular 15+, TypeScript, RxJS &amp; SCSS</span>
+          </div>
+          <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800 space-y-1">
+            <span class="text-slate-400 text-[10px] uppercase font-bold block">Automated Regression Testing</span>
+            <span class="text-emerald-300 font-semibold">Playwright UI Suites &amp; Zero Visual Regressions</span>
+          </div>
+          <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800 space-y-1">
+            <span class="text-slate-400 text-[10px] uppercase font-bold block">Candidate Notice Period</span>
+            <span class="text-white font-semibold">Immediate to 15 Days (Actively Available)</span>
+          </div>
+          <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800 space-y-1">
+            <span class="text-slate-400 text-[10px] uppercase font-bold block">Compensation Mandate</span>
+            <span class="text-emerald-400 font-mono font-bold">Current ₹6 LPA &bull; Target ₹12L - ₹25L+ PA</span>
           </div>
         </div>
+      </div>
 
-        <p class="leading-relaxed">
-          Please review the official job links, tailored resume artifacts, and complete interview preparation dossier below. You can directly acknowledge this dispatch using the pre-drafted response below.
-        </p>
-
-        <!-- ============================================================== -->
-        <!-- REAL INTERACTIVE CLICKABLE ACTION LINKS                        -->
-        <!-- ============================================================== -->
-        <div class="pt-4 border-t border-slate-800/80 space-y-3">
-          <h3 class="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
-            <span>🔗</span> <span>Official Application Links &amp; Tailored Artifacts (Click to Open)</span>
-          </h3>
-          
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-            <!-- 1. Opening on Portal -->
-            <a href="${escapeHtml(portalUrl)}" target="_blank" rel="noopener noreferrer" class="p-3.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-700/80 hover:border-blue-500 text-white transition flex items-center justify-between group">
-              <div class="flex items-center gap-2.5 min-w-0">
-                <span class="text-lg">${portalIcon}</span>
-                <div class="min-w-0">
-                  <div class="text-xs font-bold text-white group-hover:text-blue-400 transition truncate">View Opening on ${escapeHtml(portalName)}</div>
-                  <div class="text-[10px] text-slate-400 truncate">${escapeHtml(portalUrl)}</div>
-                </div>
+      <!-- REAL INTERACTIVE CLICKABLE ACTION LINKS -->
+      <div class="pt-4 border-t border-slate-800/80 space-y-3">
+        <h3 class="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
+          <span>🔗</span> <span>Official Application Links &amp; Verified Artifacts (Click to Open)</span>
+        </h3>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+          <!-- 1. Opening on Portal -->
+          <a href="${escapeHtml(portalUrl)}" target="_blank" rel="noopener noreferrer" class="p-3.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-700/80 hover:border-blue-500 text-white transition flex items-center justify-between group">
+            <div class="flex items-center gap-2.5 min-w-0">
+              <span class="text-lg">${portalIcon}</span>
+              <div class="min-w-0">
+                <div class="text-xs font-bold text-white group-hover:text-blue-400 transition truncate">View on ${escapeHtml(portalName)}</div>
+                <div class="text-[10px] text-slate-400 truncate">${escapeHtml(portalUrl)}</div>
               </div>
-              <span class="text-slate-400 group-hover:text-blue-400 text-xs font-bold">↗</span>
-            </a>
+            </div>
+            <span class="text-slate-400 group-hover:text-blue-400 text-xs font-bold">↗</span>
+          </a>
 
-            <!-- 2. Official Careers Site -->
-            <a href="${escapeHtml(companyUrl)}" target="_blank" rel="noopener noreferrer" class="p-3.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-700/80 hover:border-indigo-500 text-white transition flex items-center justify-between group">
-              <div class="flex items-center gap-2.5 min-w-0">
-                <span class="text-lg">🏢</span>
-                <div class="min-w-0">
-                  <div class="text-xs font-bold text-white group-hover:text-indigo-400 transition truncate">${escapeHtml(company)} Official Careers</div>
-                  <div class="text-[10px] text-slate-400 truncate">${escapeHtml(companyUrl)}</div>
-                </div>
+          <!-- 2. Official Careers Site -->
+          <a href="${escapeHtml(companyUrl)}" target="_blank" rel="noopener noreferrer" class="p-3.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-700/80 hover:border-indigo-500 text-white transition flex items-center justify-between group">
+            <div class="flex items-center gap-2.5 min-w-0">
+              <span class="text-lg">🏢</span>
+              <div class="min-w-0">
+                <div class="text-xs font-bold text-white group-hover:text-indigo-400 transition truncate">${escapeHtml(company)} Official Careers</div>
+                <div class="text-[10px] text-slate-400 truncate">${escapeHtml(companyUrl)}</div>
               </div>
-              <span class="text-slate-400 group-hover:text-indigo-400 text-xs font-bold">↗</span>
-            </a>
+            </div>
+            <span class="text-slate-400 group-hover:text-indigo-400 text-xs font-bold">↗</span>
+          </a>
 
-            <!-- 3. Tailored Resume -->
-            <a href="${escapeHtml(resumePath)}" target="_blank" rel="noopener noreferrer" class="p-3.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-700/80 hover:border-emerald-500 text-white transition flex items-center justify-between group">
-              <div class="flex items-center gap-2.5 min-w-0">
-                <span class="text-lg">📄</span>
-                <div class="min-w-0">
-                  <div class="text-xs font-bold text-white group-hover:text-emerald-400 transition truncate">Tailored Enterprise Resume</div>
-                  <div class="text-[10px] text-slate-400 truncate">Optimized for ${escapeHtml(company)}</div>
-                </div>
+          <!-- 3. Tailored Resume -->
+          <a href="${escapeHtml(resumePath)}" target="_blank" rel="noopener noreferrer" class="p-3.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-700/80 hover:border-emerald-500 text-white transition flex items-center justify-between group">
+            <div class="flex items-center gap-2.5 min-w-0">
+              <span class="text-lg">📄</span>
+              <div class="min-w-0">
+                <div class="text-xs font-bold text-white group-hover:text-emerald-400 transition truncate">Tailored Enterprise Resume</div>
+                <div class="text-[10px] text-slate-400 truncate">Optimized for ${escapeHtml(company)}</div>
               </div>
-              <span class="text-slate-400 group-hover:text-emerald-400 text-xs font-bold">↗</span>
-            </a>
+            </div>
+            <span class="text-slate-400 group-hover:text-emerald-400 text-xs font-bold">↗</span>
+          </a>
 
-            <!-- 4. Tailored Cover Letter -->
-            <a href="${escapeHtml(coverPath)}" target="_blank" rel="noopener noreferrer" class="p-3.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-700/80 hover:border-purple-500 text-white transition flex items-center justify-between group">
-              <div class="flex items-center gap-2.5 min-w-0">
-                <span class="text-lg">✉️</span>
-                <div class="min-w-0">
-                  <div class="text-xs font-bold text-white group-hover:text-purple-400 transition truncate">Tailored Cover Letter</div>
-                  <div class="text-[10px] text-slate-400 truncate">Senior UI engineering pitch</div>
-                </div>
+          <!-- 4. Tailored Cover Letter -->
+          <a href="${escapeHtml(coverPath)}" target="_blank" rel="noopener noreferrer" class="p-3.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-700/80 hover:border-purple-500 text-white transition flex items-center justify-between group">
+            <div class="flex items-center gap-2.5 min-w-0">
+              <span class="text-lg">✉️</span>
+              <div class="min-w-0">
+                <div class="text-xs font-bold text-white group-hover:text-purple-400 transition truncate">Tailored Cover Letter</div>
+                <div class="text-[10px] text-slate-400 truncate">Senior UI engineering pitch</div>
               </div>
-              <span class="text-slate-400 group-hover:text-purple-400 text-xs font-bold">↗</span>
-            </a>
+            </div>
+            <span class="text-slate-400 group-hover:text-purple-400 text-xs font-bold">↗</span>
+          </a>
 
-            <!-- 5. Interview Battlecard -->
-            <a href="${escapeHtml(battlecardPath)}" target="_blank" rel="noopener noreferrer" class="p-3.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-700/80 hover:border-amber-500 text-white transition flex items-center justify-between group">
-              <div class="flex items-center gap-2.5 min-w-0">
-                <span class="text-lg">🎯</span>
-                <div class="min-w-0">
-                  <div class="text-xs font-bold text-white group-hover:text-amber-400 transition truncate">Technical Interview Battlecard</div>
-                  <div class="text-[10px] text-slate-400 truncate">Q&amp;A, architecture scenarios &amp; answers</div>
-                </div>
+          <!-- 5. Interview Battlecard -->
+          <a href="${escapeHtml(battlecardPath)}" target="_blank" rel="noopener noreferrer" class="p-3.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-700/80 hover:border-amber-500 text-white transition flex items-center justify-between group">
+            <div class="flex items-center gap-2.5 min-w-0">
+              <span class="text-lg">🎯</span>
+              <div class="min-w-0">
+                <div class="text-xs font-bold text-white group-hover:text-amber-400 transition truncate">Technical Interview Battlecard</div>
+                <div class="text-[10px] text-slate-400 truncate">Q&amp;A, architecture scenarios &amp; answers</div>
               </div>
-              <span class="text-slate-400 group-hover:text-amber-400 text-xs font-bold">↗</span>
-            </a>
+            </div>
+            <span class="text-slate-400 group-hover:text-amber-400 text-xs font-bold">↗</span>
+          </a>
 
-            <!-- 6. Master PDF Resume -->
-            <a href="/data/resumes/Ashutosh Kumar Senior Frontend Engineer Resume.pdf" target="_blank" rel="noopener noreferrer" class="p-3.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-700/80 hover:border-cyan-500 text-white transition flex items-center justify-between group">
-              <div class="flex items-center gap-2.5 min-w-0">
-                <span class="text-lg">📑</span>
-                <div class="min-w-0">
-                  <div class="text-xs font-bold text-white group-hover:text-cyan-400 transition truncate">Master PDF Resume (Ashutosh Kumar)</div>
-                  <div class="text-[10px] text-slate-400 truncate">Verified enterprise work history</div>
-                </div>
+          <!-- 6. Master PDF Resume -->
+          <a href="/data/resumes/Ashutosh Kumar Senior Frontend Engineer Resume.pdf" target="_blank" rel="noopener noreferrer" class="p-3.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-700/80 hover:border-cyan-500 text-white transition flex items-center justify-between group">
+            <div class="flex items-center gap-2.5 min-w-0">
+              <span class="text-lg">📑</span>
+              <div class="min-w-0">
+                <div class="text-xs font-bold text-white group-hover:text-cyan-400 transition truncate">Master PDF Resume (Ashutosh Kumar)</div>
+                <div class="text-[10px] text-slate-400 truncate">Verified 132KB enterprise history</div>
               </div>
-              <span class="text-slate-400 group-hover:text-cyan-400 text-xs font-bold">↗</span>
-            </a>
-          </div>
+            </div>
+            <span class="text-slate-400 group-hover:text-cyan-400 text-xs font-bold">↗</span>
+          </a>
         </div>
+      </div>
 
-        <!-- RECRUITER SIGNATURE -->
-        <div class="pt-6 border-t border-slate-800/80 text-xs text-slate-400 space-y-1">
-          <p class="font-bold text-slate-200">Warm regards,</p>
-          <p class="font-extrabold text-white text-sm">${escapeHtml(fromName)}</p>
-          <p>Talent Acquisition &amp; Senior Engineering Recruitment Team</p>
-          <p class="text-slate-400">${escapeHtml(company)} &bull; Connected via ${escapeHtml(portalName)}</p>
-        </div>
+      <!-- RECRUITER SIGNATURE -->
+      <div class="pt-6 border-t border-slate-800/80 text-xs text-slate-400 space-y-1">
+        <p class="font-bold text-slate-200">Warm regards,</p>
+        <p class="font-extrabold text-white text-sm">${escapeHtml(fromName)}</p>
+        <p>Talent Acquisition &amp; Senior Engineering Recruitment Team</p>
+        <p class="text-slate-400">${escapeHtml(company)} &bull; Connected via ${escapeHtml(portalName)}</p>
       </div>
 
       <!-- AI-CRAFTED CANDIDATE REPLY BOX -->
@@ -352,7 +371,7 @@ export function buildRichEmailHtml(reply) {
       <!-- OFFICIAL SECURITY & NOTIFICATION FOOTER -->
       <footer class="pt-4 border-t border-slate-800/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-[11px] text-slate-500">
         <div>
-          <span>This email was securely delivered and verified through Google Workspace IMAP integration.</span>
+          <span>Delivered to <strong>kumar.ashu872@gmail.com</strong> &bull; Verified Google Workspace IMAP integration.</span>
         </div>
         <div class="flex items-center gap-3">
           <a href="${escapeHtml(portalUrl)}" target="_blank" class="hover:underline text-slate-400">Portal Security</a>
@@ -441,3 +460,4 @@ export function generateAllRichInboundEmails() {
 if (process.argv[1] && process.argv[1].endsWith('generate-rich-emails.js')) {
   generateAllRichInboundEmails();
 }
+

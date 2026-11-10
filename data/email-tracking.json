@@ -325,9 +325,9 @@
     "company": "Enterprise Hiring Desk",
     "role": "Senior Frontend Engineer",
     "status": "OPENED",
-    "openCount": 5,
+    "openCount": 7,
     "firstOpenedAt": "2026-11-09T20:10:08.810Z",
-    "lastOpenedAt": "2026-11-09T20:11:14.875Z",
+    "lastOpenedAt": "2026-11-10T08:41:04.223Z",
     "resumeClicked": false,
     "resumeClickCount": 0,
     "openedByIp": "127.0.0.1",
@@ -366,6 +366,18 @@
       {
         "type": "OPENED",
         "timestamp": "2026-11-09T20:11:14.875Z",
+        "ip": "127.0.0.1",
+        "client": "Desktop Webmail Client"
+      },
+      {
+        "type": "OPENED",
+        "timestamp": "2026-11-10T08:41:04.214Z",
+        "ip": "66.249.88.32",
+        "client": "Gmail Proxy (Web & Mobile)"
+      },
+      {
+        "type": "OPENED",
+        "timestamp": "2026-11-10T08:41:04.223Z",
         "ip": "127.0.0.1",
         "client": "Desktop Webmail Client"
       }
@@ -377,9 +389,9 @@
     "company": "Enterprise Hiring Desk",
     "role": "Senior Frontend Engineer",
     "status": "OPENED",
-    "openCount": 5,
+    "openCount": 7,
     "firstOpenedAt": "2026-11-09T20:10:08.810Z",
-    "lastOpenedAt": "2026-11-09T20:11:14.875Z",
+    "lastOpenedAt": "2026-11-10T08:41:04.223Z",
     "resumeClicked": false,
     "resumeClickCount": 0,
     "openedByIp": "127.0.0.1",
@@ -420,6 +432,18 @@
         "timestamp": "2026-11-09T20:11:14.875Z",
         "ip": "127.0.0.1",
         "client": "Desktop Webmail Client"
+      },
+      {
+        "type": "OPENED",
+        "timestamp": "2026-11-10T08:41:04.214Z",
+        "ip": "66.249.88.32",
+        "client": "Gmail Proxy (Web & Mobile)"
+      },
+      {
+        "type": "OPENED",
+        "timestamp": "2026-11-10T08:41:04.223Z",
+        "ip": "127.0.0.1",
+        "client": "Desktop Webmail Client"
       }
     ]
   },
@@ -427,7 +451,7 @@
     "trackingId": "TRK-job-mock-008",
     "jobId": "job-mock-008",
     "confirmationId": "CONF-JOB-MOCK-SUCCESS",
-    "emailId": "EML-CONF-JOB-MOCK-SUCCESS-MW9P5RF7",
+    "emailId": "EML-CONF-JOB-MOCK-SUCCESS-MWAFXY57",
     "company": "Mindrops Digital Studio",
     "role": "Senior WordPress & Frontend Developer",
     "recipientEmail": "kumar.ashu872@gmail.com",
@@ -453,7 +477,7 @@
     "trackingId": "TRK-job-mock-008",
     "jobId": "job-mock-008",
     "confirmationId": "CONF-JOB-MOCK-SUCCESS",
-    "emailId": "EML-CONF-JOB-MOCK-SUCCESS-MW9P5RF7",
+    "emailId": "EML-CONF-JOB-MOCK-SUCCESS-MWAFXY57",
     "company": "Mindrops Digital Studio",
     "role": "Senior WordPress & Frontend Developer",
     "recipientEmail": "kumar.ashu872@gmail.com",
@@ -575,6 +599,32 @@
       {
         "type": "DELIVERED",
         "timestamp": "2026-11-09T20:11:52.229Z",
+        "details": "Application confirmed & delivered to kumar.ashu872@gmail.com"
+      }
+    ]
+  },
+  "EML-CONF-JOB-MOCK-SUCCESS-MWAFXY57": {
+    "trackingId": "TRK-job-mock-008",
+    "jobId": "job-mock-008",
+    "confirmationId": "CONF-JOB-MOCK-SUCCESS",
+    "emailId": "EML-CONF-JOB-MOCK-SUCCESS-MWAFXY57",
+    "company": "Mindrops Digital Studio",
+    "role": "Senior WordPress & Frontend Developer",
+    "recipientEmail": "kumar.ashu872@gmail.com",
+    "status": "DELIVERED",
+    "openCount": 0,
+    "firstOpenedAt": null,
+    "lastOpenedAt": null,
+    "resumeClicked": false,
+    "resumeClickCount": 0,
+    "lastClickedAt": null,
+    "openedByIp": null,
+    "userAgent": null,
+    "deviceType": null,
+    "history": [
+      {
+        "type": "DELIVERED",
+        "timestamp": "2026-11-09T20:11:39.672Z",
         "details": "Application confirmed & delivered to kumar.ashu872@gmail.com"
       }
     ]
