@@ -183,6 +183,9 @@ function buildPersonalWebsiteHtml() {
           localStorage.removeItem('talentflow_auth');
           window.location.replace('/login.html?redirect=' + encodeURIComponent(window.location.pathname + window.location.search));
         }
+        if (localStorage.getItem('talentflow_privacy_mode') === 'true') {
+          document.documentElement.classList.add('privacy-active');
+        }
       } catch(e) {
         localStorage.removeItem('talentflow_auth');
         window.location.replace('/login.html?redirect=' + encodeURIComponent(window.location.pathname + window.location.search));
@@ -203,6 +206,28 @@ function buildPersonalWebsiteHtml() {
     ::-webkit-scrollbar-thumb:hover { background: #334155; }
     .job-card { transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1); }
     .job-card:hover { transform: translateY(-2px); border-color: rgba(59, 130, 246, 0.4); }
+
+    /* Privacy Mode Blur, Masking & Visual Indicators */
+    body.privacy-active .private-val,
+    html.privacy-active .private-val {
+      filter: blur(4.5px);
+      user-select: none;
+      transition: filter 0.15s ease;
+      cursor: pointer;
+    }
+    body.privacy-active .private-val:hover,
+    html.privacy-active .private-val:hover {
+      filter: blur(0px);
+    }
+    body.privacy-active .private-input,
+    html.privacy-active .private-input {
+      -webkit-text-security: disc;
+      filter: blur(2px);
+    }
+    body.privacy-active .private-input:focus,
+    html.privacy-active .private-input:focus {
+      filter: blur(0px);
+    }
   </style>
 </head>
 <body class="bg-[#0b0f19] text-slate-100 min-h-screen antialiased overflow-x-hidden selection:bg-blue-600 selection:text-white">
@@ -230,6 +255,12 @@ function buildPersonalWebsiteHtml() {
 
       <!-- Right: Direct Job Actions & Quick CTAs -->
       <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
+        <!-- Privacy Mode Toggle (Masks sensitive amounts, phone, email & CTC) -->
+        <button id="navPrivacyToggle" onclick="togglePrivacyMode()" class="px-2.5 sm:px-3 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 cursor-pointer bg-slate-800/90 hover:bg-slate-700 text-slate-300 border border-slate-700" title="Toggle Privacy Mode (Hide / Reveal salary, phone, email & amounts) [Shortcut: P]">
+          <span id="privacyIcon">👁️</span>
+          <span id="privacyLabel" class="hidden md:inline">Hide Private</span>
+        </button>
+
         <button onclick="jumpToReplies()" class="px-2.5 sm:px-3 py-2 rounded-xl text-xs font-bold bg-cyan-950/80 hover:bg-cyan-900 text-cyan-300 border border-cyan-700/50 transition flex items-center gap-1.5 cursor-pointer" title="Jump to Inbound Recruiter Replies & Read Receipts">
           <span>📬</span>
           <span class="hidden md:inline">Replies</span>
@@ -317,17 +348,23 @@ function buildPersonalWebsiteHtml() {
           <!-- Right: Compensation & Contact Card -->
           <div class="w-full lg:w-72 bg-[#0b0f19]/80 border border-slate-800 rounded-2xl p-4 space-y-3 shrink-0">
             <div class="flex items-center justify-between pb-2 border-b border-slate-800">
-              <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Salary Benchmarks</span>
+              <div class="flex items-center gap-1.5">
+                <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Salary Benchmarks</span>
+                <button onclick="togglePrivacyMode()" id="heroPrivacyBtn" class="px-1.5 py-0.5 rounded text-[10px] bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700/80 cursor-pointer transition flex items-center gap-1" title="Toggle Private Details">
+                  <span class="hero-privacy-icon">👁️</span>
+                  <span class="hero-privacy-text text-[9px] font-mono">Hide</span>
+                </button>
+              </div>
               <button onclick="openEditProfileModal()" class="text-blue-400 hover:text-blue-300 text-[11px] font-semibold underline">Edit</button>
             </div>
             <div>
               <div class="text-[10px] text-slate-400">Current CTC:</div>
-              <div class="text-sm font-extrabold text-white font-mono" id="candCurrentCtcDisplay">₹6,00,000 PA</div>
+              <div class="text-sm font-extrabold text-white font-mono private-val" id="candCurrentCtcDisplay" data-private="amount" data-real="₹6,00,000 PA" title="Click or hover to reveal">₹6,00,000 PA</div>
             </div>
             <div>
               <div class="text-[10px] text-slate-400">Target CTC (Minimum):</div>
-              <div class="text-sm font-extrabold text-emerald-400 font-mono" id="candTargetCtc">₹12,00,000+ (Remote/NCR)</div>
-              <div class="text-[11px] text-slate-300 font-mono">₹15,00,000+ to ₹25,00,000+ (Out of NCR / Global)</div>
+              <div class="text-sm font-extrabold text-emerald-400 font-mono private-val" id="candTargetCtc" data-private="amount" data-real="₹12,00,000+ (Remote/NCR)" title="Click or hover to reveal">₹12,00,000+ (Remote/NCR)</div>
+              <div class="text-[11px] text-slate-300 font-mono private-val" id="candTargetCtcReloc" data-private="amount" data-real="₹15,00,000+ to ₹25,00,000+ (Out of NCR / Global)" title="Click or hover to reveal">₹15,00,000+ to ₹25,00,000+ (Out of NCR / Global)</div>
             </div>
             <div class="pt-2 border-t border-slate-800/80 flex items-center justify-between text-[11px] text-slate-400">
               <span>Notice: <strong class="text-white">Immediate – 15d</strong></span>
@@ -357,7 +394,7 @@ function buildPersonalWebsiteHtml() {
           </div>
           <div class="p-3.5 rounded-2xl bg-slate-900/60 border border-slate-800">
             <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Highest Target Band</div>
-            <div class="text-xl sm:text-2xl font-black text-amber-400 mt-1 font-mono">₹55 LPA</div>
+            <div class="text-xl sm:text-2xl font-black text-amber-400 mt-1 font-mono private-val" id="bentoHighestBand" data-private="amount" data-real="₹55 LPA" title="Click or hover to reveal">₹55 LPA</div>
             <div class="text-[10px] text-amber-400/80 mt-0.5">Amazon ADCI Placement</div>
           </div>
         </div>
@@ -395,7 +432,7 @@ function buildPersonalWebsiteHtml() {
             </span>
           </div>
           <p class="text-xs text-slate-400 leading-relaxed">
-            Real-time tracking of employer replies, acknowledgments &amp; interviews linked with <span class="text-blue-300 font-mono font-semibold">kumar.ashu872@gmail.com</span>
+            Real-time tracking of employer replies, acknowledgments &amp; interviews linked with <span class="text-blue-300 font-mono font-semibold private-val" id="inboundHeaderEmail" data-private="email" data-real="kumar.ashu872@gmail.com" title="Click or hover to reveal">kumar.ashu872@gmail.com</span>
           </p>
         </div>
         <div class="flex items-center gap-2 shrink-0">
@@ -533,7 +570,7 @@ function buildPersonalWebsiteHtml() {
           </div>
           <div>
             <div class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Verified Salary</div>
-            <div class="font-mono text-xs font-bold text-emerald-400" id="jdModalSalary">₹20 - ₹28 LPA</div>
+            <div class="font-mono text-xs font-bold text-emerald-400 private-val" id="jdModalSalary" data-private="amount" data-real="₹20 - ₹28 LPA" title="Click or hover to reveal">₹20 - ₹28 LPA</div>
           </div>
           <div>
             <div class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Work Mode / Loc</div>
@@ -860,15 +897,15 @@ function buildPersonalWebsiteHtml() {
         </div>
         <div>
           <label class="block text-slate-400 font-semibold mb-1">Current CTC (in Lakhs)</label>
-          <input type="number" id="editCurrentCtc" step="0.5" value="6" class="w-full bg-[#0b0f19] border border-slate-700 rounded-xl px-3 py-2 text-white">
+          <input type="number" id="editCurrentCtc" step="0.5" value="6" class="w-full bg-[#0b0f19] border border-slate-700 rounded-xl px-3 py-2 text-white private-input">
         </div>
         <div>
           <label class="block text-slate-400 font-semibold mb-1">Target Minimum CTC (in Lakhs)</label>
-          <input type="number" id="editTargetCtc" step="0.5" value="12" class="w-full bg-[#0b0f19] border border-slate-700 rounded-xl px-3 py-2 text-white">
+          <input type="number" id="editTargetCtc" step="0.5" value="12" class="w-full bg-[#0b0f19] border border-slate-700 rounded-xl px-3 py-2 text-white private-input">
         </div>
         <div>
           <label class="block text-slate-400 font-semibold mb-1">Contact Phone</label>
-          <input type="text" id="editPhone" value="+91 9310681373" class="w-full bg-[#0b0f19] border border-slate-700 rounded-xl px-3 py-2 text-white">
+          <input type="text" id="editPhone" value="+91 9310681373" class="w-full bg-[#0b0f19] border border-slate-700 rounded-xl px-3 py-2 text-white private-input">
         </div>
 
         <div class="flex items-center justify-end gap-2 pt-3 border-t border-slate-800">
@@ -999,6 +1036,123 @@ function buildPersonalWebsiteHtml() {
       'foundit': 'https://www.foundit.in'
     };
 
+    // -------------------------------------------------------------
+    // PRIVACY MODE (HIDE / REVEAL SENSITIVE SALARY, PHONE & EMAIL)
+    // -------------------------------------------------------------
+    let privacyMode = localStorage.getItem('talentflow_privacy_mode') === 'true';
+
+    function isPrivacyMode() {
+      return privacyMode;
+    }
+
+    function maskAmount(str) {
+      return '₹ ••••••';
+    }
+
+    function maskPhone(str) {
+      return '+91 ••••• •••••';
+    }
+
+    function maskEmail(str) {
+      if (!str) return '•••••••@•••••.com';
+      var parts = String(str).split('@');
+      if (parts.length === 2) {
+        var user = parts[0];
+        var maskedUser = user.length > 2 ? user[0] + '•••••••' : '••••';
+        return maskedUser + '@' + parts[1];
+      }
+      return '•••••••@•••••.com';
+    }
+
+    function applyPrivacyModeToDom() {
+      const isPrivate = isPrivacyMode();
+      document.body.classList.toggle('privacy-active', isPrivate);
+      document.documentElement.classList.toggle('privacy-active', isPrivate);
+
+      // 1. Update Navigation Bar Toggle Button
+      const navBtn = document.getElementById('navPrivacyToggle');
+      const navIcon = document.getElementById('privacyIcon');
+      const navLabel = document.getElementById('privacyLabel');
+      if (navIcon && navLabel) {
+        if (isPrivate) {
+          navIcon.textContent = '🙈';
+          navLabel.textContent = 'Private ON';
+          if (navBtn) {
+            navBtn.className = 'px-2.5 sm:px-3 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 cursor-pointer bg-amber-950/90 text-amber-300 border border-amber-600/50 shadow-sm shadow-amber-900/30';
+            navBtn.title = 'Privacy Mode is ACTIVE (Salaries, phone & contact details masked). Click or press "P" to reveal.';
+          }
+        } else {
+          navIcon.textContent = '👁️';
+          navLabel.textContent = 'Hide Private';
+          if (navBtn) {
+            navBtn.className = 'px-2.5 sm:px-3 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 cursor-pointer bg-slate-800/90 hover:bg-slate-700 text-slate-300 border border-slate-700';
+            navBtn.title = 'Toggle Privacy Mode (Hide salary, phone, email & amounts) [Shortcut: P]';
+          }
+        }
+      }
+
+      // 2. Update Hero Salary Benchmarks card inline button
+      const heroBtn = document.getElementById('heroPrivacyBtn');
+      if (heroBtn) {
+        const hIcon = heroBtn.querySelector('.hero-privacy-icon');
+        const hText = heroBtn.querySelector('.hero-privacy-text');
+        if (hIcon) hIcon.textContent = isPrivate ? '🙈' : '👁️';
+        if (hText) hText.textContent = isPrivate ? 'Reveal' : 'Hide';
+        if (isPrivate) {
+          heroBtn.className = 'px-1.5 py-0.5 rounded text-[10px] bg-amber-950/80 text-amber-300 border border-amber-600/40 cursor-pointer transition flex items-center gap-1';
+        } else {
+          heroBtn.className = 'px-1.5 py-0.5 rounded text-[10px] bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700/80 cursor-pointer transition flex items-center gap-1';
+        }
+      }
+
+      // 3. Update all static DOM elements tagged with data-private
+      document.querySelectorAll('[data-private]').forEach(el => {
+        const type = el.getAttribute('data-private');
+        const real = el.getAttribute('data-real') || el.textContent;
+        if (!el.getAttribute('data-real')) el.setAttribute('data-real', real);
+
+        if (isPrivate) {
+          if (type === 'amount') el.textContent = '₹ ••••••';
+          else if (type === 'phone') el.textContent = '+91 ••••• •••••';
+          else if (type === 'email') el.textContent = maskEmail(real);
+          else el.textContent = '••••••••';
+        } else {
+          el.textContent = el.getAttribute('data-real') || real;
+        }
+      });
+    }
+
+    window.togglePrivacyMode = function() {
+      privacyMode = !privacyMode;
+      localStorage.setItem('talentflow_privacy_mode', privacyMode ? 'true' : 'false');
+      applyPrivacyModeToDom();
+      if (typeof renderJobs === 'function') renderJobs();
+      if (typeof renderInboundReplies === 'function') renderInboundReplies();
+      showToast(privacyMode ? '🔒 Privacy Mode ON: Salaries, phone & contact details masked' : '👁️ Privacy Mode OFF: All private details revealed');
+    };
+
+    // Click on blurred/masked element in Privacy Mode to temporarily peek for 3.5 seconds
+    document.addEventListener('click', function(e) {
+      const privateEl = e.target.closest('.private-val');
+      if (privateEl && isPrivacyMode()) {
+        const real = privateEl.getAttribute('data-real');
+        if (real && privateEl.textContent !== real) {
+          privateEl.textContent = real;
+          privateEl.style.filter = 'none';
+          setTimeout(function() {
+            if (isPrivacyMode()) {
+              const type = privateEl.getAttribute('data-private');
+              if (type === 'amount') privateEl.textContent = '₹ ••••••';
+              else if (type === 'phone') privateEl.textContent = '+91 ••••• •••••';
+              else if (type === 'email') privateEl.textContent = maskEmail(real);
+              else privateEl.textContent = '••••••••';
+              privateEl.style.filter = '';
+            }
+          }, 3500);
+        }
+      }
+    });
+
     function getCompanyWebsite(job) {
       if (job.companyUrl && job.companyUrl.startsWith('http')) return job.companyUrl;
       const name = (job.company || '').toLowerCase();
@@ -1101,7 +1255,7 @@ function buildPersonalWebsiteHtml() {
           '        <span>' + sourceIcon + '</span>',
           '        <span class="truncate">' + (r.recruiterName || r.company || 'Enterprise Recruiter') + '</span>',
           '      </div>',
-          '      <div class="text-[11px] text-slate-400 font-mono truncate">' + (r.from || '') + '</div>',
+          '      <div class="text-[11px] text-slate-400 font-mono truncate private-val" data-private="email" data-real="' + (r.from || '') + '" title="Click or hover to reveal">' + (isPrivacyMode() ? maskEmail(r.from || '') : (r.from || '')) + '</div>',
           '    </div>',
           '    <div class="text-xs font-bold text-white hover:text-blue-400 line-clamp-1 transition">',
           '      <a href="' + emailUrl + '" target="_blank" rel="noopener noreferrer" class="hover:underline inline-flex items-center gap-1 cursor-pointer" title="Open full email in new tab with complete headers and clickable links">' + (r.subject || 'Application Update') + ' <span class="text-[10px] text-blue-400">↗</span></a>',
@@ -1376,7 +1530,7 @@ function buildPersonalWebsiteHtml() {
           '',
           '    <div class="p-2.5 rounded-xl bg-[#0b0f19] border border-slate-800/80 flex items-center justify-between text-xs">',
           '      <span class="text-slate-400">Verified Compensation:</span>',
-          '      <span class="font-mono text-emerald-400 font-bold text-xs sm:text-sm">' + (job.realSalary || '₹18,00,000 - ₹28,00,000 PA') + '</span>',
+          '      <span class="font-mono text-emerald-400 font-bold text-xs sm:text-sm private-val" data-private="amount" data-real="' + (job.realSalary || '₹18,00,000 - ₹28,00,000 PA') + '" title="Click or hover to reveal">' + (isPrivacyMode() ? '₹ ••••••' : (job.realSalary || '₹18,00,000 - ₹28,00,000 PA')) + '</span>',
           '    </div>',
           '',
           '    <p class="text-xs text-slate-300 leading-relaxed line-clamp-2">',
@@ -1440,6 +1594,8 @@ function buildPersonalWebsiteHtml() {
         closeJdModal();
         closeFollowUpModal();
         closeUploadResumeModal();
+      } else if (e.key === 'p' || e.key === 'P') {
+        togglePrivacyMode();
       }
     });
 
@@ -1472,7 +1628,7 @@ function buildPersonalWebsiteHtml() {
         'Warm regards,',
         'Ashutosh Kumar',
         'Senior Frontend Engineer & UI Architect',
-        '+91 9310681373 | kumar.ashu872@gmail.com'
+        (isPrivacyMode() ? '+91 ••••• ••••• | k•••••••@gmail.com' : '+91 9310681373 | kumar.ashu872@gmail.com')
       ].join(String.fromCharCode(10));
 
       const bodyEl = document.getElementById('followUpModalBody');
@@ -1825,7 +1981,12 @@ function buildPersonalWebsiteHtml() {
       if (reqEl) reqEl.textContent = job.reqId || (job.id ? job.id.slice(0, 10).toUpperCase() : 'REQ-EXP');
 
       const salaryEl = document.getElementById('jdModalSalary');
-      if (salaryEl) salaryEl.textContent = job.realSalary || '₹18,00,000 - ₹28,00,000 PA';
+      if (salaryEl) {
+        const sal = job.realSalary || '₹18,00,000 - ₹28,00,000 PA';
+        salaryEl.setAttribute('data-real', sal);
+        salaryEl.setAttribute('data-private', 'amount');
+        salaryEl.textContent = isPrivacyMode() ? '₹ ••••••' : sal;
+      }
 
       const locEl = document.getElementById('jdModalLocation');
       if (locEl) locEl.textContent = (job.workMode || 'Remote') + ' • ' + (job.location || 'NCR / Remote');
@@ -2023,11 +2184,11 @@ function buildPersonalWebsiteHtml() {
           '    </div>',
           '    <div>',
           '      <label class="block text-slate-400 font-semibold mb-1">Candidate Email</label>',
-          '      <input type="email" readonly value="kumar.ashu872@gmail.com" class="w-full bg-[#0b0f19] border border-slate-700 rounded-xl px-3 py-2 text-white font-mono cursor-not-allowed opacity-90">',
+          '      <input type="email" readonly value="' + (isPrivacyMode() ? 'k•••••••@gmail.com' : 'kumar.ashu872@gmail.com') + '" class="w-full bg-[#0b0f19] border border-slate-700 rounded-xl px-3 py-2 text-white font-mono cursor-not-allowed opacity-90 private-input">',
           '    </div>',
           '    <div>',
           '      <label class="block text-slate-400 font-semibold mb-1">Candidate Phone</label>',
-          '      <input type="text" readonly value="+91 9310681373" class="w-full bg-[#0b0f19] border border-slate-700 rounded-xl px-3 py-2 text-white font-mono cursor-not-allowed opacity-90">',
+          '      <input type="text" readonly value="' + (isPrivacyMode() ? '+91 ••••• •••••' : '+91 9310681373') + '" class="w-full bg-[#0b0f19] border border-slate-700 rounded-xl px-3 py-2 text-white font-mono cursor-not-allowed opacity-90 private-input">',
           '    </div>',
           '    <div>',
           '      <label class="block text-slate-400 font-semibold mb-1">Enterprise Experience &amp; Notice</label>',
@@ -2035,7 +2196,7 @@ function buildPersonalWebsiteHtml() {
           '    </div>',
           '    <div>',
           '      <label class="block text-slate-400 font-semibold mb-1">Compensation Mandate</label>',
-          '      <input type="text" readonly value="Current ₹6 LPA &bull; Target ₹12L - ₹25L+ PA" class="w-full bg-[#0b0f19] border border-slate-700 rounded-xl px-3 py-2 text-emerald-400 font-bold font-mono cursor-not-allowed opacity-90">',
+          '      <input type="text" readonly value="' + (isPrivacyMode() ? 'Current ₹ ••• • Target ₹ •••' : 'Current ₹6 LPA &bull; Target ₹12L - ₹25L+ PA') + '" class="w-full bg-[#0b0f19] border border-slate-700 rounded-xl px-3 py-2 text-emerald-400 font-bold font-mono cursor-not-allowed opacity-90 private-input">',
           '    </div>',
           '  </div>',
           '',
@@ -2564,6 +2725,7 @@ function buildPersonalWebsiteHtml() {
         });
       } catch (e) {}
 
+      applyPrivacyModeToDom();
       renderInboundReplies();
       renderJobs();
       updateFilterChipCounters();
