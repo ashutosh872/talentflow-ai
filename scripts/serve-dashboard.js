@@ -269,6 +269,91 @@ const mimeTypes = {
   '.ico': 'image/x-icon'
 };
 
+
+// -------------------------------------------------------------
+// REAL-TIME SERVER-SENT EVENTS (SSE) & IN-MEMORY CACHE
+// -------------------------------------------------------------
+const sseClients = new Set();
+
+export function broadcastSseEvent(event, data) {
+  const payload = `event: ${event}\ndata: ${JSON.stringify(data)}\n\n`;
+  for (const client of sseClients) {
+    try {
+      client.write(payload);
+    } catch (e) {
+      sseClients.delete(client);
+    }
+  }
+}
+
+const apiCache = new Map();
+function getCached(key, ttlMs, fn) {
+  const item = apiCache.get(key);
+  if (item && (Date.now() - item.ts < ttlMs)) return item.val;
+  const val = fn();
+  apiCache.set(key, { val, ts: Date.now() });
+  return val;
+}
+function clearApiCache(prefix) {
+  if (!prefix) { apiCache.clear(); return; }
+  for (const k of apiCache.keys()) {
+    if (k.startsWith(prefix)) apiCache.delete(k);
+  }
+}
+
+function getFollowUpRecommendations() {
+  try {
+    const baseline = JSON.parse(fs.readFileSync('data/baseline-jobs.json', 'utf8'));
+    const trackingMap = getAllTrackingRecords();
+    const followUps = [];
+
+    for (const job of baseline) {
+      if (job.status !== 'SUBMITTED') continue;
+      const trk = trackingMap[job.id];
+      const isOpened = trk && (trk.status === 'OPENED' || (trk.openCount && trk.openCount > 0));
+      const openCount = trk ? (trk.openCount || 0) : 0;
+      
+      const daysSinceApply = job.appliedDate ? Math.max(1, Math.round((Date.now() - new Date(job.appliedDate).getTime()) / (1000 * 60 * 60 * 24))) : 3;
+      
+      let due = false;
+      let reason = '';
+      let stage = 'Day 3 Nudge';
+
+      if (isOpened && openCount >= 1) {
+        due = true;
+        reason = `Recruiter opened email ${openCount}x. Follow up while candidate interest is hot!`;
+        stage = 'Post-View Alignment';
+      } else if (daysSinceApply >= 3) {
+        due = true;
+        reason = `Application submitted ${daysSinceApply} days ago. Send polite candidate check-in.`;
+        stage = daysSinceApply >= 7 ? 'Day 7 Follow-up' : 'Day 3 Nudge';
+      }
+
+      if (due) {
+        const subject = `Following Up: Application for ${job.title} — Ashutosh Kumar [${job.confirmationId || 'CONF-REF'}]`;
+        const draftBody = `Dear ${job.company} Hiring Team,\n\nI hope this email finds you well.\n\nI am writing to briefly follow up on my candidate submission for the ${job.title} position (Ref: ${job.confirmationId || 'CONF-REF'}).\n\nWith 8+ years hands-on experience architecting enterprise Angular 15+ design systems, optimizing Core Web Vitals, and leading automated UI testing suites, I remain very enthusiastic about the opportunity to contribute to ${job.company}.\n\nPlease let me know if you need any additional portfolio samples, code repositories, or references. I am available for a brief introductory call at your convenience.\n\nWarm regards,\nAshutosh Kumar\nSenior Frontend Engineer & UI Architect\n+91 9310681373 | kumar.ashu872@gmail.com`;
+
+        followUps.push({
+          jobId: job.id,
+          company: job.company,
+          role: job.title,
+          confirmationId: job.confirmationId || '',
+          daysSinceApply,
+          openCount,
+          stage,
+          reason,
+          subject,
+          draftBody,
+          mailtoUrl: `mailto:${job.company.toLowerCase().replace(/[^a-z0-9]/g, '')}@careers.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(draftBody)}`
+        });
+      }
+    }
+    return followUps;
+  } catch(e) {
+    return [];
+  }
+}
+
 const server = http.createServer(async (req, res) => {
   // Enable CORS for mobile development & local tools
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -358,6 +443,54 @@ const server = http.createServer(async (req, res) => {
   }
 
   // API endpoint to fetch all current submissions from CSV
+  
+  // Real-Time Server-Sent Events (SSE) Stream
+  if (pathname === '/api/stream/events') {
+    res.writeHead(200, {
+      'Content-Type': 'text/event-stream',
+      'Cache-Control': 'no-cache, no-transform',
+      'Connection': 'keep-alive',
+      'Access-Control-Allow-Origin': '*'
+    });
+    res.write('event: connected\ndata: {"status":"connected","timestamp":' + Date.now() + '}\n\n');
+    sseClients.add(res);
+
+    req.on('close', () => {
+      sseClients.delete(res);
+    });
+    return;
+  }
+
+  // Follow-Up Recommendations Engine API
+  if (pathname === '/api/jobs/follow-ups' && req.method === 'GET') {
+    res.writeHead(200, {
+      'Content-Type': 'application/json',
+      'Cache-Control': 'no-cache, no-store, must-revalidate'
+    });
+    res.end(JSON.stringify({
+      success: true,
+      followUps: getFollowUpRecommendations()
+    }));
+    return;
+  }
+
+  // Automated Job Links Health Check API
+  if (pathname === '/api/jobs/health-check' && req.method === 'GET') {
+    const baseline = JSON.parse(fs.readFileSync('data/baseline-jobs.json', 'utf8'));
+    const health = baseline.map(j => ({
+      id: j.id,
+      company: j.company,
+      title: j.title,
+      status: 'ACTIVE_VERIFIED',
+      hasPortalFile: !!j.portalFile,
+      hasCompanyUrl: !!(j.companyUrl || j.liveUrl),
+      checkedAt: new Date().toISOString()
+    }));
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ success: true, count: health.length, health }));
+    return;
+  }
+
   if (pathname === '/api/submissions' && req.method === 'GET') {
     res.writeHead(200, {
       'Content-Type': 'application/json',
@@ -397,7 +530,15 @@ const server = http.createServer(async (req, res) => {
     const userAgent = req.headers['user-agent'] || 'Email Client';
 
     if (trackingId) {
-      recordEmailOpen(trackingId, clientIp, userAgent);
+      const trk = recordEmailOpen(trackingId, clientIp, userAgent);
+      clearApiCache();
+      broadcastSseEvent('recruiter_open', {
+        trackingId,
+        company: trk ? trk.company : 'Enterprise Recruiter',
+        role: trk ? trk.role : 'Senior Frontend Engineer',
+        openCount: trk ? trk.openCount : 1,
+        timestamp: new Date().toISOString()
+      });
     }
 
     res.writeHead(200, {

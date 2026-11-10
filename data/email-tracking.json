@@ -5,9 +5,9 @@
     "company": "Samsung SDS Global",
     "role": "Senior Frontend Engineer (UI/UX Engineering)",
     "status": "OPENED",
-    "openCount": 4,
+    "openCount": 5,
     "firstOpenedAt": "2026-11-08T08:09:24.893Z",
-    "lastOpenedAt": "2026-11-10T11:34:24.015Z",
+    "lastOpenedAt": "2026-11-10T12:11:20.167Z",
     "resumeClicked": true,
     "resumeClickCount": 2,
     "lastClickedAt": "2026-11-09T18:10:09.893Z",
@@ -42,6 +42,12 @@
         "timestamp": "2026-11-10T11:34:24.015Z",
         "ip": "127.0.0.1",
         "client": "Desktop Webmail Client"
+      },
+      {
+        "type": "OPENED",
+        "timestamp": "2026-11-10T12:11:20.167Z",
+        "ip": "127.0.0.1",
+        "client": "Desktop Webmail Client"
       }
     ]
   },
@@ -51,9 +57,9 @@
     "company": "Samsung SDS Global",
     "role": "Senior Frontend Engineer (UI/UX Engineering)",
     "status": "OPENED",
-    "openCount": 4,
+    "openCount": 5,
     "firstOpenedAt": "2026-11-08T08:09:24.893Z",
-    "lastOpenedAt": "2026-11-10T11:34:24.015Z",
+    "lastOpenedAt": "2026-11-10T12:11:20.167Z",
     "resumeClicked": true,
     "resumeClickCount": 2,
     "lastClickedAt": "2026-11-09T18:10:09.893Z",
@@ -86,6 +92,12 @@
       {
         "type": "OPENED",
         "timestamp": "2026-11-10T11:34:24.015Z",
+        "ip": "127.0.0.1",
+        "client": "Desktop Webmail Client"
+      },
+      {
+        "type": "OPENED",
+        "timestamp": "2026-11-10T12:11:20.167Z",
         "ip": "127.0.0.1",
         "client": "Desktop Webmail Client"
       }
@@ -337,9 +349,9 @@
     "company": "Enterprise Hiring Desk",
     "role": "Senior Frontend Engineer",
     "status": "OPENED",
-    "openCount": 9,
+    "openCount": 11,
     "firstOpenedAt": "2026-11-09T20:10:08.810Z",
-    "lastOpenedAt": "2026-11-10T08:54:20.091Z",
+    "lastOpenedAt": "2026-11-10T12:11:40.755Z",
     "resumeClicked": false,
     "resumeClickCount": 0,
     "openedByIp": "127.0.0.1",
@@ -402,6 +414,18 @@
       {
         "type": "OPENED",
         "timestamp": "2026-11-10T08:54:20.091Z",
+        "ip": "127.0.0.1",
+        "client": "Desktop Webmail Client"
+      },
+      {
+        "type": "OPENED",
+        "timestamp": "2026-11-10T12:11:40.747Z",
+        "ip": "66.249.88.49",
+        "client": "Gmail Proxy (Web & Mobile)"
+      },
+      {
+        "type": "OPENED",
+        "timestamp": "2026-11-10T12:11:40.755Z",
         "ip": "127.0.0.1",
         "client": "Desktop Webmail Client"
       }
@@ -413,9 +437,9 @@
     "company": "Enterprise Hiring Desk",
     "role": "Senior Frontend Engineer",
     "status": "OPENED",
-    "openCount": 9,
+    "openCount": 11,
     "firstOpenedAt": "2026-11-09T20:10:08.810Z",
-    "lastOpenedAt": "2026-11-10T08:54:20.091Z",
+    "lastOpenedAt": "2026-11-10T12:11:40.755Z",
     "resumeClicked": false,
     "resumeClickCount": 0,
     "openedByIp": "127.0.0.1",
@@ -478,6 +502,18 @@
       {
         "type": "OPENED",
         "timestamp": "2026-11-10T08:54:20.091Z",
+        "ip": "127.0.0.1",
+        "client": "Desktop Webmail Client"
+      },
+      {
+        "type": "OPENED",
+        "timestamp": "2026-11-10T12:11:40.747Z",
+        "ip": "66.249.88.49",
+        "client": "Gmail Proxy (Web & Mobile)"
+      },
+      {
+        "type": "OPENED",
+        "timestamp": "2026-11-10T12:11:40.755Z",
         "ip": "127.0.0.1",
         "client": "Desktop Webmail Client"
       }

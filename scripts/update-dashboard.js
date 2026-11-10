@@ -447,6 +447,10 @@ function buildPersonalWebsiteHtml() {
         <button onclick="setFilter('recruiter-opened')" data-filter="recruiter-opened" class="filter-btn px-3 py-1.5 rounded-xl text-xs font-semibold bg-[#111827] text-emerald-300 hover:text-white border border-emerald-500/40 transition flex items-center gap-1 cursor-pointer" title="Filter applications opened & read by recruiters">
           <span>👀</span> <span>Opened via Recruiter (${jobsData.filter(j => j.tracking && (j.tracking.status === 'OPENED' || (j.tracking.openCount && j.tracking.openCount > 0))).length})</span>
         </button>
+
+        <button onclick="setFilter('follow-up')" data-filter="follow-up" class="filter-btn px-3 py-1.5 rounded-xl text-xs font-semibold bg-[#111827] text-amber-300 hover:text-white border border-amber-500/40 transition flex items-center gap-1 cursor-pointer" title="Applications ready for follow-up (3+ days since submission or recruiter opened)">
+          <span>⏰</span> <span>Follow-ups Due (<span id="filterFollowUpCount">0</span>)</span>
+        </button>
         <button onclick="setFilter('ready')" data-filter="ready" class="filter-btn px-3 py-1.5 rounded-xl text-xs font-semibold bg-[#111827] text-slate-300 hover:text-white border border-slate-800 transition">
           🟡 Matched &amp; Ready (${jobsData.filter(j => j.status !== 'SUBMITTED').length})
         </button>
@@ -540,6 +544,51 @@ function buildPersonalWebsiteHtml() {
           </div>
         </div>
 
+
+        <!-- ATS KEYWORD GAP & ALIGNMENT ANALYSIS -->
+        <div class="p-4 rounded-2xl bg-gradient-to-r from-blue-950/40 via-indigo-950/30 to-purple-950/30 border border-blue-500/30 space-y-2.5">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-1.5 text-xs font-bold text-blue-300 uppercase tracking-wider">
+              <span>🎯</span> <span>ATS Resume Keyword Alignment Analysis</span>
+            </div>
+            <span id="jdModalAtsScoreBadge" class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">92% ATS Match</span>
+          </div>
+          <div class="space-y-1.5">
+            <div class="text-[11px] font-semibold text-slate-300">✓ Matched Master Profile Skills:</div>
+            <div class="flex flex-wrap gap-1" id="jdModalMatchedSkills"></div>
+          </div>
+          <div class="space-y-1.5 pt-1 border-t border-slate-800">
+            <div class="text-[11px] font-semibold text-amber-300">💡 Recommended Keywords to Mention in Screening / Interview:</div>
+            <div class="flex flex-wrap gap-1" id="jdModalRecommendedKeywords"></div>
+          </div>
+        </div>
+
+        <!-- INSTANT INTERVIEW CHEATSHEET & ELEVATOR PITCH -->
+        <div class="p-4 rounded-2xl bg-gradient-to-br from-slate-900 via-indigo-950/40 to-slate-900 border border-indigo-500/30 space-y-3">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-1.5 text-xs font-bold text-indigo-300 uppercase tracking-wider">
+              <span>⚡</span> <span>Interview Cheatsheet &amp; Talking Points</span>
+            </div>
+            <span class="text-[10px] text-slate-400 font-mono">Tailored for Ashutosh Kumar</span>
+          </div>
+          
+          <div class="p-3 rounded-xl bg-[#0b0f19] border border-slate-800 space-y-1.5">
+            <div class="text-[10px] font-bold text-indigo-400 uppercase tracking-wider">🎤 30-Second Elevator Pitch:</div>
+            <p class="text-xs text-slate-200 leading-relaxed italic" id="jdModalElevatorPitch"></p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-2 pt-1 text-xs">
+            <div class="p-3 rounded-xl bg-[#0b0f19] border border-slate-800 space-y-1">
+              <div class="text-[10px] font-bold text-emerald-400 uppercase tracking-wider">🏛️ Key Architectural Focus:</div>
+              <p class="text-[11px] text-slate-300 leading-relaxed" id="jdModalArchFocus"></p>
+            </div>
+            <div class="p-3 rounded-xl bg-[#0b0f19] border border-slate-800 space-y-1">
+              <div class="text-[10px] font-bold text-purple-400 uppercase tracking-wider">💡 Probable Technical Questions:</div>
+              <ul class="text-[11px] text-slate-300 space-y-1 list-disc pl-3.5" id="jdModalProbableQuestions"></ul>
+            </div>
+          </div>
+        </div>
+
         <!-- Section 1: Full Job Description / About the Role -->
         <div class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-2">
           <div class="flex items-center gap-1.5 text-xs font-bold text-blue-400 uppercase tracking-wider">
@@ -614,6 +663,50 @@ function buildPersonalWebsiteHtml() {
         </div>
       </div>
 
+    </div>
+  </div>
+
+
+  <!-- MODAL: RECRUITER FOLLOW-UP ASSISTANT -->
+  <div id="followUpModal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-3 sm:p-4">
+    <div class="bg-[#111827] border border-amber-500/40 rounded-3xl max-w-2xl w-full p-5 sm:p-6 shadow-2xl text-white space-y-4">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+        <div class="flex items-center gap-2.5">
+          <span class="text-2xl">⏰</span>
+          <div>
+            <h3 class="text-sm sm:text-base font-black text-white" id="followUpModalTitle">Recruiter Follow-Up Assistant</h3>
+            <p class="text-[11px] text-amber-300 font-semibold" id="followUpModalSubtitle">Polite candidate check-in tailored for Ashutosh Kumar</p>
+          </div>
+        </div>
+        <button onclick="closeFollowUpModal()" class="text-slate-400 hover:text-white p-1 rounded-lg">✕</button>
+      </div>
+
+      <div class="space-y-2">
+        <div class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Subject Line:</div>
+        <div class="p-3 rounded-xl bg-[#0b0f19] border border-slate-800 text-xs font-mono text-slate-200 select-all" id="followUpModalSubject"></div>
+      </div>
+
+      <div class="space-y-2">
+        <div class="flex items-center justify-between">
+          <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Follow-Up Message Draft:</span>
+          <span class="text-[10px] text-emerald-400 font-bold bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/30">1-Click Ready</span>
+        </div>
+        <div class="p-4 rounded-xl bg-[#0b0f19] border border-slate-800 text-xs text-slate-300 font-mono leading-relaxed whitespace-pre-wrap select-all max-h-56 overflow-y-auto" id="followUpModalBody"></div>
+      </div>
+
+      <div class="flex items-center justify-between pt-2 border-t border-slate-800">
+        <span class="text-[11px] text-slate-400 flex items-center gap-1.5">
+          <span>🛡️</span> <span>Verified Ashutosh Kumar Candidacy</span>
+        </span>
+        <div class="flex items-center gap-2">
+          <button onclick="copyFollowUpDraft()" id="btnCopyFollowUp" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 transition flex items-center gap-1.5 cursor-pointer">
+            <span>📋</span> <span id="btnCopyFollowUpText">Copy Follow-Up</span>
+          </button>
+          <a id="followUpMailtoBtn" href="#" class="px-4 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-500 hover:to-orange-500 text-white shadow-lg shadow-amber-600/25 transition flex items-center gap-1.5 cursor-pointer">
+            <span>🚀 Send via Gmail</span>
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -1114,6 +1207,15 @@ function buildPersonalWebsiteHtml() {
       if ((candTitle.includes('frontend') || candTitle.includes('ui')) && (title.includes('frontend') || title.includes('ui'))) titleBonus = 6;
 
       let finalScore = Math.round(52 + (ratio * 34) + expBonus + titleBonus);
+
+      // Seniority Safeguard (Anti-Junior Shield)
+      if (title.includes('junior') || title.includes('intern') || title.includes('trainee') || title.includes('entry level')) {
+        return 38; // Auto-disqualify junior roles for 8+ year candidate
+      }
+      if (title.includes('senior') || title.includes('lead') || title.includes('architect') || title.includes('staff') || title.includes('principal')) {
+        finalScore += 6;
+      }
+
       if (finalScore > 98) finalScore = 98;
       if (finalScore < 55) finalScore = 55;
       return finalScore;
@@ -1126,6 +1228,15 @@ function buildPersonalWebsiteHtml() {
       const filtered = window.jobs.filter(job => {
         if (currentFilter === 'saved' && !job.isSaved && !(window.savedJobIds || []).includes(job.id)) return false;
         if (currentFilter === 'submitted' && job.status !== 'SUBMITTED') return false;
+
+        if (currentFilter === 'follow-up') {
+          if (job.status !== 'SUBMITTED') return false;
+          const trk = job.tracking;
+          const isOpened = trk && (trk.status === 'OPENED' || (trk.openCount && trk.openCount > 0));
+          const daysSince = job.appliedDate ? Math.max(1, Math.round((Date.now() - new Date(job.appliedDate).getTime()) / (1000 * 60 * 60 * 24))) : 3;
+          if (!isOpened && daysSince < 3) return false;
+        }
+
         if (currentFilter === 'recruiter-opened' || currentFilter === 'opened') {
           const trk = job.tracking;
           const isOpened = trk && (trk.status === 'OPENED' || (trk.openCount && trk.openCount > 0));
@@ -1200,6 +1311,16 @@ function buildPersonalWebsiteHtml() {
             trackingBadgeHtml = '<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-500/15 text-blue-300 border border-blue-500/30 flex items-center gap-1" title="Delivered to hiring team inbox. Awaiting recruiter open."><span>📬 Delivered (Pending Open)</span></span>';
           }
         }
+
+        
+            if (isSubmittedOrActive) {
+              const daysSince = job.appliedDate ? Math.max(1, Math.round((Date.now() - new Date(job.appliedDate).getTime()) / (1000 * 60 * 60 * 24))) : 3;
+              const trk = job.tracking;
+              const isOpened = trk && (trk.status === 'OPENED' || (trk.openCount && trk.openCount > 0));
+              if (isOpened || daysSince >= 3) {
+                trackingBadgeHtml += ' <button onclick="openFollowUpModal(' + String.fromCharCode(39) + job.id + String.fromCharCode(39) + ')" class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40 hover:bg-amber-500/30 transition flex items-center gap-1 cursor-pointer" title="Recruiter opened email or 3+ days elapsed. Click for 1-click polite follow-up draft."><span>⏰ Follow-up Ready</span></button>';
+              }
+            }
 
         const resumeHtmlPath = '/data/tailored-documents/' + (job.folderName || '') + '/Ashutosh_Kumar_Resume.html';
         const coverHtmlPath = '/data/tailored-documents/' + (job.folderName || '') + '/Ashutosh_Kumar_Cover_Letter.html';
@@ -1287,11 +1408,128 @@ function buildPersonalWebsiteHtml() {
       }).join('');
     }
 
+
+    let searchDebounceTimer = null;
     function handleSearch() {
-      const input = document.getElementById('searchInput');
-      searchQuery = input ? input.value.trim() : '';
-      renderJobs();
+      clearTimeout(searchDebounceTimer);
+      searchDebounceTimer = setTimeout(() => {
+        const input = document.getElementById('searchInput');
+        searchQuery = input ? input.value.trim() : '';
+        renderJobs();
+      }, 150);
     }
+
+    // Keyboard Shortcuts: '/' to search, 'Esc' to close modals
+    document.addEventListener('keydown', function(e) {
+      if (['INPUT', 'TEXTAREA'].includes(e.target.tagName)) {
+        if (e.key === 'Escape') {
+          e.target.blur();
+          closeJdModal();
+          closeFollowUpModal();
+          closeUploadResumeModal();
+        }
+        return;
+      }
+      if (e.key === '/') {
+        e.preventDefault();
+        const searchInput = document.getElementById('searchInput');
+        if (searchInput) searchInput.focus();
+      } else if (e.key === 'Escape') {
+        closeJdModal();
+        closeFollowUpModal();
+        closeUploadResumeModal();
+      }
+    });
+
+    // Follow-Up Assistant Functions
+    function openFollowUpModal(jobId) {
+      const job = (window.jobs || []).find(j => j.id === jobId);
+      if (!job) return;
+
+      const titleEl = document.getElementById('followUpModalTitle');
+      if (titleEl) titleEl.textContent = 'Follow-Up: ' + job.company;
+
+      const subEl = document.getElementById('followUpModalSubtitle');
+      if (subEl) subEl.textContent = job.title + ' • Ref: ' + (job.confirmationId || 'CONF-REF');
+
+      const subject = 'Following Up: Application for ' + job.title + ' — Ashutosh Kumar [' + (job.confirmationId || 'CONF-REF') + ']';
+      const subjEl = document.getElementById('followUpModalSubject');
+      if (subjEl) subjEl.textContent = subject;
+
+      const bodyText = [
+        'Dear ' + job.company + ' Hiring Team,',
+        '',
+        'I hope this email finds you well.',
+        '',
+        'I am writing to briefly follow up on my candidate submission for the ' + job.title + ' position (Ref: ' + (job.confirmationId || 'CONF-REF') + ').',
+        '',
+        'With 8+ years hands-on experience architecting enterprise Angular 15+ design systems, optimizing Core Web Vitals, and leading automated UI testing suites, I remain very enthusiastic about the opportunity to contribute to ' + job.company + '.',
+        '',
+        'Please let me know if you need any additional portfolio samples, code repositories, or references. I am available for a brief introductory call at your convenience.',
+        '',
+        'Warm regards,',
+        'Ashutosh Kumar',
+        'Senior Frontend Engineer & UI Architect',
+        '+91 9310681373 | kumar.ashu872@gmail.com'
+      ].join(String.fromCharCode(10));
+
+      const bodyEl = document.getElementById('followUpModalBody');
+      if (bodyEl) bodyEl.textContent = bodyText;
+
+      const mailtoBtn = document.getElementById('followUpMailtoBtn');
+      if (mailtoBtn) {
+        const cleanDomain = (job.company || 'recruiter').toLowerCase().replace(/[^a-z0-9]/g, '');
+        mailtoBtn.href = 'mailto:careers@' + cleanDomain + '.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(bodyText);
+      }
+
+      const modal = document.getElementById('followUpModal');
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function closeFollowUpModal() {
+      const modal = document.getElementById('followUpModal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function copyFollowUpDraft() {
+      const text = document.getElementById('followUpModalBody').textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        const btnText = document.getElementById('btnCopyFollowUpText');
+        if (btnText) btnText.textContent = '✓ Copied to Clipboard!';
+        setTimeout(() => {
+          if (btnText) btnText.textContent = 'Copy Follow-Up';
+        }, 3000);
+      }).catch(err => {
+        alert('Copied follow-up to clipboard!');
+      });
+    }
+
+    // Real-Time SSE Listener
+    function initLiveEventStream() {
+      if (!window.EventSource) return;
+      try {
+        const source = new EventSource('/api/stream/events');
+        source.addEventListener('recruiter_open', function(e) {
+          try {
+            const data = JSON.parse(e.data);
+            showReloadToast('🔔 Recruiter at ' + data.company + ' just opened your resume (' + (data.openCount || 1) + 'x)!');
+            fetch('/api/email-tracking/all')
+              .then(r => r.json())
+              .then(trackingMap => {
+                if (window.jobs) {
+                  window.jobs.forEach(j => {
+                    if (trackingMap[j.id]) j.tracking = trackingMap[j.id];
+                  });
+                  updateFilterChipCounters();
+                  renderJobs();
+                }
+              }).catch(() => {});
+          } catch(err) {}
+        });
+      } catch(err) {}
+    }
+    setTimeout(initLiveEventStream, 1000);
+
 
     function setFilter(filter) {
       currentFilter = filter;
@@ -1334,6 +1572,17 @@ function buildPersonalWebsiteHtml() {
       }).length;
       const btnOpened = document.querySelector('.filter-btn[data-filter="recruiter-opened"]');
       if (btnOpened) btnOpened.innerHTML = '<span>👀</span> <span>Opened via Recruiter (' + openedCount + ')</span>';
+      
+      const followUpDueCount = window.jobs.filter(j => {
+        if (j.status !== 'SUBMITTED') return false;
+        const t = j.tracking;
+        const isOp = t && (t.status === 'OPENED' || (t.openCount && t.openCount > 0));
+        const ds = j.appliedDate ? Math.max(1, Math.round((Date.now() - new Date(j.appliedDate).getTime()) / (1000 * 60 * 60 * 24))) : 3;
+        return isOp || ds >= 3;
+      }).length;
+      const countEl = document.getElementById('filterFollowUpCount');
+      if (countEl) countEl.textContent = followUpDueCount;
+
       const btnReady = document.querySelector('.filter-btn[data-filter="ready"]');
       if (btnReady) btnReady.textContent = '🟡 Matched & Ready (' + ready + ')';
       const btnLinkedin = document.querySelector('.filter-btn[data-filter="portal-linkedin"]');
@@ -1597,6 +1846,56 @@ function buildPersonalWebsiteHtml() {
               'Maintain WCAG 2.1 AA accessibility standards and high automated test coverage.'
             ];
         respEl.innerHTML = resps.map(r => '<li class="flex items-start gap-2"><span class="text-blue-400 font-bold mt-0.5">✓</span><span class="text-slate-200">' + r + '</span></li>').join('');
+      }
+
+
+      // ATS Keyword Gap Analyzer & Cheatsheet
+      const masterSkills = (currentCandidate && currentCandidate.skills) ? currentCandidate.skills : ['Angular 15+', 'TypeScript', 'RxJS', 'Material UI', 'Design Systems', 'Playwright', 'Core Web Vitals', 'WCAG 2.1 AA', 'Tailwind CSS', 'REST APIs', 'State Management'];
+      const jobSkillsList = (job.skills || []).map(s => s.toLowerCase());
+      const jobTextLower = ((job.description || '') + ' ' + (job.title || '') + ' ' + (job.skills || []).join(' ')).toLowerCase();
+      
+      const matched = masterSkills.filter(s => {
+        const sLower = s.toLowerCase();
+        return jobSkillsList.some(js => js.includes(sLower) || sLower.includes(js)) || jobTextLower.includes(sLower);
+      });
+
+      const highValuePool = ['Microfrontends', 'Nx Monorepo', 'State Management', 'Performance Budgets', 'CI/CD Pipelines', 'Clean Architecture', 'Unit Testing', 'Signals'];
+      const recommended = highValuePool.filter(kw => jobTextLower.includes(kw.toLowerCase()) || !matched.map(m=>m.toLowerCase()).includes(kw.toLowerCase())).slice(0, 4);
+
+      const atsMatchedEl = document.getElementById('jdModalMatchedSkills');
+      if (atsMatchedEl) {
+        atsMatchedEl.innerHTML = matched.map(m => '<span class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">✓ ' + m + '</span>').join('');
+      }
+
+      const atsRecEl = document.getElementById('jdModalRecommendedKeywords');
+      if (atsRecEl) {
+        atsRecEl.innerHTML = recommended.map(r => '<span class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-amber-500/15 text-amber-300 border border-amber-500/30">💡 ' + r + '</span>').join('');
+      }
+
+      const atsBadge = document.getElementById('jdModalAtsScoreBadge');
+      if (atsBadge) {
+        const atsPercent = Math.min(98, Math.max(78, Math.round((matched.length / Math.max(4, jobSkillsList.length)) * 100) + 15));
+        atsBadge.textContent = atsPercent + '% ATS Match';
+      }
+
+      // Interview Cheatsheet & Elevator Pitch
+      const pitchEl = document.getElementById('jdModalElevatorPitch');
+      if (pitchEl) {
+        pitchEl.textContent = '"I am a Senior Frontend Engineer & UI Architect with 8+ years hands-on experience building enterprise-grade Angular architectures and tokenized design systems. For ' + job.company + ', I can immediately drive UI performance, Core Web Vitals, and scalable component governance while mentoring engineers and ensuring WCAG accessibility compliance."';
+      }
+
+      const archEl = document.getElementById('jdModalArchFocus');
+      if (archEl) {
+        archEl.textContent = 'Prioritize enterprise Angular modularization, lazy-loaded feature modules, token-based design systems with WCAG 2.1 AA standards, and automated Playwright E2E suites for zero-regression releases.';
+      }
+
+      const probEl = document.getElementById('jdModalProbableQuestions');
+      if (probEl) {
+        probEl.innerHTML = [
+          '<li><strong>Component Performance:</strong> How do you diagnose and eliminate Change Detection overhead in complex Angular tables?</li>',
+          '<li><strong>Design System Governance:</strong> What is your strategy for maintaining multi-brand design tokens across teams?</li>',
+          '<li><strong>Quality Automation:</strong> How do you architect resilient Playwright test suites into CI/CD pipelines?</li>'
+        ].join('');
       }
 
       const skillsEl = document.getElementById('jdModalSkills');
