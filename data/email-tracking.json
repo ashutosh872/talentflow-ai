@@ -5,15 +5,15 @@
     "company": "Samsung SDS Global",
     "role": "Senior Frontend Engineer (UI/UX Engineering)",
     "status": "OPENED",
-    "openCount": 3,
+    "openCount": 4,
     "firstOpenedAt": "2026-11-08T08:09:24.893Z",
-    "lastOpenedAt": "2026-11-09T18:09:24.893Z",
+    "lastOpenedAt": "2026-11-10T11:34:24.015Z",
     "resumeClicked": true,
     "resumeClickCount": 2,
     "lastClickedAt": "2026-11-09T18:10:09.893Z",
-    "openedByIp": "66.249.88.12",
-    "deviceType": "Gmail Proxy (Web & Mobile)",
-    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 (GoogleImageProxy)",
+    "openedByIp": "127.0.0.1",
+    "deviceType": "Desktop Webmail Client",
+    "userAgent": "Email Client",
     "history": [
       {
         "type": "DELIVERED",
@@ -36,6 +36,12 @@
         "timestamp": "2026-11-09T18:09:24.893Z",
         "client": "Samsung SDS Technical Lead View",
         "ip": "66.249.88.14"
+      },
+      {
+        "type": "OPENED",
+        "timestamp": "2026-11-10T11:34:24.015Z",
+        "ip": "127.0.0.1",
+        "client": "Desktop Webmail Client"
       }
     ]
   },
@@ -45,15 +51,15 @@
     "company": "Samsung SDS Global",
     "role": "Senior Frontend Engineer (UI/UX Engineering)",
     "status": "OPENED",
-    "openCount": 3,
+    "openCount": 4,
     "firstOpenedAt": "2026-11-08T08:09:24.893Z",
-    "lastOpenedAt": "2026-11-09T18:09:24.893Z",
+    "lastOpenedAt": "2026-11-10T11:34:24.015Z",
     "resumeClicked": true,
     "resumeClickCount": 2,
     "lastClickedAt": "2026-11-09T18:10:09.893Z",
-    "openedByIp": "66.249.88.12",
-    "deviceType": "Gmail Proxy (Web & Mobile)",
-    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 (GoogleImageProxy)",
+    "openedByIp": "127.0.0.1",
+    "deviceType": "Desktop Webmail Client",
+    "userAgent": "Email Client",
     "history": [
       {
         "type": "DELIVERED",
@@ -76,6 +82,12 @@
         "timestamp": "2026-11-09T18:09:24.893Z",
         "client": "Samsung SDS Technical Lead View",
         "ip": "66.249.88.14"
+      },
+      {
+        "type": "OPENED",
+        "timestamp": "2026-11-10T11:34:24.015Z",
+        "ip": "127.0.0.1",
+        "client": "Desktop Webmail Client"
       }
     ]
   },

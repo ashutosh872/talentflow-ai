@@ -385,7 +385,7 @@ const server = http.createServer(async (req, res) => {
   }
 
   // 1. Transparent Tracking Pixel Endpoint for Email Read Receipts
-  if (pathname.startsWith('/api/track/open/') || pathname === '/api/track-email-open') {
+  if (pathname.startsWith('/api/track/open/') || pathname === '/api/track-email-open' || pathname === '/api/recruiter-opens/track') {
     let trackingId = '';
     if (pathname.startsWith('/api/track/open/')) {
       trackingId = pathname.replace('/api/track/open/', '').trim();
@@ -507,7 +507,7 @@ const server = http.createServer(async (req, res) => {
   }
 
   // 6. Search Latest Job Updates (Live Enterprise Feeds & Re-Evaluation)
-  if ((pathname === '/api/jobs/search-updates' || pathname === '/api/jobs/fresh') && (req.method === 'GET' || req.method === 'POST')) {
+  if ((pathname === '/api/jobs/search-updates' || pathname === '/api/jobs/fresh' || pathname === '/api/search-updates') && (req.method === 'GET' || req.method === 'POST')) {
     const candId = parsedUrl.searchParams.get('candidateId') || 'ashutosh-kumar';
     const result = searchLatestJobUpdates(candId);
     res.writeHead(200, {

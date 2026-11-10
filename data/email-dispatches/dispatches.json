@@ -266,7 +266,11 @@
     "attachments": [
       "Ashutosh_Kumar_Resume.pdf",
       "Ashutosh_Kumar_Cover_Letter.pdf"
-    ]
+    ],
+    "openStatus": "OPENED",
+    "openCount": 4,
+    "lastOpenedAt": "2026-11-10T11:34:24.015Z",
+    "resumeClicked": true
   },
   {
     "emailId": "EML-CONF-JOB-MOCK-APP-MVZWBJUQ",
@@ -339,9 +343,9 @@
     "htmlFileName": "EML-VERIFY-rahul-verma-e2e-MVZNOTRQ.html",
     "webUrl": "/data/email-dispatches/EML-VERIFY-rahul-verma-e2e-MVZNOTRQ.html",
     "openStatus": "OPENED",
-    "openCount": 9,
-    "lastOpenedAt": "2026-11-10T08:54:20.091Z",
-    "resumeClicked": false
+    "openCount": 4,
+    "lastOpenedAt": "2026-11-10T11:34:24.015Z",
+    "resumeClicked": true
   },
   {
     "emailId": "EML-VERIFY-arjun-verma-MVZ2O8ZK",
@@ -357,9 +361,9 @@
     "htmlFileName": "EML-VERIFY-arjun-verma-MVZ2O8ZK.html",
     "webUrl": "/data/email-dispatches/EML-VERIFY-arjun-verma-MVZ2O8ZK.html",
     "openStatus": "OPENED",
-    "openCount": 9,
-    "lastOpenedAt": "2026-11-10T08:54:20.091Z",
-    "resumeClicked": false
+    "openCount": 4,
+    "lastOpenedAt": "2026-11-10T11:34:24.015Z",
+    "resumeClicked": true
   },
   {
     "emailId": "EML-VERIFY-test-candidate-MVZ1RJVU",
@@ -375,9 +379,9 @@
     "htmlFileName": "EML-VERIFY-test-candidate-MVZ1RJVU.html",
     "webUrl": "/data/email-dispatches/EML-VERIFY-test-candidate-MVZ1RJVU.html",
     "openStatus": "OPENED",
-    "openCount": 9,
-    "lastOpenedAt": "2026-11-10T08:54:20.091Z",
-    "resumeClicked": false
+    "openCount": 4,
+    "lastOpenedAt": "2026-11-10T11:34:24.015Z",
+    "resumeClicked": true
   },
   {
     "emailId": "EML-CONF-HCL-ENT-7704-SUCCESS-MVYXFN6N",
@@ -472,7 +476,11 @@
     "attachments": [
       "Ashutosh_Kumar_Resume.pdf",
       "Ashutosh_Kumar_Cover_Letter.pdf"
-    ]
+    ],
+    "openStatus": "OPENED",
+    "openCount": 4,
+    "lastOpenedAt": "2026-11-10T11:34:24.015Z",
+    "resumeClicked": true
   },
   {
     "emailId": "EML-CONF-PS-DEL-5591-SUCCESS-MVYWKRZ1",
