@@ -325,9 +325,9 @@
     "company": "Enterprise Hiring Desk",
     "role": "Senior Frontend Engineer",
     "status": "OPENED",
-    "openCount": 7,
+    "openCount": 9,
     "firstOpenedAt": "2026-11-09T20:10:08.810Z",
-    "lastOpenedAt": "2026-11-10T08:41:04.223Z",
+    "lastOpenedAt": "2026-11-10T08:54:20.091Z",
     "resumeClicked": false,
     "resumeClickCount": 0,
     "openedByIp": "127.0.0.1",
@@ -378,6 +378,18 @@
       {
         "type": "OPENED",
         "timestamp": "2026-11-10T08:41:04.223Z",
+        "ip": "127.0.0.1",
+        "client": "Desktop Webmail Client"
+      },
+      {
+        "type": "OPENED",
+        "timestamp": "2026-11-10T08:54:20.088Z",
+        "ip": "66.249.88.61",
+        "client": "Gmail Proxy (Web & Mobile)"
+      },
+      {
+        "type": "OPENED",
+        "timestamp": "2026-11-10T08:54:20.091Z",
         "ip": "127.0.0.1",
         "client": "Desktop Webmail Client"
       }
@@ -389,9 +401,9 @@
     "company": "Enterprise Hiring Desk",
     "role": "Senior Frontend Engineer",
     "status": "OPENED",
-    "openCount": 7,
+    "openCount": 9,
     "firstOpenedAt": "2026-11-09T20:10:08.810Z",
-    "lastOpenedAt": "2026-11-10T08:41:04.223Z",
+    "lastOpenedAt": "2026-11-10T08:54:20.091Z",
     "resumeClicked": false,
     "resumeClickCount": 0,
     "openedByIp": "127.0.0.1",
@@ -442,6 +454,18 @@
       {
         "type": "OPENED",
         "timestamp": "2026-11-10T08:41:04.223Z",
+        "ip": "127.0.0.1",
+        "client": "Desktop Webmail Client"
+      },
+      {
+        "type": "OPENED",
+        "timestamp": "2026-11-10T08:54:20.088Z",
+        "ip": "66.249.88.61",
+        "client": "Gmail Proxy (Web & Mobile)"
+      },
+      {
+        "type": "OPENED",
+        "timestamp": "2026-11-10T08:54:20.091Z",
         "ip": "127.0.0.1",
         "client": "Desktop Webmail Client"
       }

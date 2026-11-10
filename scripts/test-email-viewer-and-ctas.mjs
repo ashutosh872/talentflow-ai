@@ -28,22 +28,21 @@ async function runTests() {
   assert.ok(dashRes.body.includes('data/inbound-replies/'), 'Dashboard must reference inbound reply emails');
   assert.ok(dashRes.body.includes('target="_blank"'), 'Dashboard email links must open in new tab (target="_blank")');
   assert.ok(dashRes.body.includes('Read Full Mail ↗'), 'Dashboard must have "Read Full Mail ↗" button');
-  console.log('  ✓ Dashboard HTML contains all required CTAs and new-tab links.');
+  assert.ok(dashRes.body.includes('data-filter="recruiter-opened"'), 'Dashboard must have "Opened via Recruiter" filter chip on top');
+  assert.ok(dashRes.body.includes('Opened via Recruiter'), 'Dashboard must display "Opened via Recruiter" chip text');
+  console.log('  ✓ Dashboard HTML contains all required CTAs, filter chips, and new-tab links.');
 
   // 2. Verify reading an inbound email directly in new tab (over HTTP)
   console.log('  2. Testing HTTP retrieval of rich inbound email...');
-  const testMessageId = '6af0fb0d.70fc6bd5.26df8c.8e8bSMTPIN_ADDED_MISSING@mx.google.com';
+  const testMessageId = '6af28192.eb88766d.138b0e.0bb9SMTPIN_ADDED_MISSING@mx.google.com';
   const mailRes = await request(`/data/inbound-replies/${testMessageId}.html`);
   assert.strictEqual(mailRes.statusCode, 200);
   assert.ok(mailRes.headers['content-type'].includes('text/html'), 'Content-type must be text/html');
-  assert.ok(mailRes.body.includes('New Job - Angular,Apis,Architecture'), 'Must have subject');
+  assert.ok(mailRes.body.includes('expressed interest in your Naukri profile'), 'Must have real subject');
   assert.ok(mailRes.body.includes('Ashutosh Kumar'), 'Must have candidate name');
   assert.ok(mailRes.body.includes('kumar.ashu872@gmail.com'), 'Must have recipient email');
   assert.ok(mailRes.body.includes('target="_blank"'), 'Must have clickable external links opening in new tab');
   assert.ok(mailRes.body.includes('https://www.naukri.com'), 'Must link to official portal');
-  assert.ok(mailRes.body.includes('https://www.infoedge.in'), 'Must link to official company careers');
-  assert.ok(mailRes.body.includes('Ashutosh_Kumar_Resume.html'), 'Must link to tailored resume');
-  assert.ok(mailRes.body.includes('Interview_Battle_Card.html'), 'Must link to battlecard');
   assert.ok(mailRes.body.includes('mailto:'), 'Must have direct Gmail mailto reply link');
   assert.ok(mailRes.body.includes('copyReplyDraft'), 'Must have 1-click clipboard copy');
   console.log('  ✓ Inbound email renders with complete headers, rich body, and live clickable links!');

@@ -444,6 +444,9 @@ function buildPersonalWebsiteHtml() {
         <button onclick="setFilter('submitted')" data-filter="submitted" class="filter-btn px-3 py-1.5 rounded-xl text-xs font-semibold bg-[#111827] text-slate-300 hover:text-white border border-slate-800 transition">
           🟢 Submitted (${jobsData.filter(j => j.status === 'SUBMITTED').length})
         </button>
+        <button onclick="setFilter('recruiter-opened')" data-filter="recruiter-opened" class="filter-btn px-3 py-1.5 rounded-xl text-xs font-semibold bg-[#111827] text-emerald-300 hover:text-white border border-emerald-500/40 transition flex items-center gap-1 cursor-pointer" title="Filter applications opened & read by recruiters">
+          <span>👀</span> <span>Opened via Recruiter (${jobsData.filter(j => j.tracking && (j.tracking.status === 'OPENED' || (j.tracking.openCount && j.tracking.openCount > 0))).length})</span>
+        </button>
         <button onclick="setFilter('ready')" data-filter="ready" class="filter-btn px-3 py-1.5 rounded-xl text-xs font-semibold bg-[#111827] text-slate-300 hover:text-white border border-slate-800 transition">
           🟡 Matched &amp; Ready (${jobsData.filter(j => j.status !== 'SUBMITTED').length})
         </button>
@@ -1123,6 +1126,11 @@ function buildPersonalWebsiteHtml() {
       const filtered = window.jobs.filter(job => {
         if (currentFilter === 'saved' && !job.isSaved && !(window.savedJobIds || []).includes(job.id)) return false;
         if (currentFilter === 'submitted' && job.status !== 'SUBMITTED') return false;
+        if (currentFilter === 'recruiter-opened' || currentFilter === 'opened') {
+          const trk = job.tracking;
+          const isOpened = trk && (trk.status === 'OPENED' || (trk.openCount && trk.openCount > 0));
+          if (!isOpened) return false;
+        }
         if (currentFilter === 'ready' && job.status === 'SUBMITTED') return false;
         if (currentFilter === 'high-match') {
           const s = computeDynamicJobScore(job, currentCandidate);
@@ -1288,10 +1296,13 @@ function buildPersonalWebsiteHtml() {
     function setFilter(filter) {
       currentFilter = filter;
       document.querySelectorAll('.filter-btn').forEach(btn => {
-        if (btn.getAttribute('data-filter') === filter) {
-          btn.className = 'filter-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-blue-600 text-white shadow-sm transition';
+        const f = btn.getAttribute('data-filter');
+        if (f === filter) {
+          btn.className = 'filter-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-blue-600 text-white shadow-sm transition flex items-center gap-1 cursor-pointer';
+        } else if (f === 'recruiter-opened') {
+          btn.className = 'filter-btn px-3 py-1.5 rounded-xl text-xs font-semibold bg-[#111827] text-emerald-300 hover:text-white border border-emerald-500/40 transition flex items-center gap-1 cursor-pointer';
         } else {
-          btn.className = 'filter-btn px-3 py-1.5 rounded-xl text-xs font-semibold bg-[#111827] text-slate-300 hover:text-white border border-slate-800 transition';
+          btn.className = 'filter-btn px-3 py-1.5 rounded-xl text-xs font-semibold bg-[#111827] text-slate-300 hover:text-white border border-slate-800 transition cursor-pointer';
         }
       });
       renderJobs();
@@ -1317,6 +1328,12 @@ function buildPersonalWebsiteHtml() {
       if (btnSaved) btnSaved.textContent = '⭐ Saved for Later (' + saved + ')';
       const btnSub = document.querySelector('.filter-btn[data-filter="submitted"]');
       if (btnSub) btnSub.textContent = '🟢 Submitted (' + submitted + ')';
+      const openedCount = window.jobs.filter(j => {
+        const t = j.tracking;
+        return t && (t.status === 'OPENED' || (t.openCount && t.openCount > 0));
+      }).length;
+      const btnOpened = document.querySelector('.filter-btn[data-filter="recruiter-opened"]');
+      if (btnOpened) btnOpened.innerHTML = '<span>👀</span> <span>Opened via Recruiter (' + openedCount + ')</span>';
       const btnReady = document.querySelector('.filter-btn[data-filter="ready"]');
       if (btnReady) btnReady.textContent = '🟡 Matched & Ready (' + ready + ')';
       const btnLinkedin = document.querySelector('.filter-btn[data-filter="portal-linkedin"]');
